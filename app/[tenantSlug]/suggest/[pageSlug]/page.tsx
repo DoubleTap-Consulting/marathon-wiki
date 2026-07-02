@@ -38,6 +38,10 @@ export async function generateMetadata({
     title: snapshot
       ? `Suggest edit: ${snapshot.page.title} | ${snapshot.tenant.name}`
       : "Page not found",
+    robots: {
+      index: false,
+      follow: false,
+    },
   };
 }
 
@@ -92,6 +96,7 @@ export default async function SuggestEditPage({
                 initialSummary={snapshot.page.summary}
                 initialBodyMarkdown={snapshot.page.bodyMarkdown}
                 submitLabel="Submit edit"
+                tenantSlug={snapshot.tenant.slug}
               />
             </div>
           </>

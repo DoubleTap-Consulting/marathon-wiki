@@ -35,6 +35,15 @@ See full `implementation-plan.md` for details.
 | `WIKI_DEV_USER_ID` / `WIKI_DEV_USER_EMAIL` | Local only | Attribution used by the local preview auth fallback. |
 | `WIKI_AI_GATEWAY_MODEL` | Optional | Vercel AI Gateway model used for wiki drafts. Defaults to `openai/gpt-5-nano` and can be changed to any supported `provider/model` id. |
 | `AI_GATEWAY_API_KEY` | Optional | Static AI Gateway key for non-Vercel environments. Local Vercel-linked development can use `VERCEL_OIDC_TOKEN`; Vercel deployments use OIDC automatically. |
+| `NEXT_PUBLIC_SITE_URL` | Yes for production SEO | Public canonical origin used by metadata, robots, and sitemap URLs. Vercel `VERCEL_URL` is used as a fallback. |
+| `WIKI_ROBOTS_INDEXING_ENABLED` | Optional | Overrides robots indexing. Defaults to enabled for Vercel Production and disabled for Vercel Preview. |
+| `WIKI_ANALYTICS_ENABLED` | Optional | First-party pageview/product-event logging. Defaults to enabled; set to `false` to suppress client event capture and `/api/wiki/events` logging. |
+| `WIKI_ADS_ENABLED` | Optional | Enables ad rendering only when set to `true` and slot/client env is present. Defaults to disabled. |
+| `WIKI_ADSENSE_CLIENT_ID` | Required only when ads enabled | Public AdSense client id, for example `ca-pub-...`. Not treated as a secret. |
+| `WIKI_AD_SLOT_SIDEBAR` / `WIKI_AD_SLOT_FOOTER` | Required only when ads enabled | AdSense slot IDs for reserved sidebar and footer placements. Missing slots do not render. |
+| `WIKI_PREMIUM_ENABLED` | Optional | Enables the first premium/support CTA hook only when set to `true` with a valid URL. Defaults to disabled. |
+| `WIKI_PREMIUM_URL` | Required only when premium enabled | Destination for the first monetization path. |
+| `WIKI_PREMIUM_LABEL` / `WIKI_PREMIUM_DESCRIPTION` | Optional | Public CTA copy for the premium/support hook. |
 
 The app can build without `DATABASE_URL`, but `/api/health` reports storage as unconfigured until the variable is present.
 
@@ -137,4 +146,39 @@ Phase 5 adds AI-assisted editorial drafting through Vercel AI Gateway:
   Gateway access fails only the AI draft request and reports the error to the
   editor.
 
-Target: Clean UX, ISR performance, ad monetization.
+Phase 6 prepares the public reader for traffic-driven launch:
+
+- Public home, category, index, and article routes include canonical metadata,
+  Open Graph/Twitter metadata, `robots.txt`, and dynamic `sitemap.xml` coverage.
+- Public pageviews and key product events are captured through the first-party
+  `/api/wiki/events` endpoint and emitted as sanitized server logs. No analytics
+  vendor token is exposed to the browser.
+- Ads are disabled unless `WIKI_ADS_ENABLED=true`, `WIKI_ADSENSE_CLIENT_ID`, and
+  at least one slot env are configured. Placements reserve vertical space and
+  avoid interrupting article body reading.
+- Premium hooks are disabled unless `WIKI_PREMIUM_ENABLED=true` and
+  `WIKI_PREMIUM_URL` are configured. This is intentionally only a CTA hook, not
+  subscription management.
+
+## Production launch checklist
+
+1. Set production env: `DATABASE_URL`, Clerk editor env, AI Gateway access for
+   review drafting, `NEXT_PUBLIC_SITE_URL`, and the Phase 6 analytics/ad/premium
+   envs needed for launch.
+2. Run `pnpm db:migrate` against production Neon, then rerun
+   `pnpm db:seed` if the Marathon seed needs to be refreshed.
+3. Build with `pnpm build` or the Vercel `pnpm vercel:build` alias.
+4. Smoke check `/api/health`, `/marathon`, `/marathon/pages`,
+   `/sitemap.xml`, and `/robots.txt`.
+5. Confirm public article readability on mobile and desktop before enabling ads.
+   Ads should remain absent until the ad feature flag, client id, and slot IDs
+   are all present.
+6. Confirm first-party analytics logs include `page_view`, `search_submit`,
+   `suggestion_cta` or `suggestion_submit`, and monetization events when those
+   hooks are enabled.
+7. Roll back by promoting the last known-good Vercel deployment. If the issue is
+   monetization-only, first set `WIKI_ADS_ENABLED=false` or
+   `WIKI_PREMIUM_ENABLED=false` and redeploy.
+
+Target: Clean UX, ISR performance, light ad monetization, and a public reader
+ready to pursue 30k+ monthly pageviews.

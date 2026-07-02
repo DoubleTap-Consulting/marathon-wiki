@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 
 import { getCachedWikiPage } from "@/src/wiki/cache";
+import { buildWikiMetadata } from "@/src/wiki/metadata";
 import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
 
 import { MarkdownArticle } from "../_components/markdown";
 import { MissingWikiPage } from "../_components/missing-page";
+import { WikiAdSlot, WikiPremiumHook } from "../_components/monetization";
 import { WikiChrome } from "../_components/wiki-chrome";
 
 export const revalidate = 300;
@@ -26,12 +28,18 @@ export async function generateMetadata({
     normalizeTenantSlug(pageSlug),
   );
 
-  return {
-    title: snapshot
-      ? `${snapshot.page.title} | ${snapshot.tenant.name}`
-      : "Page not found",
-    description: snapshot?.page.summary ?? undefined,
-  };
+  if (!snapshot) {
+    return {
+      title: "Page not found",
+    };
+  }
+
+  return buildWikiMetadata({
+    title: `${snapshot.page.title} | ${snapshot.tenant.name}`,
+    description: snapshot.page.summary,
+    path: `/${snapshot.tenant.slug}/${snapshot.page.slug}`,
+    siteName: snapshot.tenant.name,
+  });
 }
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
@@ -100,10 +108,19 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             <a
               href={`/${snapshot.tenant.slug}/suggest/${snapshot.page.slug}`}
               className="mt-5 inline-flex min-h-11 w-full items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+              data-wiki-event="suggestion_cta"
+              data-wiki-event-label="article-sidebar"
+              data-wiki-tenant={snapshot.tenant.slug}
+              data-wiki-page={snapshot.page.slug}
             >
               Suggest an edit
             </a>
           </section>
+
+          <WikiPremiumHook
+            tenantSlug={snapshot.tenant.slug}
+            pageSlug={snapshot.page.slug}
+          />
 
           <section className="rounded-lg border bg-card p-5 text-card-foreground">
             <h2 className="text-lg font-semibold leading-7">Sources</h2>
@@ -153,6 +170,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               </div>
             </section>
           ) : null}
+
+          <WikiAdSlot
+            placement="sidebar"
+            tenantSlug={snapshot.tenant.slug}
+            pageSlug={snapshot.page.slug}
+          />
         </aside>
       </article>
     </WikiChrome>

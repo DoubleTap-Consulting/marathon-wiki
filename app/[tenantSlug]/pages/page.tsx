@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { getCachedWikiHome, getCachedWikiPages } from "@/src/wiki/cache";
+import { buildWikiMetadata } from "@/src/wiki/metadata";
 import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
 
+import { WikiAdSlot } from "../_components/monetization";
 import { PageIndex } from "../_components/page-index";
 import { WikiChrome } from "../_components/wiki-chrome";
 
@@ -22,9 +24,18 @@ export async function generateMetadata({
   const { tenantSlug } = await params;
   const snapshot = await getCachedWikiHome(normalizeTenantSlug(tenantSlug));
 
-  return {
-    title: snapshot ? `All pages | ${snapshot.tenant.name}` : "Wiki not found",
-  };
+  if (!snapshot) {
+    return {
+      title: "Wiki not found",
+    };
+  }
+
+  return buildWikiMetadata({
+    title: `All pages | ${snapshot.tenant.name}`,
+    description: `Browse every published ${snapshot.tenant.gameTitle} wiki page.`,
+    path: `/${snapshot.tenant.slug}/pages`,
+    siteName: snapshot.tenant.name,
+  });
 }
 
 export default async function TenantPages({
@@ -56,6 +67,8 @@ export default async function TenantPages({
         </div>
 
         <PageIndex tenant={snapshot.tenant} pages={pages} />
+
+        <WikiAdSlot placement="footer" tenantSlug={snapshot.tenant.slug} />
       </section>
     </WikiChrome>
   );

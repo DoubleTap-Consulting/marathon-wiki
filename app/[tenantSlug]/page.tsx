@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 
 import { getCachedWikiHome } from "@/src/wiki/cache";
+import { buildWikiMetadata } from "@/src/wiki/metadata";
 import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
 
 import { MissingWikiPage } from "./_components/missing-page";
+import { WikiAdSlot, WikiPremiumHook } from "./_components/monetization";
 import { PageGrid, WikiChrome } from "./_components/wiki-chrome";
 
 export const revalidate = 300;
@@ -27,10 +29,12 @@ export async function generateMetadata({
     };
   }
 
-  return {
+  return buildWikiMetadata({
     title: snapshot.tenant.name,
     description: `Browse ${snapshot.tenant.gameTitle} wiki pages, categories, and source-backed game references.`,
-  };
+    path: `/${snapshot.tenant.slug}`,
+    siteName: snapshot.tenant.name,
+  });
 }
 
 export default async function TenantHome({ params }: TenantHomeProps) {
@@ -90,31 +94,35 @@ export default async function TenantHome({ params }: TenantHomeProps) {
           </section>
         </div>
 
-        <aside className="rounded-lg border bg-card p-5 text-card-foreground">
-          <h2 className="text-lg font-semibold leading-7">Categories</h2>
-          {snapshot.categories.length > 0 ? (
-            <div className="mt-4 space-y-3">
-              {snapshot.categories.map((category) => (
-                <a
-                  key={category.id}
-                  href={`/${snapshot.tenant.slug}/categories/${category.slug}`}
-                  className="block min-h-16 rounded-md border bg-background p-3 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
-                >
-                  <span className="block text-sm font-medium text-foreground">
-                    {category.name}
-                  </span>
-                  <span className="mt-1 block text-sm leading-5 text-muted-foreground">
-                    {category.pageCount} published{" "}
-                    {category.pageCount === 1 ? "page" : "pages"}
-                  </span>
-                </a>
-              ))}
-            </div>
-          ) : (
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">
-              Categories will appear here once seeded for this tenant.
-            </p>
-          )}
+        <aside className="space-y-4">
+          <section className="rounded-lg border bg-card p-5 text-card-foreground">
+            <h2 className="text-lg font-semibold leading-7">Categories</h2>
+            {snapshot.categories.length > 0 ? (
+              <div className="mt-4 space-y-3">
+                {snapshot.categories.map((category) => (
+                  <a
+                    key={category.id}
+                    href={`/${snapshot.tenant.slug}/categories/${category.slug}`}
+                    className="block min-h-16 rounded-md border bg-background p-3 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+                  >
+                    <span className="block text-sm font-medium text-foreground">
+                      {category.name}
+                    </span>
+                    <span className="mt-1 block text-sm leading-5 text-muted-foreground">
+                      {category.pageCount} published{" "}
+                      {category.pageCount === 1 ? "page" : "pages"}
+                    </span>
+                  </a>
+                ))}
+              </div>
+            ) : (
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                Categories will appear here once seeded for this tenant.
+              </p>
+            )}
+          </section>
+          <WikiPremiumHook tenantSlug={snapshot.tenant.slug} />
+          <WikiAdSlot placement="sidebar" tenantSlug={snapshot.tenant.slug} />
         </aside>
       </section>
     </WikiChrome>

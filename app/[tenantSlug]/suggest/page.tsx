@@ -29,6 +29,10 @@ export async function generateMetadata({
 
   return {
     title: snapshot ? `Suggest a page | ${snapshot.tenant.name}` : "Wiki not found",
+    robots: {
+      index: false,
+      follow: false,
+    },
   };
 }
 
@@ -73,6 +77,7 @@ export default async function SuggestPage({ params }: SuggestPageProps) {
                 )}
                 suggestionType="new_page"
                 submitLabel="Submit suggestion"
+                tenantSlug={snapshot.tenant.slug}
               />
             </div>
           </>
