@@ -80,7 +80,7 @@ describe("AI Gateway wiki draft client", () => {
     });
   });
 
-  it("defaults to the Grok model through Gateway while allowing API-key auth", async () => {
+  it("defaults to the Gateway smoke-tested model while allowing API-key auth", async () => {
     const generate = vi.fn(async () => ({
       output: {
         title: "Weapons",
@@ -105,12 +105,12 @@ describe("AI Gateway wiki draft client", () => {
 
     expect(generate).toHaveBeenCalledWith(
       expect.objectContaining({
-        model: "xai/grok-4.3",
+        model: "openai/gpt-5-nano",
       }),
     );
     expect(draft).toMatchObject({
       provider: "vercel-ai-gateway",
-      model: "xai/grok-4.3",
+      model: "openai/gpt-5-nano",
       responseId: null,
     });
   });

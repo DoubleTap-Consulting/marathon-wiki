@@ -33,7 +33,7 @@ See full `implementation-plan.md` for details.
 | `WIKI_ENABLE_DEV_AUTH` | Local only | Set to `true` outside production to enable the local preview auth fallback when Clerk keys are absent. |
 | `WIKI_DEV_AUTH_ROLE` | Local only | Set to `editor` with `WIKI_ENABLE_DEV_AUTH=true` to preview the review surface locally. |
 | `WIKI_DEV_USER_ID` / `WIKI_DEV_USER_EMAIL` | Local only | Attribution used by the local preview auth fallback. |
-| `WIKI_AI_GATEWAY_MODEL` | Optional | Vercel AI Gateway model used for wiki drafts. Defaults to `xai/grok-4.3` and can be changed to any supported `provider/model` id. |
+| `WIKI_AI_GATEWAY_MODEL` | Optional | Vercel AI Gateway model used for wiki drafts. Defaults to `openai/gpt-5-nano` and can be changed to any supported `provider/model` id. |
 | `AI_GATEWAY_API_KEY` | Optional | Static AI Gateway key for non-Vercel environments. Local Vercel-linked development can use `VERCEL_OIDC_TOKEN`; Vercel deployments use OIDC automatically. |
 
 The app can build without `DATABASE_URL`, but `/api/health` reports storage as unconfigured until the variable is present.

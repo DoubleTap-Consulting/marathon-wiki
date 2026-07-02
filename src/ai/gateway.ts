@@ -38,7 +38,7 @@ type AiDraftOutput = z.infer<typeof aiDraftSchema>;
 
 export const AI_GATEWAY_WIKI_PROMPT_VERSION = "marathon-wiki-phase-5-v2";
 
-const DEFAULT_AI_GATEWAY_MODEL = "xai/grok-4.3";
+const DEFAULT_AI_GATEWAY_MODEL = "openai/gpt-5-nano";
 
 const aiDraftSchema = z.object({
   title: z.string().trim().min(1),
