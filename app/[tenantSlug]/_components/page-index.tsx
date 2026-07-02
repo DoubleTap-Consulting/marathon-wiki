@@ -39,6 +39,9 @@ export function PageIndex({
       <form
         className="flex min-h-11 w-full max-w-xl gap-2"
         role="search"
+        data-wiki-event="search_submit"
+        data-wiki-event-label="page-index"
+        data-wiki-tenant={tenant.slug}
         onSubmit={(event) => {
           event.preventDefault();
         }}
@@ -53,6 +56,7 @@ export function PageIndex({
           />
           <input
             id="page-index-search"
+            name="q"
             type="search"
             value={query}
             onChange={(event) => {
@@ -89,4 +93,3 @@ export function PageIndex({
     </div>
   );
 }
-

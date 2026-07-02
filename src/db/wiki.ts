@@ -74,6 +74,14 @@ export type WikiPageSnapshot = {
   page: WikiPageDetail;
 };
 
+export type WikiSitemapEntry = {
+  routeType: "tenant" | "pages" | "category" | "page";
+  tenantSlug: string;
+  pageSlug: string | null;
+  categorySlug: string | null;
+  updatedAt: Date | null;
+};
+
 export type WikiSuggestionStatus =
   | "pending"
   | "approved"
@@ -488,6 +496,88 @@ export async function getWikiPageSnapshot(
     categories,
     page,
   };
+}
+
+export async function listWikiSitemapEntries(
+  db: WikiDatabase = getDb(),
+): Promise<WikiSitemapEntry[]> {
+  const tenants = await db
+    .selectFrom("tenants")
+    .select([
+      "tenants.slug as tenantSlug",
+      "tenants.updated_at as updatedAt",
+    ])
+    .where("tenants.status", "=", "active")
+    .orderBy("tenants.slug", "asc")
+    .execute();
+
+  if (tenants.length === 0) {
+    return [];
+  }
+
+  const tenantSlugs = tenants.map((tenant) => tenant.tenantSlug);
+  const [categories, pages] = await Promise.all([
+    db
+      .selectFrom("wiki_categories as category")
+      .innerJoin("tenants", "tenants.id", "category.tenant_id")
+      .select([
+        "tenants.slug as tenantSlug",
+        "category.slug as categorySlug",
+        "category.updated_at as updatedAt",
+      ])
+      .where("tenants.slug", "in", tenantSlugs)
+      .where("tenants.status", "=", "active")
+      .orderBy("tenants.slug", "asc")
+      .orderBy("category.slug", "asc")
+      .execute(),
+    db
+      .selectFrom("wiki_pages as page")
+      .innerJoin("tenants", "tenants.id", "page.tenant_id")
+      .select([
+        "tenants.slug as tenantSlug",
+        "page.slug as pageSlug",
+        "page.updated_at as updatedAt",
+      ])
+      .where("tenants.slug", "in", tenantSlugs)
+      .where("tenants.status", "=", "active")
+      .where("page.status", "=", "published")
+      .orderBy("tenants.slug", "asc")
+      .orderBy("page.slug", "asc")
+      .execute(),
+  ]);
+
+  return [
+    ...tenants.flatMap((tenant) => [
+      {
+        routeType: "tenant" as const,
+        tenantSlug: tenant.tenantSlug,
+        pageSlug: null,
+        categorySlug: null,
+        updatedAt: tenant.updatedAt,
+      },
+      {
+        routeType: "pages" as const,
+        tenantSlug: tenant.tenantSlug,
+        pageSlug: null,
+        categorySlug: null,
+        updatedAt: tenant.updatedAt,
+      },
+    ]),
+    ...categories.map((category) => ({
+      routeType: "category" as const,
+      tenantSlug: category.tenantSlug,
+      pageSlug: null,
+      categorySlug: category.categorySlug,
+      updatedAt: category.updatedAt,
+    })),
+    ...pages.map((page) => ({
+      routeType: "page" as const,
+      tenantSlug: page.tenantSlug,
+      pageSlug: page.pageSlug,
+      categorySlug: null,
+      updatedAt: page.updatedAt,
+    })),
+  ];
 }
 
 export async function saveWikiPageWithRevision(

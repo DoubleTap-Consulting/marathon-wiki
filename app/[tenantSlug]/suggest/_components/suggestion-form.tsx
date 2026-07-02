@@ -16,6 +16,7 @@ type SuggestionFormProps = {
   initialSummary?: string | null;
   initialBodyMarkdown?: string;
   submitLabel: string;
+  tenantSlug?: string;
 };
 
 export function SuggestionForm({
@@ -26,6 +27,7 @@ export function SuggestionForm({
   initialSummary = "",
   initialBodyMarkdown = "",
   submitLabel,
+  tenantSlug,
 }: SuggestionFormProps) {
   const formRef = useRef<HTMLFormElement>(null);
   const [state, formAction] = useActionState(action, {
@@ -38,6 +40,9 @@ export function SuggestionForm({
       ref={formRef}
       action={formAction}
       className="space-y-5"
+      data-wiki-event="suggestion_submit"
+      data-wiki-event-label={suggestionType}
+      data-wiki-tenant={tenantSlug}
       onKeyDown={(event) => {
         if (
           event.target instanceof HTMLTextAreaElement &&

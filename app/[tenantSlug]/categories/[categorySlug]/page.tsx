@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 
 import { getCachedWikiCategory } from "@/src/wiki/cache";
+import { buildWikiMetadata } from "@/src/wiki/metadata";
 import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
 
 import { MissingWikiPage } from "../../_components/missing-page";
+import { WikiAdSlot } from "../../_components/monetization";
 import { PageGrid, WikiChrome } from "../../_components/wiki-chrome";
 
 export const revalidate = 300;
@@ -25,12 +27,18 @@ export async function generateMetadata({
     normalizeTenantSlug(categorySlug),
   );
 
-  return {
-    title: snapshot
-      ? `${snapshot.category.name} | ${snapshot.tenant.name}`
-      : "Category not found",
-    description: snapshot?.category.description ?? undefined,
-  };
+  if (!snapshot) {
+    return {
+      title: "Category not found",
+    };
+  }
+
+  return buildWikiMetadata({
+    title: `${snapshot.category.name} | ${snapshot.tenant.name}`,
+    description: snapshot.category.description,
+    path: `/${snapshot.tenant.slug}/categories/${snapshot.category.slug}`,
+    siteName: snapshot.tenant.name,
+  });
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
@@ -73,6 +81,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           emptyTitle="No pages in this category yet"
           emptyDescription="This category exists, but no published pages are assigned to it yet."
         />
+
+        <WikiAdSlot placement="footer" tenantSlug={snapshot.tenant.slug} />
       </section>
     </WikiChrome>
   );

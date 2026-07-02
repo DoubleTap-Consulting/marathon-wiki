@@ -41,6 +41,9 @@ export function WikiChrome({
               action={`/${tenant.slug}/pages`}
               className="grid w-[calc(100vw-4rem)] max-w-[calc(100vw-4rem)] gap-2 sm:flex sm:min-h-11 sm:w-full sm:max-w-md"
               role="search"
+              data-wiki-event="search_submit"
+              data-wiki-event-label="site-header"
+              data-wiki-tenant={tenant.slug}
               style={{ width: "calc(100vw - 4rem)", maxWidth: "28rem" }}
             >
               <label htmlFor="wiki-search" className="sr-only">
@@ -75,7 +78,14 @@ export function WikiChrome({
           >
             <NavPill href={`/${tenant.slug}`}>Home</NavPill>
             <NavPill href={`/${tenant.slug}/pages`}>All pages</NavPill>
-            <NavPill href={`/${tenant.slug}/suggest`}>Suggest page</NavPill>
+            <NavPill
+              href={`/${tenant.slug}/suggest`}
+              eventName="suggestion_cta"
+              eventLabel="header"
+              tenantSlug={tenant.slug}
+            >
+              Suggest page
+            </NavPill>
             <NavPill href={`/${tenant.slug}/review`}>Review</NavPill>
             {categories.map((category) => (
               <NavPill
@@ -160,14 +170,23 @@ export function EmptyState({
 function NavPill({
   href,
   children,
+  eventName,
+  eventLabel,
+  tenantSlug,
 }: {
   href: string;
   children: React.ReactNode;
+  eventName?: string;
+  eventLabel?: string;
+  tenantSlug?: string;
 }) {
   return (
     <a
       href={href}
       className="flex min-h-11 items-center rounded-md border bg-background px-3 text-sm font-medium text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+      data-wiki-event={eventName}
+      data-wiki-event-label={eventLabel}
+      data-wiki-tenant={tenantSlug}
     >
       {children}
     </a>

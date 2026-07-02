@@ -35,6 +35,10 @@ export async function generateMetadata({
 
   return {
     title: snapshot ? `Review suggestions | ${snapshot.tenant.name}` : "Wiki not found",
+    robots: {
+      index: false,
+      follow: false,
+    },
   };
 }
 

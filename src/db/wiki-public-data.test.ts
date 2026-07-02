@@ -13,6 +13,7 @@ import {
   getWikiHomeSnapshot,
   getWikiPageSnapshot,
   getWikiTenantBySlug,
+  listWikiSitemapEntries,
   listPublishedWikiPagesByTenant,
   saveWikiPageWithRevision,
 } from "./wiki";
@@ -227,5 +228,45 @@ describe.sequential("public wiki data model and reader queries", () => {
     await expect(
       getPublishedWikiPageBySlug(tenantId, "draft-only"),
     ).resolves.toBeNull();
+  });
+
+  it("builds sitemap entries for active public wiki routes only", async () => {
+    const entries = await listWikiSitemapEntries();
+    const relevantEntries = entries.filter((entry) =>
+      [tenantSlug, inactiveTenantSlug].includes(entry.tenantSlug),
+    );
+
+    expect(relevantEntries).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          routeType: "tenant",
+          tenantSlug,
+          pageSlug: null,
+          categorySlug: null,
+        }),
+        expect.objectContaining({
+          routeType: "pages",
+          tenantSlug,
+          pageSlug: null,
+          categorySlug: null,
+        }),
+        expect.objectContaining({
+          routeType: "category",
+          tenantSlug,
+          categorySlug: "weapons",
+        }),
+        expect.objectContaining({
+          routeType: "page",
+          tenantSlug,
+          pageSlug: "weapons",
+        }),
+      ]),
+    );
+    expect(relevantEntries).not.toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ tenantSlug: inactiveTenantSlug }),
+        expect.objectContaining({ pageSlug: "draft-only" }),
+      ]),
+    );
   });
 });
