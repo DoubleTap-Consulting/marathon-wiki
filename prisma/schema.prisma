@@ -18,3 +18,203 @@ model DeploymentSmokeCheck {
 
   @@map("deployment_smoke_checks")
 }
+
+model Game {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  title       String
+  franchise   String?
+  developer   String?
+  publisher   String?
+  releaseDate DateTime? @map("release_date")
+  metadata    Json?
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @default(now()) @updatedAt @map("updated_at")
+
+  tenants Tenant[]
+
+  @@map("games")
+}
+
+model Tenant {
+  id            String   @id @default(cuid())
+  gameId        String   @map("game_id")
+  slug          String   @unique
+  name          String
+  status        String   @default("active")
+  primaryLocale String   @default("en") @map("primary_locale")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @default(now()) @updatedAt @map("updated_at")
+
+  game           Game                 @relation(fields: [gameId], references: [id], onDelete: Restrict)
+  pages          WikiPage[]
+  revisions      WikiPageRevision[]
+  sources        WikiSource[]
+  categories     WikiCategory[]
+  tags           WikiTag[]
+  pageCategories WikiPageCategory[]
+  pageTags       WikiPageTag[]
+  suggestions    WikiSuggestion[]
+
+  @@index([gameId])
+  @@map("tenants")
+}
+
+model WikiPage {
+  id                   String    @id @default(cuid())
+  tenantId             String    @map("tenant_id")
+  slug                 String
+  title                String
+  summary              String?
+  bodyMarkdown         String    @map("body_markdown")
+  status               String    @default("draft")
+  latestRevisionNumber Int       @default(1) @map("latest_revision_number")
+  createdBy            String?   @map("created_by")
+  updatedBy            String?   @map("updated_by")
+  publishedAt          DateTime? @map("published_at")
+  createdAt            DateTime  @default(now()) @map("created_at")
+  updatedAt            DateTime  @default(now()) @updatedAt @map("updated_at")
+
+  tenant      Tenant             @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  revisions   WikiPageRevision[]
+  sources     WikiSource[]
+  categories  WikiPageCategory[]
+  tags        WikiPageTag[]
+  suggestions WikiSuggestion[]
+
+  @@unique([tenantId, slug])
+  @@index([tenantId, status])
+  @@map("wiki_pages")
+}
+
+model WikiPageRevision {
+  id             String   @id @default(cuid())
+  tenantId       String   @map("tenant_id")
+  pageId         String   @map("page_id")
+  revisionNumber Int      @map("revision_number")
+  title          String
+  summary        String?
+  bodyMarkdown   String   @map("body_markdown")
+  changeNote     String?  @map("change_note")
+  createdBy      String?  @map("created_by")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  tenant  Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  page    WikiPage     @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  sources WikiSource[]
+
+  @@unique([tenantId, pageId, revisionNumber])
+  @@index([tenantId, pageId])
+  @@map("wiki_page_revisions")
+}
+
+model WikiSource {
+  id          String    @id @default(cuid())
+  tenantId    String    @map("tenant_id")
+  pageId      String?   @map("page_id")
+  revisionId  String?   @map("revision_id")
+  sourceType  String    @map("source_type")
+  title       String
+  url         String?
+  publisher   String?
+  retrievedAt DateTime? @map("retrieved_at")
+  metadata    Json?
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @default(now()) @updatedAt @map("updated_at")
+
+  tenant   Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  page     WikiPage?         @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  revision WikiPageRevision? @relation(fields: [revisionId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId, pageId])
+  @@index([tenantId, revisionId])
+  @@map("wiki_sources")
+}
+
+model WikiCategory {
+  id          String   @id @default(cuid())
+  tenantId    String   @map("tenant_id")
+  slug        String
+  name        String
+  description String?
+  sortOrder   Int      @default(0) @map("sort_order")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @default(now()) @updatedAt @map("updated_at")
+
+  tenant Tenant             @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  pages  WikiPageCategory[]
+
+  @@unique([tenantId, slug])
+  @@index([tenantId, sortOrder])
+  @@map("wiki_categories")
+}
+
+model WikiTag {
+  id          String   @id @default(cuid())
+  tenantId    String   @map("tenant_id")
+  slug        String
+  name        String
+  description String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @default(now()) @updatedAt @map("updated_at")
+
+  tenant Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  pages  WikiPageTag[]
+
+  @@unique([tenantId, slug])
+  @@map("wiki_tags")
+}
+
+model WikiPageCategory {
+  tenantId   String   @map("tenant_id")
+  pageId     String   @map("page_id")
+  categoryId String   @map("category_id")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  tenant   Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  page     WikiPage     @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  category WikiCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([tenantId, pageId, categoryId])
+  @@index([tenantId, categoryId])
+  @@map("wiki_page_categories")
+}
+
+model WikiPageTag {
+  tenantId  String   @map("tenant_id")
+  pageId    String   @map("page_id")
+  tagId     String   @map("tag_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  tenant Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  page   WikiPage @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  tag    WikiTag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([tenantId, pageId, tagId])
+  @@index([tenantId, tagId])
+  @@map("wiki_page_tags")
+}
+
+model WikiSuggestion {
+  id             String    @id @default(cuid())
+  tenantId       String    @map("tenant_id")
+  pageId         String?   @map("page_id")
+  status         String    @default("new")
+  suggestionType String    @map("suggestion_type")
+  title          String
+  bodyMarkdown   String    @map("body_markdown")
+  sourceUrl      String?   @map("source_url")
+  metadata       Json?
+  createdBy      String?   @map("created_by")
+  reviewedBy     String?   @map("reviewed_by")
+  reviewedAt     DateTime? @map("reviewed_at")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @default(now()) @updatedAt @map("updated_at")
+
+  tenant Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  page   WikiPage? @relation(fields: [pageId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId, status])
+  @@index([tenantId, pageId])
+  @@map("wiki_suggestions")
+}
