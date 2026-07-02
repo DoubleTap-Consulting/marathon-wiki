@@ -2,6 +2,31 @@
 
 Grokipedia-style AI-powered wiki for Marathon (and games like Arc).
 
+## Product Requirements
+
+Marathon Wiki is intended to be an AI-authored public wiki, not a traditional
+human-written wiki with AI autocomplete. The canonical article body should be
+generated and refreshed by AI, with humans contributing community notes,
+corrections, source links, and disputes.
+
+Core requirements:
+
+- AI is the primary author of public canonical page content.
+- Public pages show when the canonical AI content was last updated.
+- AI refreshes use source material, retrieved context, prior revisions, and
+  community notes to determine the current best factual synthesis.
+- Community notes work like Twitter/X or Threads-style contextual notes: they
+  can appear alongside the article and influence future AI refreshes, but they
+  do not directly replace canonical content.
+- Human editors moderate abuse, source quality, and disputed notes. They are
+  not the default article authoring path.
+- Every AI-generated canonical revision stores provenance such as model id,
+  prompt version, generated-at time, source references, and response id when
+  available.
+- Vercel AI Gateway is the model routing layer. Grok/xAI can be preferred when
+  model access is available, but the product should stay model-agnostic enough
+  to route to another capable model.
+
 ## Architecture
 - Next.js 16 App Router + ISR
 - Neon Postgres (serverless, pooled)
@@ -9,6 +34,7 @@ Grokipedia-style AI-powered wiki for Marathon (and games like Arc).
 - Kysely (type-safe queries)
 - Vercel deployment
 - Multi-tenant (`tenant_id`)
+- AI-authored canonical content with community notes
 
 See full `implementation-plan.md` for details.
 
@@ -135,7 +161,7 @@ workflow:
 - Approvals create a new published page revision and revalidate the affected
   wiki cache tags.
 
-Phase 5 adds AI-assisted editorial drafting through Vercel AI Gateway:
+Phase 5 currently adds AI-assisted editorial drafting through Vercel AI Gateway:
 
 - Editors can request an AI draft from `/:tenant/review`.
 - AI output is stored as a pending `wiki_suggestions` row with provenance
@@ -145,6 +171,17 @@ Phase 5 adds AI-assisted editorial drafting through Vercel AI Gateway:
 - Public wiki reads do not require AI Gateway configuration. Missing or invalid
   Gateway access fails only the AI draft request and reports the error to the
   editor.
+
+This Phase 5 workflow is a stepping stone, not the final AI product model. The
+target product is AI-owned canonical content generation:
+
+- AI generates and refreshes public article revisions directly through a
+  controlled canonical content pipeline.
+- Public article pages expose `Last AI update` and AI provenance.
+- Human community notes are stored separately from canonical article body and
+  become reviewable context for later AI refreshes.
+- Marathon-specific pages should be generated from source-backed context rather
+  than only from a small seed corpus.
 
 Phase 6 prepares the public reader for traffic-driven launch:
 
@@ -163,8 +200,8 @@ Phase 6 prepares the public reader for traffic-driven launch:
 ## Production launch checklist
 
 1. Set production env: `DATABASE_URL`, Clerk editor env, AI Gateway access for
-   review drafting, `NEXT_PUBLIC_SITE_URL`, and the Phase 6 analytics/ad/premium
-   envs needed for launch.
+   canonical generation/review drafting, `NEXT_PUBLIC_SITE_URL`, and the Phase 6
+   analytics/ad/premium envs needed for launch.
 2. Run `pnpm db:migrate` against production Neon, then rerun
    `pnpm db:seed` if the Marathon seed needs to be refreshed.
 3. Build with `pnpm build` or the Vercel `pnpm vercel:build` alias.
@@ -180,5 +217,6 @@ Phase 6 prepares the public reader for traffic-driven launch:
    monetization-only, first set `WIKI_ADS_ENABLED=false` or
    `WIKI_PREMIUM_ENABLED=false` and redeploy.
 
-Target: Clean UX, ISR performance, light ad monetization, and a public reader
-ready to pursue 30k+ monthly pageviews.
+Target: AI-authored Marathon-specific coverage, clear `Last AI update`
+provenance, community notes, clean UX, ISR performance, light ad monetization,
+and a public reader ready to pursue 30k+ monthly pageviews.
