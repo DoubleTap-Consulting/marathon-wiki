@@ -48,6 +48,16 @@ without real third-party secrets.
 - Install command: `pnpm install`
 - Health check: `/api/health`
 
+## Testing
+
+- Run automated tests: `pnpm test`
+- Run the full local definition of done: `pnpm verify`
+
+`pnpm verify` runs Vitest and the production build. The test suite includes
+Neon-backed integration coverage for storage smoke checks, multi-tenant wiki
+queries, public reader snapshots, and suggestion/review lifecycle behavior, so
+`DATABASE_URL` must point at a migrated database before running it.
+
 ## Local human verification
 
 When handing a localhost URL to a human reviewer, keep the server process
