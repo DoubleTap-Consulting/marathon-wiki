@@ -2,11 +2,18 @@ import { Activity, Database, Rocket } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { checkStorage } from "@/src/db/smoke";
+import { getWikiHomeSnapshot, type WikiHomeSnapshot } from "@/src/db/wiki";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const storage = await checkStorage();
+  const wiki = storage.ok
+    ? await loadWikiSnapshot()
+    : {
+        snapshot: null,
+        message: "Seeded wiki data is available after storage connects.",
+      };
 
   return (
     <main className="min-h-screen bg-background">
@@ -15,7 +22,7 @@ export default async function Home() {
           <div className="space-y-6">
             <Badge variant="outline" className="w-fit gap-2">
               <Rocket className="size-3.5" aria-hidden="true" />
-              Phase 1 deploy baseline
+              Phase 2 data baseline
             </Badge>
 
             <div className="space-y-4">
@@ -24,8 +31,8 @@ export default async function Home() {
               </h1>
               <p className="max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">
                 A Vercel-ready Next.js foundation for an AI-powered Marathon
-                wiki, with the first deployment focused on proving the runtime
-                and storage path.
+                wiki, with the current baseline proving the runtime, storage,
+                and reusable tenant data path.
               </p>
             </div>
 
@@ -78,11 +85,59 @@ export default async function Home() {
                 value={storage.ok ? "storage reachable" : storage.message}
               />
             </dl>
+
+            <div className="mt-5 border-t pt-5">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <h3 className="text-sm font-medium text-card-foreground">
+                    Wiki Data
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Marathon tenant, categories, and starter pages.
+                  </p>
+                </div>
+                <Badge variant={wiki.snapshot ? "success" : "warning"}>
+                  {wiki.snapshot ? "Seeded" : "Pending"}
+                </Badge>
+              </div>
+
+              {wiki.snapshot ? (
+                <WikiSeedSummary snapshot={wiki.snapshot} />
+              ) : (
+                <p className="mt-4 text-sm text-muted-foreground">
+                  {wiki.message}
+                </p>
+              )}
+            </div>
           </div>
         </div>
       </section>
     </main>
   );
+}
+
+async function loadWikiSnapshot(): Promise<{
+  snapshot: WikiHomeSnapshot | null;
+  message: string;
+}> {
+  try {
+    const snapshot = await getWikiHomeSnapshot();
+
+    return {
+      snapshot,
+      message: snapshot
+        ? "Marathon tenant loaded."
+        : "Run the Phase 2 seed after applying migrations.",
+    };
+  } catch (error) {
+    return {
+      snapshot: null,
+      message:
+        error instanceof Error
+          ? error.message
+          : "Unable to query seeded wiki data.",
+    };
+  }
 }
 
 function StatusRow({
@@ -124,6 +179,35 @@ function HealthDetail({ label, value }: { label: string; value: string }) {
       <dd className="break-words font-mono text-xs text-card-foreground">
         {value}
       </dd>
+    </div>
+  );
+}
+
+function WikiSeedSummary({ snapshot }: { snapshot: WikiHomeSnapshot }) {
+  return (
+    <div className="mt-4 space-y-4 text-sm">
+      <div className="grid gap-1 sm:grid-cols-[10rem_1fr]">
+        <div className="text-muted-foreground">Tenant</div>
+        <div className="font-medium text-card-foreground">
+          {snapshot.tenant.name}
+        </div>
+      </div>
+      <div className="grid gap-1 sm:grid-cols-[10rem_1fr]">
+        <div className="text-muted-foreground">Game</div>
+        <div className="text-card-foreground">{snapshot.tenant.gameTitle}</div>
+      </div>
+      <div className="grid gap-1 sm:grid-cols-[10rem_1fr]">
+        <div className="text-muted-foreground">Categories</div>
+        <div className="text-card-foreground">
+          {snapshot.categories.map((category) => category.name).join(", ")}
+        </div>
+      </div>
+      <div className="grid gap-1 sm:grid-cols-[10rem_1fr]">
+        <div className="text-muted-foreground">Starter pages</div>
+        <div className="text-card-foreground">
+          {snapshot.pages.map((page) => page.title).join(", ")}
+        </div>
+      </div>
     </div>
   );
 }

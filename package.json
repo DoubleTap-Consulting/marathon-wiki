@@ -10,6 +10,7 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate deploy",
     "db:migrate:dev": "prisma migrate dev",
+    "db:seed": "prisma db execute --file prisma/seeds/marathon.sql",
     "vercel:build": "pnpm build"
   },
   "dependencies": {
