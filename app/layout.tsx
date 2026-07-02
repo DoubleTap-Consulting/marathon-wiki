@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import { ClerkProvider } from "@clerk/nextjs";
 import { Geist, Geist_Mono } from "next/font/google";
+
+import { isClerkConfigured } from "@/src/auth/wiki-auth";
 
 import "./globals.css";
 
@@ -23,12 +26,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const body = <body>{children}</body>;
+
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable}`}
     >
-      <body>{children}</body>
+      {isClerkConfigured() ? <ClerkProvider>{body}</ClerkProvider> : body}
     </html>
   );
 }

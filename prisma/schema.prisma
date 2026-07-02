@@ -201,9 +201,12 @@ model WikiSuggestion {
   pageId         String?   @map("page_id")
   status         String    @default("new")
   suggestionType String    @map("suggestion_type")
+  targetSlug     String    @map("target_slug")
   title          String
+  summary        String?
   bodyMarkdown   String    @map("body_markdown")
   sourceUrl      String?   @map("source_url")
+  reviewNote     String?   @map("review_note")
   metadata       Json?
   createdBy      String?   @map("created_by")
   reviewedBy     String?   @map("reviewed_by")
@@ -216,5 +219,6 @@ model WikiSuggestion {
 
   @@index([tenantId, status])
   @@index([tenantId, pageId])
+  @@index([tenantId, targetSlug])
   @@map("wiki_suggestions")
 }

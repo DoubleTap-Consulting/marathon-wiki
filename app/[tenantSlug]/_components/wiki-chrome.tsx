@@ -75,6 +75,8 @@ export function WikiChrome({
           >
             <NavPill href={`/${tenant.slug}`}>Home</NavPill>
             <NavPill href={`/${tenant.slug}/pages`}>All pages</NavPill>
+            <NavPill href={`/${tenant.slug}/suggest`}>Suggest page</NavPill>
+            <NavPill href={`/${tenant.slug}/review`}>Review</NavPill>
             {categories.map((category) => (
               <NavPill
                 key={category.id}
