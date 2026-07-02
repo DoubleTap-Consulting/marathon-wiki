@@ -26,8 +26,20 @@ See full `implementation-plan.md` for details.
 | Name | Required | Purpose |
 | --- | --- | --- |
 | `DATABASE_URL` | Yes for storage smoke checks | Neon pooled Postgres connection string used by Prisma migrations and Kysely queries. |
+| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Yes for deployed suggestions/review | Clerk publishable key for authenticated suggestion UI. |
+| `CLERK_SECRET_KEY` | Yes for deployed suggestions/review | Clerk server key used by Server Actions and review pages. |
+| `WIKI_EDITOR_USER_IDS` | Yes for deployed review | Comma-separated Clerk user IDs allowed to approve, reject, or request changes. |
+| `WIKI_EDITOR_EMAILS` | Optional | Comma-separated editor emails. Useful while collecting Clerk user IDs. |
+| `WIKI_ENABLE_DEV_AUTH` | Local only | Set to `true` outside production to enable the local preview auth fallback when Clerk keys are absent. |
+| `WIKI_DEV_AUTH_ROLE` | Local only | Set to `editor` with `WIKI_ENABLE_DEV_AUTH=true` to preview the review surface locally. |
+| `WIKI_DEV_USER_ID` / `WIKI_DEV_USER_EMAIL` | Local only | Attribution used by the local preview auth fallback. |
 
 The app can build without `DATABASE_URL`, but `/api/health` reports storage as unconfigured until the variable is present.
+
+Public wiki reads remain unauthenticated. Suggestion creation and editorial
+review use Clerk when Clerk keys are present. The dev auth fallback is disabled
+in production and only exists so local preview can exercise the suggestion flow
+without real third-party secrets.
 
 ## Deployment
 
@@ -73,7 +85,18 @@ after migration deploys in local, preview, or production environments.
 7. Verify `/api/health` returns `"ok": true` and does not expose the raw connection string.
 
 Phase 2 adds the reusable multi-tenant wiki schema, Kysely-backed query helpers,
-and the idempotent starter Marathon tenant seed. Auth editing, AI generation,
-and monetization are intentionally deferred to later phases.
+and the idempotent starter Marathon tenant seed. AI generation and monetization
+are intentionally deferred to later phases.
+
+Phase 4 adds authenticated page suggestions and a lightweight editorial review
+workflow:
+
+- Users submit new-page or edit suggestions from `/:tenant/suggest` or
+  `/:tenant/suggest/:pageSlug`.
+- Suggestions are stored in `wiki_suggestions` with tenant, target page, status,
+  attribution, and review metadata.
+- Editors visit `/:tenant/review` to approve, reject, or request changes.
+- Approvals create a new published page revision and revalidate the affected
+  wiki cache tags.
 
 Target: Clean UX, ISR performance, ad monetization.

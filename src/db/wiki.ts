@@ -4,6 +4,7 @@ import { sql, type Kysely, type Transaction } from "kysely";
 
 import { getDb } from "./client";
 import type { DB } from "./types";
+import { normalizeWikiSlug } from "@/src/wiki/tenant-routing";
 
 export const MARATHON_TENANT_SLUG = "marathon";
 
@@ -73,6 +74,35 @@ export type WikiPageSnapshot = {
   page: WikiPageDetail;
 };
 
+export type WikiSuggestionStatus =
+  | "pending"
+  | "approved"
+  | "rejected"
+  | "changes_requested";
+
+export type WikiSuggestionType = "new_page" | "edit_page";
+
+export type WikiSuggestionSummary = {
+  id: string;
+  tenantId: string;
+  tenantSlug: string;
+  pageId: string | null;
+  pageSlug: string | null;
+  status: string;
+  suggestionType: string;
+  targetSlug: string;
+  title: string;
+  summary: string | null;
+  bodyMarkdown: string;
+  sourceUrl: string | null;
+  reviewNote: string | null;
+  createdBy: string | null;
+  reviewedBy: string | null;
+  reviewedAt: Date | null;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 export type SaveWikiPageInput = {
   tenantId: string;
   slug: string;
@@ -82,6 +112,19 @@ export type SaveWikiPageInput = {
   status?: "draft" | "published" | "archived";
   actorId?: string | null;
   changeNote?: string | null;
+};
+
+export type CreateWikiSuggestionInput = {
+  tenantId: string;
+  pageId?: string | null;
+  suggestionType: WikiSuggestionType;
+  targetSlug: string;
+  title: string;
+  summary?: string | null;
+  bodyMarkdown: string;
+  sourceUrl?: string | null;
+  actorId: string;
+  actorEmail?: string | null;
 };
 
 export async function getWikiTenantBySlug(
@@ -317,6 +360,40 @@ export async function getPublishedWikiPageBySlug(
   };
 }
 
+export async function getWikiPageById(
+  tenantId: string,
+  pageId: string,
+  db: WikiDatabase = getDb(),
+): Promise<WikiPageDetail | null> {
+  const page = await db
+    .selectFrom("wiki_pages")
+    .select([
+      "id",
+      "slug",
+      "title",
+      "summary",
+      "body_markdown as bodyMarkdown",
+      "status",
+      "latest_revision_number as latestRevisionNumber",
+      "updated_at as updatedAt",
+      "published_at as publishedAt",
+    ])
+    .where("tenant_id", "=", tenantId)
+    .where("id", "=", pageId)
+    .executeTakeFirst();
+
+  if (!page) {
+    return null;
+  }
+
+  return {
+    ...page,
+    categories: [],
+    tags: [],
+    sources: [],
+  };
+}
+
 export async function getWikiHomeSnapshot(
   tenantSlug = MARATHON_TENANT_SLUG,
   db: WikiDatabase = getDb(),
@@ -400,127 +477,369 @@ export async function saveWikiPageWithRevision(
   input: SaveWikiPageInput,
   db: Kysely<DB> = getDb(),
 ): Promise<WikiPageDetail> {
+  return db.transaction().execute((trx) => {
+    return saveWikiPageWithRevisionInTransaction(input, trx);
+  });
+}
+
+export async function createWikiSuggestion(
+  input: CreateWikiSuggestionInput,
+  db: Kysely<DB> = getDb(),
+): Promise<WikiSuggestionSummary> {
+  const targetSlug = normalizeWikiSlug(input.targetSlug);
+
+  if (!targetSlug) {
+    throw new Error("Suggestion target slug is required.");
+  }
+
+  const suggestion = await db
+    .insertInto("wiki_suggestions")
+    .values({
+      id: createId("suggestion"),
+      tenant_id: input.tenantId,
+      page_id: input.pageId ?? null,
+      status: "pending",
+      suggestion_type: input.suggestionType,
+      target_slug: targetSlug,
+      title: input.title,
+      summary: input.summary ?? null,
+      body_markdown: input.bodyMarkdown,
+      source_url: input.sourceUrl ?? null,
+      created_by: input.actorId,
+      metadata: {
+        createdByEmail: input.actorEmail ?? null,
+      },
+    })
+    .returning("id")
+    .executeTakeFirstOrThrow();
+
+  return getWikiSuggestionById(input.tenantId, suggestion.id, db);
+}
+
+export async function listWikiSuggestionsForReview(
+  tenantId: string,
+  db: WikiDatabase = getDb(),
+): Promise<WikiSuggestionSummary[]> {
+  const suggestions = await db
+    .selectFrom("wiki_suggestions as suggestion")
+    .innerJoin("tenants as tenant", "tenant.id", "suggestion.tenant_id")
+    .leftJoin("wiki_pages as page", (join) =>
+      join
+        .onRef("page.id", "=", "suggestion.page_id")
+        .onRef("page.tenant_id", "=", "suggestion.tenant_id"),
+    )
+    .select([
+      "suggestion.id as id",
+      "suggestion.tenant_id as tenantId",
+      "tenant.slug as tenantSlug",
+      "suggestion.page_id as pageId",
+      "page.slug as pageSlug",
+      "suggestion.status as status",
+      "suggestion.suggestion_type as suggestionType",
+      "suggestion.target_slug as targetSlug",
+      "suggestion.title as title",
+      "suggestion.summary as summary",
+      "suggestion.body_markdown as bodyMarkdown",
+      "suggestion.source_url as sourceUrl",
+      "suggestion.review_note as reviewNote",
+      "suggestion.created_by as createdBy",
+      "suggestion.reviewed_by as reviewedBy",
+      "suggestion.reviewed_at as reviewedAt",
+      "suggestion.created_at as createdAt",
+      "suggestion.updated_at as updatedAt",
+    ])
+    .where("suggestion.tenant_id", "=", tenantId)
+    .orderBy(sql`case suggestion.status
+      when 'pending' then 0
+      when 'changes_requested' then 1
+      when 'approved' then 2
+      when 'rejected' then 3
+      else 4
+    end`)
+    .orderBy("suggestion.created_at", "desc")
+    .execute();
+
+  return suggestions;
+}
+
+export async function getWikiSuggestionById(
+  tenantId: string,
+  suggestionId: string,
+  db: WikiDatabase = getDb(),
+): Promise<WikiSuggestionSummary> {
+  const suggestion = await db
+    .selectFrom("wiki_suggestions as suggestion")
+    .innerJoin("tenants as tenant", "tenant.id", "suggestion.tenant_id")
+    .leftJoin("wiki_pages as page", (join) =>
+      join
+        .onRef("page.id", "=", "suggestion.page_id")
+        .onRef("page.tenant_id", "=", "suggestion.tenant_id"),
+    )
+    .select([
+      "suggestion.id as id",
+      "suggestion.tenant_id as tenantId",
+      "tenant.slug as tenantSlug",
+      "suggestion.page_id as pageId",
+      "page.slug as pageSlug",
+      "suggestion.status as status",
+      "suggestion.suggestion_type as suggestionType",
+      "suggestion.target_slug as targetSlug",
+      "suggestion.title as title",
+      "suggestion.summary as summary",
+      "suggestion.body_markdown as bodyMarkdown",
+      "suggestion.source_url as sourceUrl",
+      "suggestion.review_note as reviewNote",
+      "suggestion.created_by as createdBy",
+      "suggestion.reviewed_by as reviewedBy",
+      "suggestion.reviewed_at as reviewedAt",
+      "suggestion.created_at as createdAt",
+      "suggestion.updated_at as updatedAt",
+    ])
+    .where("suggestion.tenant_id", "=", tenantId)
+    .where("suggestion.id", "=", suggestionId)
+    .executeTakeFirstOrThrow();
+
+  return suggestion;
+}
+
+export async function updateWikiSuggestionReviewStatus(
+  input: {
+    tenantId: string;
+    suggestionId: string;
+    status: Extract<WikiSuggestionStatus, "rejected" | "changes_requested">;
+    actorId: string;
+    reviewNote?: string | null;
+  },
+  db: Kysely<DB> = getDb(),
+): Promise<void> {
+  await db
+    .updateTable("wiki_suggestions")
+    .set({
+      status: input.status,
+      reviewed_by: input.actorId,
+      reviewed_at: sql`CURRENT_TIMESTAMP`,
+      review_note: input.reviewNote ?? null,
+      updated_at: sql`CURRENT_TIMESTAMP`,
+    })
+    .where("tenant_id", "=", input.tenantId)
+    .where("id", "=", input.suggestionId)
+    .where("status", "in", ["pending", "changes_requested"])
+    .executeTakeFirstOrThrow();
+}
+
+export async function approveWikiSuggestion(
+  input: {
+    tenantId: string;
+    suggestionId: string;
+    actorId: string;
+    reviewNote?: string | null;
+  },
+  db: Kysely<DB> = getDb(),
+): Promise<{ pageSlug: string }> {
+  return db.transaction().execute(async (trx) => {
+    const suggestion = await getWikiSuggestionById(
+      input.tenantId,
+      input.suggestionId,
+      trx,
+    );
+
+    if (!["pending", "changes_requested"].includes(suggestion.status)) {
+      throw new Error("Only pending suggestions can be approved.");
+    }
+
+    const targetSlug = normalizeWikiSlug(suggestion.targetSlug);
+
+    if (!targetSlug) {
+      throw new Error("Suggestion target slug is invalid.");
+    }
+
+    if (suggestion.suggestionType === "edit_page") {
+      if (!suggestion.pageId) {
+        throw new Error("Edit suggestions must target an existing page.");
+      }
+
+      const existingPage = await getWikiPageById(
+        input.tenantId,
+        suggestion.pageId,
+        trx,
+      );
+
+      if (!existingPage || existingPage.slug !== targetSlug) {
+        throw new Error("Edit suggestions cannot change the target page slug.");
+      }
+    }
+
+    if (suggestion.suggestionType === "new_page") {
+      const existingPage = await trx
+        .selectFrom("wiki_pages")
+        .select("id")
+        .where("tenant_id", "=", input.tenantId)
+        .where("slug", "=", targetSlug)
+        .executeTakeFirst();
+
+      if (existingPage) {
+        throw new Error("A page already exists for this suggestion slug.");
+      }
+    }
+
+    await saveWikiPageWithRevisionInTransaction(
+      {
+        tenantId: input.tenantId,
+        slug: targetSlug,
+        title: suggestion.title,
+        summary: suggestion.summary,
+        bodyMarkdown: suggestion.bodyMarkdown,
+        status: "published",
+        actorId: input.actorId,
+        changeNote:
+          input.reviewNote ??
+          `Approved suggestion ${suggestion.id} (${suggestion.suggestionType})`,
+      },
+      trx,
+    );
+
+    await trx
+      .updateTable("wiki_suggestions")
+      .set({
+        status: "approved",
+        reviewed_by: input.actorId,
+        reviewed_at: sql`CURRENT_TIMESTAMP`,
+        review_note: input.reviewNote ?? null,
+        updated_at: sql`CURRENT_TIMESTAMP`,
+      })
+      .where("tenant_id", "=", input.tenantId)
+      .where("id", "=", input.suggestionId)
+      .executeTakeFirstOrThrow();
+
+    return { pageSlug: targetSlug };
+  });
+}
+
+async function saveWikiPageWithRevisionInTransaction(
+  input: SaveWikiPageInput,
+  trx: Transaction<DB>,
+): Promise<WikiPageDetail> {
   const status = input.status ?? "draft";
   const summary = input.summary ?? null;
   const actorId = input.actorId ?? null;
-  const normalizedSlug = input.slug.trim().toLowerCase();
+  const normalizedSlug = normalizeWikiSlug(input.slug);
 
-  const page = await db.transaction().execute(async (trx) => {
-    const existingPage = await trx
-      .selectFrom("wiki_pages")
-      .select(["id", "latest_revision_number"])
-      .where("tenant_id", "=", input.tenantId)
-      .where("slug", "=", normalizedSlug)
-      .executeTakeFirst();
+  if (!normalizedSlug) {
+    throw new Error("Page slug is required.");
+  }
 
-    const pageId = existingPage?.id ?? createId("page");
-    const revisionNumber = existingPage
-      ? existingPage.latest_revision_number + 1
-      : 1;
+  const existingPage = await trx
+    .selectFrom("wiki_pages")
+    .select(["id", "latest_revision_number"])
+    .where("tenant_id", "=", input.tenantId)
+    .where("slug", "=", normalizedSlug)
+    .executeTakeFirst();
 
-    if (existingPage) {
-      if (status === "published") {
-        await trx
-          .updateTable("wiki_pages")
-          .set({
-            title: input.title,
-            summary,
-            body_markdown: input.bodyMarkdown,
-            status,
-            latest_revision_number: revisionNumber,
-            updated_by: actorId,
-            published_at: sql`COALESCE("published_at", CURRENT_TIMESTAMP)`,
-            updated_at: sql`CURRENT_TIMESTAMP`,
-          })
-          .where("id", "=", existingPage.id)
-          .where("tenant_id", "=", input.tenantId)
-          .execute();
-      } else {
-        await trx
-          .updateTable("wiki_pages")
-          .set({
-            title: input.title,
-            summary,
-            body_markdown: input.bodyMarkdown,
-            status,
-            latest_revision_number: revisionNumber,
-            updated_by: actorId,
-            updated_at: sql`CURRENT_TIMESTAMP`,
-          })
-          .where("id", "=", existingPage.id)
-          .where("tenant_id", "=", input.tenantId)
-          .execute();
-      }
-    } else {
+  const pageId = existingPage?.id ?? createId("page");
+  const revisionNumber = existingPage
+    ? existingPage.latest_revision_number + 1
+    : 1;
+
+  if (existingPage) {
+    if (status === "published") {
       await trx
-        .insertInto("wiki_pages")
-        .values({
-          id: pageId,
-          tenant_id: input.tenantId,
-          slug: normalizedSlug,
+        .updateTable("wiki_pages")
+        .set({
           title: input.title,
           summary,
           body_markdown: input.bodyMarkdown,
           status,
           latest_revision_number: revisionNumber,
-          created_by: actorId,
           updated_by: actorId,
-          published_at: status === "published" ? sql`CURRENT_TIMESTAMP` : null,
+          published_at: sql`COALESCE("published_at", CURRENT_TIMESTAMP)`,
+          updated_at: sql`CURRENT_TIMESTAMP`,
         })
+        .where("id", "=", existingPage.id)
+        .where("tenant_id", "=", input.tenantId)
+        .execute();
+    } else {
+      await trx
+        .updateTable("wiki_pages")
+        .set({
+          title: input.title,
+          summary,
+          body_markdown: input.bodyMarkdown,
+          status,
+          latest_revision_number: revisionNumber,
+          updated_by: actorId,
+          updated_at: sql`CURRENT_TIMESTAMP`,
+        })
+        .where("id", "=", existingPage.id)
+        .where("tenant_id", "=", input.tenantId)
         .execute();
     }
-
+  } else {
     await trx
-      .insertInto("wiki_page_revisions")
+      .insertInto("wiki_pages")
       .values({
-        id: createId("revision"),
+        id: pageId,
         tenant_id: input.tenantId,
-        page_id: pageId,
-        revision_number: revisionNumber,
+        slug: normalizedSlug,
         title: input.title,
         summary,
         body_markdown: input.bodyMarkdown,
-        change_note: input.changeNote ?? null,
+        status,
+        latest_revision_number: revisionNumber,
         created_by: actorId,
+        updated_by: actorId,
+        published_at: status === "published" ? sql`CURRENT_TIMESTAMP` : null,
       })
       .execute();
+  }
 
-    const savedPage = await getPublishedWikiPageBySlug(
-      input.tenantId,
-      normalizedSlug,
-      trx,
-    );
+  await trx
+    .insertInto("wiki_page_revisions")
+    .values({
+      id: createId("revision"),
+      tenant_id: input.tenantId,
+      page_id: pageId,
+      revision_number: revisionNumber,
+      title: input.title,
+      summary,
+      body_markdown: input.bodyMarkdown,
+      change_note: input.changeNote ?? null,
+      created_by: actorId,
+    })
+    .execute();
 
-    if (savedPage) {
-      return savedPage;
-    }
+  const savedPage = await getPublishedWikiPageBySlug(
+    input.tenantId,
+    normalizedSlug,
+    trx,
+  );
 
-    const draftPage = await trx
-      .selectFrom("wiki_pages")
-      .select([
-        "id",
-        "slug",
-        "title",
-        "summary",
-        "body_markdown as bodyMarkdown",
-        "status",
-        "latest_revision_number as latestRevisionNumber",
-        "updated_at as updatedAt",
-        "published_at as publishedAt",
-      ])
-      .where("id", "=", pageId)
-      .where("tenant_id", "=", input.tenantId)
-      .executeTakeFirstOrThrow();
+  if (savedPage) {
+    return savedPage;
+  }
 
-    return {
-      ...draftPage,
-      categories: [],
-      tags: [],
-      sources: [],
-    };
-  });
+  const draftPage = await trx
+    .selectFrom("wiki_pages")
+    .select([
+      "id",
+      "slug",
+      "title",
+      "summary",
+      "body_markdown as bodyMarkdown",
+      "status",
+      "latest_revision_number as latestRevisionNumber",
+      "updated_at as updatedAt",
+      "published_at as publishedAt",
+    ])
+    .where("id", "=", pageId)
+    .where("tenant_id", "=", input.tenantId)
+    .executeTakeFirstOrThrow();
 
-  return page;
+  return {
+    ...draftPage,
+    categories: [],
+    tags: [],
+    sources: [],
+  };
 }
 
 function createId(prefix: string) {

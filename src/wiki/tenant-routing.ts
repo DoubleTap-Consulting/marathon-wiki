@@ -15,6 +15,14 @@ export function normalizeTenantSlug(slug: string) {
   return slug.trim().toLowerCase();
 }
 
+export function normalizeWikiSlug(slug: string) {
+  return slug
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 export function getTenantSlugFromHost(hostHeader: string | null) {
   if (!hostHeader) {
     return null;
