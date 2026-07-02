@@ -33,6 +33,9 @@ See full `implementation-plan.md` for details.
 | `WIKI_ENABLE_DEV_AUTH` | Local only | Set to `true` outside production to enable the local preview auth fallback when Clerk keys are absent. |
 | `WIKI_DEV_AUTH_ROLE` | Local only | Set to `editor` with `WIKI_ENABLE_DEV_AUTH=true` to preview the review surface locally. |
 | `WIKI_DEV_USER_ID` / `WIKI_DEV_USER_EMAIL` | Local only | Attribution used by the local preview auth fallback. |
+| `GROK_API_KEY` | Yes for AI-assisted drafts | xAI/Grok API key used by editors to generate draft suggestions. `XAI_API_KEY` is also accepted. |
+| `GROK_MODEL` | Optional | Grok model used for wiki drafts. Defaults to `grok-4.3`. |
+| `GROK_API_BASE_URL` | Optional | Grok-compatible API base URL. Defaults to `https://api.x.ai/v1`. |
 
 The app can build without `DATABASE_URL`, but `/api/health` reports storage as unconfigured until the variable is present.
 
@@ -123,5 +126,15 @@ workflow:
 - Editors visit `/:tenant/review` to approve, reject, or request changes.
 - Approvals create a new published page revision and revalidate the affected
   wiki cache tags.
+
+Phase 5 adds AI-assisted editorial drafting through Grok:
+
+- Editors can request an AI draft from `/:tenant/review`.
+- AI output is stored as a pending `wiki_suggestions` row with provenance
+  metadata and is never published directly.
+- Existing approval/rejection actions handle AI-assisted suggestions the same
+  way they handle human suggestions.
+- Public wiki reads do not require Grok configuration. Missing or invalid Grok
+  config fails only the AI draft request and reports the error to the editor.
 
 Target: Clean UX, ISR performance, ad monetization.
