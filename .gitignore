@@ -1,0 +1,30 @@
+# dependencies
+node_modules
+.pnpm-store
+
+# next
+.next
+out
+
+# production
+build
+
+# env
+.env
+.env*.local
+
+# vercel
+.vercel
+
+# generated
+src/db/generated
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
