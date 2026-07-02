@@ -82,6 +82,21 @@ export type WikiSuggestionStatus =
 
 export type WikiSuggestionType = "new_page" | "edit_page";
 
+export type WikiSuggestionMetadata = {
+  createdByEmail?: string | null;
+  origin?: "human" | "ai_generated";
+  ai?: {
+    provider: string;
+    model: string;
+    responseId: string | null;
+    promptVersion: string;
+    generatedAt: string;
+    requestedBy: string;
+    sourceNotes?: string | null;
+  };
+  [key: string]: unknown;
+};
+
 export type WikiSuggestionSummary = {
   id: string;
   tenantId: string;
@@ -96,6 +111,7 @@ export type WikiSuggestionSummary = {
   bodyMarkdown: string;
   sourceUrl: string | null;
   reviewNote: string | null;
+  metadata: WikiSuggestionMetadata | null;
   createdBy: string | null;
   reviewedBy: string | null;
   reviewedAt: Date | null;
@@ -123,6 +139,7 @@ export type CreateWikiSuggestionInput = {
   summary?: string | null;
   bodyMarkdown: string;
   sourceUrl?: string | null;
+  metadata?: WikiSuggestionMetadata | null;
   actorId: string;
   actorEmail?: string | null;
 };
@@ -507,6 +524,7 @@ export async function createWikiSuggestion(
       source_url: input.sourceUrl ?? null,
       created_by: input.actorId,
       metadata: {
+        ...(input.metadata ?? {}),
         createdByEmail: input.actorEmail ?? null,
       },
     })
@@ -542,6 +560,7 @@ export async function listWikiSuggestionsForReview(
       "suggestion.body_markdown as bodyMarkdown",
       "suggestion.source_url as sourceUrl",
       "suggestion.review_note as reviewNote",
+      "suggestion.metadata as metadata",
       "suggestion.created_by as createdBy",
       "suggestion.reviewed_by as reviewedBy",
       "suggestion.reviewed_at as reviewedAt",
@@ -559,7 +578,10 @@ export async function listWikiSuggestionsForReview(
     .orderBy("suggestion.created_at", "desc")
     .execute();
 
-  return suggestions;
+  return suggestions.map((suggestion) => ({
+    ...suggestion,
+    metadata: normalizeSuggestionMetadata(suggestion.metadata),
+  }));
 }
 
 export async function getWikiSuggestionById(
@@ -589,6 +611,7 @@ export async function getWikiSuggestionById(
       "suggestion.body_markdown as bodyMarkdown",
       "suggestion.source_url as sourceUrl",
       "suggestion.review_note as reviewNote",
+      "suggestion.metadata as metadata",
       "suggestion.created_by as createdBy",
       "suggestion.reviewed_by as reviewedBy",
       "suggestion.reviewed_at as reviewedAt",
@@ -599,7 +622,10 @@ export async function getWikiSuggestionById(
     .where("suggestion.id", "=", suggestionId)
     .executeTakeFirstOrThrow();
 
-  return suggestion;
+  return {
+    ...suggestion,
+    metadata: normalizeSuggestionMetadata(suggestion.metadata),
+  };
 }
 
 export async function updateWikiSuggestionReviewStatus(
@@ -844,4 +870,14 @@ async function saveWikiPageWithRevisionInTransaction(
 
 function createId(prefix: string) {
   return `${prefix}_${randomUUID().replaceAll("-", "")}`;
+}
+
+function normalizeSuggestionMetadata(
+  value: unknown,
+): WikiSuggestionMetadata | null {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return null;
+  }
+
+  return value as WikiSuggestionMetadata;
 }

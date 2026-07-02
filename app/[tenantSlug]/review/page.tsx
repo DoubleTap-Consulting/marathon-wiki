@@ -15,6 +15,8 @@ import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
 
 import { ClerkSignInControl, ClerkUserControl } from "../_components/auth-controls";
 import { EmptyState, WikiChrome } from "../_components/wiki-chrome";
+import { AiDraftForm } from "./_components/ai-draft-form";
+import { generateAiWikiSuggestionAction } from "./ai-actions";
 import { reviewWikiSuggestionAction } from "./actions";
 
 export const dynamic = "force-dynamic";
@@ -84,20 +86,30 @@ export default async function ReviewPage({ params }: ReviewPageProps) {
               editor allowlist for this environment.
             </p>
           </section>
-        ) : suggestions.length === 0 ? (
-          <EmptyState
-            title="No suggestions yet"
-            description="Submitted page suggestions will appear here for editorial review."
-          />
         ) : (
-          <div className="space-y-4">
-            {suggestions.map((suggestion) => (
-              <SuggestionReviewCard
-                key={suggestion.id}
-                tenantSlug={snapshot.tenant.slug}
-                suggestion={suggestion}
+          <div className="space-y-6">
+            <AiDraftForm
+              action={generateAiWikiSuggestionAction.bind(
+                null,
+                snapshot.tenant.slug,
+              )}
+            />
+            {suggestions.length === 0 ? (
+              <EmptyState
+                title="No suggestions yet"
+                description="Submitted page suggestions will appear here for editorial review."
               />
-            ))}
+            ) : (
+              <div className="space-y-4">
+                {suggestions.map((suggestion) => (
+                  <SuggestionReviewCard
+                    key={suggestion.id}
+                    tenantSlug={snapshot.tenant.slug}
+                    suggestion={suggestion}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         )}
       </section>
@@ -138,6 +150,7 @@ function SuggestionReviewCard({
   suggestion: WikiSuggestionSummary;
 }) {
   const canAct = suggestion.status === "pending" || suggestion.status === "changes_requested";
+  const ai = getAiProvenance(suggestion);
 
   return (
     <article className="rounded-lg border bg-card p-5 text-card-foreground sm:p-6">
@@ -148,6 +161,11 @@ function SuggestionReviewCard({
             <span className="inline-flex min-h-8 items-center rounded-md border bg-background px-2.5 text-xs font-medium">
               {suggestion.suggestionType === "new_page" ? "New page" : "Edit page"}
             </span>
+            {ai ? (
+              <span className="inline-flex min-h-8 items-center rounded-md border border-primary/30 bg-primary/10 px-2.5 text-xs font-medium">
+                AI-assisted
+              </span>
+            ) : null}
           </div>
           <h2 className="text-2xl font-semibold leading-8">{suggestion.title}</h2>
           <p className="text-sm leading-6 text-muted-foreground">
@@ -177,6 +195,27 @@ function SuggestionReviewCard({
         </div>
 
         <aside className="space-y-4">
+          {ai ? (
+            <div className="rounded-md border bg-background p-3">
+              <h3 className="text-sm font-semibold leading-6">AI provenance</h3>
+              <dl className="mt-1 space-y-1 text-sm leading-6 text-muted-foreground">
+                <div>
+                  <dt className="inline font-medium text-card-foreground">
+                    Model:
+                  </dt>{" "}
+                  <dd className="inline break-all">{ai.model}</dd>
+                </div>
+                {ai.responseId ? (
+                  <div>
+                    <dt className="inline font-medium text-card-foreground">
+                      Response:
+                    </dt>{" "}
+                    <dd className="inline break-all">{ai.responseId}</dd>
+                  </div>
+                ) : null}
+              </dl>
+            </div>
+          ) : null}
           {suggestion.sourceUrl ? (
             <a
               href={suggestion.sourceUrl}
@@ -265,6 +304,25 @@ function StatusPill({ status }: { status: string }) {
       {status.replaceAll("_", " ")}
     </span>
   );
+}
+
+function getAiProvenance(suggestion: WikiSuggestionSummary) {
+  const ai = suggestion.metadata?.ai;
+
+  if (!ai || typeof ai !== "object") {
+    return null;
+  }
+
+  const model = typeof ai.model === "string" ? ai.model : null;
+
+  if (!model) {
+    return null;
+  }
+
+  return {
+    model,
+    responseId: typeof ai.responseId === "string" ? ai.responseId : null,
+  };
 }
 
 function formatDate(value: Date | string | null) {
