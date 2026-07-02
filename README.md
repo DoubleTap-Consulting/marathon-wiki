@@ -36,6 +36,21 @@ The app can build without `DATABASE_URL`, but `/api/health` reports storage as u
 - Install command: `pnpm install`
 - Health check: `/api/health`
 
+## Local human verification
+
+When handing a localhost URL to a human reviewer, keep the server process
+running until review is complete. Protected Vercel preview URLs can require
+Vercel auth, so use a local URL for Codex browser verification.
+
+For a production-like local reader check, load the local env file into the
+server process:
+
+```bash
+set -a; source .env.local; set +a; pnpm exec next start -p 3101
+```
+
+Then verify `http://127.0.0.1:3101/marathon`.
+
 ## Database workflow
 
 - Edit durable schema in `prisma/schema.prisma`.
