@@ -41,6 +41,21 @@ review use Clerk when Clerk keys are present. The dev auth fallback is disabled
 in production and only exists so local preview can exercise the suggestion flow
 without real third-party secrets.
 
+### Clerk setup
+
+The deployed auth app is GameWikiVerse (`app_3FxjLxxpKOAScNYzLPqHwOBV7uF`).
+After signing in with the Clerk CLI, initialize this existing project with:
+
+```bash
+clerk init --app app_3FxjLxxpKOAScNYzLPqHwOBV7uF
+clerk doctor
+```
+
+Keep `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` and `CLERK_SECRET_KEY` in local or
+Vercel environment variables only. After creating the first editor account,
+set `WIKI_EDITOR_USER_IDS` to that Clerk user id, or use `WIKI_EDITOR_EMAILS`
+while collecting user ids.
+
 ## Deployment
 
 - Build command: `pnpm build`

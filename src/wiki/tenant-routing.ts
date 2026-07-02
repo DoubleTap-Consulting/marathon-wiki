@@ -1,6 +1,13 @@
 const LOCAL_HOSTS = new Set(["localhost", "127.0.0.1", "0.0.0.0"]);
 const HOSTS_WITH_RESERVED_SUBDOMAINS = ["vercel.app"];
-const RESERVED_PATHS = new Set(["api", "_next", "favicon.ico", "robots.txt"]);
+const RESERVED_PATHS = new Set([
+  "__clerk",
+  "api",
+  "_next",
+  "favicon.ico",
+  "robots.txt",
+  "trpc",
+]);
 const FALLBACK_DEFAULT_TENANT_SLUG = "marathon";
 
 export function getDefaultTenantSlug() {

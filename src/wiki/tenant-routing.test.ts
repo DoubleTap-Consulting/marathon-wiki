@@ -34,6 +34,8 @@ describe("tenant routing helpers", () => {
 
   it("keeps framework and asset paths out of tenant routing", () => {
     expect(isPublicFilePath("/api/health")).toBe(true);
+    expect(isPublicFilePath("/__clerk/some-proxy-path")).toBe(true);
+    expect(isPublicFilePath("/trpc/wiki.bySlug")).toBe(true);
     expect(isPublicFilePath("/_next/static/chunk.js")).toBe(true);
     expect(isPublicFilePath("/favicon.ico")).toBe(true);
     expect(isPublicFilePath("/marathon/weapons")).toBe(false);
