@@ -29,7 +29,7 @@ export function AiDraftForm({ action }: AiDraftFormProps) {
           Generate a draft suggestion
         </h2>
         <p className="max-w-3xl text-base leading-7 text-muted-foreground">
-          Ask Grok for a starting draft. The result is saved as a pending
+          Ask AI Gateway for a starting draft. The result is saved as a pending
           suggestion and still requires editorial approval before publication.
         </p>
       </div>

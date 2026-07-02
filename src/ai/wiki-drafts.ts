@@ -2,9 +2,9 @@ import type { Kysely } from "kysely";
 
 import {
   generateMarathonWikiDraft,
-  type GrokDraftResult,
-  type GrokTransport,
-} from "./grok";
+  type GatewayDraftResult,
+  type GatewayGenerateText,
+} from "./gateway";
 import type { WikiActor } from "@/src/auth/wiki-auth";
 import { getDb } from "@/src/db/client";
 import type { DB } from "@/src/db/types";
@@ -31,7 +31,7 @@ export async function createAiAssistedWikiSuggestion(
   options: {
     db?: Kysely<DB>;
     generateDraft?: AiDraftGenerator;
-    transport?: GrokTransport;
+    generate?: GatewayGenerateText;
     env?: NodeJS.ProcessEnv;
   } = {},
 ): Promise<WikiSuggestionSummary> {
@@ -64,7 +64,7 @@ export async function createAiAssistedWikiSuggestion(
     },
     {
       env: options.env,
-      transport: options.transport,
+      generate: options.generate,
     },
   );
 
@@ -86,7 +86,7 @@ export async function createAiAssistedWikiSuggestion(
 }
 
 function buildAiSuggestionMetadata(
-  draft: GrokDraftResult,
+  draft: GatewayDraftResult,
   actorId: string,
   sourceNotes: string | null,
 ) {

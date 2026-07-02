@@ -6,7 +6,7 @@ try {
   // CI can provide DATABASE_URL directly.
 }
 
-import { GROK_WIKI_PROMPT_VERSION } from "./grok";
+import { AI_GATEWAY_WIKI_PROMPT_VERSION } from "./gateway";
 import { createAiAssistedWikiSuggestion } from "./wiki-drafts";
 import type { WikiActor } from "@/src/auth/wiki-auth";
 import { getDb } from "@/src/db/client";
@@ -80,7 +80,7 @@ describe.sequential("AI-assisted wiki draft suggestions", () => {
     await db.destroy();
   });
 
-  it("stores Grok output as a pending suggestion with provenance before approval", async () => {
+  it("stores AI Gateway output as a pending suggestion with provenance before approval", async () => {
     const suggestion = await createAiAssistedWikiSuggestion(
       {
         tenant,
@@ -96,10 +96,10 @@ describe.sequential("AI-assisted wiki draft suggestions", () => {
           summary: "AI-assisted draft for a Marathon automatic rifle.",
           bodyMarkdown:
             "## Overview\n\nThe Overrun AR is an AI-assisted draft that editors must verify before publishing.",
-          provider: "xai-grok",
-          model: "grok-test",
-          responseId: "resp_ai_new_page",
-          promptVersion: GROK_WIKI_PROMPT_VERSION,
+          provider: "vercel-ai-gateway",
+          model: "xai/grok-test",
+          responseId: "gateway_resp_ai_new_page",
+          promptVersion: AI_GATEWAY_WIKI_PROMPT_VERSION,
         }),
       },
     );
@@ -113,10 +113,10 @@ describe.sequential("AI-assisted wiki draft suggestions", () => {
         origin: "ai_generated",
         createdByEmail: actor.email,
         ai: expect.objectContaining({
-          provider: "xai-grok",
-          model: "grok-test",
-          responseId: "resp_ai_new_page",
-          promptVersion: GROK_WIKI_PROMPT_VERSION,
+          provider: "vercel-ai-gateway",
+          model: "xai/grok-test",
+          responseId: "gateway_resp_ai_new_page",
+          promptVersion: AI_GATEWAY_WIKI_PROMPT_VERSION,
           requestedBy: actor.id,
           sourceNotes: "Official weapon notes should be checked by editors.",
         }),
@@ -176,10 +176,10 @@ describe.sequential("AI-assisted wiki draft suggestions", () => {
             summary: "AI-assisted weapon coverage.",
             bodyMarkdown:
               "## Weapons\n\nAI-assisted edits add Marathon weapon coverage for human review.",
-            provider: "xai-grok",
-            model: "grok-test",
-            responseId: "resp_ai_edit_page",
-            promptVersion: GROK_WIKI_PROMPT_VERSION,
+            provider: "vercel-ai-gateway",
+            model: "xai/grok-test",
+            responseId: "gateway_resp_ai_edit_page",
+            promptVersion: AI_GATEWAY_WIKI_PROMPT_VERSION,
           };
         },
       },
@@ -217,12 +217,12 @@ describe.sequential("AI-assisted wiki draft suggestions", () => {
     ]);
   });
 
-  it("reports missing Grok config without breaking public wiki reads", async () => {
+  it("reports missing AI Gateway config without breaking public wiki reads", async () => {
     await saveWikiPageWithRevision({
       tenantId,
       slug: "public-read-stays-up",
       title: "Public Read Stays Up",
-      bodyMarkdown: "This page proves public reads do not depend on Grok config.",
+      bodyMarkdown: "This page proves public reads do not depend on AI Gateway config.",
       status: "published",
       actorId: "seed-editor",
     }, db);
@@ -237,7 +237,7 @@ describe.sequential("AI-assisted wiki draft suggestions", () => {
         },
         { db, env: {} },
       ),
-    ).rejects.toThrow("Grok API is not configured");
+    ).rejects.toThrow("AI Gateway is not configured");
 
     await expect(
       getPublishedWikiPageBySlug(tenantId, "public-read-stays-up", db),
