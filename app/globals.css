@@ -48,7 +48,10 @@
   --radius: 0.5rem;
 }
 
-* {
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   border-color: var(--border);
 }
 
@@ -62,4 +65,14 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans);
+  overflow-x: clip;
+}
+
+p,
+h1,
+h2,
+h3,
+li,
+dd {
+  overflow-wrap: anywhere;
 }

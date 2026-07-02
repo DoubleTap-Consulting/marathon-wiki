@@ -60,6 +60,19 @@ export type WikiHomeSnapshot = {
   pages: WikiPageSummary[];
 };
 
+export type WikiCategorySnapshot = {
+  tenant: WikiTenant;
+  category: WikiCategorySummary;
+  categories: WikiCategorySummary[];
+  pages: WikiPageSummary[];
+};
+
+export type WikiPageSnapshot = {
+  tenant: WikiTenant;
+  categories: WikiCategorySummary[];
+  page: WikiPageDetail;
+};
+
 export type SaveWikiPageInput = {
   tenantId: string;
   slug: string;
@@ -103,13 +116,19 @@ export async function listWikiCategoriesByTenant(
         .onRef("page_category.category_id", "=", "category.id")
         .onRef("page_category.tenant_id", "=", "category.tenant_id"),
     )
+    .leftJoin("wiki_pages as page", (join) =>
+      join
+        .onRef("page.id", "=", "page_category.page_id")
+        .onRef("page.tenant_id", "=", "page_category.tenant_id")
+        .on("page.status", "=", "published"),
+    )
     .select([
       "category.id as id",
       "category.slug as slug",
       "category.name as name",
       "category.description as description",
       "category.sort_order as sortOrder",
-      sql<number>`cast(count(page_category.page_id) as integer)`.as("pageCount"),
+      sql<number>`cast(count(page.id) as integer)`.as("pageCount"),
     ])
     .where("category.tenant_id", "=", tenantId)
     .groupBy([
@@ -145,6 +164,78 @@ export async function listPublishedWikiPagesByTenant(
     .where("tenant_id", "=", tenantId)
     .where("status", "=", "published")
     .orderBy("title", "asc")
+    .limit(limit)
+    .execute();
+
+  return pages;
+}
+
+export async function getWikiCategoryBySlug(
+  tenantId: string,
+  slug: string,
+  db: WikiDatabase = getDb(),
+): Promise<WikiCategorySummary | null> {
+  const category = await db
+    .selectFrom("wiki_categories as category")
+    .leftJoin("wiki_page_categories as page_category", (join) =>
+      join
+        .onRef("page_category.category_id", "=", "category.id")
+        .onRef("page_category.tenant_id", "=", "category.tenant_id"),
+    )
+    .leftJoin("wiki_pages as page", (join) =>
+      join
+        .onRef("page.id", "=", "page_category.page_id")
+        .onRef("page.tenant_id", "=", "page_category.tenant_id")
+        .on("page.status", "=", "published"),
+    )
+    .select([
+      "category.id as id",
+      "category.slug as slug",
+      "category.name as name",
+      "category.description as description",
+      "category.sort_order as sortOrder",
+      sql<number>`cast(count(page.id) as integer)`.as("pageCount"),
+    ])
+    .where("category.tenant_id", "=", tenantId)
+    .where("category.slug", "=", slug)
+    .groupBy([
+      "category.id",
+      "category.slug",
+      "category.name",
+      "category.description",
+      "category.sort_order",
+    ])
+    .executeTakeFirst();
+
+  return category ?? null;
+}
+
+export async function listPublishedWikiPagesByCategory(
+  tenantId: string,
+  categoryId: string,
+  db: WikiDatabase = getDb(),
+  limit = 100,
+): Promise<WikiPageSummary[]> {
+  const pages = await db
+    .selectFrom("wiki_page_categories as page_category")
+    .innerJoin("wiki_pages as page", (join) =>
+      join
+        .onRef("page.id", "=", "page_category.page_id")
+        .onRef("page.tenant_id", "=", "page_category.tenant_id"),
+    )
+    .select([
+      "page.id as id",
+      "page.slug as slug",
+      "page.title as title",
+      "page.summary as summary",
+      "page.status as status",
+      "page.updated_at as updatedAt",
+      "page.published_at as publishedAt",
+    ])
+    .where("page_category.tenant_id", "=", tenantId)
+    .where("page_category.category_id", "=", categoryId)
+    .where("page.status", "=", "published")
+    .orderBy("page.title", "asc")
     .limit(limit)
     .execute();
 
@@ -245,6 +336,63 @@ export async function getWikiHomeSnapshot(
     tenant,
     categories,
     pages,
+  };
+}
+
+export async function getWikiCategorySnapshot(
+  tenantSlug: string,
+  categorySlug: string,
+  db: WikiDatabase = getDb(),
+): Promise<WikiCategorySnapshot | null> {
+  const tenant = await getWikiTenantBySlug(tenantSlug, db);
+
+  if (!tenant) {
+    return null;
+  }
+
+  const category = await getWikiCategoryBySlug(tenant.id, categorySlug, db);
+
+  if (!category) {
+    return null;
+  }
+
+  const [categories, pages] = await Promise.all([
+    listWikiCategoriesByTenant(tenant.id, db),
+    listPublishedWikiPagesByCategory(tenant.id, category.id, db),
+  ]);
+
+  return {
+    tenant,
+    category,
+    categories,
+    pages,
+  };
+}
+
+export async function getWikiPageSnapshot(
+  tenantSlug: string,
+  pageSlug: string,
+  db: WikiDatabase = getDb(),
+): Promise<WikiPageSnapshot | null> {
+  const tenant = await getWikiTenantBySlug(tenantSlug, db);
+
+  if (!tenant) {
+    return null;
+  }
+
+  const [categories, page] = await Promise.all([
+    listWikiCategoriesByTenant(tenant.id, db),
+    getPublishedWikiPageBySlug(tenant.id, pageSlug, db),
+  ]);
+
+  if (!page) {
+    return null;
+  }
+
+  return {
+    tenant,
+    categories,
+    page,
   };
 }
 
