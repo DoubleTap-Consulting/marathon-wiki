@@ -61,6 +61,16 @@ See full `implementation-plan.md` for details.
 | `WIKI_DEV_USER_ID` / `WIKI_DEV_USER_EMAIL` | Local only | Attribution used by the local preview auth fallback. |
 | `WIKI_AI_GATEWAY_MODEL` | Optional | Vercel AI Gateway model used for wiki drafts. Defaults to `openai/gpt-5-nano` and can be changed to any supported `provider/model` id. |
 | `AI_GATEWAY_API_KEY` | Optional | Static AI Gateway key for non-Vercel environments. Local Vercel-linked development can use `VERCEL_OIDC_TOKEN`; Vercel deployments use OIDC automatically. |
+| `CRON_SECRET` / `WIKI_CRON_SECRET` | Required for production cron | Secret expected in the cron `Authorization` bearer header. Set `CRON_SECRET` for Vercel Cron because Vercel sends it automatically; use `WIKI_CRON_SECRET` only for manual/local calls or keep both values identical. |
+| `WIKI_WEEKLY_REFRESH_LIMIT` | Optional | Maximum stale AI-authored pages queued by the weekly scheduled update pass. Defaults to `3`. |
+| `WIKI_PROCESS_REFRESH_LIMIT` | Optional | Maximum due refresh queue items processed per scheduled update invocation. Defaults to `1` to keep AI generation costs bounded. |
+| `WIKI_REFRESH_STALE_AFTER_DAYS` | Optional | Age threshold for weekly refresh eligibility. Defaults to `7` days. |
+| `WIKI_EVENT_REFRESH_TARGETS` | Optional | Comma-separated default event refresh targets, for example `factions:Factions,overview:Overview`. Used when discovered events do not include explicit targets. |
+| `WIKI_EVENT_DISCOVERY_ENDPOINT` / `WIKI_EVENT_DISCOVERY_TOKEN` | Optional | Bounded provider hook used by the daily event pass to look for game events in the next 7 days. No event provider call is made when the endpoint is absent. |
+| `WIKI_SOURCE_DISCOVERY_ENDPOINT` / `WIKI_SOURCE_DISCOVERY_TOKEN` | Optional | Bounded provider hook used by scheduled or manual source discovery. Explicit local candidate payloads can be used without this provider. |
+| `WIKI_SCHEDULED_SOURCE_DISCOVERY_TOPICS` | Optional | Comma-separated topic slugs for scheduled source discovery. Requires a top-level tenant in the request or `WIKI_SCHEDULED_SOURCE_DISCOVERY_TENANT_SLUG`. |
+| `WIKI_SCHEDULED_SOURCE_DISCOVERY_TENANT_SLUG` | Optional | Tenant slug used by aggregate scheduled source discovery when the request does not include a tenant slug. |
+| `WIKI_SOURCE_DISCOVERY_LIMIT` | Optional | Per-topic source discovery cap for scheduled discovery. Defaults to `3` in the scheduled update route. |
 | `NEXT_PUBLIC_SITE_URL` | Yes for production SEO | Public canonical origin used by metadata, robots, and sitemap URLs. Vercel `VERCEL_URL` is used as a fallback. |
 | `WIKI_ROBOTS_INDEXING_ENABLED` | Optional | Overrides robots indexing. Defaults to enabled for Vercel Production and disabled for Vercel Preview. |
 | `WIKI_ANALYTICS_ENABLED` | Optional | First-party pageview/product-event logging. Defaults to enabled; set to `false` to suppress client event capture and `/api/wiki/events` logging. |
@@ -100,6 +110,66 @@ while collecting user ids.
 - Install command: `pnpm install`
 - Health check: `/api/health`
 
+## Scheduled Content Updates
+
+`vercel.json` wires two production cron entries to `/api/cron/wiki-update`.
+Vercel Cron invokes the route with `GET` and includes the
+`x-vercel-cron-schedule` header, so the shared route can infer which schedule
+triggered it:
+
+| Schedule | Mode | Work |
+| --- | --- | --- |
+| `0 8 * * 1` | `weekly` | Refresh curated source context, run optional configured source discovery, enqueue stale AI-authored pages, process due queue items, and revalidate changed public pages. |
+| `0 9 * * *` | `events` | Discover game events in the next `7` days, enqueue targeted refreshes for event dates, process due queue items, and revalidate changed public pages. |
+
+All cron routes also accept `POST` with explicit JSON payloads for local
+verification. For Vercel scheduled invocations, set `CRON_SECRET`; Vercel sends
+it as the bearer token automatically. Manual calls can use `WIKI_CRON_SECRET`,
+but if both env vars are set they should have the same value because the route
+checks `WIKI_CRON_SECRET` first. If neither secret is set, cron routes are open
+only outside production for local development.
+
+The standalone routes remain useful for narrow operations:
+
+| Route | Purpose |
+| --- | --- |
+| `/api/cron/wiki-source-ingestion` | Fetch curated registry sources and upsert source context before generation. |
+| `/api/cron/wiki-source-discovery` | Discover or explicitly submit bounded source candidates for one tenant/topic. |
+| `/api/cron/ai-refresh/weekly` | Queue stale AI-authored pages. This route scopes by `tenantId`, not `tenantSlug`. |
+| `/api/cron/ai-refresh/events` | Queue refreshes for upcoming events in the next `windowDays`, defaulting to `7`. |
+| `/api/cron/ai-refresh/process` | Claim due queue items, generate canonical AI revisions, and revalidate affected wiki paths. |
+
+Cost guardrails:
+
+- No minute-level or hourly polling. The default production cadence is one daily
+  event/due-queue sweep plus one weekly maintenance run.
+- Queueing does not call the AI model. AI cost is concentrated in the process
+  step, capped to `1` item per aggregate run by default.
+- Weekly queue items dedupe by tenant, page slug, and UTC week. Event queue
+  items dedupe by tenant, target slug, event date, and event key.
+- Weekly refresh only considers published pages whose latest revision has AI
+  provenance and is older than `staleAfterDays`.
+- Source discovery is bounded to `3` candidates in the aggregate route and `5`
+  at the module level. Explicit candidate payloads with `summary` or
+  `contextText` avoid fetching candidate URLs during local checks.
+- Leave `WIKI_SCHEDULED_SOURCE_DISCOVERY_TOPICS` unset until the provider and
+  fetch costs are acceptable. Curated source ingestion already runs before
+  weekly generation work.
+
+Recommended production settings:
+
+```bash
+CRON_SECRET=<random 16+ character value>
+WIKI_WEEKLY_REFRESH_LIMIT=3
+WIKI_PROCESS_REFRESH_LIMIT=1
+WIKI_REFRESH_STALE_AFTER_DAYS=7
+WIKI_EVENT_REFRESH_TARGETS=factions:Factions,weapons:Weapons,gameplay:Gameplay
+```
+
+Add `WIKI_EVENT_DISCOVERY_ENDPOINT` only after the provider is ready. Add
+`WIKI_SCHEDULED_SOURCE_DISCOVERY_TOPICS` only for narrow launch topics such as
+`factions` or `weapons`.
+
 ## Testing
 
 - Run automated tests: `pnpm test`
@@ -124,6 +194,161 @@ set -a; source .env.local; set +a; pnpm exec next start -p 3101
 ```
 
 Then verify `http://127.0.0.1:3101/marathon`.
+
+### Local scheduled update verification
+
+For cron verification, start the app with a migrated database and a local cron
+secret:
+
+```bash
+set -a; source .env.local; set +a
+export WIKI_CRON_SECRET=local-cron-secret
+pnpm exec next start -p 3101
+```
+
+In another shell:
+
+```bash
+export BASE_URL=http://127.0.0.1:3101
+export WIKI_CRON_SECRET=local-cron-secret
+```
+
+Bounded source discovery without external provider calls:
+
+```bash
+curl -sS -X POST "$BASE_URL/api/cron/wiki-source-discovery" \
+  -H "authorization: Bearer $WIKI_CRON_SECRET" \
+  -H "content-type: application/json" \
+  --data '{
+    "tenantSlug": "marathon",
+    "topicSlug": "factions",
+    "query": "Marathon factions verification",
+    "limit": 1,
+    "candidates": [
+      {
+        "title": "Manual Marathon factions source",
+        "url": "https://example.com/marathon/factions",
+        "publisher": "Manual verification",
+        "summary": "Arachne, Cyberacme, Nucaloric, Sekiguchi, Traxus, and MIDA are tracked as Marathon factions.",
+        "authorityTier": "community_wiki",
+        "authorityScore": 60
+      }
+    ]
+  }'
+```
+
+Curated source ingestion for one topic. This fetches the configured curated
+source URLs:
+
+```bash
+curl -sS -X POST "$BASE_URL/api/cron/wiki-source-ingestion" \
+  -H "authorization: Bearer $WIKI_CRON_SECRET" \
+  -H "content-type: application/json" \
+  --data '{
+    "tenantSlug": "marathon",
+    "topicSlug": "factions",
+    "sourceIds": ["marathon-factions-pcgamer-guide"]
+  }'
+```
+
+Weekly stale-page queueing. This enqueues only; it does not generate content:
+
+```bash
+curl -sS -X POST "$BASE_URL/api/cron/ai-refresh/weekly" \
+  -H "authorization: Bearer $WIKI_CRON_SECRET" \
+  -H "content-type: application/json" \
+  --data '{
+    "tenantId": "tenant_marathon",
+    "staleAfterDays": 7,
+    "limit": 1
+  }'
+```
+
+Event discovery for the next seven days with an inline event payload:
+
+```bash
+curl -sS -X POST "$BASE_URL/api/cron/ai-refresh/events" \
+  -H "authorization: Bearer $WIKI_CRON_SECRET" \
+  -H "content-type: application/json" \
+  --data '{
+    "tenantId": "tenant_marathon",
+    "windowDays": 7,
+    "events": [
+      {
+        "title": "Manual Marathon Patch Day",
+        "eventDate": "2026-07-08T15:00:00.000Z",
+        "eventKey": "manual-marathon-patch-day",
+        "summary": "Manual verification event for the scheduled update queue.",
+        "targets": [
+          {
+            "targetSlug": "factions",
+            "pageTitle": "Factions"
+          }
+        ]
+      }
+    ]
+  }'
+```
+
+Process one due queue item. This can call AI Gateway and publish a canonical
+revision if a due item exists:
+
+```bash
+curl -sS -X POST "$BASE_URL/api/cron/ai-refresh/process" \
+  -H "authorization: Bearer $WIKI_CRON_SECRET" \
+  -H "content-type: application/json" \
+  --data '{ "limit": 1 }'
+```
+
+Full aggregate loop with explicit low limits. Use this only when you are ready
+to let the route process one due item:
+
+```bash
+curl -sS -X POST "$BASE_URL/api/cron/wiki-update" \
+  -H "authorization: Bearer $WIKI_CRON_SECRET" \
+  -H "content-type: application/json" \
+  --data '{
+    "mode": "maintenance",
+    "tenantId": "tenant_marathon",
+    "tenantSlug": "marathon",
+    "topicSlug": "factions",
+    "sourceIngestion": false,
+    "weeklyLimit": 1,
+    "processLimit": 1,
+    "staleAfterDays": 7,
+    "windowDays": 7,
+    "sourceDiscoveries": [
+      {
+        "tenantSlug": "marathon",
+        "topicSlug": "factions",
+        "limit": 1,
+        "candidates": [
+          {
+            "title": "Manual aggregate factions source",
+            "url": "https://example.com/marathon/aggregate-factions",
+            "summary": "Manual source context for local aggregate verification."
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "title": "Manual Aggregate Event",
+        "eventDate": "2026-07-08T15:00:00.000Z",
+        "targets": [
+          {
+            "targetSlug": "factions",
+            "pageTitle": "Factions"
+          }
+        ]
+      }
+    ]
+  }'
+```
+
+For deterministic local event processing, add a `now` ISO timestamp to the
+payload and use the same value as the event's `eventDate`. Production cron calls
+omit `now` and use the real invocation time.
 
 ## Database workflow
 

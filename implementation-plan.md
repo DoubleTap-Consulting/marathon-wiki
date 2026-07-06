@@ -47,6 +47,10 @@ showing last update time, update provenance, and community-note context.
   retrieval, and generation metadata
 - Data flow: Sources + existing page + community notes → AI synthesis → canonical
   page revision → public page + `last updated` indicator
+- Scheduled update flow: weekly stale-page queueing plus daily event discovery
+  feed the same bounded refresh queue; curated source ingestion and optional
+  source discovery run before generation so refreshed pages can pick up new
+  source context without editor-triggered regeneration.
 - Human flow: Community note/source submission → moderation → AI refresh context
   → canonical page revision when incorporated
 
@@ -64,6 +68,35 @@ showing last update time, update provenance, and community-note context.
   failures should block only new refresh jobs, not existing public content.
 - Support model-agnostic routing through Vercel AI Gateway while allowing a
   Grok/xAI model to be selected when available.
+- Keep scheduled updates low-cost through per-run limits, queue dedupe keys,
+  stale-page eligibility checks, explicit event targets, and bounded source
+  discovery.
+
+## Phase 14 Scheduled Update Loop
+
+The scheduled update system should keep canonical pages fresh without turning
+launch into a high-frequency crawler or model-spend loop.
+
+- `vercel.json` schedules `/api/cron/wiki-update` for a weekly maintenance run
+  at `0 8 * * 1` UTC and a daily event/due-queue sweep at `0 9 * * *` UTC.
+- The aggregate route uses Vercel's `x-vercel-cron-schedule` header to infer
+  `weekly` or `events` mode. Manual local checks can pass `mode` explicitly.
+- Weekly maintenance runs curated source ingestion first, then optional
+  configured source discovery, then stale-page queueing, then due queue
+  processing. This keeps source context ahead of generation.
+- Event discovery looks ahead `7` days and schedules targeted refreshes for the
+  event date. Events can come from a provider endpoint or explicit local
+  payloads.
+- Queue processing is the only default step that can call AI Gateway. The
+  aggregate route defaults to `WIKI_PROCESS_REFRESH_LIMIT=1`; weekly enqueueing
+  defaults to `WIKI_WEEKLY_REFRESH_LIMIT=3`; source discovery defaults to `3`
+  candidates and is hard-capped at `5`.
+- The queue is reconciliation-oriented: weekly items dedupe by UTC week, event
+  items dedupe by event key/date/target, and duplicate cron delivery should be
+  harmless.
+- Local verification should use explicit POST payloads documented in
+  `README.md` so source discovery, source ingestion, queueing, event discovery,
+  and due processing can be checked independently.
 
 ## Community Notes
 
@@ -85,13 +118,12 @@ marathon-wiki/
 ```
 
 ## Next Steps
-- Replace the current editor-only AI draft workflow with AI canonical page
-  generation and refresh jobs.
-- Add Marathon-specific source ingestion and retrieval so pages are generated
-  from source-backed context rather than generic model knowledge.
-- Add community notes as the human contribution surface.
-- Add article UI for `Last AI update`, AI provenance, community notes, and
-  source references.
-- Bulk-generate a useful starter Marathon corpus before launch.
+- Expand the starter Marathon corpus beyond the currently generated pages.
+- Add a configured low-cost event/source discovery provider when provider cost
+  and quality are acceptable.
+- Improve claim verification from heuristic support matching toward stronger
+  source-aware contradiction handling.
+- Continue tuning public provenance so readers can inspect why AI-authored
+  content is trusted without turning articles into process logs.
 
 Goal: 30k+ pageviews with clean, scalable UX.
