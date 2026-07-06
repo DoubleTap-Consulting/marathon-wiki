@@ -4,6 +4,7 @@ import { sql, type Kysely, type Transaction } from "kysely";
 
 import { getDb } from "./client";
 import type { DB } from "./types";
+import type { WikiSourceMetadata } from "@/src/sources/wiki-source-ingestion";
 import { normalizeWikiSlug } from "@/src/wiki/tenant-routing";
 
 export const MARATHON_TENANT_SLUG = "marathon";
@@ -55,6 +56,8 @@ export type WikiSourceReference = {
   publisher: string | null;
   contextText: string | null;
   topicSlugs: string[];
+  retrievedAt: Date | null;
+  metadata: WikiSourceMetadata | null;
 };
 
 export type WikiPageDetail = WikiPageSummary & {
@@ -74,6 +77,8 @@ export type WikiPageDetail = WikiPageSummary & {
     url: string | null;
     publisher: string | null;
     sourceKey: string | null;
+    retrievedAt: Date | null;
+    metadata: WikiSourceMetadata | null;
   }>;
 };
 
@@ -141,6 +146,8 @@ export type WikiPageRevisionAiProvenance = {
     title: string;
     url: string | null;
     publisher: string | null;
+    authorityTier?: string | null;
+    authorityScore?: number | null;
   }>;
   refreshReason: string;
   requestedBy: string;
@@ -431,6 +438,8 @@ export async function getPublishedWikiPageBySlug(
       "url",
       "publisher",
       "source_key as sourceKey",
+      "retrieved_at as retrievedAt",
+      "metadata",
     ])
     .where("tenant_id", "=", tenantId)
     .where("page_id", "=", page.id)
@@ -455,7 +464,10 @@ export async function getPublishedWikiPageBySlug(
       : null,
     categories,
     tags,
-    sources,
+    sources: sources.map((source) => ({
+      ...source,
+      metadata: normalizeWikiSourceMetadata(source.metadata),
+    })),
   };
 }
 
@@ -601,9 +613,17 @@ export async function listWikiSourceContextForTopic(
       "source.publisher as publisher",
       "source.context_text as contextText",
       "source.topic_slugs as topicSlugs",
+      "source.retrieved_at as retrievedAt",
+      "source.metadata as metadata",
     ])
     .where("source.tenant_id", "=", input.tenantId)
     .where("source.context_text", "is not", null)
+    .where((eb) =>
+      eb.or([
+        eb("source.metadata", "is", null),
+        sql<boolean>`coalesce(${sql.ref("source.metadata")}->>'origin', '') <> 'canonical_generation_context'`,
+      ]),
+    )
     .where((eb) =>
       eb.or([
         eb("source.source_key", "=", targetSlug),
@@ -619,6 +639,10 @@ export async function listWikiSourceContextForTopic(
       end`,
       "asc",
     )
+    .orderBy(
+      sql<number>`coalesce((${sql.ref("source.metadata")}->>'authorityScore')::integer, 0)`,
+      "desc",
+    )
     .orderBy("source.title", "asc")
     .limit(input.limit ?? 6)
     .execute();
@@ -626,6 +650,7 @@ export async function listWikiSourceContextForTopic(
   return sources.map((source) => ({
     ...source,
     topicSlugs: source.topicSlugs ?? [],
+    metadata: normalizeWikiSourceMetadata(source.metadata),
   }));
 }
 
@@ -1073,7 +1098,9 @@ async function saveWikiPageWithRevisionInTransaction(
           publisher: source.publisher,
           context_text: source.contextText,
           topic_slugs: source.topicSlugs,
+          retrieved_at: source.retrievedAt,
           metadata: {
+            ...copyWikiSourceMetadata(source.metadata),
             copiedFromSourceId: source.id,
             copiedForRevisionId: revisionId,
             origin: "canonical_generation_context",
@@ -1141,4 +1168,20 @@ function normalizeRevisionAiProvenance(
   }
 
   return value as WikiPageRevisionAiProvenance;
+}
+
+function normalizeWikiSourceMetadata(value: unknown): WikiSourceMetadata | null {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return null;
+  }
+
+  return value as WikiSourceMetadata;
+}
+
+function copyWikiSourceMetadata(value: WikiSourceMetadata | null) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return {};
+  }
+
+  return value;
 }

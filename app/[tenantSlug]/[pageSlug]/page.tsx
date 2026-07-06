@@ -182,7 +182,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                     )}
                     {source.publisher || source.sourceKey ? (
                       <span className="block text-xs leading-5 text-muted-foreground">
-                        {[source.publisher, source.sourceKey]
+                        {[
+                          source.publisher,
+                          formatSourceType(source.sourceType),
+                          formatAuthority(source.metadata),
+                          source.sourceKey,
+                        ]
                           .filter(Boolean)
                           .join(" · ")}
                       </span>
@@ -247,4 +252,36 @@ function formatDate(value: Date | string | null) {
     day: "numeric",
     year: "numeric",
   }).format(date);
+}
+
+function formatSourceType(value: string) {
+  return value
+    .split("_")
+    .filter(Boolean)
+    .map((part) => `${part[0]?.toUpperCase() ?? ""}${part.slice(1)}`)
+    .join(" ");
+}
+
+function formatAuthority(metadata: unknown) {
+  if (!metadata || typeof metadata !== "object" || Array.isArray(metadata)) {
+    return null;
+  }
+
+  const authorityTier = (metadata as { authorityTier?: unknown }).authorityTier;
+  const authorityScore = (metadata as { authorityScore?: unknown })
+    .authorityScore;
+
+  if (typeof authorityTier !== "string" || !authorityTier.trim()) {
+    return null;
+  }
+
+  const label = authorityTier
+    .split("_")
+    .filter(Boolean)
+    .map((part) => `${part[0]?.toUpperCase() ?? ""}${part.slice(1)}`)
+    .join(" ");
+
+  return typeof authorityScore === "number"
+    ? `${label} ${authorityScore}/100`
+    : label;
 }

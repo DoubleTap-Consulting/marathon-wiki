@@ -146,6 +146,8 @@ function buildCanonicalAiProvenance(
       title: source.title,
       url: source.url,
       publisher: source.publisher,
+      authorityTier: source.metadata?.authorityTier ?? null,
+      authorityScore: source.metadata?.authorityScore ?? null,
     })),
     refreshReason,
     requestedBy,
@@ -167,6 +169,17 @@ function buildCanonicalSourceContext(
             [
               `[${index + 1}] ${source.title}`,
               source.publisher ? `Publisher: ${source.publisher}` : null,
+              `Source type: ${source.sourceType}`,
+              source.metadata?.authorityTier
+                ? `Authority: ${source.metadata.authorityTier}${
+                    typeof source.metadata.authorityScore === "number"
+                      ? ` (${source.metadata.authorityScore}/100)`
+                      : ""
+                  }`
+                : null,
+              source.retrievedAt
+                ? `Retrieved: ${source.retrievedAt.toISOString()}`
+                : null,
               source.url ? `URL: ${source.url}` : null,
               source.contextText
                 ? `Context: ${truncateContext(source.contextText)}`
