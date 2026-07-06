@@ -15,8 +15,12 @@ import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
 
 import { ClerkSignInControl, ClerkUserControl } from "../_components/auth-controls";
 import { EmptyState, WikiChrome } from "../_components/wiki-chrome";
+import { AiCanonicalForm } from "./_components/ai-canonical-form";
 import { AiDraftForm } from "./_components/ai-draft-form";
-import { generateAiWikiSuggestionAction } from "./ai-actions";
+import {
+  generateAiCanonicalPageAction,
+  generateAiWikiSuggestionAction,
+} from "./ai-actions";
 import { reviewWikiSuggestionAction } from "./actions";
 
 export const dynamic = "force-dynamic";
@@ -61,18 +65,19 @@ export default async function ReviewPage({ params }: ReviewPageProps) {
 
   return (
     <WikiChrome tenant={snapshot.tenant} categories={snapshot.categories}>
-      <section className="space-y-6">
+      <section className="min-w-0 space-y-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-          <div className="space-y-3">
+          <div className="min-w-0 space-y-3">
             <p className="text-sm font-medium uppercase tracking-normal text-muted-foreground">
               Editorial workflow
             </p>
-            <h1 className="text-4xl font-semibold leading-tight text-foreground">
-              Review suggestions
+            <h1 className="break-words text-4xl font-semibold leading-tight text-foreground">
+              Review and generate
             </h1>
-            <p className="max-w-3xl text-base leading-8 text-muted-foreground">
-              Approve suggestions to publish a durable page revision. Rejecting
-              or requesting changes leaves public wiki content untouched.
+            <p className="max-w-full text-base leading-8 text-muted-foreground sm:max-w-3xl">
+              Generate canonical AI revisions or approve suggestions into the
+              durable page history. Failed generation attempts leave public wiki
+              content untouched.
             </p>
           </div>
           {authMode === "clerk" && actor ? <ClerkUserControl /> : null}
@@ -92,6 +97,12 @@ export default async function ReviewPage({ params }: ReviewPageProps) {
           </section>
         ) : (
           <div className="space-y-6">
+            <AiCanonicalForm
+              action={generateAiCanonicalPageAction.bind(
+                null,
+                snapshot.tenant.slug,
+              )}
+            />
             <AiDraftForm
               action={generateAiWikiSuggestionAction.bind(
                 null,

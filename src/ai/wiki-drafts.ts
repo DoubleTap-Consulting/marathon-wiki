@@ -32,7 +32,7 @@ export async function createAiAssistedWikiSuggestion(
     db?: Kysely<DB>;
     generateDraft?: AiDraftGenerator;
     generate?: GatewayGenerateText;
-    env?: NodeJS.ProcessEnv;
+    env?: Partial<NodeJS.ProcessEnv>;
   } = {},
 ): Promise<WikiSuggestionSummary> {
   const db = options.db ?? getDb();

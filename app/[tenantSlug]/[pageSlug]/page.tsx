@@ -60,13 +60,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     );
   }
 
+  const aiProvenance = snapshot.page.latestRevision?.aiProvenance ?? null;
+
   return (
     <WikiChrome tenant={snapshot.tenant} categories={snapshot.categories}>
-      <article className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
-        <div
-          className="min-w-0 w-[calc(100vw-4rem)] max-w-[calc(100vw-4rem)] rounded-lg border bg-card p-5 text-card-foreground sm:w-full sm:max-w-full sm:p-8"
-          style={{ width: "calc(100vw - 4rem)", maxWidth: "100%" }}
-        >
+      <article className="grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
+        <div className="min-w-0 rounded-lg border bg-card p-5 text-card-foreground sm:p-8">
           <div className="border-b pb-6">
             <div className="flex flex-wrap gap-2">
               {snapshot.page.categories.map((category) => (
@@ -79,6 +78,16 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 </a>
               ))}
             </div>
+            {aiProvenance ? (
+              <div className="mt-4 flex flex-wrap gap-2">
+                <span className="inline-flex min-h-8 items-center rounded-md border border-primary/30 bg-primary/10 px-2.5 text-xs font-medium text-foreground">
+                  AI-generated canonical content
+                </span>
+                <span className="inline-flex min-h-8 items-center rounded-md border bg-background px-2.5 text-xs font-medium text-muted-foreground">
+                  Last AI update {formatDate(aiProvenance.generatedAt)}
+                </span>
+              </div>
+            ) : null}
             <h1 className="mt-4 text-4xl font-semibold leading-tight text-foreground sm:text-5xl">
               {snapshot.page.title}
             </h1>
@@ -94,7 +103,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           </div>
         </div>
 
-        <aside className="space-y-4">
+        <aside className="min-w-0 space-y-4">
           <section className="rounded-lg border bg-card p-5 text-card-foreground">
             <h2 className="text-lg font-semibold leading-7">Page details</h2>
             <dl className="mt-4 space-y-3 text-sm leading-6">
@@ -104,6 +113,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 value={snapshot.page.latestRevisionNumber.toString()}
               />
               <Detail label="Updated" value={formatDate(snapshot.page.updatedAt)} />
+              <Detail
+                label="AI update"
+                value={
+                  aiProvenance ? formatDate(aiProvenance.generatedAt) : "Not AI-generated"
+                }
+              />
             </dl>
             <a
               href={`/${snapshot.tenant.slug}/suggest/${snapshot.page.slug}`}
@@ -115,6 +130,31 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             >
               Suggest an edit
             </a>
+          </section>
+
+          <section className="rounded-lg border bg-card p-5 text-card-foreground">
+            <h2 className="text-lg font-semibold leading-7">AI provenance</h2>
+            {aiProvenance ? (
+              <div className="mt-4 space-y-4">
+                <dl className="space-y-3 text-sm leading-6">
+                  <Detail label="Model" value={aiProvenance.modelId} />
+                  <Detail label="Prompt" value={aiProvenance.promptVersion} />
+                  <Detail label="Reason" value={aiProvenance.refreshReason} />
+                </dl>
+                <div className="rounded-md border bg-background p-3">
+                  <h3 className="text-sm font-semibold leading-6">
+                    Source context
+                  </h3>
+                  <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                    {aiProvenance.sourceContextSummary}
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                This revision does not have AI provenance yet.
+              </p>
+            )}
           </section>
 
           <WikiPremiumHook
@@ -140,9 +180,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                         {source.title}
                       </span>
                     )}
-                    {source.publisher ? (
+                    {source.publisher || source.sourceKey ? (
                       <span className="block text-xs leading-5 text-muted-foreground">
-                        {source.publisher}
+                        {[source.publisher, source.sourceKey]
+                          .filter(Boolean)
+                          .join(" · ")}
                       </span>
                     ) : null}
                   </li>

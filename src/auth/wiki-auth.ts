@@ -4,7 +4,7 @@ export type WikiActor = {
   id: string;
   email: string | null;
   name: string | null;
-  provider: "clerk" | "dev";
+  provider: "clerk" | "dev" | "system";
 };
 
 export type WikiAuthMode = "clerk" | "dev" | "unconfigured";

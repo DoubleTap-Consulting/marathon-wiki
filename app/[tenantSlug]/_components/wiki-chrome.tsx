@@ -39,12 +39,11 @@ export function WikiChrome({
 
             <form
               action={`/${tenant.slug}/pages`}
-              className="grid w-[calc(100vw-4rem)] max-w-[calc(100vw-4rem)] gap-2 sm:flex sm:min-h-11 sm:w-full sm:max-w-md"
+              className="grid w-full min-w-0 gap-2 sm:flex sm:min-h-11 sm:max-w-md"
               role="search"
               data-wiki-event="search_submit"
               data-wiki-event-label="site-header"
               data-wiki-tenant={tenant.slug}
-              style={{ width: "calc(100vw - 4rem)", maxWidth: "28rem" }}
             >
               <label htmlFor="wiki-search" className="sr-only">
                 Search wiki pages
@@ -72,9 +71,8 @@ export function WikiChrome({
           </div>
 
           <nav
-            className="flex w-[calc(100vw-4rem)] max-w-[calc(100vw-4rem)] flex-wrap gap-2 sm:w-full sm:max-w-full"
+            className="flex w-full min-w-0 flex-wrap gap-2"
             aria-label="Wiki sections"
-            style={{ width: "calc(100vw - 4rem)", maxWidth: "100%" }}
           >
             <NavPill href={`/${tenant.slug}`}>Home</NavPill>
             <NavPill href={`/${tenant.slug}/pages`}>All pages</NavPill>
@@ -99,9 +97,7 @@ export function WikiChrome({
         </div>
       </header>
 
-      <div
-        className="mx-auto w-full max-w-6xl overflow-hidden px-5 py-8 sm:px-6 lg:px-8"
-      >
+      <div className="mx-auto w-full max-w-6xl px-5 py-8 sm:px-6 lg:px-8">
         {children}
       </div>
     </main>

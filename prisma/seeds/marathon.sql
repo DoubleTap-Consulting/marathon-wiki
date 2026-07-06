@@ -292,6 +292,90 @@ ON CONFLICT ("id") DO UPDATE SET
   "metadata" = EXCLUDED."metadata",
   "updated_at" = CURRENT_TIMESTAMP;
 
+INSERT INTO "wiki_sources" (
+  "id",
+  "tenant_id",
+  "page_id",
+  "revision_id",
+  "source_key",
+  "source_type",
+  "title",
+  "url",
+  "publisher",
+  "context_text",
+  "topic_slugs",
+  "metadata"
+)
+VALUES
+  (
+    'source_context_marathon_game_model',
+    'tenant_marathon',
+    NULL,
+    NULL,
+    'marathon-game-model',
+    'seed_context',
+    'Marathon game model seed context',
+    'https://www.marathonthegame.com/',
+    'Marathon Wiki seed corpus',
+    'Marathon is tracked here as Bungie''s sci-fi extraction shooter. Canonical pages should emphasize confirmed player-facing systems, uncertainty around unreleased details, and patch-sensitive information that can be refreshed later.',
+    ARRAY['overview', 'gameplay', 'weapons', 'factions', 'locations']::text[],
+    '{"seed":"phase-8","purpose":"canonical_generation_context"}'::jsonb
+  ),
+  (
+    'source_context_overrun_ar',
+    'tenant_marathon',
+    NULL,
+    NULL,
+    'overrun-ar',
+    'seed_context',
+    'Overrun AR seed context',
+    NULL,
+    'Marathon Wiki seed corpus',
+    'Overrun AR is a Marathon equipment topic intended to become a dedicated weapon article. Treat it as an automatic-rifle style page only where the source context supports that framing. Useful canonical sections include overview, role, known attributes, source status, and what remains unconfirmed.',
+    ARRAY['overrun-ar', 'weapons', 'equipment']::text[],
+    '{"seed":"phase-8","purpose":"canonical_generation_context"}'::jsonb
+  ),
+  (
+    'source_context_weapon_page_shape',
+    'tenant_marathon',
+    NULL,
+    NULL,
+    'weapon-page-shape',
+    'seed_context',
+    'Weapon page shape seed context',
+    NULL,
+    'Marathon Wiki seed corpus',
+    'Weapon articles should separate confirmed facts from unknowns. Prefer concise sections for role, handling or archetype, acquisition or availability, related systems, and update notes. Avoid invented damage numbers, perk names, rarity, unlock methods, or patch claims unless the source context includes them.',
+    ARRAY['overrun-ar', 'weapons', 'equipment']::text[],
+    '{"seed":"phase-8","purpose":"canonical_generation_context"}'::jsonb
+  ),
+  (
+    'source_context_factions_locations',
+    'tenant_marathon',
+    NULL,
+    NULL,
+    'factions-locations-page-shape',
+    'seed_context',
+    'Factions and locations seed context',
+    NULL,
+    'Marathon Wiki seed corpus',
+    'Faction and location pages should describe confirmed names, role in the setting, gameplay relevance, and source status. Keep speculation explicit and short so later AI refreshes can replace it with stronger sourced details.',
+    ARRAY['factions', 'locations', 'lore']::text[],
+    '{"seed":"phase-8","purpose":"canonical_generation_context"}'::jsonb
+  )
+ON CONFLICT ("id") DO UPDATE SET
+  "page_id" = EXCLUDED."page_id",
+  "revision_id" = EXCLUDED."revision_id",
+  "source_key" = EXCLUDED."source_key",
+  "source_type" = EXCLUDED."source_type",
+  "title" = EXCLUDED."title",
+  "url" = EXCLUDED."url",
+  "publisher" = EXCLUDED."publisher",
+  "context_text" = EXCLUDED."context_text",
+  "topic_slugs" = EXCLUDED."topic_slugs",
+  "metadata" = EXCLUDED."metadata",
+  "updated_at" = CURRENT_TIMESTAMP;
+
 INSERT INTO "wiki_page_categories" ("tenant_id", "page_id", "category_id")
 VALUES
   ('tenant_marathon', 'page_marathon_overview', 'category_overview'),

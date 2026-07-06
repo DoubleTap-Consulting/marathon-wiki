@@ -3,16 +3,16 @@
 import { useActionState, useRef } from "react";
 import { useFormStatus } from "react-dom";
 
-import type { AiDraftFormState } from "../ai-actions";
+import type { AiCanonicalFormState } from "../ai-actions";
 
-type AiDraftFormProps = {
+type AiCanonicalFormProps = {
   action: (
-    state: AiDraftFormState,
+    state: AiCanonicalFormState,
     formData: FormData,
-  ) => Promise<AiDraftFormState>;
+  ) => Promise<AiCanonicalFormState>;
 };
 
-export function AiDraftForm({ action }: AiDraftFormProps) {
+export function AiCanonicalForm({ action }: AiCanonicalFormProps) {
   const formRef = useRef<HTMLFormElement>(null);
   const [state, formAction] = useActionState(action, {
     ok: false,
@@ -23,14 +23,14 @@ export function AiDraftForm({ action }: AiDraftFormProps) {
     <section className="min-w-0 overflow-hidden rounded-lg border bg-card p-5 text-card-foreground sm:p-6">
       <div className="min-w-0 space-y-2">
         <p className="text-sm font-medium uppercase tracking-normal text-muted-foreground">
-          AI assistance
+          AI canonical content
         </p>
         <h2 className="break-words text-2xl font-semibold leading-8">
-          Generate a draft suggestion
+          Generate a published revision
         </h2>
         <p className="max-w-full text-base leading-7 text-muted-foreground sm:max-w-3xl">
-          Ask AI Gateway for a starting draft. The result is saved as a pending
-          suggestion and still requires editorial approval before publication.
+          Create or refresh the public article body. The new revision is saved
+          with model, prompt version, response, context, and refresh metadata.
         </p>
       </div>
 
@@ -61,51 +61,73 @@ export function AiDraftForm({ action }: AiDraftFormProps) {
               aria-live="polite"
             >
               {state.message}
+              {state.ok && state.pageSlug ? (
+                <a
+                  href={`../${state.pageSlug}`}
+                  className="ml-2 font-medium underline decoration-border underline-offset-4"
+                >
+                  View page
+                </a>
+              ) : null}
             </div>
           ) : null}
 
           <div className="grid min-w-0 gap-2">
-            <label htmlFor="ai-page-title" className="text-sm font-medium">
+            <label htmlFor="ai-canonical-title" className="text-sm font-medium">
               Page title or topic
             </label>
             <input
-              id="ai-page-title"
+              id="ai-canonical-title"
               name="pageTitle"
               type="text"
               required
               minLength={3}
-              placeholder="Overrun AR"
+              placeholder="Mjolnir Recon 54"
               className="min-h-11 w-full min-w-0 rounded-md border border-input bg-background px-3 text-base text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
           </div>
 
           <div className="grid min-w-0 gap-2">
-            <label htmlFor="ai-target-slug" className="text-sm font-medium">
+            <label htmlFor="ai-canonical-slug" className="text-sm font-medium">
               Target slug
             </label>
             <input
-              id="ai-target-slug"
+              id="ai-canonical-slug"
               name="targetSlug"
               type="text"
               required
-              placeholder="overrun-ar"
+              placeholder="mjolnir-recon-54"
               autoComplete="off"
               spellCheck="false"
+              className="min-h-11 w-full min-w-0 rounded-md border border-input bg-background px-3 text-base text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            />
+          </div>
+
+          <div className="grid min-w-0 gap-2">
+            <label htmlFor="ai-refresh-reason" className="text-sm font-medium">
+              Refresh reason
+            </label>
+            <input
+              id="ai-refresh-reason"
+              name="refreshReason"
+              type="text"
+              placeholder="manual_refresh"
+              autoComplete="off"
               className="min-h-11 w-full min-w-0 rounded-md border border-input bg-background px-3 text-base text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
           </div>
         </div>
 
         <div className="grid min-w-0 gap-3">
-          <label htmlFor="ai-source-notes" className="text-sm font-medium">
+          <label htmlFor="ai-source-context" className="text-sm font-medium">
             Source or context notes
           </label>
           <textarea
-            id="ai-source-notes"
-            name="sourceNotes"
-            rows={7}
-            placeholder="Official weapon notes, screenshots, or constraints editors should verify."
-            className="min-h-40 w-full min-w-0 resize-y rounded-md border border-input bg-background px-3 py-2 text-base leading-7 text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            id="ai-source-context"
+            name="sourceContext"
+            rows={9}
+            placeholder="Official source excerpts, editor constraints, or details that should guide this canonical revision."
+            className="min-h-52 w-full min-w-0 resize-y rounded-md border border-input bg-background px-3 py-2 text-base leading-7 text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
           />
           <SubmitButton />
         </div>
@@ -123,7 +145,7 @@ function SubmitButton() {
       disabled={status.pending}
       className="inline-flex min-h-11 items-center justify-center rounded-md bg-primary px-4 text-base font-medium text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card disabled:cursor-not-allowed disabled:opacity-60"
     >
-      {status.pending ? "Generating..." : "Generate draft"}
+      {status.pending ? "Generating..." : "Generate canonical revision"}
     </button>
   );
 }

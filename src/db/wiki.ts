@@ -37,9 +37,30 @@ export type WikiPageSummary = {
   publishedAt: Date | null;
 };
 
+export type WikiPageRevisionSummary = {
+  id: string;
+  revisionNumber: number;
+  changeNote: string | null;
+  aiProvenance: WikiPageRevisionAiProvenance | null;
+  createdBy: string | null;
+  createdAt: Date;
+};
+
+export type WikiSourceReference = {
+  id: string;
+  sourceKey: string | null;
+  sourceType: string;
+  title: string;
+  url: string | null;
+  publisher: string | null;
+  contextText: string | null;
+  topicSlugs: string[];
+};
+
 export type WikiPageDetail = WikiPageSummary & {
   bodyMarkdown: string;
   latestRevisionNumber: number;
+  latestRevision: WikiPageRevisionSummary | null;
   categories: Array<Pick<WikiCategorySummary, "id" | "slug" | "name">>;
   tags: Array<{
     id: string;
@@ -52,6 +73,7 @@ export type WikiPageDetail = WikiPageSummary & {
     title: string;
     url: string | null;
     publisher: string | null;
+    sourceKey: string | null;
   }>;
 };
 
@@ -105,6 +127,26 @@ export type WikiSuggestionMetadata = {
   [key: string]: unknown;
 };
 
+export type WikiPageRevisionAiProvenance = {
+  provider: string;
+  modelId: string;
+  promptVersion: string;
+  generatedAt: string;
+  responseId: string | null;
+  sourceContextSummary: string;
+  sourceReferences?: Array<{
+    sourceId: string;
+    sourceKey: string | null;
+    sourceType: string;
+    title: string;
+    url: string | null;
+    publisher: string | null;
+  }>;
+  refreshReason: string;
+  requestedBy: string;
+  [key: string]: unknown;
+};
+
 export type WikiSuggestionSummary = {
   id: string;
   tenantId: string;
@@ -136,6 +178,8 @@ export type SaveWikiPageInput = {
   status?: "draft" | "published" | "archived";
   actorId?: string | null;
   changeNote?: string | null;
+  aiProvenance?: WikiPageRevisionAiProvenance | null;
+  sourceReferences?: WikiSourceReference[];
 };
 
 export type CreateWikiSuggestionInput = {
@@ -337,6 +381,21 @@ export async function getPublishedWikiPageBySlug(
     return null;
   }
 
+  const latestRevision = await db
+    .selectFrom("wiki_page_revisions")
+    .select([
+      "id",
+      "revision_number as revisionNumber",
+      "change_note as changeNote",
+      "ai_provenance as aiProvenance",
+      "created_by as createdBy",
+      "created_at as createdAt",
+    ])
+    .where("tenant_id", "=", tenantId)
+    .where("page_id", "=", page.id)
+    .where("revision_number", "=", page.latestRevisionNumber)
+    .executeTakeFirst();
+
   const categories = await db
     .selectFrom("wiki_page_categories as page_category")
     .innerJoin("wiki_categories as category", (join) =>
@@ -371,14 +430,29 @@ export async function getPublishedWikiPageBySlug(
       "title",
       "url",
       "publisher",
+      "source_key as sourceKey",
     ])
     .where("tenant_id", "=", tenantId)
     .where("page_id", "=", page.id)
+    .where((eb) =>
+      eb.or([
+        eb("revision_id", "is", null),
+        latestRevision ? eb("revision_id", "=", latestRevision.id) : eb("id", "=", ""),
+      ]),
+    )
     .orderBy("title", "asc")
     .execute();
 
   return {
     ...page,
+    latestRevision: latestRevision
+      ? {
+          ...latestRevision,
+          aiProvenance: normalizeRevisionAiProvenance(
+            latestRevision.aiProvenance,
+          ),
+        }
+      : null,
     categories,
     tags,
     sources,
@@ -413,6 +487,7 @@ export async function getWikiPageById(
 
   return {
     ...page,
+    latestRevision: null,
     categories: [],
     tags: [],
     sources: [],
@@ -496,6 +571,62 @@ export async function getWikiPageSnapshot(
     categories,
     page,
   };
+}
+
+export async function listWikiSourceContextForTopic(
+  input: {
+    tenantId: string;
+    targetSlug: string;
+    pageTitle: string;
+    limit?: number;
+  },
+  db: WikiDatabase = getDb(),
+): Promise<WikiSourceReference[]> {
+  const targetSlug = normalizeWikiSlug(input.targetSlug);
+
+  if (!targetSlug) {
+    return [];
+  }
+
+  const titlePattern = `%${input.pageTitle.trim().toLowerCase()}%`;
+
+  const sources = await db
+    .selectFrom("wiki_sources as source")
+    .select([
+      "source.id as id",
+      "source.source_key as sourceKey",
+      "source.source_type as sourceType",
+      "source.title as title",
+      "source.url as url",
+      "source.publisher as publisher",
+      "source.context_text as contextText",
+      "source.topic_slugs as topicSlugs",
+    ])
+    .where("source.tenant_id", "=", input.tenantId)
+    .where("source.context_text", "is not", null)
+    .where((eb) =>
+      eb.or([
+        eb("source.source_key", "=", targetSlug),
+        sql<boolean>`${targetSlug} = any(${sql.ref("source.topic_slugs")})`,
+        sql<boolean>`lower(${sql.ref("source.title")}) like ${titlePattern}`,
+      ]),
+    )
+    .orderBy(
+      sql<number>`case
+        when ${targetSlug} = any(${sql.ref("source.topic_slugs")}) then 0
+        when ${sql.ref("source.source_key")} = ${targetSlug} then 1
+        else 2
+      end`,
+      "asc",
+    )
+    .orderBy("source.title", "asc")
+    .limit(input.limit ?? 6)
+    .execute();
+
+  return sources.map((source) => ({
+    ...source,
+    topicSlugs: source.topicSlugs ?? [],
+  }));
 }
 
 export async function listWikiSitemapEntries(
@@ -908,10 +1039,12 @@ async function saveWikiPageWithRevisionInTransaction(
       .execute();
   }
 
+  const revisionId = createId("revision");
+
   await trx
     .insertInto("wiki_page_revisions")
     .values({
-      id: createId("revision"),
+      id: revisionId,
       tenant_id: input.tenantId,
       page_id: pageId,
       revision_number: revisionNumber,
@@ -919,9 +1052,36 @@ async function saveWikiPageWithRevisionInTransaction(
       summary,
       body_markdown: input.bodyMarkdown,
       change_note: input.changeNote ?? null,
+      ai_provenance: input.aiProvenance ?? null,
       created_by: actorId,
     })
     .execute();
+
+  if (input.sourceReferences?.length) {
+    await trx
+      .insertInto("wiki_sources")
+      .values(
+        input.sourceReferences.map((source) => ({
+          id: createId("source"),
+          tenant_id: input.tenantId,
+          page_id: pageId,
+          revision_id: revisionId,
+          source_key: source.sourceKey,
+          source_type: source.sourceType,
+          title: source.title,
+          url: source.url,
+          publisher: source.publisher,
+          context_text: source.contextText,
+          topic_slugs: source.topicSlugs,
+          metadata: {
+            copiedFromSourceId: source.id,
+            copiedForRevisionId: revisionId,
+            origin: "canonical_generation_context",
+          },
+        })),
+      )
+      .execute();
+  }
 
   const savedPage = await getPublishedWikiPageBySlug(
     input.tenantId,
@@ -952,6 +1112,7 @@ async function saveWikiPageWithRevisionInTransaction(
 
   return {
     ...draftPage,
+    latestRevision: null,
     categories: [],
     tags: [],
     sources: [],
@@ -970,4 +1131,14 @@ function normalizeSuggestionMetadata(
   }
 
   return value as WikiSuggestionMetadata;
+}
+
+function normalizeRevisionAiProvenance(
+  value: unknown,
+): WikiPageRevisionAiProvenance | null {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return null;
+  }
+
+  return value as WikiPageRevisionAiProvenance;
 }

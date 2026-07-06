@@ -55,6 +55,7 @@ model Tenant {
   pageCategories WikiPageCategory[]
   pageTags       WikiPageTag[]
   suggestions    WikiSuggestion[]
+  refreshQueue   AiRefreshQueueItem[]
 
   @@index([gameId])
   @@map("tenants")
@@ -81,6 +82,7 @@ model WikiPage {
   categories  WikiPageCategory[]
   tags        WikiPageTag[]
   suggestions WikiSuggestion[]
+  refreshQueue AiRefreshQueueItem[]
 
   @@unique([tenantId, slug])
   @@index([tenantId, status])
@@ -96,6 +98,7 @@ model WikiPageRevision {
   summary        String?
   bodyMarkdown   String   @map("body_markdown")
   changeNote     String?  @map("change_note")
+  aiProvenance   Json?    @map("ai_provenance")
   createdBy      String?  @map("created_by")
   createdAt      DateTime @default(now()) @map("created_at")
 
@@ -113,10 +116,13 @@ model WikiSource {
   tenantId    String    @map("tenant_id")
   pageId      String?   @map("page_id")
   revisionId  String?   @map("revision_id")
+  sourceKey   String?   @map("source_key")
   sourceType  String    @map("source_type")
   title       String
   url         String?
   publisher   String?
+  contextText String?   @map("context_text")
+  topicSlugs  String[]  @default([]) @map("topic_slugs")
   retrievedAt DateTime? @map("retrieved_at")
   metadata    Json?
   createdAt   DateTime  @default(now()) @map("created_at")
@@ -128,6 +134,8 @@ model WikiSource {
 
   @@index([tenantId, pageId])
   @@index([tenantId, revisionId])
+  @@index([tenantId, sourceKey])
+  @@index([tenantId, sourceType])
   @@map("wiki_sources")
 }
 
@@ -221,4 +229,33 @@ model WikiSuggestion {
   @@index([tenantId, pageId])
   @@index([tenantId, targetSlug])
   @@map("wiki_suggestions")
+}
+
+model AiRefreshQueueItem {
+  id            String    @id @default(cuid())
+  tenantId      String    @map("tenant_id")
+  pageId        String?   @map("page_id")
+  targetSlug    String    @map("target_slug")
+  pageTitle     String    @map("page_title")
+  reason        String
+  source        String
+  status        String    @default("queued")
+  scheduledFor  DateTime  @map("scheduled_for")
+  attempts      Int       @default(0)
+  dedupeKey     String    @unique @map("dedupe_key")
+  lastError     String?   @map("last_error")
+  errorMetadata Json?     @map("error_metadata")
+  metadata      Json?
+  processedAt   DateTime? @map("processed_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @default(now()) @updatedAt @map("updated_at")
+
+  tenant Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  page   WikiPage? @relation(fields: [pageId], references: [id], onDelete: SetNull)
+
+  @@index([status, scheduledFor])
+  @@index([tenantId, status, scheduledFor])
+  @@index([tenantId, targetSlug])
+  @@index([source, scheduledFor])
+  @@map("ai_refresh_queue_items")
 }

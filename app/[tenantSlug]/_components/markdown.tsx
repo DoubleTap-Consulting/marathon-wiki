@@ -13,7 +13,7 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
     <div className="space-y-6">
       {blocks.map((block, index) => {
         if (block.type === "heading") {
-          const Heading = block.level === 2 ? "h2" : "h3";
+          const Heading = block.level <= 2 ? "h2" : "h3";
 
           return (
             <Heading
@@ -54,7 +54,7 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
 type MarkdownBlock =
   | {
       type: "heading";
-      level: 2 | 3;
+      level: 1 | 2 | 3;
       text: string;
     }
   | {
@@ -101,6 +101,17 @@ function parseMarkdown(markdown: string): MarkdownBlock[] {
       continue;
     }
 
+    if (line.startsWith("### ")) {
+      flushParagraph();
+      flushList();
+      blocks.push({
+        type: "heading",
+        level: 3,
+        text: line.slice(4).trim(),
+      });
+      continue;
+    }
+
     if (line.startsWith("## ")) {
       flushParagraph();
       flushList();
@@ -112,13 +123,13 @@ function parseMarkdown(markdown: string): MarkdownBlock[] {
       continue;
     }
 
-    if (line.startsWith("### ")) {
+    if (line.startsWith("# ")) {
       flushParagraph();
       flushList();
       blocks.push({
         type: "heading",
-        level: 3,
-        text: line.slice(4).trim(),
+        level: 1,
+        text: line.slice(2).trim(),
       });
       continue;
     }
@@ -138,4 +149,3 @@ function parseMarkdown(markdown: string): MarkdownBlock[] {
 
   return blocks;
 }
-
