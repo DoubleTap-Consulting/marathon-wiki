@@ -173,6 +173,18 @@ export type WikiPageRevisionAiProvenance = {
     authorityTier?: string | null;
     authorityScore?: number | null;
   }>;
+  claimSupport?: Array<{
+    claimId: string;
+    claimText: string;
+    status: "supported" | "unsupported" | "contradicted";
+    supportScore: number;
+    matchedTerms: string[];
+    missingTerms: string[];
+    matchedSourceIds: string[];
+    matchedSourceKeys: Array<string | null>;
+    matchedSourceTitles: string[];
+    reason: string;
+  }>;
   refreshReason: string;
   requestedBy: string;
   [key: string]: unknown;

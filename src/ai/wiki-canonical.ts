@@ -5,6 +5,7 @@ import {
   type GatewayCanonicalPageResult,
   type GatewayGenerateText,
 } from "./gateway";
+import { verifyCanonicalClaims } from "./wiki-claim-verification";
 import type { WikiActor } from "@/src/auth/wiki-auth";
 import { getDb } from "@/src/db/client";
 import type { DB } from "@/src/db/types";
@@ -105,15 +106,21 @@ export async function generateAiCanonicalWikiPageRevision(
       generate: options.generate,
     },
   );
+  const bodyMarkdown = normalizeCanonicalBodyMarkdown(
+    generated.bodyMarkdown,
+    generated.title,
+  );
   const provenance = buildCanonicalAiProvenance(
     generated,
     input.actor.id,
     refreshReason,
     sourceReferences,
-  );
-  const bodyMarkdown = normalizeCanonicalBodyMarkdown(
-    generated.bodyMarkdown,
-    generated.title,
+    verifyCanonicalClaims({
+      title: generated.title,
+      summary: generated.summary,
+      bodyMarkdown,
+      sourceReferences,
+    }),
   );
   const page = await saveWikiPageWithRevision(
     {
@@ -144,6 +151,7 @@ function buildCanonicalAiProvenance(
   requestedBy: string,
   refreshReason: string,
   sourceReferences: WikiSourceReference[],
+  claimSupport: WikiPageRevisionAiProvenance["claimSupport"],
 ): WikiPageRevisionAiProvenance {
   return {
     provider: generated.provider,
@@ -162,6 +170,7 @@ function buildCanonicalAiProvenance(
       authorityTier: source.metadata?.authorityTier ?? null,
       authorityScore: source.metadata?.authorityScore ?? null,
     })),
+    claimSupport,
     refreshReason,
     requestedBy,
   };

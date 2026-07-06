@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import {
   listPublicWikiCommunityNotesForPage,
   type WikiCommunityNoteSummary,
+  type WikiPageRevisionAiProvenance,
 } from "@/src/db/wiki";
 import { getCachedWikiPage } from "@/src/wiki/cache";
 import { buildWikiMetadata } from "@/src/wiki/metadata";
@@ -171,6 +172,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                     {aiProvenance.sourceContextSummary}
                   </p>
                 </div>
+                <ClaimSupportSummary
+                  claims={aiProvenance.claimSupport ?? []}
+                />
               </div>
             ) : (
               <p className="mt-3 text-sm leading-6 text-muted-foreground">
@@ -249,6 +253,81 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       </article>
     </WikiChrome>
   );
+}
+
+function ClaimSupportSummary({
+  claims,
+}: {
+  claims: NonNullable<WikiPageRevisionAiProvenance["claimSupport"]>;
+}) {
+  if (claims.length === 0) {
+    return (
+      <div className="border-t pt-4">
+        <h3 className="text-sm font-semibold leading-6">Claim support</h3>
+        <p className="mt-1 text-sm leading-6 text-muted-foreground">
+          No claim-support metadata is attached to this revision yet.
+        </p>
+      </div>
+    );
+  }
+
+  const counts = claims.reduce(
+    (acc, claim) => {
+      if (
+        claim.status === "supported" ||
+        claim.status === "unsupported" ||
+        claim.status === "contradicted"
+      ) {
+        acc[claim.status] += 1;
+      }
+
+      return acc;
+    },
+    { contradicted: 0, supported: 0, unsupported: 0 },
+  );
+
+  return (
+    <div className="border-t pt-4">
+      <h3 className="text-sm font-semibold leading-6">Claim support</h3>
+      <p className="mt-1 text-sm leading-6 text-muted-foreground">
+        {counts.supported} supported, {counts.unsupported} unsupported,{" "}
+        {counts.contradicted} contradicted
+      </p>
+      <ul className="mt-3 space-y-3">
+        {claims.slice(0, 4).map((claim) => (
+          <li key={claim.claimId} className="text-sm leading-6">
+            <span
+              className={`inline-flex min-h-7 items-center rounded-md border px-2 text-xs font-medium ${getClaimStatusClassName(
+                claim.status,
+              )}`}
+            >
+              {claim.status}
+            </span>
+            <p className="mt-1 line-clamp-3 text-muted-foreground">
+              {claim.claimText}
+            </p>
+            {claim.matchedSourceTitles.length > 0 ? (
+              <p className="mt-1 text-xs leading-5 text-muted-foreground">
+                Sources: {claim.matchedSourceTitles.slice(0, 2).join(", ")}
+              </p>
+            ) : null}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function getClaimStatusClassName(status: string) {
+  if (status === "supported") {
+    return "border-primary/30 bg-primary/10 text-foreground";
+  }
+
+  if (status === "contradicted") {
+    return "border-destructive/30 bg-destructive/10 text-foreground";
+  }
+
+  return "border-amber-500/40 bg-amber-500/10 text-foreground";
 }
 
 function CommunityNotesSection({
