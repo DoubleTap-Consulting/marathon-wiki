@@ -8,12 +8,15 @@ import {
 } from "@/src/auth/wiki-auth";
 import {
   getWikiHomeSnapshot,
+  listWikiCommunityNotesForReview,
   listWikiSuggestionsForReview,
+  type WikiCommunityNoteSummary,
   type WikiSuggestionSummary,
 } from "@/src/db/wiki";
 import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
 
 import { ClerkSignInControl, ClerkUserControl } from "../_components/auth-controls";
+import { MarkdownArticle } from "../_components/markdown";
 import { EmptyState, WikiChrome } from "../_components/wiki-chrome";
 import { AiCanonicalForm } from "./_components/ai-canonical-form";
 import { AiDraftForm } from "./_components/ai-draft-form";
@@ -21,7 +24,10 @@ import {
   generateAiCanonicalPageAction,
   generateAiWikiSuggestionAction,
 } from "./ai-actions";
-import { reviewWikiSuggestionAction } from "./actions";
+import {
+  reviewWikiCommunityNoteAction,
+  reviewWikiSuggestionAction,
+} from "./actions";
 
 export const dynamic = "force-dynamic";
 
@@ -59,9 +65,12 @@ export default async function ReviewPage({ params }: ReviewPageProps) {
     Promise.resolve(getAuthMode()),
   ]);
   const canReview = canReviewSuggestions(actor);
-  const suggestions = canReview
-    ? await listWikiSuggestionsForReview(snapshot.tenant.id)
-    : [];
+  const [suggestions, communityNotes] = canReview
+    ? await Promise.all([
+        listWikiSuggestionsForReview(snapshot.tenant.id),
+        listWikiCommunityNotesForReview(snapshot.tenant.id),
+      ])
+    : [[], []];
 
   return (
     <WikiChrome tenant={snapshot.tenant} categories={snapshot.categories}>
@@ -109,26 +118,68 @@ export default async function ReviewPage({ params }: ReviewPageProps) {
                 snapshot.tenant.slug,
               )}
             />
-            {suggestions.length === 0 ? (
-              <EmptyState
-                title="No suggestions yet"
-                description="Submitted page suggestions will appear here for editorial review."
-              />
-            ) : (
-              <div className="space-y-4">
-                {suggestions.map((suggestion) => (
-                  <SuggestionReviewCard
-                    key={suggestion.id}
-                    tenantSlug={snapshot.tenant.slug}
-                    suggestion={suggestion}
-                  />
-                ))}
-              </div>
-            )}
+            <ReviewSection
+              title="Community notes"
+              description="Approve public notes, reject unsupported submissions, or mark notes incorporated after they have informed an AI refresh."
+              emptyTitle="No community notes yet"
+              emptyDescription="Submitted community notes will appear here for moderator review."
+            >
+              {communityNotes.map((note) => (
+                <CommunityNoteReviewCard
+                  key={note.id}
+                  tenantSlug={snapshot.tenant.slug}
+                  note={note}
+                />
+              ))}
+            </ReviewSection>
+            <ReviewSection
+              title="Page suggestions"
+              description="Approve new page and edit suggestions into normal page revisions."
+              emptyTitle="No suggestions yet"
+              emptyDescription="Submitted page suggestions will appear here for editorial review."
+            >
+              {suggestions.map((suggestion) => (
+                <SuggestionReviewCard
+                  key={suggestion.id}
+                  tenantSlug={snapshot.tenant.slug}
+                  suggestion={suggestion}
+                />
+              ))}
+            </ReviewSection>
           </div>
         )}
       </section>
     </WikiChrome>
+  );
+}
+
+function ReviewSection({
+  title,
+  description,
+  emptyTitle,
+  emptyDescription,
+  children,
+}: {
+  title: string;
+  description: string;
+  emptyTitle: string;
+  emptyDescription: string;
+  children: React.ReactNode[];
+}) {
+  return (
+    <section className="space-y-4">
+      <div>
+        <h2 className="text-2xl font-semibold leading-8">{title}</h2>
+        <p className="mt-1 text-sm leading-6 text-muted-foreground">
+          {description}
+        </p>
+      </div>
+      {children.length > 0 ? (
+        <div className="space-y-4">{children}</div>
+      ) : (
+        <EmptyState title={emptyTitle} description={emptyDescription} />
+      )}
+    </section>
   );
 }
 
@@ -302,6 +353,128 @@ function SuggestionReviewCard({
   );
 }
 
+function CommunityNoteReviewCard({
+  tenantSlug,
+  note,
+}: {
+  tenantSlug: string;
+  note: WikiCommunityNoteSummary;
+}) {
+  const canAct = note.status === "pending" || note.status === "approved";
+
+  return (
+    <article className="rounded-lg border bg-card p-5 text-card-foreground sm:p-6">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+        <div className="min-w-0 space-y-2">
+          <div className="flex flex-wrap gap-2">
+            <StatusPill status={note.status} />
+            <span className="inline-flex min-h-8 items-center rounded-md border bg-background px-2.5 text-xs font-medium">
+              {formatLabel(note.noteType)}
+            </span>
+          </div>
+          <h3 className="text-2xl font-semibold leading-8">
+            Community note for {note.pageTitle}
+          </h3>
+          <p className="text-sm leading-6 text-muted-foreground">
+            Target:{" "}
+            <a
+              href={`/${tenantSlug}/${note.pageSlug}`}
+              className="font-medium text-card-foreground underline decoration-border underline-offset-4 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+            >
+              /{tenantSlug}/{note.pageSlug}
+            </a>
+          </p>
+        </div>
+        <div className="text-sm leading-6 text-muted-foreground lg:text-right">
+          <p>Submitted {formatDate(note.createdAt)}</p>
+          <p className="break-all">By {note.createdBy ?? "Unknown user"}</p>
+        </div>
+      </div>
+
+      <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,1fr)_18rem]">
+        <div className="min-w-0 rounded-md border bg-background p-4">
+          {note.targetQuote ? (
+            <blockquote className="mb-4 border-l-2 border-border pl-3 text-sm leading-6 text-muted-foreground">
+              {note.targetQuote}
+            </blockquote>
+          ) : null}
+          <MarkdownArticle markdown={note.bodyMarkdown} />
+        </div>
+
+        <aside className="space-y-4">
+          {note.sourceUrl ? (
+            <a
+              href={note.sourceUrl}
+              className="block min-h-11 rounded-md border bg-background p-3 text-sm font-medium leading-6 underline decoration-border underline-offset-4 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+            >
+              Review source
+            </a>
+          ) : null}
+          {note.reviewNote ? (
+            <div className="rounded-md border bg-background p-3">
+              <h4 className="text-sm font-semibold leading-6">Review note</h4>
+              <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                {note.reviewNote}
+              </p>
+            </div>
+          ) : null}
+        </aside>
+      </div>
+
+      {canAct ? (
+        <form
+          action={reviewWikiCommunityNoteAction.bind(null, tenantSlug)}
+          className="mt-5 space-y-3 border-t pt-5"
+        >
+          <input type="hidden" name="noteId" value={note.id} />
+          <div className="grid gap-2">
+            <label
+              htmlFor={`community-note-review-${note.id}`}
+              className="text-sm font-medium"
+            >
+              Review note
+            </label>
+            <textarea
+              id={`community-note-review-${note.id}`}
+              name="reviewNote"
+              rows={3}
+              className="min-h-24 w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-base leading-7 text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            />
+          </div>
+          <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+            <button
+              type="submit"
+              name="reviewAction"
+              value="approved"
+              className="inline-flex min-h-11 items-center justify-center rounded-md bg-primary px-4 text-base font-medium text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+            >
+              Approve note
+            </button>
+            <button
+              type="submit"
+              name="reviewAction"
+              value="incorporated"
+              className="inline-flex min-h-11 items-center justify-center rounded-md border bg-background px-4 text-base font-medium text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+            >
+              Mark incorporated
+            </button>
+            {note.status === "pending" ? (
+              <button
+                type="submit"
+                name="reviewAction"
+                value="rejected"
+                className="inline-flex min-h-11 items-center justify-center rounded-md border border-destructive/40 bg-background px-4 text-base font-medium text-destructive outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+              >
+                Reject note
+              </button>
+            ) : null}
+          </div>
+        </form>
+      ) : null}
+    </article>
+  );
+}
+
 function StatusPill({ status }: { status: string }) {
   const className =
     status === "approved"
@@ -319,6 +492,12 @@ function StatusPill({ status }: { status: string }) {
       {status.replaceAll("_", " ")}
     </span>
   );
+}
+
+function formatLabel(value: string) {
+  const label = value.replaceAll("_", " ").trim();
+
+  return label ? label.charAt(0).toUpperCase() + label.slice(1) : "General";
 }
 
 function getAiProvenance(suggestion: WikiSuggestionSummary) {

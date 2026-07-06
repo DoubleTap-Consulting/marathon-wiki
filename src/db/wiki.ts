@@ -11,6 +11,11 @@ export const MARATHON_TENANT_SLUG = "marathon";
 
 type WikiDatabase = Kysely<DB> | Transaction<DB>;
 
+const WIKI_COMMUNITY_NOTE_PUBLIC_STATUSES: WikiCommunityNoteStatus[] = [
+  "approved",
+  "incorporated",
+];
+
 export type WikiTenant = {
   id: string;
   slug: string;
@@ -117,6 +122,19 @@ export type WikiSuggestionStatus =
 
 export type WikiSuggestionType = "new_page" | "edit_page";
 
+export type WikiCommunityNoteStatus =
+  | "pending"
+  | "approved"
+  | "rejected"
+  | "incorporated";
+
+export type WikiCommunityNoteType =
+  | "general"
+  | "correction"
+  | "source"
+  | "clarification"
+  | "dispute";
+
 export type WikiSuggestionMetadata = {
   createdByEmail?: string | null;
   origin?: "human" | "ai_generated";
@@ -129,6 +147,12 @@ export type WikiSuggestionMetadata = {
     requestedBy: string;
     sourceNotes?: string | null;
   };
+  [key: string]: unknown;
+};
+
+export type WikiCommunityNoteMetadata = {
+  createdByEmail?: string | null;
+  origin?: "human" | "ai_generated";
   [key: string]: unknown;
 };
 
@@ -201,6 +225,39 @@ export type CreateWikiSuggestionInput = {
   metadata?: WikiSuggestionMetadata | null;
   actorId: string;
   actorEmail?: string | null;
+};
+
+export type CreateWikiCommunityNoteInput = {
+  tenantId: string;
+  pageId: string;
+  bodyMarkdown: string;
+  sourceUrl?: string | null;
+  targetQuote?: string | null;
+  noteType?: WikiCommunityNoteType | string;
+  metadata?: WikiCommunityNoteMetadata | null;
+  actorId: string;
+  actorEmail?: string | null;
+};
+
+export type WikiCommunityNoteSummary = {
+  id: string;
+  tenantId: string;
+  tenantSlug: string;
+  pageId: string;
+  pageSlug: string;
+  pageTitle: string;
+  status: string;
+  noteType: string;
+  bodyMarkdown: string;
+  sourceUrl: string | null;
+  targetQuote: string | null;
+  reviewNote: string | null;
+  metadata: WikiCommunityNoteMetadata | null;
+  createdBy: string | null;
+  reviewedBy: string | null;
+  reviewedAt: Date | null;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export async function getWikiTenantBySlug(
@@ -651,6 +708,311 @@ export async function listWikiSourceContextForTopic(
     ...source,
     topicSlugs: source.topicSlugs ?? [],
     metadata: normalizeWikiSourceMetadata(source.metadata),
+  }));
+}
+
+export async function createWikiCommunityNote(
+  input: CreateWikiCommunityNoteInput,
+  db: WikiDatabase = getDb(),
+): Promise<WikiCommunityNoteSummary> {
+  const bodyMarkdown = input.bodyMarkdown.trim();
+
+  if (bodyMarkdown.length < 3) {
+    throw new Error("Community note body is required.");
+  }
+
+  const page = await db
+    .selectFrom("wiki_pages")
+    .select("id")
+    .where("tenant_id", "=", input.tenantId)
+    .where("id", "=", input.pageId)
+    .executeTakeFirst();
+
+  if (!page) {
+    throw new Error("Community notes must target a page in the same tenant.");
+  }
+
+  const note = await db
+    .insertInto("wiki_community_notes")
+    .values({
+      id: createId("community_note"),
+      tenant_id: input.tenantId,
+      page_id: input.pageId,
+      status: "pending",
+      note_type: input.noteType?.trim() || "general",
+      body_markdown: bodyMarkdown,
+      source_url: input.sourceUrl?.trim() || null,
+      target_quote: input.targetQuote?.trim() || null,
+      created_by: input.actorId,
+      metadata: {
+        ...(input.metadata ?? {}),
+        createdByEmail: input.actorEmail ?? null,
+      },
+    })
+    .returning("id")
+    .executeTakeFirstOrThrow();
+
+  return getWikiCommunityNoteById(input.tenantId, note.id, db);
+}
+
+export async function listPublicWikiCommunityNotesForPage(
+  input: {
+    tenantId: string;
+    pageId: string;
+  },
+  db: WikiDatabase = getDb(),
+): Promise<WikiCommunityNoteSummary[]> {
+  const notes = await db
+    .selectFrom("wiki_community_notes as note")
+    .innerJoin("tenants as tenant", "tenant.id", "note.tenant_id")
+    .innerJoin("wiki_pages as page", (join) =>
+      join
+        .onRef("page.id", "=", "note.page_id")
+        .onRef("page.tenant_id", "=", "note.tenant_id"),
+    )
+    .select([
+      "note.id as id",
+      "note.tenant_id as tenantId",
+      "tenant.slug as tenantSlug",
+      "note.page_id as pageId",
+      "page.slug as pageSlug",
+      "page.title as pageTitle",
+      "note.status as status",
+      "note.note_type as noteType",
+      "note.body_markdown as bodyMarkdown",
+      "note.source_url as sourceUrl",
+      "note.target_quote as targetQuote",
+      "note.review_note as reviewNote",
+      "note.metadata as metadata",
+      "note.created_by as createdBy",
+      "note.reviewed_by as reviewedBy",
+      "note.reviewed_at as reviewedAt",
+      "note.created_at as createdAt",
+      "note.updated_at as updatedAt",
+    ])
+    .where("note.tenant_id", "=", input.tenantId)
+    .where("note.page_id", "=", input.pageId)
+    .where("note.status", "in", WIKI_COMMUNITY_NOTE_PUBLIC_STATUSES)
+    .orderBy("note.reviewed_at", "desc")
+    .orderBy("note.created_at", "desc")
+    .execute();
+
+  return notes.map(mapWikiCommunityNoteSummary);
+}
+
+export async function listWikiCommunityNotesForReview(
+  tenantId: string,
+  db: WikiDatabase = getDb(),
+): Promise<WikiCommunityNoteSummary[]> {
+  const notes = await db
+    .selectFrom("wiki_community_notes as note")
+    .innerJoin("tenants as tenant", "tenant.id", "note.tenant_id")
+    .innerJoin("wiki_pages as page", (join) =>
+      join
+        .onRef("page.id", "=", "note.page_id")
+        .onRef("page.tenant_id", "=", "note.tenant_id"),
+    )
+    .select([
+      "note.id as id",
+      "note.tenant_id as tenantId",
+      "tenant.slug as tenantSlug",
+      "note.page_id as pageId",
+      "page.slug as pageSlug",
+      "page.title as pageTitle",
+      "note.status as status",
+      "note.note_type as noteType",
+      "note.body_markdown as bodyMarkdown",
+      "note.source_url as sourceUrl",
+      "note.target_quote as targetQuote",
+      "note.review_note as reviewNote",
+      "note.metadata as metadata",
+      "note.created_by as createdBy",
+      "note.reviewed_by as reviewedBy",
+      "note.reviewed_at as reviewedAt",
+      "note.created_at as createdAt",
+      "note.updated_at as updatedAt",
+    ])
+    .where("note.tenant_id", "=", tenantId)
+    .orderBy(sql`case note.status
+      when 'pending' then 0
+      when 'approved' then 1
+      when 'incorporated' then 2
+      when 'rejected' then 3
+      else 4
+    end`)
+    .orderBy("note.created_at", "desc")
+    .execute();
+
+  return notes.map(mapWikiCommunityNoteSummary);
+}
+
+export async function getWikiCommunityNoteById(
+  tenantId: string,
+  noteId: string,
+  db: WikiDatabase = getDb(),
+): Promise<WikiCommunityNoteSummary> {
+  const note = await db
+    .selectFrom("wiki_community_notes as note")
+    .innerJoin("tenants as tenant", "tenant.id", "note.tenant_id")
+    .innerJoin("wiki_pages as page", (join) =>
+      join
+        .onRef("page.id", "=", "note.page_id")
+        .onRef("page.tenant_id", "=", "note.tenant_id"),
+    )
+    .select([
+      "note.id as id",
+      "note.tenant_id as tenantId",
+      "tenant.slug as tenantSlug",
+      "note.page_id as pageId",
+      "page.slug as pageSlug",
+      "page.title as pageTitle",
+      "note.status as status",
+      "note.note_type as noteType",
+      "note.body_markdown as bodyMarkdown",
+      "note.source_url as sourceUrl",
+      "note.target_quote as targetQuote",
+      "note.review_note as reviewNote",
+      "note.metadata as metadata",
+      "note.created_by as createdBy",
+      "note.reviewed_by as reviewedBy",
+      "note.reviewed_at as reviewedAt",
+      "note.created_at as createdAt",
+      "note.updated_at as updatedAt",
+    ])
+    .where("note.tenant_id", "=", tenantId)
+    .where("note.id", "=", noteId)
+    .executeTakeFirstOrThrow();
+
+  return mapWikiCommunityNoteSummary(note);
+}
+
+export async function updateWikiCommunityNoteModerationStatus(
+  input: {
+    tenantId: string;
+    noteId: string;
+    status: Exclude<WikiCommunityNoteStatus, "pending">;
+    actorId: string;
+    reviewNote?: string | null;
+  },
+  db: Kysely<DB> = getDb(),
+): Promise<WikiCommunityNoteSummary> {
+  return db.transaction().execute(async (trx) => {
+    const note = await getWikiCommunityNoteById(input.tenantId, input.noteId, trx);
+    const allowedCurrentStatuses =
+      input.status === "incorporated" ? ["pending", "approved"] : ["pending"];
+
+    if (!allowedCurrentStatuses.includes(note.status)) {
+      throw new Error(
+        `Cannot mark a ${note.status} community note as ${input.status}.`,
+      );
+    }
+
+    await trx
+      .updateTable("wiki_community_notes")
+      .set({
+        status: input.status,
+        reviewed_by: input.actorId,
+        reviewed_at: sql`CURRENT_TIMESTAMP`,
+        review_note: input.reviewNote ?? null,
+        updated_at: sql`CURRENT_TIMESTAMP`,
+      })
+      .where("tenant_id", "=", input.tenantId)
+      .where("id", "=", input.noteId)
+      .executeTakeFirstOrThrow();
+
+    return getWikiCommunityNoteById(input.tenantId, input.noteId, trx);
+  });
+}
+
+export async function listWikiCommunityNoteContextForPage(
+  input: {
+    tenantId: string;
+    pageId?: string | null;
+    targetSlug?: string | null;
+    limit?: number;
+  },
+  db: WikiDatabase = getDb(),
+): Promise<WikiSourceReference[]> {
+  const targetSlug = input.targetSlug
+    ? normalizeWikiSlug(input.targetSlug)
+    : null;
+
+  if (!input.pageId && !targetSlug) {
+    return [];
+  }
+
+  let pageQuery = db
+    .selectFrom("wiki_pages")
+    .select(["id", "slug", "title"])
+    .where("tenant_id", "=", input.tenantId);
+
+  if (input.pageId) {
+    pageQuery = pageQuery.where("id", "=", input.pageId);
+  }
+
+  if (targetSlug) {
+    pageQuery = pageQuery.where("slug", "=", targetSlug);
+  }
+
+  const page = await pageQuery.executeTakeFirst();
+
+  if (!page) {
+    return [];
+  }
+
+  const notes = await db
+    .selectFrom("wiki_community_notes as note")
+    .select([
+      "note.id as id",
+      "note.status as status",
+      "note.note_type as noteType",
+      "note.body_markdown as bodyMarkdown",
+      "note.source_url as sourceUrl",
+      "note.target_quote as targetQuote",
+      "note.review_note as reviewNote",
+      "note.created_by as createdBy",
+      "note.reviewed_by as reviewedBy",
+      "note.reviewed_at as reviewedAt",
+      "note.created_at as createdAt",
+      "note.updated_at as updatedAt",
+    ])
+    .where("note.tenant_id", "=", input.tenantId)
+    .where("note.page_id", "=", page.id)
+    .where("note.status", "in", WIKI_COMMUNITY_NOTE_PUBLIC_STATUSES)
+    .orderBy(sql`case note.status
+      when 'incorporated' then 0
+      when 'approved' then 1
+      else 2
+    end`)
+    .orderBy("note.reviewed_at", "desc")
+    .orderBy("note.created_at", "desc")
+    .limit(input.limit ?? 6)
+    .execute();
+
+  return notes.map((note) => ({
+    id: note.id,
+    sourceKey: page.slug,
+    sourceType: "community_note",
+    title: `${formatCommunityNoteType(note.noteType)} community note for ${page.title}`,
+    url: note.sourceUrl,
+    publisher: "Community note",
+    contextText: buildCommunityNoteContextText(note),
+    topicSlugs: [page.slug],
+    retrievedAt: note.reviewedAt ?? note.updatedAt,
+    metadata: {
+      origin: "community_note",
+      authorityTier: "community",
+      authorityScore: note.status === "incorporated" ? 45 : 35,
+      communityNoteId: note.id,
+      communityNoteStatus: note.status,
+      noteType: note.noteType,
+      targetQuote: note.targetQuote,
+      reviewNote: note.reviewNote,
+      createdBy: note.createdBy,
+      reviewedBy: note.reviewedBy,
+      reviewedAt: note.reviewedAt?.toISOString() ?? null,
+      createdAt: note.createdAt.toISOString(),
+    },
   }));
 }
 
@@ -1158,6 +1520,51 @@ function normalizeSuggestionMetadata(
   }
 
   return value as WikiSuggestionMetadata;
+}
+
+function normalizeCommunityNoteMetadata(
+  value: unknown,
+): WikiCommunityNoteMetadata | null {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return null;
+  }
+
+  return value as WikiCommunityNoteMetadata;
+}
+
+function mapWikiCommunityNoteSummary(
+  note: Omit<WikiCommunityNoteSummary, "metadata"> & { metadata: unknown },
+): WikiCommunityNoteSummary {
+  return {
+    ...note,
+    metadata: normalizeCommunityNoteMetadata(note.metadata),
+  };
+}
+
+function formatCommunityNoteType(noteType: string) {
+  const label = noteType.replaceAll("_", " ").trim() || "general";
+
+  return label.charAt(0).toUpperCase() + label.slice(1);
+}
+
+function buildCommunityNoteContextText(note: {
+  status: string;
+  noteType: string;
+  bodyMarkdown: string;
+  sourceUrl: string | null;
+  targetQuote: string | null;
+  reviewNote: string | null;
+}) {
+  return [
+    `Community note status: ${note.status}`,
+    `Community note type: ${note.noteType}`,
+    note.targetQuote ? `Target quote:\n${note.targetQuote}` : null,
+    `Note:\n${note.bodyMarkdown}`,
+    note.sourceUrl ? `Submitted source URL: ${note.sourceUrl}` : null,
+    note.reviewNote ? `Moderator note:\n${note.reviewNote}` : null,
+  ]
+    .filter(Boolean)
+    .join("\n\n");
 }
 
 function normalizeRevisionAiProvenance(

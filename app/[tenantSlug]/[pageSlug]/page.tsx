@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 
+import {
+  listPublicWikiCommunityNotesForPage,
+  type WikiCommunityNoteSummary,
+} from "@/src/db/wiki";
 import { getCachedWikiPage } from "@/src/wiki/cache";
 import { buildWikiMetadata } from "@/src/wiki/metadata";
 import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
@@ -8,6 +12,11 @@ import { MarkdownArticle } from "../_components/markdown";
 import { MissingWikiPage } from "../_components/missing-page";
 import { WikiAdSlot, WikiPremiumHook } from "../_components/monetization";
 import { WikiChrome } from "../_components/wiki-chrome";
+import {
+  submitWikiCommunityNoteAction,
+  type CommunityNoteFormState,
+} from "./community-note-actions";
+import { CommunityNoteForm } from "./community-note-form";
 
 export const revalidate = 300;
 export const dynamic = "force-static";
@@ -61,6 +70,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   }
 
   const aiProvenance = snapshot.page.latestRevision?.aiProvenance ?? null;
+  const communityNotes = await listPublicWikiCommunityNotesForPage({
+    tenantId: snapshot.tenant.id,
+    pageId: snapshot.page.id,
+  });
 
   return (
     <WikiChrome tenant={snapshot.tenant} categories={snapshot.categories}>
@@ -101,6 +114,15 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           <div className="mt-8">
             <MarkdownArticle markdown={snapshot.page.bodyMarkdown} />
           </div>
+
+          <CommunityNotesSection
+            notes={communityNotes}
+            formAction={submitWikiCommunityNoteAction.bind(
+              null,
+              snapshot.tenant.slug,
+              snapshot.page.slug,
+            )}
+          />
         </div>
 
         <aside className="min-w-0 space-y-4">
@@ -229,6 +251,87 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   );
 }
 
+function CommunityNotesSection({
+  notes,
+  formAction,
+}: {
+  notes: WikiCommunityNoteSummary[];
+  formAction: (
+    state: CommunityNoteFormState,
+    formData: FormData,
+  ) => Promise<CommunityNoteFormState>;
+}) {
+  return (
+    <section className="mt-8 border-t pt-6" aria-labelledby="community-notes">
+      <div className="space-y-2">
+        <h2
+          id="community-notes"
+          className="text-2xl font-semibold leading-8 text-foreground"
+        >
+          Community notes
+        </h2>
+        <p className="text-sm leading-6 text-muted-foreground">
+          Notes are reviewed separately from the canonical AI article and can
+          inform future refreshes.
+        </p>
+      </div>
+
+      {notes.length > 0 ? (
+        <div className="mt-5 space-y-5">
+          {notes.map((note) => (
+            <article
+              key={note.id}
+              className="border-t pt-5 first:border-t-0 first:pt-0"
+            >
+              <div className="flex flex-wrap gap-2">
+                <span className="inline-flex min-h-8 items-center rounded-md border border-primary/30 bg-primary/10 px-2.5 text-xs font-medium text-foreground">
+                  {formatCommunityNoteStatus(note.status)}
+                </span>
+                <span className="inline-flex min-h-8 items-center rounded-md border bg-background px-2.5 text-xs font-medium text-muted-foreground">
+                  {formatCommunityNoteType(note.noteType)}
+                </span>
+              </div>
+              {note.targetQuote ? (
+                <blockquote className="mt-3 border-l-2 border-border pl-3 text-sm leading-6 text-muted-foreground">
+                  {note.targetQuote}
+                </blockquote>
+              ) : null}
+              <div className="mt-3">
+                <MarkdownArticle markdown={note.bodyMarkdown} />
+              </div>
+              <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-xs leading-5 text-muted-foreground">
+                <span>Reviewed {formatDate(note.reviewedAt)}</span>
+                {note.sourceUrl ? (
+                  <a
+                    href={note.sourceUrl}
+                    className="font-medium text-foreground underline decoration-border underline-offset-4 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+                  >
+                    Source
+                  </a>
+                ) : null}
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <p className="mt-4 text-sm leading-6 text-muted-foreground">
+          No approved community notes are attached to this page yet.
+        </p>
+      )}
+
+      <div className="mt-6 border-t pt-6">
+        <h3 className="text-lg font-semibold leading-7">Submit a note</h3>
+        <p className="mt-1 text-sm leading-6 text-muted-foreground">
+          Submitted notes enter moderator review before appearing publicly.
+        </p>
+        <div className="mt-4">
+          <CommunityNoteForm action={formAction} />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Detail({ label, value }: { label: string; value: string }) {
   return (
     <div className="grid grid-cols-[5rem_1fr] gap-3">
@@ -238,6 +341,16 @@ function Detail({ label, value }: { label: string; value: string }) {
       </dd>
     </div>
   );
+}
+
+function formatCommunityNoteStatus(value: string) {
+  return value.replaceAll("_", " ");
+}
+
+function formatCommunityNoteType(value: string) {
+  const label = value.replaceAll("_", " ").trim() || "general";
+
+  return label.charAt(0).toUpperCase() + label.slice(1);
 }
 
 function formatDate(value: Date | string | null) {

@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import {
   approveWikiSuggestion,
   getWikiTenantBySlug,
+  updateWikiCommunityNoteModerationStatus,
   updateWikiSuggestionReviewStatus,
 } from "@/src/db/wiki";
 import {
@@ -71,6 +72,53 @@ export async function reviewWikiSuggestionAction(
   }
 
   throw new Error("Choose a valid review action.");
+}
+
+export async function reviewWikiCommunityNoteAction(
+  tenantSlug: string,
+  formData: FormData,
+) {
+  requireConfiguredAuth();
+
+  const actor = await getCurrentWikiActor();
+
+  if (!actor || !canReviewSuggestions(actor)) {
+    throw new Error("You do not have permission to review community notes.");
+  }
+
+  const tenant = await getWikiTenantBySlug(normalizeTenantSlug(tenantSlug));
+
+  if (!tenant) {
+    throw new Error("Wiki tenant not found.");
+  }
+
+  const noteId = getString(formData, "noteId");
+  const reviewAction = getString(formData, "reviewAction");
+  const reviewNote = getString(formData, "reviewNote") || null;
+
+  if (!noteId) {
+    throw new Error("Community note id is required.");
+  }
+
+  if (
+    reviewAction !== "approved" &&
+    reviewAction !== "rejected" &&
+    reviewAction !== "incorporated"
+  ) {
+    throw new Error("Choose a valid community note review action.");
+  }
+
+  const note = await updateWikiCommunityNoteModerationStatus({
+    tenantId: tenant.id,
+    noteId,
+    status: reviewAction,
+    actorId: actor.id,
+    reviewNote,
+  });
+
+  revalidatePath(`/${tenant.slug}/review`);
+  await revalidateWikiPage(tenant.slug, note.pageSlug);
+  revalidatePath(`/${tenant.slug}/${note.pageSlug}`);
 }
 
 function getString(formData: FormData, key: string) {

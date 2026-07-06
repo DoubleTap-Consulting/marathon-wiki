@@ -10,6 +10,7 @@ import { getDb } from "@/src/db/client";
 import type { DB } from "@/src/db/types";
 import {
   getPublishedWikiPageBySlug,
+  listWikiCommunityNoteContextForPage,
   listWikiSourceContextForTopic,
   saveWikiPageWithRevision,
   type WikiPageDetail,
@@ -62,7 +63,7 @@ export async function generateAiCanonicalWikiPageRevision(
     targetSlug,
     db,
   );
-  const sourceReferences = await listWikiSourceContextForTopic(
+  const storedSourceReferences = await listWikiSourceContextForTopic(
     {
       tenantId: input.tenant.id,
       targetSlug,
@@ -70,6 +71,18 @@ export async function generateAiCanonicalWikiPageRevision(
     },
     db,
   );
+  const communityNoteReferences = await listWikiCommunityNoteContextForPage(
+    {
+      tenantId: input.tenant.id,
+      pageId: existingPage?.id ?? null,
+      targetSlug,
+    },
+    db,
+  );
+  const sourceReferences = [
+    ...storedSourceReferences,
+    ...communityNoteReferences,
+  ];
   const sourceContext = buildCanonicalSourceContext(
     editorSourceContext,
     sourceReferences,

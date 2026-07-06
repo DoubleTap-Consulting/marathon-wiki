@@ -55,6 +55,7 @@ model Tenant {
   pageCategories WikiPageCategory[]
   pageTags       WikiPageTag[]
   suggestions    WikiSuggestion[]
+  communityNotes WikiCommunityNote[]
   refreshQueue   AiRefreshQueueItem[]
 
   @@index([gameId])
@@ -82,6 +83,7 @@ model WikiPage {
   categories  WikiPageCategory[]
   tags        WikiPageTag[]
   suggestions WikiSuggestion[]
+  communityNotes WikiCommunityNote[]
   refreshQueue AiRefreshQueueItem[]
 
   @@unique([tenantId, slug])
@@ -229,6 +231,33 @@ model WikiSuggestion {
   @@index([tenantId, pageId])
   @@index([tenantId, targetSlug])
   @@map("wiki_suggestions")
+}
+
+model WikiCommunityNote {
+  id           String    @id @default(cuid())
+  tenantId     String    @map("tenant_id")
+  pageId       String    @map("page_id")
+  status       String    @default("pending")
+  noteType     String    @default("general") @map("note_type")
+  bodyMarkdown String    @map("body_markdown")
+  sourceUrl    String?   @map("source_url")
+  targetQuote  String?   @map("target_quote")
+  reviewNote   String?   @map("review_note")
+  metadata     Json?
+  createdBy    String?   @map("created_by")
+  reviewedBy   String?   @map("reviewed_by")
+  reviewedAt   DateTime? @map("reviewed_at")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @default(now()) @updatedAt @map("updated_at")
+
+  tenant Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  page   WikiPage @relation(fields: [pageId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, status])
+  @@index([tenantId, pageId])
+  @@index([tenantId, pageId, status])
+  @@index([tenantId, createdBy])
+  @@map("wiki_community_notes")
 }
 
 model AiRefreshQueueItem {
