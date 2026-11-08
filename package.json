@@ -13,7 +13,8 @@
     "db:migrate": "prisma migrate deploy",
     "db:migrate:dev": "prisma migrate dev",
     "db:seed": "prisma db execute --file prisma/seeds/marathon.sql",
-    "vercel:build": "pnpm build"
+    "vercel-build": "prisma generate && prisma migrate deploy && next build",
+    "vercel:build": "pnpm vercel-build"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.5.11",
