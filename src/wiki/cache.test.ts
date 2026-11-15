@@ -45,6 +45,13 @@ describe("wiki cache tags", () => {
     );
   });
 
+  it("scopes cache keys to the deployment, so previews never read each other's pages", async () => {
+    const cache = await import("./cache");
+
+    expect(cache.wikiCacheScope({ VERCEL_DEPLOYMENT_ID: "dpl_a" })).toBe("dpl_a");
+    expect(cache.wikiCacheScope({})).toBe("local");
+  });
+
   it("passes ISR windows and tags to cached public readers", async () => {
     const cache = await import("./cache");
 
@@ -57,7 +64,7 @@ describe("wiki cache tags", () => {
     expect(unstableCache).toHaveBeenNthCalledWith(
       1,
       expect.any(Function),
-      ["wiki-home", "marathon"],
+      ["wiki-home", "local", "marathon"],
       {
         revalidate: 300,
         tags: [
@@ -70,7 +77,7 @@ describe("wiki cache tags", () => {
     expect(unstableCache).toHaveBeenNthCalledWith(
       2,
       expect.any(Function),
-      ["wiki-pages", "marathon"],
+      ["wiki-pages", "local", "marathon"],
       {
         revalidate: 300,
         tags: ["wiki:tenant:marathon", "wiki:tenant:marathon:pages"],
@@ -79,7 +86,7 @@ describe("wiki cache tags", () => {
     expect(unstableCache).toHaveBeenNthCalledWith(
       3,
       expect.any(Function),
-      ["wiki-category", "marathon", "weapons"],
+      ["wiki-category", "local", "marathon", "weapons"],
       {
         revalidate: 300,
         tags: [
@@ -92,7 +99,7 @@ describe("wiki cache tags", () => {
     expect(unstableCache).toHaveBeenNthCalledWith(
       4,
       expect.any(Function),
-      ["wiki-page", "marathon", "weapons"],
+      ["wiki-page", "local", "marathon", "weapons"],
       {
         revalidate: 300,
         tags: [

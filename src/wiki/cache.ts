@@ -12,6 +12,15 @@ export const WIKI_REVALIDATE_SECONDS = Number(
   process.env.WIKI_REVALIDATE_SECONDS ?? 300,
 );
 
+/**
+ * Vercel keeps unstable_cache entries across deployments, and every Preview deployment shares one
+ * cache while each reads its own database branch. Without the deployment in the key, one preview
+ * (and even its build) serves pages another preview cached. Each deployment gets its own entries.
+ */
+export function wikiCacheScope(env: Partial<NodeJS.ProcessEnv> = process.env) {
+  return env.VERCEL_DEPLOYMENT_ID || env.NEXT_DEPLOYMENT_ID || "local";
+}
+
 export function wikiTenantTag(tenantSlug: string) {
   return `wiki:tenant:${tenantSlug}`;
 }
@@ -54,7 +63,7 @@ export async function revalidateWikiCategory(
 export async function getCachedWikiHome(tenantSlug: string) {
   return unstable_cache(
     () => getWikiHomeSnapshot(tenantSlug),
-    ["wiki-home", tenantSlug],
+    ["wiki-home", wikiCacheScope(), tenantSlug],
     {
       revalidate: WIKI_REVALIDATE_SECONDS,
       tags: [
@@ -69,7 +78,7 @@ export async function getCachedWikiHome(tenantSlug: string) {
 export async function getCachedWikiPages(tenantSlug: string, tenantId: string) {
   return unstable_cache(
     () => listPublishedWikiPagesByTenant(tenantId, undefined, 100),
-    ["wiki-pages", tenantSlug],
+    ["wiki-pages", wikiCacheScope(), tenantSlug],
     {
       revalidate: WIKI_REVALIDATE_SECONDS,
       tags: [wikiTenantTag(tenantSlug), wikiTenantPagesTag(tenantSlug)],
@@ -83,7 +92,7 @@ export async function getCachedWikiCategory(
 ) {
   return unstable_cache(
     () => getWikiCategorySnapshot(tenantSlug, categorySlug),
-    ["wiki-category", tenantSlug, categorySlug],
+    ["wiki-category", wikiCacheScope(), tenantSlug, categorySlug],
     {
       revalidate: WIKI_REVALIDATE_SECONDS,
       tags: [
@@ -98,7 +107,7 @@ export async function getCachedWikiCategory(
 export async function getCachedWikiPage(tenantSlug: string, pageSlug: string) {
   return unstable_cache(
     () => getWikiPageSnapshot(tenantSlug, pageSlug),
-    ["wiki-page", tenantSlug, pageSlug],
+    ["wiki-page", wikiCacheScope(), tenantSlug, pageSlug],
     {
       revalidate: WIKI_REVALIDATE_SECONDS,
       tags: [
@@ -119,7 +128,7 @@ export async function getCachedWikiPageRevisions(
 ) {
   return unstable_cache(
     () => listWikiPageRevisions(tenantId, pageId),
-    ["wiki-page-revisions", tenantSlug, pageSlug],
+    ["wiki-page-revisions", wikiCacheScope(), tenantSlug, pageSlug],
     {
       revalidate: WIKI_REVALIDATE_SECONDS,
       tags: [wikiTenantTag(tenantSlug), wikiPageTag(tenantSlug, pageSlug)],

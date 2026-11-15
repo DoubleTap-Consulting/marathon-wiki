@@ -72,7 +72,7 @@ try {
   const tenant = await client.query("select id from tenants where slug = $1", [tenantSlug]);
   if (tenant.rows.length === 0) throw new Error(`no wiki with slug '${tenantSlug}' in this database`);
   const loadKey = `generated-pages:${tenantSlug}`;
-  const prior = await client.query(`select to_char(loaded_at, 'YYYY-MM-DD"T"HH24:MI:SS"Z"') as loaded_at, file_sha256, loaded_by from content_load_records where load_key = $1`, [loadKey]);
+  const prior = await client.query(`select to_char(loaded_at at time zone 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS"Z"') as loaded_at, file_sha256, loaded_by from content_load_records where load_key = $1`, [loadKey]);
   if (prior.rows.length) {
     const row = prior.rows[0];
     say(`refused: already loaded into '${tenantSlug}' at ${row.loaded_at} by ${row.loaded_by} (file ${String(row.file_sha256).slice(0, 12)}). This load runs once per wiki; later changes go through the AI editor queue.`);
