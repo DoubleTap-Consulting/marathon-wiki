@@ -1,5 +1,6 @@
 "use client";
 
+import { CircleHelp, Sparkles, TriangleAlert, type LucideIcon } from "lucide-react";
 import { useCallback, useId, useRef, useState, useSyncExternalStore } from "react";
 
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -142,11 +143,21 @@ export function SourceDetails({ source }: { source: CitedSource }) {
   );
 }
 
+/** A trust state's icon and words, so no state is told by color alone. */
+export function TrustLabel({ icon: Icon, tone, className, id, children }: { icon: LucideIcon; tone?: string; className?: string; id?: string; children: React.ReactNode }) {
+  return (
+    <span id={id} data-trust-label="" className={cn("inline-flex items-baseline gap-1 whitespace-nowrap", className)}>
+      <Icon className={cn("size-[1em] shrink-0 self-center", tone)} aria-hidden="true" />
+      {children}
+    </span>
+  );
+}
+
 export function CitationMarker({ source }: { source: CitedSource }) {
   const heading = (
     <>
       {source.url ? (
-        <a href={source.url} target="_blank" rel="noreferrer" className="text-link underline decoration-link/40 underline-offset-4 hover:decoration-link">
+        <a href={source.url} target="_blank" rel="noreferrer" className="text-link underline decoration-1 underline-offset-3 hover:decoration-2">
           {source.title}
         </a>
       ) : (
@@ -163,7 +174,7 @@ export function CitationMarker({ source }: { source: CitedSource }) {
         <button
           type="button"
           aria-label={`Source ${source.number}: ${source.title}`}
-          className="relative inline-flex min-h-6 min-w-6 items-center justify-center px-0.5 align-super text-label leading-none font-medium tabular-nums text-link after:absolute after:-inset-2.5 after:content-[''] hover:underline"
+          className="relative inline-flex min-h-6 min-w-6 items-center justify-center px-0.5 align-super text-label leading-none font-medium tabular-nums text-link after:absolute after:-inset-2.5 after:content-['']"
           {...handlers}
         >
           [{source.number}]
@@ -208,10 +219,10 @@ export function ClaimMark({
             }}
             {...handlers}
           >
-            {children}
-            <span id={descriptionId} className="sr-only">
-              (Not yet confirmed by a source)
-            </span>
+            {children}{" "}
+            <TrustLabel id={descriptionId} icon={CircleHelp} tone="text-claim-unverified" className="text-small text-muted-foreground">
+              Unconfirmed
+            </TrustLabel>
           </span>
         )}
       >
@@ -236,9 +247,10 @@ export function ClaimMark({
           <button
             type="button"
             aria-describedby={descriptionId}
-            className="inline-flex min-h-6 items-center px-1 align-baseline text-label font-medium uppercase tracking-wide text-foreground underline decoration-claim-conflict underline-offset-4 pointer-coarse:min-h-11"
+            className="inline-flex min-h-6 items-center gap-1 px-1 align-baseline text-label font-medium uppercase tracking-wide text-foreground underline decoration-claim-conflict underline-offset-4 pointer-coarse:min-h-11"
             {...handlers}
           >
+            <TriangleAlert className="size-[1em] shrink-0 text-claim-conflict" aria-hidden="true" />
             Sources disagree
           </button>
         )}
@@ -253,7 +265,7 @@ export function ClaimMark({
             {sources.map((source) => (
               <li key={source.title}>
                 {source.url ? (
-                  <a href={source.url} target="_blank" rel="noreferrer" className="text-link underline decoration-link/40 underline-offset-4 hover:decoration-link">
+                  <a href={source.url} target="_blank" rel="noreferrer" className="text-link underline decoration-1 underline-offset-3 hover:decoration-2">
                     {source.title}
                   </a>
                 ) : (
@@ -289,7 +301,7 @@ export function ProvenanceTrigger({
           className={className}
           {...handlers}
         >
-          {label}
+          <TrustLabel icon={Sparkles}>{label}</TrustLabel>
         </button>
       )}
     >

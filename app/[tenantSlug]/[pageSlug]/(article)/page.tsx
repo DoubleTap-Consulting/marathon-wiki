@@ -319,7 +319,7 @@ function InlineNote({ note }: { note: WikiCommunityNoteSummary }) {
           <>
             <a
               href={note.sourceUrl}
-              className="text-link underline decoration-link/40 underline-offset-4 hover:decoration-link"
+              className="text-link underline decoration-1 underline-offset-3 hover:decoration-2"
             >
               Source
             </a>
@@ -372,7 +372,7 @@ function WhatChanged({
           ) : null}
           <Link
             href={`${base}/history/${revision.revisionNumber}` as Route}
-            className="inline-flex min-h-11 items-center text-link underline decoration-link/40 underline-offset-4 hover:decoration-link"
+            className="inline-flex min-h-11 items-center text-link underline decoration-1 underline-offset-3 hover:decoration-2"
           >
             See full diff
           </Link>
@@ -396,7 +396,7 @@ function References({ references }: { references: CitedSource[] }) {
               {source.url ? (
                 <a
                   href={source.url}
-                  className="py-1.5 text-link underline decoration-link/40 underline-offset-4 hover:decoration-link"
+                  className="py-1.5 text-link underline decoration-1 underline-offset-3 hover:decoration-2"
                 >
                   {source.title}
                 </a>

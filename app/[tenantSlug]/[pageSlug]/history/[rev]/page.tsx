@@ -57,18 +57,18 @@ export default async function DiffPage({ params }: DiffPageProps) {
 
         <nav aria-label="Revisions" className="mt-10 flex justify-between gap-4 border-t pt-4 text-ui">
           {previous ? (
-            <Link href={`${base}/history/${previous.revisionNumber}` as Route} className="inline-flex min-h-11 items-center text-link hover:underline">
+            <Link href={`${base}/history/${previous.revisionNumber}` as Route} className="inline-flex min-h-11 items-center text-foreground underline decoration-1 underline-offset-3 hover:decoration-2">
               ← Revision {previous.revisionNumber}
             </Link>
           ) : (
             <span />
           )}
           {newer ? (
-            <Link href={`${base}/history/${newer.revisionNumber}` as Route} className="inline-flex min-h-11 items-center text-link hover:underline">
+            <Link href={`${base}/history/${newer.revisionNumber}` as Route} className="inline-flex min-h-11 items-center text-foreground underline decoration-1 underline-offset-3 hover:decoration-2">
               Revision {newer.revisionNumber} →
             </Link>
           ) : (
-            <Link href={base as Route} className="inline-flex min-h-11 items-center text-link hover:underline">
+            <Link href={base as Route} className="inline-flex min-h-11 items-center text-foreground underline decoration-1 underline-offset-3 hover:decoration-2">
               Current page →
             </Link>
           )}

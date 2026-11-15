@@ -32,7 +32,7 @@ const schema = {
 };
 
 const LINK_CLASS =
-  "text-link underline decoration-link/40 underline-offset-4 hover:decoration-link";
+  "text-link underline decoration-1 underline-offset-3 hover:decoration-2";
 
 const BASE_COMPONENTS: Components = {
   h2: ({ children, id }) => (
