@@ -11,7 +11,7 @@ export function OfficialSourceGapsSection({ gaps }: { gaps: OfficialSourceGaps }
           Official posts not yet sourced
         </h2>
         <p className="mt-1 text-small text-muted-foreground">
-          The daily re-fetch cannot read these. Render each one on the box and run the snapshot ingest to bring it in.
+          The daily check can't read these. Re-import them by hand to update the page.
         </p>
       </div>
 
@@ -29,7 +29,7 @@ export function OfficialSourceGapsSection({ gaps }: { gaps: OfficialSourceGaps }
               <span className="shrink-0 text-small text-muted-foreground">
                 {source.lastIngestedAt ? (
                   <>
-                    Last ingested <SiteDate iso={source.lastIngestedAt} />
+                    Last imported <SiteDate iso={source.lastIngestedAt} />
                   </>
                 ) : (
                   "Never ingested"
