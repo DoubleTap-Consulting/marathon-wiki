@@ -13,7 +13,6 @@ import {
   AI_REFRESH_QUEUE_STATUS,
   enqueueAiRefreshQueueItem,
   enqueueUpcomingEventRefreshes,
-  enqueueWeeklyAiRefreshes,
   processDueAiRefreshQueueItems,
 } from "./wiki-refresh-queue";
 import { getDb } from "@/src/db/client";
@@ -115,112 +114,6 @@ describe.sequential("AI refresh queue", () => {
 
     expect(second.id).toBe(first.id);
     expect(Number(count.count)).toBe(1);
-  });
-
-  it("schedules stale AI-authored pages weekly without scheduling fresh or human pages", async () => {
-    const stalePage = await saveWikiPageWithRevision(
-      {
-        tenantId,
-        slug: "stale-ai-page",
-        title: "Stale AI Page",
-        summary: "Old AI-authored page",
-        bodyMarkdown: "## Old\n\nThis AI page is stale.",
-        status: "published",
-        actorId: "seed-ai",
-        aiProvenance: buildAiProvenance("weekly_seed", "seed_ai"),
-      },
-      db,
-    );
-    const freshPage = await saveWikiPageWithRevision(
-      {
-        tenantId,
-        slug: "fresh-ai-page",
-        title: "Fresh AI Page",
-        summary: "Fresh AI-authored page",
-        bodyMarkdown: "## Fresh\n\nThis AI page is recent.",
-        status: "published",
-        actorId: "seed-ai",
-        aiProvenance: buildAiProvenance("weekly_seed", "seed_ai"),
-      },
-      db,
-    );
-    await saveWikiPageWithRevision(
-      {
-        tenantId,
-        slug: "human-page",
-        title: "Human Page",
-        summary: "Human-authored page",
-        bodyMarkdown: "## Human\n\nThis page is not AI-authored.",
-        status: "published",
-        actorId: "seed-human",
-      },
-      db,
-    );
-    const oldRevisionDate = new Date("2026-06-20T12:00:00.000Z");
-
-    await db
-      .updateTable("wiki_page_revisions")
-      .set({ created_at: oldRevisionDate })
-      .where("tenant_id", "=", tenantId)
-      .where("page_id", "=", stalePage.id)
-      .execute();
-    await db
-      .updateTable("wiki_page_revisions")
-      .set({ created_at: now })
-      .where("tenant_id", "=", tenantId)
-      .where("page_id", "=", freshPage.id)
-      .execute();
-
-    const firstRun = await enqueueWeeklyAiRefreshes(
-      {
-        tenantId,
-        now,
-        staleAfterDays: 7,
-        limit: 10,
-      },
-      { db },
-    );
-    const secondRun = await enqueueWeeklyAiRefreshes(
-      {
-        tenantId,
-        now,
-        staleAfterDays: 7,
-        limit: 10,
-      },
-      { db },
-    );
-    const weeklyRows = await db
-      .selectFrom("ai_refresh_queue_items")
-      .select(["target_slug", "reason", "source", "status"])
-      .where("tenant_id", "=", tenantId)
-      .where("source", "=", "weekly_cron")
-      .where("target_slug", "in", [
-        "stale-ai-page",
-        "fresh-ai-page",
-        "human-page",
-      ])
-      .orderBy("target_slug", "asc")
-      .execute();
-
-    expect(firstRun.eligibleCount).toBe(1);
-    expect(firstRun.enqueued).toEqual([
-      expect.objectContaining({
-        pageId: stalePage.id,
-        targetSlug: "stale-ai-page",
-        reason: "weekly_refresh",
-        source: "weekly_cron",
-        status: AI_REFRESH_QUEUE_STATUS.queued,
-      }),
-    ]);
-    expect(secondRun.enqueued[0]?.id).toBe(firstRun.enqueued[0]?.id);
-    expect(weeklyRows).toEqual([
-      {
-        target_slug: "stale-ai-page",
-        reason: "weekly_refresh",
-        source: "weekly_cron",
-        status: "queued",
-      },
-    ]);
   });
 
   it("schedules upcoming event refreshes on event dates and dedupes repeat discoveries", async () => {

@@ -227,7 +227,7 @@ function TrustStrip({
           label={summary.kind === "ai-checked" ? "Checked by AI" : "Updated by AI"}
           lines={[
             `Written by ${model} from ${total} ${total === 1 ? "source" : "sources"}.`,
-            "Refreshed weekly and when patch notes drop.",
+            "Sources are re-checked daily; the page is revised when one changes.",
           ]}
           footnote={`Model ${summary.provenance.modelId}, prompt ${summary.provenance.promptVersion}.`}
         />{" "}

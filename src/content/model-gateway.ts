@@ -16,8 +16,21 @@ export const MODEL_PRICES: Record<string, { input: number; output: number }> = {
   "openai/gpt-5-nano": { input: 0.05e-6, output: 0.4e-6 },
 };
 
-/** Assumed worst case for one call when checking the cap before calling. */
-export const MAX_CALL_USD = 0.25;
+/** Output ceiling per call. The largest call so far used under 5k output tokens, reasoning included. */
+export const MAX_OUTPUT_TOKENS = 16_000;
+
+/**
+ * The most one call can cost, checked against the cap before calling: the prompt at a pessimistic
+ * 3 characters per token plus the full output ceiling, at the dearest model the call may use.
+ */
+export function worstCaseCallUsd(models: string[], promptChars: number) {
+  return Math.max(
+    ...models.map((model) => {
+      const price = MODEL_PRICES[model] ?? MODEL_PRICES[PRIMARY_MODEL];
+      return Math.ceil(promptChars / 3) * price.input + MAX_OUTPUT_TOKENS * price.output;
+    }),
+  );
+}
 
 export type SpendEntry = { at: string; page: string; step: string; model: string; inputTokens: number; outputTokens: number; usd: number };
 
@@ -70,7 +83,7 @@ export function createGatewayCaller(options: {
   let lastCallAt = 0;
 
   return async ({ page, step, system, prompt, schema }) => {
-    if (options.ledger.totalUsd() + MAX_CALL_USD > options.capUsd) {
+    if (options.ledger.totalUsd() + worstCaseCallUsd(models, system.length + prompt.length) > options.capUsd) {
       throw new BudgetExceeded(`Spend cap: $${options.ledger.totalUsd().toFixed(2)} spent; the next call could pass $${options.capUsd}.`);
     }
     let lastError: unknown;
@@ -84,6 +97,7 @@ export function createGatewayCaller(options: {
           system,
           prompt,
           output: Output.object({ schema }),
+          maxOutputTokens: MAX_OUTPUT_TOKENS,
           abortSignal: AbortSignal.timeout(options.timeoutMs ?? 180_000),
           providerOptions: {
             openai: { reasoningEffort: "low" },

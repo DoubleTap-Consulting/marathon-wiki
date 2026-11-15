@@ -13,6 +13,7 @@ import {
   type WikiCommunityNoteSummary,
   type WikiSuggestionSummary,
 } from "@/src/db/wiki";
+import { composeWikiTitle } from "@/src/wiki/metadata";
 import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
 
 import { ClerkSignInControl, ClerkUserControl } from "../_components/auth-controls";
@@ -44,7 +45,7 @@ export async function generateMetadata({
   const snapshot = await getWikiHomeSnapshot(normalizeTenantSlug(tenantSlug));
 
   return {
-    title: snapshot ? `Review suggestions | ${snapshot.tenant.name}` : "Wiki not found",
+    title: snapshot ? { absolute: composeWikiTitle("Review suggestions", snapshot.tenant.name) } : "Wiki not found",
     robots: {
       index: false,
       follow: false,

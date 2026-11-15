@@ -10,8 +10,9 @@ import { sql } from "kysely";
 
 import pageSpecs from "@/content/marathon/pages.json";
 import sourceRegistry from "@/content/marathon/sources.json";
-import { buildCorpus, composePage, describeChanges, specForTitle, type PublishPolicy, type Snapshot, type StructuredCall } from "./editor";
-import type { PageSpec, SourceRecord } from "./pipeline";
+import { buildCorpus, composePage, specForTitle, type PreviousRevision, type PublishPolicy, type Snapshot, type StructuredCall } from "./editor";
+import type { StoredClaim } from "./patch";
+import type { PageSpec, Rejection, SourceRecord } from "./pipeline";
 import { getDb } from "@/src/db/client";
 import type { DB } from "@/src/db/types";
 import {
@@ -25,6 +26,8 @@ import {
 } from "@/src/db/wiki";
 
 export const SNAPSHOT_ORIGIN = "rendered_snapshot";
+/** The tenant the curated Marathon sources and page specs belong to. */
+export const CONTENT_TENANT_SLUG = "marathon";
 export const CONTENT_SPECS = pageSpecs as PageSpec[];
 export const CONTENT_SOURCES = sourceRegistry as SourceRecord[];
 
@@ -50,8 +53,11 @@ export async function upsertRenderedSnapshots(
     const kind: SnapshotChange["kind"] = !existing ? "new" : previousSha256 === snapshot.sha256 ? "unchanged" : "changed";
     changes.push({ sourceKey: snapshot.sourceKey, kind, previousSha256, sha256: snapshot.sha256 });
     if (kind === "unchanged") continue;
+    const fetchMethod = snapshot.fetchMethod ?? "rendered";
     const metadata = JSON.stringify({
       origin: SNAPSHOT_ORIGIN,
+      fetchMethod,
+      ...(fetchMethod === "http" ? { httpSha256: snapshot.sha256 } : {}),
       sha256: snapshot.sha256,
       previousSha256,
       fetchedAt: snapshot.fetchedAt,
@@ -104,14 +110,70 @@ export async function loadRenderedSnapshots(tenantId: string, db: Kysely<DB> = g
   });
 }
 
-export type EditorOutcome =
-  | { kind: "published"; page: WikiPageDetail; provenance: WikiPageRevisionAiProvenance; changeNote: string }
-  | { kind: "needs_review"; suggestionId: string; reasons: string[]; changeNote: string };
+/** `rejected` lists the model's sentences and edits that did not make it in, and why (an audit trail for the queue item). */
+export type EditorOutcome = { changeNote: string; rejected: Rejection[] } & (
+  | { kind: "published"; page: WikiPageDetail; provenance: WikiPageRevisionAiProvenance }
+  | { kind: "needs_review"; suggestionId: string; reasons: string[] }
+  | { kind: "unchanged" }
+);
+
+type ProvenanceWithClaims = { claimSupport?: StoredClaim[]; sourceHashes?: Record<string, string | null> } | null;
 
 /**
- * Regenerate one page: load the stored snapshots, compose with the shared pipeline, then publish
- * through the gate. Unsupported statements are never silently published: a page under the
- * threshold becomes a pending AI suggestion that an editor approves or rejects.
+ * The version a refresh edits: the latest published revision or, for a page that has never been
+ * published, the newest pending AI suggestion (a thin hub waiting in Review, for example).
+ */
+async function loadPreviousRevision(
+  input: { tenantId: string; slug: string; page: WikiPageDetail | null },
+  db: Kysely<DB>,
+): Promise<PreviousRevision | null> {
+  if (input.page) {
+    const provenance = input.page.latestRevision?.aiProvenance as ProvenanceWithClaims;
+    if (!provenance?.claimSupport?.length) return null;
+    // Older revisions did not record sourceHashes; their per-revision source rows did.
+    const fromRows = Object.fromEntries(
+      input.page.sources.flatMap((source) => {
+        const sha256 = (source.metadata as { contentSha256?: string | null } | null)?.contentSha256;
+        return source.sourceKey && sha256 ? [[source.sourceKey, sha256]] : [];
+      }),
+    );
+    return { bodyMarkdown: input.page.bodyMarkdown, summary: input.page.summary ?? null, claims: provenance.claimSupport, sourceHashes: provenance.sourceHashes ?? fromRows };
+  }
+  const suggestion = await pendingAiSuggestions(input.tenantId, input.slug, db).executeTakeFirst();
+  const provenance = (suggestion?.metadata as { aiProvenance?: ProvenanceWithClaims } | null)?.aiProvenance;
+  if (!suggestion || !provenance?.claimSupport?.length) return null;
+  return { bodyMarkdown: suggestion.body_markdown, summary: suggestion.summary, claims: provenance.claimSupport, sourceHashes: provenance.sourceHashes ?? {} };
+}
+
+function pendingAiSuggestions(tenantId: string, slug: string, db: Kysely<DB>) {
+  return db
+    .selectFrom("wiki_suggestions")
+    .select(["id", "body_markdown", "summary", "metadata"])
+    .where("tenant_id", "=", tenantId)
+    .where("target_slug", "=", slug)
+    .where("status", "=", "pending")
+    .where(sql<boolean>`metadata->>'origin' = 'ai_generated'`)
+    .orderBy("created_at", "desc");
+}
+
+/** Keeps at most one pending AI version per page: older ones are closed once a newer one exists. */
+async function supersedePendingAiSuggestions(input: { tenantId: string; slug: string; keepId: string | null; actorId: string }, db: Kysely<DB>) {
+  let query = db
+    .updateTable("wiki_suggestions")
+    .set({ status: "rejected", reviewed_by: input.actorId, reviewed_at: sql`CURRENT_TIMESTAMP`, review_note: "Superseded by a newer AI editor version.", updated_at: sql`CURRENT_TIMESTAMP` })
+    .where("tenant_id", "=", input.tenantId)
+    .where("target_slug", "=", input.slug)
+    .where("status", "=", "pending")
+    .where(sql<boolean>`metadata->>'origin' = 'ai_generated'`);
+  if (input.keepId) query = query.where("id", "!=", input.keepId);
+  await query.execute();
+}
+
+/**
+ * Refresh or write one page: load the stored snapshots, compose with the shared pipeline, then
+ * publish through the gate. An existing page is edited sentence by sentence, not rewritten.
+ * Unsupported statements are never silently published: a page under the threshold, or one that
+ * drops supported statements whose sources did not change, becomes a pending AI suggestion.
  */
 export async function runEditor(
   input: {
@@ -122,6 +184,8 @@ export async function runEditor(
     call: StructuredCall;
     actorId: string;
     changedSources?: string[];
+    /** Editor instructions carried on the queue item. Hints for the model, never sources. */
+    instructions?: string[];
     specs?: PageSpec[];
     sources?: SourceRecord[];
     policy?: PublishPolicy;
@@ -137,7 +201,7 @@ export async function runEditor(
 
   const existing = await getPublishedWikiPageBySlug(input.tenant.id, input.targetSlug, db);
   const notes = existing ? await listWikiCommunityNoteContextForPage({ tenantId: input.tenant.id, pageId: existing.id }, db) : [];
-  const previousClaims = existing?.latestRevision?.aiProvenance?.claimSupport ?? null;
+  const previous = await loadPreviousRevision({ tenantId: input.tenant.id, slug: spec.slug, page: existing }, db);
   const now = input.now ?? new Date();
 
   const composed = await composePage({
@@ -148,13 +212,19 @@ export async function runEditor(
     call: input.call,
     refreshReason: input.refreshReason,
     requestedBy: input.actorId,
-    readerNotes: notes.flatMap((note) => (note.contextText ? [note.contextText] : [])),
-    previousClaims,
+    readerNotes: [...(input.instructions ?? []), ...notes.flatMap((note) => (note.contextText ? [note.contextText] : []))],
+    previous,
+    changedSources: input.changedSources,
     policy: input.policy,
     now,
   });
-  const changeNote = describeChanges({ previous: previousClaims, next: composed.aiProvenance.claimSupport, refreshReason: existing ? input.refreshReason : "new_page", changedSources: input.changedSources });
-  const provenance = { ...composed.aiProvenance, changeNote, readerNoteIds: notes.map((note) => note.id) } as unknown as WikiPageRevisionAiProvenance;
+  const { rejected } = composed;
+  // A version held for review that the editor leaves as it is publishes once it clears the gate
+  // (the policy may have changed since it was held); anything else unchanged writes nothing.
+  const releasesHeldVersion = composed.unchanged && !existing && composed.gate.decision === "publish";
+  if (composed.unchanged && !releasesHeldVersion) return { kind: "unchanged", changeNote: composed.changeNote, rejected };
+  const changeNote = releasesHeldVersion ? "Published the version held for review: it now clears the publish gate." : composed.changeNote;
+  const provenance = { ...composed.aiProvenance, readerNoteIds: notes.map((note) => note.id) } as unknown as WikiPageRevisionAiProvenance;
 
   if (composed.gate.decision === "needs_review") {
     const suggestion = await createWikiSuggestion(
@@ -171,9 +241,9 @@ export async function runEditor(
       },
       db,
     );
-    return { kind: "needs_review", suggestionId: suggestion.id, reasons: composed.gate.reasons, changeNote };
+    await supersedePendingAiSuggestions({ tenantId: input.tenant.id, slug: spec.slug, keepId: suggestion.id, actorId: input.actorId }, db);
+    return { kind: "needs_review", suggestionId: suggestion.id, reasons: composed.gate.reasons, changeNote, rejected };
   }
-
   const cited = new Map<string, string[]>();
   for (const extract of composed.citedExtracts) cited.set(extract.sourceKey, [...(cited.get(extract.sourceKey) ?? []), extract.text]);
   const page = await saveWikiPageWithRevision(
@@ -206,5 +276,6 @@ export async function runEditor(
     },
     db,
   );
-  return { kind: "published", page, provenance, changeNote };
+  await supersedePendingAiSuggestions({ tenantId: input.tenant.id, slug: spec.slug, keepId: null, actorId: input.actorId }, db);
+  return { kind: "published", page, provenance, changeNote, rejected };
 }

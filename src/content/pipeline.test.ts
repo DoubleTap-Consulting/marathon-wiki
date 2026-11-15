@@ -5,7 +5,7 @@ import { unified } from "unified";
 
 import { remarkArticle, type ArticleContext, type ArticlePlan } from "@/src/wiki/article";
 
-import {
+import { liftInlineCitations,
   assembleMarkdown,
   buildProvenance,
   chunkSnapshot,
@@ -92,6 +92,26 @@ describe("validateSentence", () => {
 
   it("rejects markup that would break sentence matching", () => {
     expect(validateSentence({ text: "See [[factions]] for more.", extractIds: ["bungie#1"], patchRef: null }, KNOWN)).toBe("markup inside sentence text");
+  });
+
+  it("accepts an abbreviated month in the update date", () => {
+    expect(
+      validateSentence({ extractIds: ["bungie#1"], patchRef: "1.1.9.2", text: "In Update 1.1.9.2 (Oct 6, 2026), schema wares began costing Credits." }, KNOWN),
+    ).toBeNull();
+  });
+
+  it("moves citations a model copied into the sentence text to its extract ids", () => {
+    expect(liftInlineCitations({ text: "Outpost has a Heat Cascade event (pcgamer-review#16).", extractIds: [], patchRef: null })).toEqual({
+      text: "Outpost has a Heat Cascade event.",
+      extractIds: ["pcgamer-review#16"],
+      patchRef: null,
+    });
+    expect(liftInlineCitations({ text: 'Rook joins matches in progress. extractIds:["bungie#5","bungie#6"]', extractIds: ["bungie#5"], patchRef: null })).toEqual({
+      text: "Rook joins matches in progress.",
+      extractIds: ["bungie#5", "bungie#6"],
+      patchRef: null,
+    });
+    expect(liftInlineCitations({ text: "See [[factions]] (bungie#1).", extractIds: [], patchRef: null }).text).toBe("See [[factions]].");
   });
 
   it("requires patch-sensitive sentences to name the update and its date", () => {
@@ -213,6 +233,16 @@ describe("extract selection", () => {
     const spec = { slug: "cryo-archive", title: "Cryo Archive", keywords: ["Vault"], preferredSources: ["bungie"] } as PageSpec;
     const picked = selectExtracts(spec, new Map([["press", [{ id: "press#1", sourceKey: "press", text: "Unrelated text." }]], ["bungie", chunks]]), { perSource: 3 });
     expect(picked.map((extract) => extract.id)).toEqual(["bungie#1", "bungie#2", "bungie#3"]);
+  });
+});
+
+describe("chunkSnapshot", () => {
+  it("keeps a line that introduces a list in the same chunk as the list", () => {
+    const filler = "Filler sentence about season resets and starting gear. ".repeat(3).trim();
+    const text = [filler, filler, "You get care packages depending on your rank at the end of season 1:", "Runner Level 10: Enhanced kit", "Runner Level 50: Deluxe kit"].join("\n");
+    const chunks = chunkSnapshot("kotaku", text, 200);
+    const list = chunks.find((chunk) => chunk.text.includes("Runner Level 10"))!;
+    expect(list.text).toContain("depending on your rank at the end of season 1:");
   });
 });
 

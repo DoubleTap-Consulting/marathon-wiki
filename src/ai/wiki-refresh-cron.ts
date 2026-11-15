@@ -1,8 +1,17 @@
 import { NextResponse } from "next/server";
 
+/** Each scheduled job has its own Production switch, so turning one on never turns on the other. */
+export const CRON_FLAGS = {
+  editor: "WIKI_AI_EDITOR_CRON",
+  sourceRefetch: "WIKI_SOURCE_REFETCH_CRON",
+} as const;
+
+export type CronJob = keyof typeof CRON_FLAGS;
+
 export function isAiRefreshCronRequestAuthorized(
   request: Request,
   env: Partial<NodeJS.ProcessEnv> = process.env,
+  job: CronJob = "editor",
 ) {
   // Scheduled AI work spends AI credits and writes to the database, so it only
   // runs on Production. Vercel Cron only fires there; this also blocks manual
@@ -11,8 +20,8 @@ export function isAiRefreshCronRequestAuthorized(
     return false;
   }
 
-  // Even on Production, the AI editor's scheduled work stays off until it is switched on explicitly.
-  if (env.VERCEL_ENV === "production" && env.WIKI_AI_EDITOR_CRON !== "1") {
+  // Even on Production, each scheduled job stays off until its own flag is set to 1.
+  if (env.VERCEL_ENV === "production" && env[CRON_FLAGS[job]] !== "1") {
     return false;
   }
 

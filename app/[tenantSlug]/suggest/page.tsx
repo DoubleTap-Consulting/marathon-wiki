@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { composeWikiTitle } from "@/src/wiki/metadata";
 import { getAuthMode, getCurrentWikiActor } from "@/src/auth/wiki-auth";
 import { getWikiHomeSnapshot } from "@/src/db/wiki";
 import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
@@ -28,7 +29,7 @@ export async function generateMetadata({
   const snapshot = await getWikiHomeSnapshot(normalizeTenantSlug(tenantSlug));
 
   return {
-    title: snapshot ? `Suggest a page | ${snapshot.tenant.name}` : "Wiki not found",
+    title: snapshot ? { absolute: composeWikiTitle("Suggest a page", snapshot.tenant.name) } : "Wiki not found",
     robots: {
       index: false,
       follow: false,

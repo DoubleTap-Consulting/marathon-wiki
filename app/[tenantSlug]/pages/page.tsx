@@ -31,7 +31,7 @@ export async function generateMetadata({
   }
 
   return buildWikiMetadata({
-    title: `All pages | ${snapshot.tenant.name}`,
+    title: "All pages",
     description: `Browse every published ${snapshot.tenant.gameTitle} wiki page.`,
     path: `/${snapshot.tenant.slug}/pages`,
     siteName: snapshot.tenant.name,

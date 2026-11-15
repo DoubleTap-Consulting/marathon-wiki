@@ -28,6 +28,7 @@
       {
         "id": "marathon-official-site#3",
         "quotes": [
+          "stronger starting loadouts, expanded vault space, and specialized wares",
           "Scavenge an arsenal of moddable weapons, body implants, and core system upgrades",
           "No one knows what happened a century ago when the Marathon expedition went dark",
           "No one knows what happened a century ago when the Marathon expedition went dark."
@@ -144,6 +145,7 @@
         "quotes": [
           "Minimum Runner Level: 25\nAll six factions unlocked (liaison contracts completed)\nMinimum Loadout Value: 5,000 credits",
           "Cryo Archive opens up for play on the weekends, starting this Friday, March 20.",
+          "you'll also be eligible for a one-time Cryo Archive Sponsored Kit from the Armory",
           "tight corridors give way to massive open spaces, pitting enemy crews against each other to unseal frozen Vaults",
           "you'll also be eligible for a one-time Cryo Archive Sponsored Kit from the Armory.",
           "a bundle of blue-tier gear specifically tuned to get you through an early Cryo Archive run",
@@ -158,6 +160,7 @@
           "To access each Vault, you'll need to complete its unique entry challenge or access requirements.",
           "Systems in Cryo Archive, including doors, supply rooms, and exfils, are locked behind specific Security Clearance levels.",
           "You can also find Vault Keys on the ship itself, both within locked Vaults and by downing enemy Runner crews",
+          "You can find Vault Keys on the planet-side zones",
           "Cryo Archive runs on Security Clearance, a progression you build up over the course of a single run",
           "Each Vault also requires a specific Vault Key for entry."
         ]
@@ -199,6 +202,7 @@
       {
         "id": "bungie-server-slam#2",
         "quotes": [
+          "Standard implants (6x)",
           "Standard Runner shell cores (4x)",
           "Deluxe and Enhanced Runner shell cores (1x each for each shell, 12x total)",
           "Deluxe and Enhanced implants (3x each, 6x total)",
@@ -223,6 +227,7 @@
         "quotes": [
           "Marathon officially launches on March 5, 2026",
           "Cryo Archive, an end-game zone aboard the derelict UESC Marathon",
+          "Cryo Archive, an end-game zone aboard the derelict UESC Marathon (unlocks during Season 1)",
           "Full progression for all six factions, including additional contracts, deeper upgrade trees, and the addition of the sixth faction Sekiguchi Genetics",
           "Thief, the sixth Runner shell",
           "Outpost, set in the middle of a thriving UESC military installation",
@@ -232,7 +237,8 @@
       {
         "id": "bungie-server-slam#5",
         "quotes": [
-          "If you’re playing on PS5 with PlayStation Plus at launch, you’ll get access to a set of exclusive weapon charms"
+          "If you’re playing on PS5 with PlayStation Plus at launch, you’ll get access to a set of exclusive weapon charms",
+          "additional in-game rewards, including weapon cosmetics, an emblem, and player background for launch, plus a set of Destiny 2 rewards linked to your Bungie.net account"
         ]
       }
     ]
@@ -249,8 +255,8 @@
         "id": "bungie-introducing-seasons#1",
         "quotes": [
           "Seasons in Marathon last about three months",
-          "Seasons in Marathon last about three months,",
-          "Seasonal updates will introduce new gameplay, including gear, Runner shells, zones, events, and more, which will be free for all players to access or earn"
+          "Seasonal updates will introduce new gameplay, including gear, Runner shells, zones, events, and more, which will be free for all players to access or earn",
+          "Seasons in Marathon last about three months,"
         ]
       },
       {
@@ -287,8 +293,8 @@
       {
         "id": "bungie-introducing-seasons#6",
         "quotes": [
-          "All six factions, including Sekiguchi Genetics",
           "All six launch Runner shells, including Thief",
+          "All six factions, including Sekiguchi Genetics",
           "28 weapons, plus mods, implants, cores, and more to craft your perfect builds",
           "28 weapons, plus mods, implants, cores",
           "Outpost will unlock the day after launch, giving the community time to gear up and unlock the zone at Runner Level 12",
@@ -362,6 +368,7 @@
       {
         "id": "bungie-s2-combat-tuning#22",
         "quotes": [
+          "harmlessly neutralizes incoming explosives",
           "Toss a proximity-triggered mine which detonates into several Immobilizing submunitions",
           "see moving enemies on radar within a conical zone in front of you",
           "You ready and reload SMGs, Pistols, and Shotguns more quickly based on the number of nearby hostiles"
@@ -454,17 +461,18 @@
         "id": "bungie-welcome-season-2#12",
         "quotes": [
           "Your Cradle progression is shared across all Runner shells",
+          "Your Cradle progression is shared across all Runner shells, and it resets at the start of a new season.",
           "empower the WEAVEworms that create your biocybernetic bodies to increase your Runner shell stats across six categories",
           "the Matter Converter, which turns weapons, equipment, and other items into experience for your Cradle.",
           "Level up your Cradle to earn Energy, which you can then allocate to any of the six stat categories.",
-          "You can reallocate your Energy to different stats at any time, with no penalties or limitations.",
-          "Your Cradle progression is shared across all Runner shells, and it resets at the start of a new season."
+          "You can reallocate your Energy to different stats at any time, with no penalties or limitations."
         ]
       },
       {
         "id": "bungie-welcome-season-2#13",
         "quotes": [
           "Runner shell upgrades in the faction progression trees being moved to the Cradle",
+          "all of the Runner shell upgrades in the faction progression trees being moved to the Cradle",
           "NuCaloric offers implants that help with healing and durability",
           "MIDA has ones more proficient in mobility or disruption.",
           "With all of the Runner shell upgrades in the faction progression trees being moved to the Cradle,",
@@ -521,6 +529,7 @@
         "id": "bungie-welcome-season-2#19",
         "quotes": [
           "Players can earn Arachne reputation by exfiling with a Tag Chip",
+          "a fully upgraded Vault can now hold up to 512 grid spaces of items.",
           "There is a new daily Ranked Sponsored Kit that contains a loadout appropriate for your rank—the higher your rank, the better the gear.",
           "There is a new daily Ranked Sponsored Kit that contains a loadout appropriate for your rank",
           "new daily Ranked Sponsored Kit that contains a loadout appropriate for your rank"
@@ -548,6 +557,7 @@
           "hunt down what enemies, mysteries, and powerful loot that awaits in the upper rooms of Complex Control",
           "hack into Network Towers across Night Marsh to gain access to their stockpiles",
           "Gather enough UESC Certs to open the doors and hunt down what enemies, mysteries, and powerful loot that awaits in the upper rooms of Complex Control",
+          "Kill UESC to gather their encryption certificates, or Certs for short, and hack into Network Towers",
           "Kill UESC to gather their encryption certificates, or Certs for short"
         ]
       },
@@ -568,6 +578,7 @@
           "New Runner Shell: Sentinel\nSeason 2 introduces Sentinel, a new shell built for controlling space and defending areas.",
           "automated laser platform which identifies and destroys incoming enemy grenades and missiles",
           "If you unlocked and completed a run on Dire Marsh last season, you’ll have access to both Dire Marsh and Night Marsh when Season 2 begins (same rules apply for Outpost). Otherwise both Marshes unlock at Runner Level 3.",
+          "If you unlocked and completed a run on Dire Marsh last season, you’ll have access to both Dire Marsh and Night Marsh when Season 2 begins",
           "Otherwise both Marshes unlock at Runner Level 3",
           "Otherwise both Marshes unlock at Runner Level 3."
         ]
@@ -630,7 +641,8 @@
       {
         "id": "bungie-nightfall-refresh#7",
         "quotes": [
-          "we have also developed a new Runner shell: Bishop. Players looking for a fast, surgical hunter-killer"
+          "we have also developed a new Runner shell: Bishop. Players looking for a fast, surgical hunter-killer",
+          "fast, surgical hunter-killer built around speed, surprise, and devastating bursts of melee damage"
         ]
       },
       {
@@ -700,7 +712,8 @@
           "Starting loadouts don’t count towards your score target",
           "Exfil at your score target to earn RP\nExfil with less than your score target, and your Rank has no change",
           "You can gain overperformance capacity by looting enemy Runner Holotags or Tag Chips, which drop from high-value UESC and in-run activities",
-          "Loss penalty = how much you lose by failing to exfil\nThis number is decided by you team’s combined Holotag value\nYou only lose RP if you fail to exfil"
+          "Loss penalty = how much you lose by failing to exfil\nThis number is decided by you team’s combined Holotag value\nYou only lose RP if you fail to exfil",
+          "You only lose RP if you fail to exfil"
         ]
       },
       {
@@ -708,13 +721,13 @@
         "quotes": [
           "Tag Chips count as valuable loot towards your score target, and they also grant overperformance capacity. Tag Chips auto-sell on exfil",
           "Tag Chips count as valuable loot towards your score target",
+          "Tag Chips count as valuable loot towards your score target, and they also grant overperformance capacity. Tag Chips auto-sell on exfil.",
           "Bronze Holotag\t500\t3,000\t600\t600",
           "Silver Holotag\t750\t5,000\t2,000\t1,000",
           "Gold Holotag\t1000\t7,000\t4,200\t1,500",
           "Platinum Holotag\t1500\t10,000\t8,000\t2,250",
           "Diamond Holotag\t2000\t15,000\t15,000\t3,250",
-          "Pinnacle Holotag\t3500\t20,000\t20,000\t5,000",
-          "Tag Chips count as valuable loot towards your score target, and they also grant overperformance capacity. Tag Chips auto-sell on exfil."
+          "Pinnacle Holotag\t3500\t20,000\t20,000\t5,000"
         ]
       },
       {
@@ -737,6 +750,7 @@
         "id": "bungie-expedition-phase-1#1",
         "quotes": [
           "Expedition is a fully PvE cooperative roguelite mode",
+          "a fully PvE cooperative roguelite mode with a dedicated queue across Perimeter, Night Marsh, Outpost, and Cryo Archive",
           "CyberAcme and other interested parties have aligned to establish a Runner non-aggression pact",
           "Perimeter, Night Marsh, Outpost, and Cryo Archive.",
           "you’ll be able to complete Priority Contracts while in Expedition mode,",
@@ -875,7 +889,8 @@
         "quotes": [
           "Traxus themed weapon: Stock decreased from 2/week to 1/week and rarity decreased from Superior to Deluxe.",
           "Deluxe sponsored kit: Stock decreased from 3/week to 2/week.",
-          "Sponsored Survival: Perimeter will be available all week until November 17"
+          "Sponsored Survival: Perimeter will be available all week until November 17",
+          "MIDA Armory\nDeluxe sponsored kit: Stock decreased from 3/week to 2/week."
         ]
       },
       {
@@ -924,6 +939,7 @@
       {
         "id": "bungie-update-1-1-9-2#5",
         "quotes": [
+          "Weapon and Backpack Schema wares in the Armory now cost Credits.",
           "Reduced UESC aggression against runners in Solo playlists. Reduced UESC damage dealt to runners by 20% in Solo playlists."
         ]
       },
@@ -972,9 +988,9 @@
         "id": "bungie-update-1-0-0-4#2",
         "quotes": [
           "Reduced health of most UESC enemies by ~10-15%",
+          "Reduced health of most UESC enemies by ~10-15% and shield hp of UESC bosses by 25%",
           "Fixed an issue where backpacks could be deleted when exfiling with Rook",
-          "Increased CyAc reputation gain from exfilling with Rook",
-          "Reduced health of most UESC enemies by ~10-15% and shield hp of UESC bosses by 25%"
+          "Increased CyAc reputation gain from exfilling with Rook"
         ]
       },
       {
@@ -1060,7 +1076,8 @@
       {
         "id": "bungie-press-mid-season-2#1",
         "quotes": [
-          "playable straight away solo, as a duo, or with a full trio"
+          "playable straight away solo, as a duo, or with a full trio",
+          "is playable straight away solo, as a duo, or with a full trio"
         ]
       },
       {
@@ -1096,6 +1113,12 @@
     "contentSha256": "42a7993bfbf039edd738fa9027b5d0d388a5f4cdf6b7570cc8c8cb109796366f",
     "citedExtracts": [
       {
+        "id": "bungie-vidoc#2",
+        "quotes": [
+          "Solo queue\nRook, a Runner shell used to scavenge matches in progress"
+        ]
+      },
+      {
         "id": "bungie-vidoc#3",
         "quotes": [
           "Three surface zones–Perimeter, Dire Marsh, and Outpost",
@@ -1112,6 +1135,12 @@
     "httpStatus": 200,
     "contentSha256": "724801d33ced929b5e3cd67fa43cd78007326392faa6f1d95318324a7533f937",
     "citedExtracts": [
+      {
+        "id": "pcgamer-review#1",
+        "quotes": [
+          "Multiplayer Up to 16 players"
+        ]
+      },
       {
         "id": "pcgamer-review#12",
         "quotes": [
@@ -1131,6 +1160,7 @@
       {
         "id": "pcgamer-review#16",
         "quotes": [
+          "Every few minutes, a \"Heat Cascade\" hits Outpost",
           "the Pinwheel, an imposing three-pronged megastructure",
           "one huge compound made up of factories, dormitories, and air hangars",
           "There are something like five or six different ways to get into the Pinwheel"
@@ -1159,6 +1189,8 @@
           "Tactical: Tracker Drone",
           "Trait 1: Interrogation",
           "Trait 2: Stalker Protocol",
+          "Prime: Echo Pulse Tactical: Tracker Drone",
+          "Trait 1: Interrogation Trait 2: Stalker Protocol",
           "A runner’s kit gears them toward distinct playstyles",
           "equipped with a Prime and Tactical ability, plus two Traits"
         ]
@@ -1180,6 +1212,12 @@
         "id": "pcgamer-guide#14",
         "quotes": [
           "So far, Bungie’s revealed six factions: Cyberacme, Arachne, Sekiguchi, MIDA, Traxus, and NuCal."
+        ]
+      },
+      {
+        "id": "pcgamer-guide#4",
+        "quotes": [
+          "Marathon will be priced at $40/£40/€35"
         ]
       },
       {
@@ -1255,12 +1293,15 @@
         "id": "gamesradar-factions#2",
         "quotes": [
           "To unlock a faction in Marathon, you need to complete its liaison contract",
+          "complete its liaison contract, given to you by ONI",
+          "offer superior rewards, such as Marathon weapons, backpacks, and Salvage",
           "Priority contracts are one-time missions that are essential to the faction's goals and offer superior rewards,"
         ]
       },
       {
         "id": "gamesradar-factions#3",
         "quotes": [
+          "offer basic faction rewards and some reputation upon completion",
           "Standard contracts are simple challenges that offer basic faction rewards and some reputation",
           "all players are limited to just one active contract at a time, if you're playing with a crew, contract progress is shared"
         ]
