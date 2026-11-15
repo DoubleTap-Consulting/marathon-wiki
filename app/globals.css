@@ -24,6 +24,8 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-claim-unverified: var(--claim-unverified);
+  --color-claim-conflict: var(--claim-conflict);
 }
 
 :root {
@@ -46,6 +48,10 @@
   --input: oklch(0.89 0.01 247);
   --ring: oklch(0.55 0.13 160);
   --radius: 0.5rem;
+  /* Claim support. Unverified underline is non-text (3:1 on --background);
+     conflict reuses destructive (3:1 border, label text uses foreground). */
+  --claim-unverified: oklch(0.555 0.163 49);
+  --claim-conflict: var(--destructive);
 }
 
 *,
@@ -75,4 +81,25 @@ h3,
 li,
 dd {
   overflow-wrap: anywhere;
+}
+
+html {
+  scroll-padding-top: 5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Keep only a short opacity change: no slides, zooms or height motion. */
+  *,
+  *::before,
+  *::after {
+    --tw-enter-scale: 1 !important;
+    --tw-enter-translate-x: 0 !important;
+    --tw-enter-translate-y: 0 !important;
+    --tw-exit-scale: 1 !important;
+    --tw-exit-translate-x: 0 !important;
+    --tw-exit-translate-y: 0 !important;
+    animation-duration: 150ms !important;
+    transition-property: opacity !important;
+    transition-duration: 150ms !important;
+  }
 }

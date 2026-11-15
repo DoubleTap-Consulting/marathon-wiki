@@ -540,6 +540,42 @@ export async function getPublishedWikiPageBySlug(
   };
 }
 
+export type WikiPageRevisionDetail = WikiPageRevisionSummary & {
+  title: string;
+  summary: string | null;
+  bodyMarkdown: string;
+};
+
+/** Every revision of a page, newest first, for the public History and diff views. */
+export async function listWikiPageRevisions(
+  tenantId: string,
+  pageId: string,
+  db: WikiDatabase = getDb(),
+): Promise<WikiPageRevisionDetail[]> {
+  const revisions = await db
+    .selectFrom("wiki_page_revisions")
+    .select([
+      "id",
+      "revision_number as revisionNumber",
+      "title",
+      "summary",
+      "body_markdown as bodyMarkdown",
+      "change_note as changeNote",
+      "ai_provenance as aiProvenance",
+      "created_by as createdBy",
+      "created_at as createdAt",
+    ])
+    .where("tenant_id", "=", tenantId)
+    .where("page_id", "=", pageId)
+    .orderBy("revision_number", "desc")
+    .execute();
+
+  return revisions.map((revision) => ({
+    ...revision,
+    aiProvenance: normalizeRevisionAiProvenance(revision.aiProvenance),
+  }));
+}
+
 export async function getWikiPageById(
   tenantId: string,
   pageId: string,

@@ -6,101 +6,114 @@ import type {
   WikiTenant,
 } from "@/src/db/wiki";
 
+import { MenuSheet, SearchSheet } from "./header-sheets";
+import { RelativeTime } from "./trust-ui";
+
 export function WikiChrome({
   tenant,
   categories,
   children,
+  width = "default",
+  skipTarget = "main",
 }: {
   tenant: WikiTenant;
   categories: WikiCategorySummary[];
   children: React.ReactNode;
+  /** "article" uses the 3-column reading layout width. */
+  width?: "default" | "article";
+  skipTarget?: string;
 }) {
+  const searchForm = (idSuffix: string) => (
+    <form
+      action={`/${tenant.slug}/pages`}
+      className="flex w-full min-w-0 gap-2"
+      role="search"
+      data-wiki-event="search_submit"
+      data-wiki-event-label="site-header"
+      data-wiki-tenant={tenant.slug}
+    >
+      <label htmlFor={`wiki-search-${idSuffix}`} className="sr-only">
+        Search wiki pages
+      </label>
+      <div className="relative min-w-0 flex-1">
+        <Search
+          className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+          aria-hidden="true"
+        />
+        <input
+          id={`wiki-search-${idSuffix}`}
+          name="q"
+          type="search"
+          placeholder="Search pages"
+          className="h-9 w-full rounded-md border border-input bg-background px-9 text-base text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring md:text-sm pointer-coarse:h-11"
+        />
+      </div>
+    </form>
+  );
+
   return (
-    <main className="min-h-screen bg-background">
-      <header className="border-b bg-card">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-5 px-5 py-5 sm:px-6 lg:px-8">
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <a
-              href={`/${tenant.slug}`}
-              className="flex min-h-11 items-center gap-3 rounded-md text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
-            >
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground">
-                <BookOpen className="size-5" aria-hidden="true" />
-              </span>
-              <span>
-                <span className="block text-lg font-semibold leading-6">
-                  {tenant.name}
-                </span>
-                <span className="block text-sm leading-5 text-muted-foreground">
-                  {tenant.gameTitle}
-                </span>
-              </span>
-            </a>
-
-            <form
-              action={`/${tenant.slug}/pages`}
-              className="grid w-full min-w-0 gap-2 sm:flex sm:min-h-11 sm:max-w-md"
-              role="search"
-              data-wiki-event="search_submit"
-              data-wiki-event-label="site-header"
-              data-wiki-tenant={tenant.slug}
-            >
-              <label htmlFor="wiki-search" className="sr-only">
-                Search wiki pages
-              </label>
-              <div className="relative min-w-0 flex-1">
-                <Search
-                  className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
-                  aria-hidden="true"
-                />
-                <input
-                  id="wiki-search"
-                  name="q"
-                  type="search"
-                  placeholder="Search pages"
-                  className="min-h-11 w-full rounded-md border border-input bg-background px-9 text-base text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                />
-              </div>
-              <button
-                type="submit"
-                className="min-h-11 rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card sm:shrink-0"
-              >
-                Search
-              </button>
-            </form>
-          </div>
-
-          <nav
-            className="flex w-full min-w-0 flex-wrap gap-2"
-            aria-label="Wiki sections"
+    <div className="min-h-screen bg-background">
+      <a
+        href={`#${skipTarget}`}
+        className="sr-only z-50 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground focus:not-sr-only focus:fixed focus:left-4 focus:top-2"
+      >
+        {skipTarget === "article" ? "Skip to article" : "Skip to content"}
+      </a>
+      <header className="sticky top-0 z-30 h-14 border-b bg-card/95 backdrop-blur">
+        <div
+          className={`mx-auto flex h-full w-full items-center gap-4 px-5 ${
+            width === "article" ? "max-w-[1240px] lg:px-8" : "max-w-6xl sm:px-6 lg:px-8"
+          }`}
+        >
+          <a
+            href={`/${tenant.slug}`}
+            className="flex min-h-11 shrink-0 items-center gap-2.5 rounded-md text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
-            <NavPill href={`/${tenant.slug}`}>Home</NavPill>
-            <NavPill href={`/${tenant.slug}/pages`}>All pages</NavPill>
-            <NavPill
-              href={`/${tenant.slug}/suggest`}
-              eventName="suggestion_cta"
-              eventLabel="header"
-              tenantSlug={tenant.slug}
+            <span className="flex size-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
+              <BookOpen className="size-4" aria-hidden="true" />
+            </span>
+            <span className="text-base font-semibold">{tenant.name}</span>
+          </a>
+          <div className="ml-auto hidden w-full max-w-xs md:block">{searchForm("header")}</div>
+          <div className="ml-auto flex items-center gap-1 md:ml-0">
+            <SearchSheet>{searchForm("sheet")}</SearchSheet>
+            <MenuSheet
+              primary={
+                <>
+                  <NavPill href={`/${tenant.slug}`}>Home</NavPill>
+                  <NavPill href={`/${tenant.slug}/pages`}>All pages</NavPill>
+                </>
+              }
+              review={<NavPill href={`/${tenant.slug}/review`}>Review</NavPill>}
             >
-              Suggest page
-            </NavPill>
-            <NavPill href={`/${tenant.slug}/review`}>Review</NavPill>
-            {categories.map((category) => (
-              <NavPill
-                key={category.id}
-                href={`/${tenant.slug}/categories/${category.slug}`}
-              >
-                {category.name}
-              </NavPill>
-            ))}
-          </nav>
+              <>
+                {categories.length > 0 ? (
+                  <p className="mt-4 mb-1 px-3 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Categories
+                  </p>
+                ) : null}
+                {categories.map((category) => (
+                  <NavPill key={category.id} href={`/${tenant.slug}/categories/${category.slug}`}>
+                    {category.name}
+                  </NavPill>
+                ))}
+              </>
+            </MenuSheet>
+          </div>
         </div>
       </header>
 
-      <div className="mx-auto w-full max-w-6xl px-5 py-8 sm:px-6 lg:px-8">
+      <main
+        id="main"
+        className={
+          width === "article"
+            ? "mx-auto w-full max-w-[1240px] px-5 pt-6 pb-16 md:px-8 lg:pt-10"
+            : "mx-auto w-full max-w-6xl px-5 py-8 sm:px-6 lg:px-8"
+        }
+      >
         {children}
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }
 
@@ -137,7 +150,7 @@ export function PageGrid({
               </p>
             </div>
             <p className="text-xs leading-5 text-muted-foreground">
-              Updated {formatDate(page.updatedAt)}
+              Updated {page.updatedAt ? <RelativeTime iso={new Date(page.updatedAt).toISOString()} /> : "Unknown"}
             </p>
           </div>
         </a>
@@ -179,7 +192,7 @@ function NavPill({
   return (
     <a
       href={href}
-      className="flex min-h-11 items-center rounded-md border bg-background px-3 text-sm font-medium text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+      className="flex min-h-11 items-center rounded-md px-3 text-sm font-medium text-foreground outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring"
       data-wiki-event={eventName}
       data-wiki-event-label={eventLabel}
       data-wiki-tenant={tenantSlug}
@@ -187,18 +200,4 @@ function NavPill({
       {children}
     </a>
   );
-}
-
-function formatDate(value: Date | string | null) {
-  const date = value ? new Date(value) : null;
-
-  if (!date || Number.isNaN(date.getTime())) {
-    return "Unknown";
-  }
-
-  return new Intl.DateTimeFormat("en", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  }).format(date);
 }

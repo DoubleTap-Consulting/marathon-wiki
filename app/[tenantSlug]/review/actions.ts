@@ -16,6 +16,10 @@ import {
 import { revalidateWikiPage } from "@/src/wiki/cache";
 import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
 
+export async function canReviewAction() {
+  return canReviewSuggestions(await getCurrentWikiActor());
+}
+
 export async function reviewWikiSuggestionAction(
   tenantSlug: string,
   formData: FormData,

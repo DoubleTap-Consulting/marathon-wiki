@@ -26,6 +26,18 @@ describe("AI Gateway wiki draft client", () => {
     expect(generate).not.toHaveBeenCalled();
   });
 
+  it("never calls the model from a Vercel Preview deployment", async () => {
+    const generate = vi.fn();
+
+    await expect(
+      generateMarathonWikiDraft(
+        { gameTitle: "Marathon", pageTitle: "Overrun AR", targetSlug: "overrun-ar" },
+        { env: { VERCEL: "1", VERCEL_ENV: "preview", VERCEL_OIDC_TOKEN: "oidc" }, generate },
+      ),
+    ).rejects.toThrow(AiGatewayConfigurationError);
+    expect(generate).not.toHaveBeenCalled();
+  });
+
   it("requests a structured Gateway draft with model-agnostic routing metadata", async () => {
     const generate = vi.fn(async (_options: unknown) => ({
       output: {
