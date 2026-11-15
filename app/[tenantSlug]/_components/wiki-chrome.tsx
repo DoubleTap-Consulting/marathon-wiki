@@ -6,7 +6,7 @@ import type {
   WikiTenant,
 } from "@/src/db/wiki";
 
-import { MenuSheet, SearchSheet } from "./header-sheets";
+import { MenuSheet, SchemeToggle, SearchSheet } from "./header-sheets";
 import { RelativeTime } from "./trust-ui";
 
 export function WikiChrome({
@@ -77,6 +77,7 @@ export function WikiChrome({
           <div className="ml-auto hidden w-full max-w-xs md:block">{searchForm("header")}</div>
           <div className="ml-auto flex items-center gap-1 md:ml-0">
             <SearchSheet>{searchForm("sheet")}</SearchSheet>
+            <SchemeToggle />
             <MenuSheet
               primary={
                 <>

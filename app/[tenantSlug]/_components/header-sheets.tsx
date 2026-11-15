@@ -1,7 +1,7 @@
 "use client";
 
-import { Menu, Search } from "lucide-react";
-import { useState } from "react";
+import { Menu, Monitor, Moon, Search, Sun } from "lucide-react";
+import { useState, useSyncExternalStore } from "react";
 
 import { canReviewAction } from "../review/actions";
 
@@ -9,6 +9,43 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "
 
 const ICON_BUTTON =
   "inline-flex size-11 items-center justify-center rounded-md text-foreground outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring";
+
+const SCHEMES = ["system", "light", "dark"] as const;
+type Scheme = (typeof SCHEMES)[number];
+const SCHEME_ICON = { system: Monitor, light: Sun, dark: Moon };
+const schemeListeners = new Set<() => void>();
+const subscribeScheme = (listener: () => void) => {
+  schemeListeners.add(listener);
+  return () => schemeListeners.delete(listener);
+};
+const readScheme = (): Scheme => {
+  const classes = document.documentElement.classList;
+  return classes.contains("dark") ? "dark" : classes.contains("light") ? "light" : "system";
+};
+
+// Cycles system → light → dark. The cookie is read by the script in app/layout.tsx on the next load.
+export function SchemeToggle() {
+  const scheme = useSyncExternalStore(subscribeScheme, readScheme, () => "system" as const);
+  const next = SCHEMES[(SCHEMES.indexOf(scheme) + 1) % SCHEMES.length];
+  const Icon = SCHEME_ICON[scheme];
+
+  const choose = () => {
+    document.documentElement.classList.remove("light", "dark");
+    if (next === "system") {
+      document.cookie = "scheme=; path=/; max-age=0; samesite=lax";
+    } else {
+      document.documentElement.classList.add(next);
+      document.cookie = `scheme=${next}; path=/; max-age=31536000; samesite=lax`;
+    }
+    schemeListeners.forEach((listener) => listener());
+  };
+
+  return (
+    <button type="button" aria-label={`Color scheme: ${scheme}. Switch to ${next}`} className={ICON_BUTTON} onClick={choose}>
+      <Icon className="size-5" aria-hidden="true" />
+    </button>
+  );
+}
 
 export function SearchSheet({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);

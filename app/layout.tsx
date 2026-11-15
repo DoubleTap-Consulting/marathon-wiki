@@ -47,6 +47,10 @@ export const metadata: Metadata = {
   },
 };
 
+// Runs before first paint so a saved scheme never flashes the system one. Pages stay static (ISR),
+// which reading the cookie on the server would break.
+const SCHEME_SCRIPT = `const s=document.cookie.match(/(?:^|; )scheme=(light|dark)(?:;|$)/);if(s)document.documentElement.classList.add(s[1]);`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -64,7 +68,11 @@ export default function RootLayout({
       lang="en"
       data-theme="marathon"
       className={`${geistSans.variable} ${geistMono.variable}`}
+      suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: SCHEME_SCRIPT }} />
+      </head>
       {isClerkConfigured() ? <ClerkProvider>{body}</ClerkProvider> : body}
     </html>
   );
