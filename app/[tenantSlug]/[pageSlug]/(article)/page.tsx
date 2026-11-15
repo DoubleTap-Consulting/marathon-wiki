@@ -41,8 +41,12 @@ import { submitWikiCommunityNoteAction } from "../community-note-actions";
 
 export const revalidate = 300;
 
+// The ::after hit area grows each tap target to 24px, and to 44px on small screens, where the
+// wider row gap and overflow margin keep neighbouring 44px areas from overlapping.
+const STRIP_ITEM =
+  "relative text-foreground underline-offset-4 outline-none hover:underline focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring after:absolute after:top-1/2 after:left-1/2 after:h-6 after:w-full after:min-w-6 after:-translate-1/2 after:content-[''] max-sm:after:h-11 max-sm:after:min-w-11";
+
 const META = "text-label font-medium uppercase tracking-wide text-muted-foreground";
-const STRIP_LINK = "text-foreground underline-offset-4 outline-none hover:underline focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring";
 
 type ArticlePageProps = {
   params: Promise<{
@@ -213,7 +217,7 @@ function TrustStrip({
     segments.push(
       <span key="when">
         {summary.hasAiHistory ? "Edited" : "Edited by the editors"}{" "}
-        <Link href={diffHref as Route} className={STRIP_LINK}>
+        <Link href={diffHref as Route} className={STRIP_ITEM}>
           <RelativeTime iso={summary.at} />
         </Link>
       </span>,
@@ -230,8 +234,9 @@ function TrustStrip({
             "Refreshed weekly and when patch notes drop.",
           ]}
           footnote={`Model ${summary.provenance.modelId}, prompt ${summary.provenance.promptVersion}.`}
+          className={STRIP_ITEM}
         />{" "}
-        <Link href={diffHref as Route} className={STRIP_LINK}>
+        <Link href={diffHref as Route} className={STRIP_ITEM}>
           <RelativeTime iso={summary.at} />
         </Link>
       </span>,
@@ -241,7 +246,7 @@ function TrustStrip({
 
   if (sourceCount > 0) {
     segments.push(
-      <a key="sources" href="#references" className={STRIP_LINK}>
+      <a key="sources" href="#references" className={STRIP_ITEM}>
         {sourceCount} {sourceCount === 1 ? "source" : "sources"}
       </a>,
     );
@@ -249,20 +254,20 @@ function TrustStrip({
 
   if (notes.length > 0) {
     segments.push(
-      <a key="notes" href={`#note-${notes[0].id}`} className={STRIP_LINK}>
+      <a key="notes" href={`#note-${notes[0].id}`} className={STRIP_ITEM}>
         {notes.length} community {notes.length === 1 ? "note" : "notes"}
       </a>,
     );
   }
 
   segments.push(
-    <Link key="history" href={`${base}/history` as Route} className={STRIP_LINK}>
+    <Link key="history" href={`${base}/history` as Route} className={STRIP_ITEM}>
       History
     </Link>,
   );
 
   return (
-    <p className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 sm:gap-x-0 text-small text-muted-foreground">
+    <p data-slot="trust-strip" className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 max-sm:gap-y-[22px] sm:gap-x-0 text-small text-muted-foreground">
       {segments.map((segment, index) => (
         <span key={index} className="inline-flex items-center whitespace-nowrap">
           {index > 0 ? (
@@ -272,7 +277,7 @@ function TrustStrip({
           ) : null}
           {segment}
           {index === segments.length - 1 ? (
-            <span className="ml-2 inline-flex">
+            <span className="ml-2 inline-flex max-sm:ml-3">
               <TrustOverflow suggestHref={suggestHref} />
             </span>
           ) : null}
@@ -373,7 +378,7 @@ function References({ references }: { references: CitedSource[] }) {
               {source.url ? (
                 <a
                   href={source.url}
-                  className="text-link underline decoration-link/40 underline-offset-4 hover:decoration-link"
+                  className="py-1 text-link underline decoration-link/40 underline-offset-4 hover:decoration-link"
                 >
                   {source.title}
                 </a>
