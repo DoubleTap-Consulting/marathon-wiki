@@ -47,12 +47,9 @@ export function readBoolean(
 }
 
 export function getWikiSiteBaseUrl(env: Env = process.env): URL {
-  const configured =
-    env.NEXT_PUBLIC_SITE_URL ??
-    env.WIKI_PUBLIC_BASE_URL ??
-    (env.VERCEL_URL ? `https://${env.VERCEL_URL}` : undefined);
+  const configured = env.NEXT_PUBLIC_SITE_URL ?? env.WIKI_PUBLIC_BASE_URL;
 
-  return safeUrl(configured) ?? new URL("http://localhost:3000");
+  return safeUrl(configured) ?? new URL("https://marathon-wiki.vercel.app");
 }
 
 export function getWikiAdsConfig(env: Env = process.env): WikiAdsConfig | null {

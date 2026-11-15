@@ -16,16 +16,26 @@ describe("launch config", () => {
     expect(readBoolean("surprise")).toBe(false);
   });
 
-  it("builds a public site URL from deployment env without leaking secrets", () => {
+  it("builds a public site URL from the configured origin, not the deployment host", () => {
     expect(
       getWikiSiteBaseUrl({
-        VERCEL_URL: "marathon-wiki.vercel.app",
+        VERCEL_ENV: "preview",
+        VERCEL_URL: "some-preview.vercel.app",
+      }).toString(),
+    ).toBe("https://marathon-wiki.vercel.app/");
+
+    expect(
+      getWikiSiteBaseUrl({
+        VERCEL_ENV: "production",
+        VERCEL_URL:
+          "marathon-wiki-mag3yjz8b-michael-flores-projects-acc295a3.vercel.app",
       }).toString(),
     ).toBe("https://marathon-wiki.vercel.app/");
 
     expect(
       getWikiSiteBaseUrl({
         NEXT_PUBLIC_SITE_URL: "https://wiki.example.com/marathon/",
+        VERCEL_URL: "some-preview.vercel.app",
       }).toString(),
     ).toBe("https://wiki.example.com/marathon");
   });
