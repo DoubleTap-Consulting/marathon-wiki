@@ -395,7 +395,7 @@ type GeneratedPage = {
   summary: string;
   category: string;
   bodyMarkdown: string;
-  aiProvenance: { generatedAt: string; sourceReferences: Array<{ sourceId: string; sourceKey: string; sourceType: string; title: string; url: string; publisher: string; authorityTier: string; authorityScore: number }> } & Record<string, unknown>;
+  aiProvenance: { generatedAt: string; changeNote?: string; sourceReferences: Array<{ sourceId: string; sourceKey: string; sourceType: string; title: string; url: string; publisher: string; authorityTier: string; authorityScore: number }> } & Record<string, unknown>;
 };
 
 const generatedFile = new URL("../content/marathon/generated/pages.json", import.meta.url);
@@ -517,7 +517,11 @@ try {
     }
   }
 
+  // Several entries for one slug are successive revisions of that page (oldest first).
+  const generatedStep = new Map<string, number>();
   for (const page of GENERATED) {
+    const step = (generatedStep.get(page.slug) ?? 0) + 1;
+    generatedStep.set(page.slug, step);
     const existing = await client.query("select id from wiki_pages where tenant_id = $1 and slug = $2", [tenantId, page.slug]);
     let pageId: string;
     if (existing.rows.length > 0) {
@@ -535,8 +539,10 @@ try {
       [tenantId, pageId],
     );
     const revisionNumber: number = max.rows[0].max + 1;
-    const revisionId = `gen_rev_${page.slug}`;
-    const changeNote = revisionNumber === 1 ? "First version of the page, written from cited sources." : "Rewritten from cited official and press sources.";
+    const revisionId = `gen_rev_${page.slug}_${step}`;
+    const changeNote =
+      page.aiProvenance.changeNote ??
+      (revisionNumber === 1 ? "First version of the page, written from cited sources." : "Rewritten from cited official and press sources.");
     await client.query(
       `insert into wiki_page_revisions (id, tenant_id, page_id, revision_number, title, summary, body_markdown, change_note, ai_provenance, created_by, created_at)
        values ($1, $2, $3, $4, $5, $6, $7, $8, $9, 'content-pipeline', $10)`,
@@ -547,7 +553,7 @@ try {
         `insert into wiki_sources (id, tenant_id, page_id, revision_id, source_key, source_type, title, url, publisher, retrieved_at, metadata)
          values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
         [
-          `gen_src_${page.slug}_${source.sourceKey}`,
+          `gen_src_${page.slug}_${step}_${source.sourceKey}`,
           tenantId,
           pageId,
           revisionId,

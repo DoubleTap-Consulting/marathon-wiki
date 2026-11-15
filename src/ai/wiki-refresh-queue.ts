@@ -3,11 +3,9 @@ import { randomUUID } from "node:crypto";
 import type { Kysely, Transaction } from "kysely";
 import { sql } from "kysely";
 
-import {
-  generateAiCanonicalWikiPageRevision,
-  type AiCanonicalPageGenerator,
-} from "./wiki-canonical";
-import type { GatewayGenerateText } from "./gateway";
+import { runEditor } from "@/src/content/editor-store";
+import type { PublishPolicy, StructuredCall } from "@/src/content/editor";
+import { BudgetExceeded, MemoryLedger, createGatewayCaller, hasGatewayCredential } from "@/src/content/model-gateway";
 import type { WikiActor } from "@/src/auth/wiki-auth";
 import { getDb } from "@/src/db/client";
 import type { DB } from "@/src/db/types";
@@ -343,44 +341,67 @@ export async function enqueueUpcomingEventRefreshes(
   };
 }
 
+export type ProcessedRefresh = {
+  item: AiRefreshQueueItem;
+  tenantSlug: string;
+  pageSlug: string;
+  outcome: "published" | "needs_review";
+  suggestionId?: string;
+};
+
+/**
+ * The AI editor's worker. It claims due items atomically, so concurrent runs never double-process.
+ * Each item is regenerated through the shared content pipeline and then published or filed for
+ * review by the publish gate. A per-run spend cap stops the run and returns unprocessed items to
+ * the queue. Without a model credential, nothing is claimed.
+ */
 export async function processDueAiRefreshQueueItems(
   input: {
     now?: Date;
     limit?: number;
+    /** Only process this wiki's items (the manual trigger and tests use this). */
+    tenantId?: string;
   } = {},
   options: {
     db?: Kysely<DB>;
     actor?: WikiActor;
-    generateCanonicalPage?: AiCanonicalPageGenerator;
-    generate?: GatewayGenerateText;
+    call?: StructuredCall;
+    policy?: PublishPolicy;
     env?: Partial<NodeJS.ProcessEnv>;
   } = {},
 ): Promise<{
-  processed: Array<{
-    item: AiRefreshQueueItem;
-    tenantSlug: string;
-    pageSlug: string;
-  }>;
+  processed: ProcessedRefresh[];
   failed: Array<{ item: AiRefreshQueueItem; error: string }>;
+  skipped: string | null;
 }> {
   const db = options.db ?? getDb();
+  const env = options.env ?? process.env;
   const now = input.now ?? new Date();
+  const actor = options.actor ?? SYSTEM_REFRESH_ACTOR;
+  const processed: ProcessedRefresh[] = [];
+  const failed: Array<{ item: AiRefreshQueueItem; error: string }> = [];
+
+  if (!options.call && !hasGatewayCredential(env)) {
+    return { processed, failed, skipped: "no AI Gateway credential; no items were claimed" };
+  }
+  const call =
+    options.call ??
+    createGatewayCaller({
+      ledger: new MemoryLedger(),
+      capUsd: Number(env.WIKI_AI_RUN_CAP_USD ?? 1),
+      minIntervalMs: Number(env.WIKI_AI_MIN_CALL_INTERVAL_MS ?? 1_000),
+    });
+
   const dueItems = await claimDueAiRefreshQueueItems(
     {
       now,
-      limit: input.limit ?? 5,
+      limit: Math.min(input.limit ?? 5, 20),
+      tenantId: input.tenantId,
     },
     db,
   );
-  const actor = options.actor ?? SYSTEM_REFRESH_ACTOR;
-  const processed: Array<{
-    item: AiRefreshQueueItem;
-    tenantSlug: string;
-    pageSlug: string;
-  }> = [];
-  const failed: Array<{ item: AiRefreshQueueItem; error: string }> = [];
 
-  for (const item of dueItems) {
+  for (const [index, item] of dueItems.entries()) {
     try {
       const tenant = await getWikiTenantById(item.tenantId, db);
 
@@ -388,38 +409,57 @@ export async function processDueAiRefreshQueueItems(
         throw new Error(`Tenant ${item.tenantId} no longer exists.`);
       }
 
-      const result = await generateAiCanonicalWikiPageRevision(
+      const metadata = (item.metadata ?? {}) as { sourceKey?: string };
+      const outcome = await runEditor(
         {
           tenant,
-          actor,
-          pageTitle: item.pageTitle,
           targetSlug: item.targetSlug,
+          pageTitle: item.pageTitle,
           refreshReason: item.reason,
-        },
-        {
-          db,
-          generateCanonicalPage: options.generateCanonicalPage,
-          generate: options.generate,
-          env: options.env,
-        },
-      );
-      const updatedItem = await markAiRefreshQueueItemSucceeded(
-        item.id,
-        {
-          processedAt: new Date(),
-          pageId: result.page.id,
-          pageSlug: result.page.slug,
-          latestRevisionNumber: result.page.latestRevisionNumber,
+          call,
+          actorId: actor.id,
+          changedSources: metadata.sourceKey ? [metadata.sourceKey] : undefined,
+          policy: options.policy,
+          now,
         },
         db,
       );
 
-      processed.push({
-        item: updatedItem,
-        tenantSlug: tenant.slug,
-        pageSlug: result.page.slug,
-      });
+      if (outcome.kind === "published") {
+        const updatedItem = await markAiRefreshQueueItemSucceeded(
+          item.id,
+          {
+            processedAt: new Date(),
+            pageId: outcome.page.id,
+            pageSlug: outcome.page.slug,
+            latestRevisionNumber: outcome.page.latestRevisionNumber,
+            outcome: "published",
+          },
+          db,
+        );
+        processed.push({ item: updatedItem, tenantSlug: tenant.slug, pageSlug: outcome.page.slug, outcome: "published" });
+      } else {
+        const updatedItem = await markAiRefreshQueueItemSucceeded(
+          item.id,
+          {
+            processedAt: new Date(),
+            pageId: item.pageId,
+            pageSlug: item.targetSlug,
+            latestRevisionNumber: null,
+            outcome: "needs_review",
+            suggestionId: outcome.suggestionId,
+            gateReasons: outcome.reasons,
+          },
+          db,
+        );
+        processed.push({ item: updatedItem, tenantSlug: tenant.slug, pageSlug: item.targetSlug, outcome: "needs_review", suggestionId: outcome.suggestionId });
+      }
     } catch (error) {
+      if (error instanceof BudgetExceeded) {
+        // Stop spending and return the claimed items, untouched, to the queue.
+        for (const pending of dueItems.slice(index)) await releaseAiRefreshQueueItem(pending.id, db);
+        return { processed, failed, skipped: error.message };
+      }
       const message = getErrorMessage(error);
       const updatedItem = await markAiRefreshQueueItemFailed(
         item.id,
@@ -442,6 +482,7 @@ export async function processDueAiRefreshQueueItems(
   return {
     processed,
     failed,
+    skipped: null,
   };
 }
 
@@ -508,13 +549,13 @@ export function parseEventRefreshTargets(value: string | undefined) {
 }
 
 async function claimDueAiRefreshQueueItems(
-  input: { now: Date; limit: number },
+  input: { now: Date; limit: number; tenantId?: string },
   db: Kysely<DB>,
 ) {
   return db.transaction().execute(async (trx) => {
-    const dueItems = await trx
-      .selectFrom("ai_refresh_queue_items")
-      .select(QUEUE_COLUMNS)
+    let query = trx.selectFrom("ai_refresh_queue_items").select(QUEUE_COLUMNS);
+    if (input.tenantId) query = query.where("tenant_id", "=", input.tenantId);
+    const dueItems = await query
       .where("status", "=", AI_REFRESH_QUEUE_STATUS.queued)
       .where("scheduled_for", "<=", input.now)
       .orderBy("scheduled_for", "asc")
@@ -549,9 +590,12 @@ async function markAiRefreshQueueItemSucceeded(
   id: string,
   metadata: {
     processedAt: Date;
-    pageId: string;
+    pageId: string | null;
     pageSlug: string;
-    latestRevisionNumber: number;
+    latestRevisionNumber: number | null;
+    outcome: "published" | "needs_review";
+    suggestionId?: string;
+    gateReasons?: string[];
   },
   db: Kysely<DB>,
 ) {
@@ -568,6 +612,9 @@ async function markAiRefreshQueueItemSucceeded(
         {
           processedPageSlug: metadata.pageSlug,
           processedRevisionNumber: metadata.latestRevisionNumber,
+          outcome: metadata.outcome,
+          suggestionId: metadata.suggestionId ?? null,
+          gateReasons: metadata.gateReasons ?? [],
         },
       )}::jsonb`,
     })
@@ -576,6 +623,15 @@ async function markAiRefreshQueueItemSucceeded(
     .executeTakeFirstOrThrow();
 
   return normalizeQueueItem(updated);
+}
+
+async function releaseAiRefreshQueueItem(id: string, db: Kysely<DB>) {
+  await db
+    .updateTable("ai_refresh_queue_items")
+    .set({ status: AI_REFRESH_QUEUE_STATUS.queued, attempts: sql<number>`greatest(attempts - 1, 0)`, updated_at: new Date() })
+    .where("id", "=", id)
+    .where("status", "=", AI_REFRESH_QUEUE_STATUS.processing)
+    .execute();
 }
 
 async function markAiRefreshQueueItemFailed(

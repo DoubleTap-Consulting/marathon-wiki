@@ -1,5 +1,6 @@
 "use server";
 
+import { enqueueReaderNoteRefresh } from "@/src/content/editor-triggers";
 import { revalidatePath } from "next/cache";
 
 import {
@@ -119,6 +120,16 @@ export async function reviewWikiCommunityNoteAction(
     actorId: actor.id,
     reviewNote,
   });
+
+  if (note.status === "approved") {
+    await enqueueReaderNoteRefresh({
+      tenantId: tenant.id,
+      noteId: note.id,
+      pageId: note.pageId,
+      pageSlug: note.pageSlug,
+      pageTitle: note.pageTitle,
+    });
+  }
 
   revalidatePath(`/${tenant.slug}/review`);
   await revalidateWikiPage(tenant.slug, note.pageSlug);

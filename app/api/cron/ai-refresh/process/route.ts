@@ -43,6 +43,7 @@ async function handleProcessRefreshCron(request: Request, body?: unknown) {
     ok: true,
     processedCount: result.processed.length,
     failedCount: result.failed.length,
+    skipped: result.skipped,
     processed: result.processed.map((entry) => ({
       id: entry.item.id,
       pageSlug: entry.pageSlug,

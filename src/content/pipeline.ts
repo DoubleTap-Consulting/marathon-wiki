@@ -221,13 +221,27 @@ export const DRAFT_SYSTEM = [
   "Neutral encyclopedic tone. No marketing language, no second person, no speculation.",
 ].join("\n");
 
-export function buildDraftPrompt(spec: PageSpec, extracts: Extract[], sources: Map<string, SourceRecord>, today: string) {
+export function buildDraftPrompt(
+  spec: PageSpec,
+  extracts: Extract[],
+  sources: Map<string, SourceRecord>,
+  today: string,
+  readerNotes: string[] = [],
+) {
+  const notes = readerNotes.length
+    ? [
+        "",
+        "Reader notes (NOT sources). Use them only to decide what to check; write a fact only if an extract states it:",
+        ...readerNotes.map((note) => `- ${note.replace(/\s+/g, " ").slice(0, 400)}`),
+      ]
+    : [];
   return [
     `Today is ${today}. Write the wiki page "${spec.title}" (slug: ${spec.slug}).`,
     `Scope: ${spec.scope}`,
     "Length: 2 to 5 sections, 120 to 450 words in total. Fewer, well-supported sentences beat more, weaker ones.",
     "The summary is one plain sentence (it is shown under the title and is not fact-checked, so keep it to the page's scope).",
     "Do not write a references section; citations are added automatically from extractIds.",
+    ...notes,
     "",
     "Extracts:",
     renderExtracts(extracts, sources),
@@ -549,6 +563,8 @@ export function buildProvenance(input: {
   responseId: string | null;
   generatedAt: string;
   extractCount: number;
+  refreshReason?: string;
+  requestedBy?: string;
 }) {
   const citedKeys = unique(input.claims.flatMap((claim) => claim.sourceKeys));
   const references = citedKeys.flatMap((key) => {
@@ -600,8 +616,8 @@ export function buildProvenance(input: {
         patchRef: claim.patchRef,
       };
     }),
-    refreshReason: "new_page",
-    requestedBy: "content-pipeline",
+    refreshReason: input.refreshReason ?? "new_page",
+    requestedBy: input.requestedBy ?? "content-pipeline",
   };
 }
 
