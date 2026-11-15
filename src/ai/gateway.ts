@@ -235,6 +235,12 @@ function getGatewayModel(env: Partial<NodeJS.ProcessEnv>) {
 }
 
 function hasGatewayCredentials(env: Partial<NodeJS.ProcessEnv>) {
+  // Preview deployments share the team's AI Gateway OIDC credentials with
+  // Production, so they must not spend AI credits.
+  if (env.VERCEL_ENV === "preview") {
+    return false;
+  }
+
   return Boolean(
     env.AI_GATEWAY_API_KEY?.trim() ||
       env.VERCEL_OIDC_TOKEN?.trim() ||

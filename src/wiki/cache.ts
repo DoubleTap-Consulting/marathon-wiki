@@ -5,6 +5,7 @@ import {
   getWikiHomeSnapshot,
   getWikiPageSnapshot,
   listPublishedWikiPagesByTenant,
+  listWikiPageRevisions,
 } from "@/src/db/wiki";
 
 export const WIKI_REVALIDATE_SECONDS = Number(
@@ -109,3 +110,19 @@ export async function getCachedWikiPage(tenantSlug: string, pageSlug: string) {
   )();
 }
 
+
+export async function getCachedWikiPageRevisions(
+  tenantSlug: string,
+  pageSlug: string,
+  tenantId: string,
+  pageId: string,
+) {
+  return unstable_cache(
+    () => listWikiPageRevisions(tenantId, pageId),
+    ["wiki-page-revisions", tenantSlug, pageSlug],
+    {
+      revalidate: WIKI_REVALIDATE_SECONDS,
+      tags: [wikiTenantTag(tenantSlug), wikiPageTag(tenantSlug, pageSlug)],
+    },
+  )();
+}

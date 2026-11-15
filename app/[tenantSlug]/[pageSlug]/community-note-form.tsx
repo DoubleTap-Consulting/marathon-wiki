@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useRef } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { useFormStatus } from "react-dom";
 
 import type { CommunityNoteFormState } from "./community-note-actions";
@@ -10,14 +10,19 @@ type CommunityNoteFormProps = {
     state: CommunityNoteFormState,
     formData: FormData,
   ) => Promise<CommunityNoteFormState>;
+  onSubmitted?: () => void;
 };
 
-export function CommunityNoteForm({ action }: CommunityNoteFormProps) {
+export function CommunityNoteForm({ action, onSubmitted }: CommunityNoteFormProps) {
   const formRef = useRef<HTMLFormElement>(null);
   const [state, formAction] = useActionState(action, {
     ok: false,
     message: null,
   });
+
+  useEffect(() => {
+    if (state.ok) onSubmitted?.();
+  }, [state, onSubmitted]);
 
   return (
     <form

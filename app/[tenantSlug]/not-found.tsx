@@ -1,32 +1,46 @@
-import { BookOpen } from "lucide-react";
+import type { Route } from "next";
+import Link from "next/link";
 
+import { getCachedWikiHome } from "@/src/wiki/cache";
 import { getDefaultTenantSlug } from "@/src/wiki/tenant-routing";
 
-export default function TenantNotFound() {
+import { WikiChrome } from "./_components/wiki-chrome";
+
+export default async function TenantNotFound() {
   const tenantSlug = getDefaultTenantSlug();
+  const home = await getCachedWikiHome(tenantSlug).catch(() => null);
+
+  const body = (
+    <div className="mx-auto max-w-2xl py-12">
+      <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">404</p>
+      <h1 className="mt-2 text-3xl font-semibold tracking-tight">Page not found</h1>
+      <p className="mt-3 text-muted-foreground">
+        This wiki page may not exist yet, may be unpublished, or may belong to a different wiki.
+      </p>
+      <div className="mt-6 flex flex-wrap gap-3">
+        <Link
+          href={`/${tenantSlug}` as Route}
+          className="inline-flex min-h-11 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+        >
+          Go to wiki home
+        </Link>
+        <Link
+          href={`/${tenantSlug}/suggest` as Route}
+          className="inline-flex min-h-11 items-center rounded-md border px-4 text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          Suggest this page
+        </Link>
+      </div>
+    </div>
+  );
+
+  if (!home) {
+    return <main className="min-h-screen bg-background px-5">{body}</main>;
+  }
 
   return (
-    <main className="min-h-screen bg-background">
-      <div className="mx-auto flex min-h-screen w-full max-w-2xl flex-col justify-center px-5 py-12 sm:px-6">
-        <div className="rounded-lg border bg-card p-6 text-card-foreground">
-          <div className="flex size-11 items-center justify-center rounded-md bg-secondary text-secondary-foreground">
-            <BookOpen className="size-5" aria-hidden="true" />
-          </div>
-          <h1 className="mt-5 text-2xl font-semibold leading-9">
-            Page not found
-          </h1>
-          <p className="mt-2 text-base leading-7 text-muted-foreground">
-            This wiki page may not exist yet, may be unpublished, or may belong
-            to a different tenant.
-          </p>
-          <a
-            href={`/${tenantSlug}`}
-            className="mt-6 inline-flex min-h-11 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
-          >
-            Go to wiki home
-          </a>
-        </div>
-      </div>
-    </main>
+    <WikiChrome tenant={home.tenant} categories={home.categories}>
+      {body}
+    </WikiChrome>
   );
 }
