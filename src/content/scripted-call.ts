@@ -25,7 +25,7 @@ export function createScriptedCall(options: { maxSentences?: number; modelId?: s
       const current = [...prompt.matchAll(CURRENT)].map(([, id, heading, text]) => ({ id, heading, text }));
       const known = new Set(current.map((sentence) => sentence.text));
       const additions = usableLines(prompt).filter(({ line }) => !known.has(line)).slice(0, options.maxSentences ?? 6);
-      const edits = additions.map(({ id, line }) => ({ op: "add", sentenceId: null, heading: current.at(-1)?.heading ?? "Overview", text: line, extractIds: [id], patchRef: null, reason: "scripted" }));
+      const edits = additions.map(({ id, line }) => ({ op: "add", sentenceId: null, section: current.at(-1)?.heading ?? "Overview", text: line, extractIds: [id], patchRef: null, reason: "scripted" }));
       return { output: schema.parse({ edits }), modelId: options.modelId ?? "scripted/editor-drill", responseId: null };
     }
     if (step === "draft") {

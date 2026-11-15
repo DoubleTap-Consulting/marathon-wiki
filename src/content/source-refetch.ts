@@ -100,7 +100,7 @@ type SnapshotMetadata = { sha256?: string | null; fetchMethod?: string; httpSha2
  *   text stays, and nothing is queued (the two methods extract different text, so their hashes
  *   are not comparable);
  * - a different hash: the fetched text becomes the snapshot and every page using it is queued.
- * Idempotent: a second run with the same pages changes nothing and queues nothing new.
+ * Idempotent: a second run with the same pages only records the check time and queues nothing.
  */
 export async function refetchSources(
   input: { tenantId: string; sources?: SourceRecord[]; specs?: PageSpec[]; fetchImpl?: typeof fetch; now?: Date },
@@ -134,6 +134,12 @@ export async function refetchSources(
       continue;
     }
     if (row && lastHttp === fetched.sha256) {
+      // Only the check time moves, so the article strip can say when its sources were last checked.
+      await db
+        .updateTable("wiki_sources")
+        .set({ metadata: sql`coalesce(metadata, '{}'::jsonb) || ${JSON.stringify({ httpCheckedAt: now.toISOString() })}::jsonb` })
+        .where("id", "=", id)
+        .execute();
       results.push({ sourceKey: source.sourceKey, outcome: "unchanged" });
       continue;
     }
@@ -168,6 +174,31 @@ function articleKey(url: string) {
   return new URL(url).pathname.toLowerCase().replace(/^\/7\/en(-us)?\//, "/").replace(/\/$/, "");
 }
 
+/** Reads the Bungie news RSS feed. */
+export async function fetchBungieNewsFeed(fetchImpl: typeof fetch = fetch): Promise<{ ok: true; items: FeedItem[] } | { ok: false; error: string }> {
+  try {
+    const response = await fetchImpl(BUNGIE_NEWS_FEED_URL, { cache: "no-store", headers: { accept: "application/rss+xml", "user-agent": USER_AGENT }, signal: AbortSignal.timeout(20_000) });
+    if (!response.ok) return { ok: false, error: `HTTP ${response.status}` };
+    return { ok: true, items: parseRssItems(await response.text()) };
+  } catch (error) {
+    return { ok: false, error: error instanceof Error ? error.message : String(error) };
+  }
+}
+
+/** Feed posts that are not Destiny posts and that no source in the registry covers. */
+export function uncoveredFeedPosts(items: FeedItem[], sources: Array<Pick<SourceRecord, "url">> = CONTENT_SOURCES) {
+  const known = new Set(sources.flatMap((source) => (source.url.includes("bungie.net") ? [articleKey(source.url)] : [])));
+  return items.filter((item) => !/destiny/i.test(item.title) && !known.has(articleKey(item.url)));
+}
+
+/** Sources that the daily re-fetch cannot read, so an editor re-ingests them by hand. */
+export function manualSources(sources: SourceRecord[] = CONTENT_SOURCES) {
+  return sources.flatMap((source) => {
+    const plan = refetchPlan(source);
+    return plan.method === "manual" ? [{ source, reason: plan.reason }] : [];
+  });
+}
+
 /**
  * Official posts the wiki has no source for yet: Bungie news items that are not Destiny posts and
  * not already in the source registry. They are listed for an editor to render and add; their text
@@ -177,20 +208,12 @@ export async function checkBungieNewsFeed(
   input: { tenantId: string; sources?: SourceRecord[]; fetchImpl?: typeof fetch; now?: Date },
   db: Kysely<DB> = getDb(),
 ): Promise<{ ok: true; newPosts: FeedItem[] } | { ok: false; error: string }> {
-  const fetchImpl = input.fetchImpl ?? fetch;
-  let items: FeedItem[];
-  try {
-    const response = await fetchImpl(BUNGIE_NEWS_FEED_URL, { cache: "no-store", headers: { accept: "application/rss+xml", "user-agent": USER_AGENT }, signal: AbortSignal.timeout(20_000) });
-    if (!response.ok) return { ok: false, error: `HTTP ${response.status}` };
-    items = parseRssItems(await response.text());
-  } catch (error) {
-    return { ok: false, error: error instanceof Error ? error.message : String(error) };
-  }
-  const known = new Set((input.sources ?? CONTENT_SOURCES).flatMap((source) => (source.url.includes("bungie.net") ? [articleKey(source.url)] : [])));
+  const feed = await fetchBungieNewsFeed(input.fetchImpl);
+  if (!feed.ok) return feed;
   const id = `feed_${input.tenantId}_bungie-news`;
   const row = await db.selectFrom("wiki_sources").select(["metadata"]).where("id", "=", id).executeTakeFirst();
   const seen = new Set(((row?.metadata ?? {}) as { seen?: string[] }).seen ?? []);
-  const newPosts = items.filter((item) => !/destiny/i.test(item.title) && !known.has(articleKey(item.url)) && !seen.has(item.url));
+  const newPosts = uncoveredFeedPosts(feed.items, input.sources ?? CONTENT_SOURCES).filter((item) => !seen.has(item.url));
   if (newPosts.length || !row) {
     const metadata = JSON.stringify({ origin: "news_feed", feedUrl: BUNGIE_NEWS_FEED_URL, seen: [...seen, ...newPosts.map((item) => item.url)], checkedAt: (input.now ?? new Date()).toISOString() });
     await db

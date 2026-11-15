@@ -2248,6 +2248,493 @@
     }
   },
   {
+    "slug": "factions",
+    "title": "Factions",
+    "summary": "This page covers Marathon’s six contract factions, how to unlock them, faction reputation and upgrades, and the UESC as the primary antagonist.",
+    "category": "lore",
+    "bodyMarkdown": "## Overview\n\nMarathon features six factions: CyberAcme, Arachne, Sekiguchi Genetics, MIDA, Traxus, and NuCaloric.{{cite:pcgamer-guide}}\n\n## Unlocking factions and contracts\n\nFactions become available after completing liaison contracts, which enable reputation and further contracts for that faction.{{cite:gamesradar-factions}} Liaison contracts are issued by ONI and must be completed to unlock a faction for reputation gain and full contract access.{{cite:gamesradar-factions}} Priority contracts are one-time narrative missions that offer superior rewards such as Marathon weapons, backpacks, and Salvage.{{cite:gamesradar-factions}} Standard contracts are repeatable challenges that grant reputation and basic rewards, with one active contract at a time and optional re-rolls for Credits.{{cite:gamesradar-factions}}\n\n## Reputation and upgrades\n\nCompleting contracts grants faction reputation used to unlock seasonal upgrades, stronger base stats, and Armory wares.{{cite:bungie-introducing-seasons}} Seasonal faction upgrades provide passive perks like stronger starting loadouts, expanded vault space, and specialized Armory wares.{{cite:marathon-official-site}} Each season provides a clean slate with progression resets for faction ranks, while liaison contract progress carries over.{{cite:bungie-introducing-seasons}} Season 2 moved many Runner shell upgrades into the Cradle and introduced unique implant families per faction.{{cite:bungie-welcome-season-2}} Season 2 introduced the Cradle system, moving many Runner shell upgrades out of faction trees and adding unique head, torso, and leg implant families per faction.{{cite:bungie-welcome-season-2}}\n\n## UESC as antagonist\n\nThe derelict UESC Marathon serves as the site for end-game Cryo Archive content aboard the ship.{{cite:bungie-server-slam}} The Cryo Archive, aboard the derelict UESC Marathon, is an end-game zone that unlocks during Season 1.{{cite:bungie-server-slam}} UESC combatants appear during runs and were tuned by Bungie to adjust their health and combat impact (Update 1.0.0.4, March 11, 2026).{{cite:bungie-update-1-0-0-4}}\n\n## Pages in this section\n\n- [[cyberacme|CyberAcme]]\n- [[nucaloric|NuCaloric]]\n- [[traxus|Traxus]]\n- [[mida|MIDA]]\n- [[arachne|Arachne]]\n- [[sekiguchi-genetics|Sekiguchi Genetics]]\n- [[uesc|UESC]]",
+    "aiProvenance": {
+      "modelId": "openai/gpt-5-mini",
+      "editMode": "patch",
+      "provider": "vercel-ai-gateway",
+      "changeNote": "An editor asked for a re-check: 1 statement removed.",
+      "responseId": "aitxt-ZKTTzp0uLrkjXb59siIoPBZ2",
+      "generatedAt": "2026-11-15T22:48:38.994Z",
+      "publishGate": {
+        "shape": {
+          "hub": true,
+          "words": 238,
+          "regressions": []
+        },
+        "policy": {
+          "minHubWords": 150,
+          "maxUnsupported": 3,
+          "minSupportedRatio": 0.8,
+          "minSupportedClaims": 3
+        },
+        "reasons": [],
+        "decision": "publish",
+        "supported": 13,
+        "unsupported": 0,
+        "contradicted": 0,
+        "supportedRatio": 1
+      },
+      "requestedBy": "ai-refresh-queue",
+      "claimSupport": [
+        {
+          "quotes": [
+            {
+              "quote": "So far, Bungie’s revealed six factions: Cyberacme, Arachne, Sekiguchi, MIDA, Traxus, and NuCal.",
+              "extractId": "pcgamer-guide#14"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_factions_1",
+          "patchRef": null,
+          "claimText": "Marathon features six factions: CyberAcme, Arachne, Sekiguchi Genetics, MIDA, Traxus, and NuCaloric.",
+          "extractIds": [
+            "pcgamer-guide#14"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_pcgamer_guide"
+          ],
+          "matchedSourceKeys": [
+            "pcgamer-guide"
+          ],
+          "matchedSourceTitles": [
+            "Marathon: Everything we know about Bungie's sci-fi extraction shooter"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "To unlock a faction in Marathon, you need to complete its liaison contract",
+              "extractId": "gamesradar-factions#2"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_factions_2",
+          "patchRef": null,
+          "claimText": "Factions become available after completing liaison contracts, which enable reputation and further contracts for that faction.",
+          "extractIds": [
+            "gamesradar-factions#2"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_gamesradar_factions"
+          ],
+          "matchedSourceKeys": [
+            "gamesradar-factions"
+          ],
+          "matchedSourceTitles": [
+            "All Marathon factions and how contracts work"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "complete its liaison contract, given to you by ONI",
+              "extractId": "gamesradar-factions#2"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_factions_11",
+          "patchRef": null,
+          "claimText": "Liaison contracts are issued by ONI and must be completed to unlock a faction for reputation gain and full contract access.",
+          "extractIds": [
+            "gamesradar-factions#2"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_gamesradar_factions"
+          ],
+          "matchedSourceKeys": [
+            "gamesradar-factions"
+          ],
+          "matchedSourceTitles": [
+            "All Marathon factions and how contracts work"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "offer superior rewards, such as Marathon weapons, backpacks, and Salvage",
+              "extractId": "gamesradar-factions#2"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_factions_12",
+          "patchRef": null,
+          "claimText": "Priority contracts are one-time narrative missions that offer superior rewards such as Marathon weapons, backpacks, and Salvage.",
+          "extractIds": [
+            "gamesradar-factions#2"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_gamesradar_factions"
+          ],
+          "matchedSourceKeys": [
+            "gamesradar-factions"
+          ],
+          "matchedSourceTitles": [
+            "All Marathon factions and how contracts work"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "offer basic faction rewards and some reputation upon completion",
+              "extractId": "gamesradar-factions#3"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_factions_13",
+          "patchRef": null,
+          "claimText": "Standard contracts are repeatable challenges that grant reputation and basic rewards, with one active contract at a time and optional re-rolls for Credits.",
+          "extractIds": [
+            "gamesradar-factions#3"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_gamesradar_factions"
+          ],
+          "matchedSourceKeys": [
+            "gamesradar-factions"
+          ],
+          "matchedSourceTitles": [
+            "All Marathon factions and how contracts work"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "complete contracts and progress your faction upgrades, granting you access to stronger base stats and better wares in the Armory",
+              "extractId": "bungie-introducing-seasons#2"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_factions_5",
+          "patchRef": null,
+          "claimText": "Completing contracts grants faction reputation used to unlock seasonal upgrades, stronger base stats, and Armory wares.",
+          "extractIds": [
+            "bungie-introducing-seasons#2"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_introducing_seasons"
+          ],
+          "matchedSourceKeys": [
+            "bungie-introducing-seasons"
+          ],
+          "matchedSourceTitles": [
+            "Introducing Seasons in Marathon"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "stronger starting loadouts, expanded vault space, and specialized wares",
+              "extractId": "marathon-official-site#3"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_factions_14",
+          "patchRef": null,
+          "claimText": "Seasonal faction upgrades provide passive perks like stronger starting loadouts, expanded vault space, and specialized Armory wares.",
+          "extractIds": [
+            "marathon-official-site#3"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_marathon_official_site"
+          ],
+          "matchedSourceKeys": [
+            "marathon-official-site"
+          ],
+          "matchedSourceTitles": [
+            "Marathon official site"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Each season of Marathon brings a clean slate for the whole community with progression resets.",
+              "extractId": "bungie-introducing-seasons#3"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_factions_6",
+          "patchRef": null,
+          "claimText": "Each season provides a clean slate with progression resets for faction ranks, while liaison contract progress carries over.",
+          "extractIds": [
+            "bungie-introducing-seasons#3"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_introducing_seasons"
+          ],
+          "matchedSourceKeys": [
+            "bungie-introducing-seasons"
+          ],
+          "matchedSourceTitles": [
+            "Introducing Seasons in Marathon"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Runner shell upgrades in the faction progression trees being moved to the Cradle",
+              "extractId": "bungie-welcome-season-2#13"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_factions_7",
+          "patchRef": null,
+          "claimText": "Season 2 moved many Runner shell upgrades into the Cradle and introduced unique implant families per faction.",
+          "extractIds": [
+            "bungie-welcome-season-2#13"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_welcome_season_2"
+          ],
+          "matchedSourceKeys": [
+            "bungie-welcome-season-2"
+          ],
+          "matchedSourceTitles": [
+            "Welcome to Season 2"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "all of the Runner shell upgrades in the faction progression trees being moved to the Cradle",
+              "extractId": "bungie-welcome-season-2#13"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_factions_15",
+          "patchRef": null,
+          "claimText": "Season 2 introduced the Cradle system, moving many Runner shell upgrades out of faction trees and adding unique head, torso, and leg implant families per faction.",
+          "extractIds": [
+            "bungie-welcome-season-2#13"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_welcome_season_2"
+          ],
+          "matchedSourceKeys": [
+            "bungie-welcome-season-2"
+          ],
+          "matchedSourceTitles": [
+            "Welcome to Season 2"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Cryo Archive, an end-game zone aboard the derelict UESC Marathon",
+              "extractId": "bungie-server-slam#4"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_factions_9",
+          "patchRef": null,
+          "claimText": "The derelict UESC Marathon serves as the site for end-game Cryo Archive content aboard the ship.",
+          "extractIds": [
+            "bungie-server-slam#4"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_server_slam"
+          ],
+          "matchedSourceKeys": [
+            "bungie-server-slam"
+          ],
+          "matchedSourceTitles": [
+            "Marathon's Server Slam Begins February 26"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Cryo Archive, an end-game zone aboard the derelict UESC Marathon (unlocks during Season 1)",
+              "extractId": "bungie-server-slam#4"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_factions_16",
+          "patchRef": null,
+          "claimText": "The Cryo Archive, aboard the derelict UESC Marathon, is an end-game zone that unlocks during Season 1.",
+          "extractIds": [
+            "bungie-server-slam#4"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_server_slam"
+          ],
+          "matchedSourceKeys": [
+            "bungie-server-slam"
+          ],
+          "matchedSourceTitles": [
+            "Marathon's Server Slam Begins February 26"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Reduced health of most UESC enemies by ~10-15%",
+              "extractId": "bungie-update-1-0-0-4#2"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_factions_10",
+          "patchRef": "Update 1.0.0.4, March 11, 2026",
+          "claimText": "UESC combatants appear during runs and were tuned by Bungie to adjust their health and combat impact (Update 1.0.0.4, March 11, 2026).",
+          "extractIds": [
+            "bungie-update-1-0-0-4#2"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_update_1_0_0_4"
+          ],
+          "matchedSourceKeys": [
+            "bungie-update-1-0-0-4"
+          ],
+          "matchedSourceTitles": [
+            "Marathon Update 1.0.0.4"
+          ]
+        }
+      ],
+      "sourceHashes": {
+        "pcgamer-guide": "2d3a14ac7fc9f3bed6246e0cb2494c21fb858a8ff9eaea11426ac4a7c4172254",
+        "bungie-server-slam": "6aa80de082bb937b6b967a30faf201712022cda01a03e343d943913a8f6aab8d",
+        "gamesradar-factions": "342b0b85de03eb17786a2210dfe97f2fd1250667060d5eb309d92405dc399be6",
+        "bungie-update-1-0-0-4": "a9975ae0895a93609631dbf9b43e516b9ba77482e06488fd95f0cc6e2a492185",
+        "marathon-official-site": "123bd8f75bbc0f04c66938fb8209723d9655440e403af25949c85392b6b84898",
+        "bungie-welcome-season-2": "b9a42b4570bf93983439565f505e68b13d09d8039a1075cee07fc9cf133df588",
+        "bungie-introducing-seasons": "32b81fc84a1aab066f1611f41dec5990cf7dde2d9e2c41c84a9f90069d6d3179"
+      },
+      "promptVersion": "marathon-real-content-v5",
+      "refreshReason": "manual_refresh",
+      "sourceReferences": [
+        {
+          "url": "https://www.pcgamer.com/games/fps/marathon-guide/",
+          "title": "Marathon: Everything we know about Bungie's sci-fi extraction shooter",
+          "sourceId": "src_pcgamer_guide",
+          "publisher": "PC Gamer",
+          "sourceKey": "pcgamer-guide",
+          "sourceType": "press",
+          "authorityTier": "reputable_editorial",
+          "authorityScore": 75
+        },
+        {
+          "url": "https://www.gamesradar.com/games/fps/marathon-factions/",
+          "title": "All Marathon factions and how contracts work",
+          "sourceId": "src_gamesradar_factions",
+          "publisher": "GamesRadar+",
+          "sourceKey": "gamesradar-factions",
+          "sourceType": "press",
+          "authorityTier": "reputable_editorial",
+          "authorityScore": 78
+        },
+        {
+          "url": "https://www.bungie.net/7/en/News/Article/introducing_seasons_marathon",
+          "title": "Introducing Seasons in Marathon",
+          "sourceId": "src_bungie_introducing_seasons",
+          "publisher": "Bungie",
+          "sourceKey": "bungie-introducing-seasons",
+          "sourceType": "official",
+          "authorityTier": "official",
+          "authorityScore": 93
+        },
+        {
+          "url": "https://www.marathonthegame.com/",
+          "title": "Marathon official site",
+          "sourceId": "src_marathon_official_site",
+          "publisher": "Bungie",
+          "sourceKey": "marathon-official-site",
+          "sourceType": "official",
+          "authorityTier": "official",
+          "authorityScore": 95
+        },
+        {
+          "url": "https://www.bungie.net/7/en/News/article/welcome_season_2",
+          "title": "Welcome to Season 2",
+          "sourceId": "src_bungie_welcome_season_2",
+          "publisher": "Bungie",
+          "sourceKey": "bungie-welcome-season-2",
+          "sourceType": "official",
+          "authorityTier": "official",
+          "authorityScore": 93
+        },
+        {
+          "url": "https://www.bungie.net/7/en/News/Article/marathon-server-slam",
+          "title": "Marathon's Server Slam Begins February 26",
+          "sourceId": "src_bungie_server_slam",
+          "publisher": "Bungie",
+          "sourceKey": "bungie-server-slam",
+          "sourceType": "official",
+          "authorityTier": "official",
+          "authorityScore": 90
+        },
+        {
+          "url": "https://www.bungie.net/7/en/News/Article/marathon_update_1_0_0_4",
+          "title": "Marathon Update 1.0.0.4",
+          "sourceId": "src_bungie_update_1_0_0_4",
+          "publisher": "Bungie",
+          "sourceKey": "bungie-update-1-0-0-4",
+          "sourceType": "patch_notes",
+          "authorityTier": "official",
+          "authorityScore": 92
+        }
+      ],
+      "claimCheckModelId": "openai/gpt-5-mini",
+      "sourceContextSummary": "24 extracts from rendered source snapshots considered; 7 sources cited.",
+      "claimCheckPromptVersion": "marathon-claim-check-v2"
+    }
+  },
+  {
     "slug": "cyberacme",
     "title": "CyberAcme",
     "summary": "CyberAcme is a Marathon faction focused on digital technology and contracts that supply basic gear and progression for Runners.",
@@ -7537,6 +8024,441 @@
     }
   },
   {
+    "slug": "recon",
+    "title": "Recon",
+    "summary": "Page covers the Recon Runner shell: archetype, abilities, traits, and notable changes.",
+    "category": "gameplay",
+    "bodyMarkdown": "## Overview\n\nRecon is an intel specialist Runner shell.{{cite:bungie-runner-shells}} Recon excels at identifying threats and tracking movement.{{cite:bungie-runner-shells}} Recon's kit includes echo pulses, tracker drones, and holographic footstep trails.{{cite:bungie-runner-shells}}\n\n## Abilities\n\nRecon's Prime ability is Echo Pulse.{{cite:pcgamer-guide}} Recon's Tactical ability is Tracker Drone.{{cite:pcgamer-guide}} Echo Pulse now fires its pulses in a cone in the player's aim direction rather than an omnidirectional sphere (Update 1.1.9.2, October 6, 2026).{{cite:bungie-update-1-1-9-2}} Echo Pulse now staggers enemy non-Runner combatants and briefly prevents their combat abilities when first struck (Update 1.1.9.2, October 6, 2026).{{cite:bungie-update-1-1-9-2}}\n\n## Traits\n\nRecon has the Interrogation trait.{{cite:pcgamer-guide}} Recon has the Stalker Protocol trait.{{cite:pcgamer-guide}} Interrogation's notification to pinged Recon players is delayed by two seconds (Update 1.1.9.2, October 6, 2026).{{cite:bungie-update-1-1-9-2}}\n\n## Notable Changes\n\nBungie stated Echo Pulse is less oppressive and mandatory after the October 6, 2026 changes.{{cite:bungie-nightfall-refresh}} Developers said limiting Echo Pulse to a cone forces Recon players to predict targets in three-dimensional space (Update 1.1.9.2, October 6, 2026).{{cite:bungie-update-1-1-9-2}}\n\n## See also\n\n- [[runner-shells|Runner shells]]\n- [[cores|Cores]]\n- [[implants|Implants]]",
+    "aiProvenance": {
+      "modelId": "openai/gpt-5-mini",
+      "editMode": "patch",
+      "provider": "vercel-ai-gateway",
+      "changeNote": "An editor asked for a re-check: 1 statement revised, 4 moved.",
+      "responseId": "aitxt-CkqGDyVw7FAPpWCdYLLJ3gkS",
+      "generatedAt": "2026-11-15T22:46:14.488Z",
+      "publishGate": {
+        "shape": {
+          "hub": false,
+          "words": 147,
+          "regressions": []
+        },
+        "policy": {
+          "minHubWords": 150,
+          "maxUnsupported": 3,
+          "minSupportedRatio": 0.8,
+          "minSupportedClaims": 3
+        },
+        "reasons": [],
+        "decision": "publish",
+        "supported": 12,
+        "unsupported": 0,
+        "contradicted": 0,
+        "supportedRatio": 1
+      },
+      "requestedBy": "ai-refresh-queue",
+      "claimSupport": [
+        {
+          "quotes": [
+            {
+              "quote": "Archetype: Intel specialist",
+              "extractId": "bungie-runner-shells#4"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_recon_1",
+          "patchRef": null,
+          "claimText": "Recon is an intel specialist Runner shell.",
+          "extractIds": [
+            "bungie-runner-shells#4"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_runner_shells"
+          ],
+          "matchedSourceKeys": [
+            "bungie-runner-shells"
+          ],
+          "matchedSourceTitles": [
+            "Dev Insights: Runner Shells"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "excel at identifying threats and tracking movements",
+              "extractId": "bungie-runner-shells#4"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_recon_2",
+          "patchRef": null,
+          "claimText": "Recon excels at identifying threats and tracking movement.",
+          "extractIds": [
+            "bungie-runner-shells#4"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_runner_shells"
+          ],
+          "matchedSourceKeys": [
+            "bungie-runner-shells"
+          ],
+          "matchedSourceTitles": [
+            "Dev Insights: Runner Shells"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "using echo pulses, tracker drones, and holographic footstep trails",
+              "extractId": "bungie-runner-shells#4"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_recon_3",
+          "patchRef": null,
+          "claimText": "Recon's kit includes echo pulses, tracker drones, and holographic footstep trails.",
+          "extractIds": [
+            "bungie-runner-shells#4"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_runner_shells"
+          ],
+          "matchedSourceKeys": [
+            "bungie-runner-shells"
+          ],
+          "matchedSourceTitles": [
+            "Dev Insights: Runner Shells"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Prime: Echo Pulse Tactical: Tracker Drone",
+              "extractId": "pcgamer-guide#12"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_recon_13",
+          "patchRef": null,
+          "claimText": "Recon's Prime ability is Echo Pulse.",
+          "extractIds": [
+            "pcgamer-guide#12"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_pcgamer_guide"
+          ],
+          "matchedSourceKeys": [
+            "pcgamer-guide"
+          ],
+          "matchedSourceTitles": [
+            "Marathon: Everything we know about Bungie's sci-fi extraction shooter"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Prime: Echo Pulse Tactical: Tracker Drone",
+              "extractId": "pcgamer-guide#12"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_recon_14",
+          "patchRef": null,
+          "claimText": "Recon's Tactical ability is Tracker Drone.",
+          "extractIds": [
+            "pcgamer-guide#12"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_pcgamer_guide"
+          ],
+          "matchedSourceKeys": [
+            "pcgamer-guide"
+          ],
+          "matchedSourceTitles": [
+            "Marathon: Everything we know about Bungie's sci-fi extraction shooter"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Echo Pulse now fires its pulses in a cone in your aim direction",
+              "extractId": "bungie-update-1-1-9-2#6"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_recon_17",
+          "patchRef": null,
+          "claimText": "Echo Pulse now fires its pulses in a cone in the player's aim direction rather than an omnidirectional sphere (Update 1.1.9.2, October 6, 2026).",
+          "extractIds": [
+            "bungie-update-1-1-9-2#6",
+            "bungie-update-1-1-9-2#7"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_update_1_1_9_2"
+          ],
+          "matchedSourceKeys": [
+            "bungie-update-1-1-9-2"
+          ],
+          "matchedSourceTitles": [
+            "Marathon Update 1.1.9.2"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Echo Pulse now staggers enemy non-Runner combatants and briefly prevents them from activating combat abilities when struck for the first time",
+              "extractId": "bungie-update-1-1-9-2#6"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_recon_7",
+          "patchRef": "Update 1.1.9.2 (October 6, 2026)",
+          "claimText": "Echo Pulse now staggers enemy non-Runner combatants and briefly prevents their combat abilities when first struck (Update 1.1.9.2, October 6, 2026).",
+          "extractIds": [
+            "bungie-update-1-1-9-2#6"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_update_1_1_9_2"
+          ],
+          "matchedSourceKeys": [
+            "bungie-update-1-1-9-2"
+          ],
+          "matchedSourceTitles": [
+            "Marathon Update 1.1.9.2"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Trait 1: Interrogation Trait 2: Stalker Protocol",
+              "extractId": "pcgamer-guide#12"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_recon_15",
+          "patchRef": null,
+          "claimText": "Recon has the Interrogation trait.",
+          "extractIds": [
+            "pcgamer-guide#12"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_pcgamer_guide"
+          ],
+          "matchedSourceKeys": [
+            "pcgamer-guide"
+          ],
+          "matchedSourceTitles": [
+            "Marathon: Everything we know about Bungie's sci-fi extraction shooter"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Trait 2: Stalker Protocol",
+              "extractId": "pcgamer-guide#12"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_recon_16",
+          "patchRef": null,
+          "claimText": "Recon has the Stalker Protocol trait.",
+          "extractIds": [
+            "pcgamer-guide#12"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_pcgamer_guide"
+          ],
+          "matchedSourceKeys": [
+            "pcgamer-guide"
+          ],
+          "matchedSourceTitles": [
+            "Marathon: Everything we know about Bungie's sci-fi extraction shooter"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "The notification received by pinged Recon players is now delayed by two seconds",
+              "extractId": "bungie-update-1-1-9-2#8"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_recon_10",
+          "patchRef": "Update 1.1.9.2 (October 6, 2026)",
+          "claimText": "Interrogation's notification to pinged Recon players is delayed by two seconds (Update 1.1.9.2, October 6, 2026).",
+          "extractIds": [
+            "bungie-update-1-1-9-2#8"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_update_1_1_9_2"
+          ],
+          "matchedSourceKeys": [
+            "bungie-update-1-1-9-2"
+          ],
+          "matchedSourceTitles": [
+            "Marathon Update 1.1.9.2"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "a little bit less oppressive and mandatory when fighting other teams",
+              "extractId": "bungie-nightfall-refresh#6"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_recon_11",
+          "patchRef": null,
+          "claimText": "Bungie stated Echo Pulse is less oppressive and mandatory after the October 6, 2026 changes.",
+          "extractIds": [
+            "bungie-nightfall-refresh#6"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_nightfall_refresh"
+          ],
+          "matchedSourceKeys": [
+            "bungie-nightfall-refresh"
+          ],
+          "matchedSourceTitles": [
+            "Marathon: Nightfall Refresh and Symbiosis Roadmap"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "players need to predict in 3D space where they believe their targets are",
+              "extractId": "bungie-update-1-1-9-2#7"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_recon_12",
+          "patchRef": "Update 1.1.9.2 (October 6, 2026)",
+          "claimText": "Developers said limiting Echo Pulse to a cone forces Recon players to predict targets in three-dimensional space (Update 1.1.9.2, October 6, 2026).",
+          "extractIds": [
+            "bungie-update-1-1-9-2#7"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_update_1_1_9_2"
+          ],
+          "matchedSourceKeys": [
+            "bungie-update-1-1-9-2"
+          ],
+          "matchedSourceTitles": [
+            "Marathon Update 1.1.9.2"
+          ]
+        }
+      ],
+      "sourceHashes": {
+        "pcgamer-guide": "2d3a14ac7fc9f3bed6246e0cb2494c21fb858a8ff9eaea11426ac4a7c4172254",
+        "bungie-runner-shells": "652258a6c811b9900c2f2c7bcdb1a25b5c8fb7c60ca17c53418985398c2c8fa2",
+        "bungie-update-1-1-9-2": "6c16ebe9daae67383d23ba560f1b1fb9db3c8bc76b48f491847af9b8def3ba1f",
+        "bungie-nightfall-refresh": "27979c60e11f52945ba510c73114c2efe41dd9eafe02e5ff0aaaff9fecc41612"
+      },
+      "promptVersion": "marathon-real-content-v5",
+      "refreshReason": "manual_refresh",
+      "sourceReferences": [
+        {
+          "url": "https://www.bungie.net/7/en/news/article/dev-insights-runner-shells-new-video",
+          "title": "Dev Insights: Runner Shells",
+          "sourceId": "src_bungie_runner_shells",
+          "publisher": "Bungie",
+          "sourceKey": "bungie-runner-shells",
+          "sourceType": "official",
+          "authorityTier": "official",
+          "authorityScore": 93
+        },
+        {
+          "url": "https://www.pcgamer.com/games/fps/marathon-guide/",
+          "title": "Marathon: Everything we know about Bungie's sci-fi extraction shooter",
+          "sourceId": "src_pcgamer_guide",
+          "publisher": "PC Gamer",
+          "sourceKey": "pcgamer-guide",
+          "sourceType": "press",
+          "authorityTier": "reputable_editorial",
+          "authorityScore": 75
+        },
+        {
+          "url": "https://www.bungie.net/7/en/News/Article/marathon_update_1_1_9_2",
+          "title": "Marathon Update 1.1.9.2",
+          "sourceId": "src_bungie_update_1_1_9_2",
+          "publisher": "Bungie",
+          "sourceKey": "bungie-update-1-1-9-2",
+          "sourceType": "patch_notes",
+          "authorityTier": "official",
+          "authorityScore": 94
+        },
+        {
+          "url": "https://www.bungie.net/7/en/News/article/nighfall_refresh_symbiosis_roadmap",
+          "title": "Marathon: Nightfall Refresh and Symbiosis Roadmap",
+          "sourceId": "src_bungie_nightfall_refresh",
+          "publisher": "Bungie",
+          "sourceKey": "bungie-nightfall-refresh",
+          "sourceType": "official",
+          "authorityTier": "official",
+          "authorityScore": 93
+        }
+      ],
+      "claimCheckModelId": "openai/gpt-5-mini",
+      "sourceContextSummary": "11 extracts from rendered source snapshots considered; 4 sources cited.",
+      "claimCheckPromptVersion": "marathon-claim-check-v2",
+      "readerNotes": [
+        {
+          "noteType": "correction",
+          "note": "Correction from editor review: the Echo Pulse sentence misstates Update 1.1.9.2. The patch notes say Echo Pulse now fires its pulses in a cone in your aim direction, rather than an omnidirectional sphere. Rewrite that sentence from the patch notes.",
+          "targetQuote": "Bungie reduced Echo Pulse’s omnidirectional ease to require three-dimensional prediction from Recon players",
+          "approvedBy": "editor-review"
+        }
+      ]
+    }
+  },
+  {
     "slug": "vandal",
     "title": "Vandal",
     "summary": "The Vandal Runner shell focuses on high mobility and combat disruption.",
@@ -11977,6 +12899,577 @@
       ],
       "claimCheckModelId": "openai/gpt-5-mini",
       "sourceContextSummary": "24 extracts from rendered source snapshots considered; 8 sources cited.",
+      "claimCheckPromptVersion": "marathon-claim-check-v2"
+    }
+  },
+  {
+    "slug": "locations",
+    "title": "Zones of Tau Ceti IV",
+    "summary": "Overview of the three surface zones Runners play and the Cryo Archive end‑game aboard the UESC Marathon.",
+    "category": "locations",
+    "bodyMarkdown": "## Surface Zones\n\nMarathon features three surface zones: Perimeter, Dire Marsh, and Outpost.{{cite:bungie-vidoc}}\n\n## Perimeter and Dire Marsh\n\nPerimeter is set on the colony’s outskirts and is described as the most beginner-friendly map.{{cite:gamesradar-maps}} Dire Marsh centers on a disaster site with a central complex and focuses on straightforward action.{{cite:gamesradar-maps}} Perimeter and Dire Marsh were playable during the Marathon Server Slam event.{{cite:gamesradar-maps}}\n\n## Outpost\n\nOutpost is a UESC military installation built around a vertical megastructure called the Pinwheel.{{cite:gamesradar-maps}} Outpost unlocks the day after launch and requires Runner Level 12 to access.{{cite:bungie-introducing-seasons}} Outpost features periodic Heat Cascades and requires finding security cards to access the Pinwheel’s interior for high‑value loot.{{cite:pcgamer-review}}\n\n## Cryo Archive (End‑Game)\n\nCryo Archive is the end‑game zone aboard the derelict UESC Marathon and features vault puzzles and layered mechanics.{{cite:bungie-introducing-seasons}} To queue for Cryo Archive players need Minimum Runner Level 25, all six factions unlocked, and a Minimum Loadout Value of 5,000 credits.{{cite:bungie-cryo-archive}} Players who meet Cryo Archive requirements are eligible for a one‑time Cryo Archive Sponsored Kit from the Armory to assist early runs.{{cite:bungie-cryo-archive}} Cryo Archive is intended for three-player crews and opens for play on weekends, per Bungie’s announcement of a March 20 availability window.{{cite:bungie-cryo-archive}}\n\n## Unlocking Zones and Expedition Access\n\nSeasonal progression raises the power floor and gates access to higher‑challenge zones like Cryo Archive.{{cite:bungie-introducing-seasons}} Perimeter, Night Marsh, Outpost, and Cryo Archive can be chosen for Expedition runs provided players have unlocked them by increasing their Runner Level.{{cite:bungie-expedition-phase-1}} Expedition runs allow choosing Perimeter, Night Marsh, Outpost, or Cryo Archive provided those zones have been unlocked by Runner Level.{{cite:bungie-expedition-phase-1}} If players unlocked and completed Dire Marsh previously, they have access to both Dire Marsh and Night Marsh at season start; otherwise the Marshes unlock at Runner Level 3.{{cite:bungie-welcome-season-2}} If Dire Marsh was unlocked and completed previously, players start Season 2 with access to both Dire Marsh and Night Marsh; otherwise both Marshes unlock at Runner Level 3.{{cite:bungie-welcome-season-2}}\n\n## Pages in this section\n\n- [[perimeter|Perimeter]]\n- [[dire-marsh|Dire Marsh]]\n- [[night-marsh|Night Marsh]]\n- [[outpost|Outpost]]\n- [[cryo-archive|Cryo Archive]]",
+    "aiProvenance": {
+      "modelId": "openai/gpt-5-mini",
+      "editMode": "patch",
+      "provider": "vercel-ai-gateway",
+      "changeNote": "An editor asked for a re-check: 1 statement removed.",
+      "responseId": "aitxt-hXJYw4W53bHU7CzP0n8e7Kkx",
+      "generatedAt": "2026-11-15T22:48:38.994Z",
+      "publishGate": {
+        "shape": {
+          "hub": true,
+          "words": 299,
+          "regressions": []
+        },
+        "policy": {
+          "minHubWords": 150,
+          "maxUnsupported": 3,
+          "minSupportedRatio": 0.8,
+          "minSupportedClaims": 3
+        },
+        "reasons": [],
+        "decision": "publish",
+        "supported": 16,
+        "unsupported": 0,
+        "contradicted": 0,
+        "supportedRatio": 1
+      },
+      "requestedBy": "ai-refresh-queue",
+      "claimSupport": [
+        {
+          "quotes": [
+            {
+              "quote": "Three surface zones–Perimeter, Dire Marsh, and Outpost",
+              "extractId": "bungie-vidoc#3"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_locations_1",
+          "patchRef": null,
+          "claimText": "Marathon features three surface zones: Perimeter, Dire Marsh, and Outpost.",
+          "extractIds": [
+            "bungie-vidoc#3"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_vidoc"
+          ],
+          "matchedSourceKeys": [
+            "bungie-vidoc"
+          ],
+          "matchedSourceTitles": [
+            "Vision of Marathon: New Gameplay, Dev Insights, & More"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Described as the most beginner-friendly map in Marathon, Perimeter is set on the edges",
+              "extractId": "gamesradar-maps#4"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_locations_2",
+          "patchRef": null,
+          "claimText": "Perimeter is set on the colony’s outskirts and is described as the most beginner-friendly map.",
+          "extractIds": [
+            "gamesradar-maps#4"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_gamesradar_maps"
+          ],
+          "matchedSourceKeys": [
+            "gamesradar-maps"
+          ],
+          "matchedSourceTitles": [
+            "All Marathon maps and playable zones"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "A disaster point based around a central complex with an action focus.",
+              "extractId": "gamesradar-maps#2"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_locations_3",
+          "patchRef": null,
+          "claimText": "Dire Marsh centers on a disaster site with a central complex and focuses on straightforward action.",
+          "extractIds": [
+            "gamesradar-maps#2"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_gamesradar_maps"
+          ],
+          "matchedSourceKeys": [
+            "gamesradar-maps"
+          ],
+          "matchedSourceTitles": [
+            "All Marathon maps and playable zones"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Perimeter and Dire Marsh will be playable during the Marathon Server Slam.",
+              "extractId": "gamesradar-maps#2"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_locations_4",
+          "patchRef": null,
+          "claimText": "Perimeter and Dire Marsh were playable during the Marathon Server Slam event.",
+          "extractIds": [
+            "gamesradar-maps#2"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_gamesradar_maps"
+          ],
+          "matchedSourceKeys": [
+            "gamesradar-maps"
+          ],
+          "matchedSourceTitles": [
+            "All Marathon maps and playable zones"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "all based around a structure called the Pinwheel.",
+              "extractId": "gamesradar-maps#5"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_locations_5",
+          "patchRef": null,
+          "claimText": "Outpost is a UESC military installation built around a vertical megastructure called the Pinwheel.",
+          "extractIds": [
+            "gamesradar-maps#5"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_gamesradar_maps"
+          ],
+          "matchedSourceKeys": [
+            "gamesradar-maps"
+          ],
+          "matchedSourceTitles": [
+            "All Marathon maps and playable zones"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Outpost will unlock the day after launch, giving the community time to gear up and unlock the zone at Runner Level 12",
+              "extractId": "bungie-introducing-seasons#6"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_locations_6",
+          "patchRef": null,
+          "claimText": "Outpost unlocks the day after launch and requires Runner Level 12 to access.",
+          "extractIds": [
+            "bungie-introducing-seasons#6"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_introducing_seasons"
+          ],
+          "matchedSourceKeys": [
+            "bungie-introducing-seasons"
+          ],
+          "matchedSourceTitles": [
+            "Introducing Seasons in Marathon"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Every few minutes, a \"Heat Cascade\" hits Outpost",
+              "extractId": "pcgamer-review#16"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_locations_15",
+          "patchRef": null,
+          "claimText": "Outpost features periodic Heat Cascades and requires finding security cards to access the Pinwheel’s interior for high‑value loot.",
+          "extractIds": [
+            "pcgamer-review#16"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_pcgamer_review"
+          ],
+          "matchedSourceKeys": [
+            "pcgamer-review"
+          ],
+          "matchedSourceTitles": [
+            "Marathon review"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "end-game zone on the Marathon ship, where you’ll solve security puzzles",
+              "extractId": "bungie-introducing-seasons#5"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_locations_7",
+          "patchRef": null,
+          "claimText": "Cryo Archive is the end‑game zone aboard the derelict UESC Marathon and features vault puzzles and layered mechanics.",
+          "extractIds": [
+            "bungie-introducing-seasons#5"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_introducing_seasons"
+          ],
+          "matchedSourceKeys": [
+            "bungie-introducing-seasons"
+          ],
+          "matchedSourceTitles": [
+            "Introducing Seasons in Marathon"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Minimum Runner Level: 25\nAll six factions unlocked (liaison contracts completed)\nMinimum Loadout Value: 5,000 credits",
+              "extractId": "bungie-cryo-archive#3"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_locations_9",
+          "patchRef": null,
+          "claimText": "To queue for Cryo Archive players need Minimum Runner Level 25, all six factions unlocked, and a Minimum Loadout Value of 5,000 credits.",
+          "extractIds": [
+            "bungie-cryo-archive#3"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_cryo_archive"
+          ],
+          "matchedSourceKeys": [
+            "bungie-cryo-archive"
+          ],
+          "matchedSourceTitles": [
+            "Welcome to Cryo Archive"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "you'll also be eligible for a one-time Cryo Archive Sponsored Kit from the Armory",
+              "extractId": "bungie-cryo-archive#3"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_locations_16",
+          "patchRef": null,
+          "claimText": "Players who meet Cryo Archive requirements are eligible for a one‑time Cryo Archive Sponsored Kit from the Armory to assist early runs.",
+          "extractIds": [
+            "bungie-cryo-archive#3"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_cryo_archive"
+          ],
+          "matchedSourceKeys": [
+            "bungie-cryo-archive"
+          ],
+          "matchedSourceTitles": [
+            "Welcome to Cryo Archive"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Cryo Archive opens up for play on the weekends, starting this Friday, March 20.",
+              "extractId": "bungie-cryo-archive#3"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_locations_10",
+          "patchRef": null,
+          "claimText": "Cryo Archive is intended for three-player crews and opens for play on weekends, per Bungie’s announcement of a March 20 availability window.",
+          "extractIds": [
+            "bungie-cryo-archive#3"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_cryo_archive"
+          ],
+          "matchedSourceKeys": [
+            "bungie-cryo-archive"
+          ],
+          "matchedSourceTitles": [
+            "Welcome to Cryo Archive"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "raising your power floor and the options available to you.",
+              "extractId": "bungie-introducing-seasons#2"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_locations_11",
+          "patchRef": null,
+          "claimText": "Seasonal progression raises the power floor and gates access to higher‑challenge zones like Cryo Archive.",
+          "extractIds": [
+            "bungie-introducing-seasons#2"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_introducing_seasons"
+          ],
+          "matchedSourceKeys": [
+            "bungie-introducing-seasons"
+          ],
+          "matchedSourceTitles": [
+            "Introducing Seasons in Marathon"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Perimeter, Night Marsh, Outpost, and Cryo Archive will be available for Expedition",
+              "extractId": "bungie-expedition-phase-1#5"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_locations_12",
+          "patchRef": null,
+          "claimText": "Perimeter, Night Marsh, Outpost, and Cryo Archive can be chosen for Expedition runs provided players have unlocked them by increasing their Runner Level.",
+          "extractIds": [
+            "bungie-expedition-phase-1#5"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_expedition_phase_1"
+          ],
+          "matchedSourceKeys": [
+            "bungie-expedition-phase-1"
+          ],
+          "matchedSourceTitles": [
+            "Dev Deep Dive: Expedition - Phase 1"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Perimeter, Night Marsh, Outpost, and Cryo Archive will be available for Expedition",
+              "extractId": "bungie-expedition-phase-1#5"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_locations_17",
+          "patchRef": null,
+          "claimText": "Expedition runs allow choosing Perimeter, Night Marsh, Outpost, or Cryo Archive provided those zones have been unlocked by Runner Level.",
+          "extractIds": [
+            "bungie-expedition-phase-1#5"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_expedition_phase_1"
+          ],
+          "matchedSourceKeys": [
+            "bungie-expedition-phase-1"
+          ],
+          "matchedSourceTitles": [
+            "Dev Deep Dive: Expedition - Phase 1"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "If you unlocked and completed a run on Dire Marsh last season, you’ll have access to both Dire Marsh and Night Marsh when Season 2 begins (same rules apply for Outpost). Otherwise both Marshes unlock at Runner Level 3.",
+              "extractId": "bungie-welcome-season-2#6"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_locations_13",
+          "patchRef": null,
+          "claimText": "If players unlocked and completed Dire Marsh previously, they have access to both Dire Marsh and Night Marsh at season start; otherwise the Marshes unlock at Runner Level 3.",
+          "extractIds": [
+            "bungie-welcome-season-2#6"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_welcome_season_2"
+          ],
+          "matchedSourceKeys": [
+            "bungie-welcome-season-2"
+          ],
+          "matchedSourceTitles": [
+            "Welcome to Season 2"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "If you unlocked and completed a run on Dire Marsh last season, you’ll have access to both Dire Marsh and Night Marsh when Season 2 begins",
+              "extractId": "bungie-welcome-season-2#6"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_locations_18",
+          "patchRef": null,
+          "claimText": "If Dire Marsh was unlocked and completed previously, players start Season 2 with access to both Dire Marsh and Night Marsh; otherwise both Marshes unlock at Runner Level 3.",
+          "extractIds": [
+            "bungie-welcome-season-2#6"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_welcome_season_2"
+          ],
+          "matchedSourceKeys": [
+            "bungie-welcome-season-2"
+          ],
+          "matchedSourceTitles": [
+            "Welcome to Season 2"
+          ]
+        }
+      ],
+      "sourceHashes": {
+        "bungie-vidoc": "42a7993bfbf039edd738fa9027b5d0d388a5f4cdf6b7570cc8c8cb109796366f",
+        "pcgamer-review": "724801d33ced929b5e3cd67fa43cd78007326392faa6f1d95318324a7533f937",
+        "gamesradar-maps": "00d8816eb796676cfdca99b46cba6bd76f5db7b77f6c4b9e4983db0ff5746866",
+        "bungie-cryo-archive": "536825dd58f50a3dd8215f9f582c9d850d3be64a1c6fe1921c1660942585b646",
+        "bungie-welcome-season-2": "b9a42b4570bf93983439565f505e68b13d09d8039a1075cee07fc9cf133df588",
+        "bungie-expedition-phase-1": "1e15003212742ea10d238f97120c11436921bab7d26c1ad720380a78120a9747",
+        "bungie-introducing-seasons": "32b81fc84a1aab066f1611f41dec5990cf7dde2d9e2c41c84a9f90069d6d3179"
+      },
+      "promptVersion": "marathon-real-content-v5",
+      "refreshReason": "manual_refresh",
+      "sourceReferences": [
+        {
+          "url": "https://www.bungie.net/7/en/News/Article/marathonvidoc",
+          "title": "Vision of Marathon: New Gameplay, Dev Insights, & More",
+          "sourceId": "src_bungie_vidoc",
+          "publisher": "Bungie",
+          "sourceKey": "bungie-vidoc",
+          "sourceType": "official",
+          "authorityTier": "official",
+          "authorityScore": 90
+        },
+        {
+          "url": "https://www.gamesradar.com/games/fps/marathon-maps/",
+          "title": "All Marathon maps and playable zones",
+          "sourceId": "src_gamesradar_maps",
+          "publisher": "GamesRadar+",
+          "sourceKey": "gamesradar-maps",
+          "sourceType": "press",
+          "authorityTier": "reputable_editorial",
+          "authorityScore": 76
+        },
+        {
+          "url": "https://www.bungie.net/7/en/News/Article/introducing_seasons_marathon",
+          "title": "Introducing Seasons in Marathon",
+          "sourceId": "src_bungie_introducing_seasons",
+          "publisher": "Bungie",
+          "sourceKey": "bungie-introducing-seasons",
+          "sourceType": "official",
+          "authorityTier": "official",
+          "authorityScore": 93
+        },
+        {
+          "url": "https://www.pcgamer.com/games/fps/marathon-review/",
+          "title": "Marathon review",
+          "sourceId": "src_pcgamer_review",
+          "publisher": "PC Gamer",
+          "sourceKey": "pcgamer-review",
+          "sourceType": "press",
+          "authorityTier": "reputable_editorial",
+          "authorityScore": 82
+        },
+        {
+          "url": "https://www.bungie.net/7/en/News/Article/cryo_archive_overview",
+          "title": "Welcome to Cryo Archive",
+          "sourceId": "src_bungie_cryo_archive",
+          "publisher": "Bungie",
+          "sourceKey": "bungie-cryo-archive",
+          "sourceType": "official",
+          "authorityTier": "official",
+          "authorityScore": 93
+        },
+        {
+          "url": "https://www.bungie.net/7/en/News/Article/dev_deep_dive_expedition_phase_1",
+          "title": "Dev Deep Dive: Expedition - Phase 1",
+          "sourceId": "src_bungie_expedition_phase_1",
+          "publisher": "Bungie",
+          "sourceKey": "bungie-expedition-phase-1",
+          "sourceType": "official",
+          "authorityTier": "official",
+          "authorityScore": 92
+        },
+        {
+          "url": "https://www.bungie.net/7/en/News/article/welcome_season_2",
+          "title": "Welcome to Season 2",
+          "sourceId": "src_bungie_welcome_season_2",
+          "publisher": "Bungie",
+          "sourceKey": "bungie-welcome-season-2",
+          "sourceType": "official",
+          "authorityTier": "official",
+          "authorityScore": 93
+        }
+      ],
+      "claimCheckModelId": "openai/gpt-5-mini",
+      "sourceContextSummary": "24 extracts from rendered source snapshots considered; 7 sources cited.",
       "claimCheckPromptVersion": "marathon-claim-check-v2"
     }
   },

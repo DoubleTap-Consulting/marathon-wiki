@@ -140,8 +140,8 @@ describe.sequential("AI editor loop", () => {
     await enqueueSourceChangeRefreshes({ tenantId, changes, now: tick(5), specs: [] }, db);
     const before = await getPublishedWikiPageBySlug(tenantId, SLUG, db);
     const call = editingCall((ids) => [
-      { op: "keep", sentenceId: ids.get(V1[0]), heading: null, text: null, extractIds: [], patchRef: null, reason: "still right" },
-      { op: "replace", sentenceId: ids.get(V1[2]), heading: null, text: renamed, extractIds: ["bungie-runner-shells#1"], patchRef: null, reason: "source adds the codename" },
+      { op: "keep", sentenceId: ids.get(V1[0]), section: null, text: null, extractIds: [], patchRef: null, reason: "still right" },
+      { op: "replace", sentenceId: ids.get(V1[2]), section: null, text: renamed, extractIds: ["bungie-runner-shells#1"], patchRef: null, reason: "source adds the codename" },
     ]);
     const result = await processDueAiRefreshQueueItems({ now: tick(6), tenantId }, { db, call });
     expect(result.failed.map((entry) => entry.error)).toEqual([]);
@@ -154,12 +154,26 @@ describe.sequential("AI editor loop", () => {
 
   it("sends a revision that drops a supported statement with an unchanged source to Review", async () => {
     await enqueueAiRefreshQueueItem({ tenantId, targetSlug: SLUG, pageTitle: "Runner Shell Drill", reason: "manual_refresh", source: "manual", scheduledFor: tick(7), dedupeKey: `${runId}:drop` }, db);
-    const call = editingCall((ids) => [{ op: "remove", sentenceId: ids.get(V1[1]), heading: null, text: null, extractIds: [], patchRef: null, reason: "shorter" }]);
+    const call = editingCall((ids) => [{ op: "remove", sentenceId: ids.get(V1[1]), section: null, text: null, extractIds: [], patchRef: null, reason: "shorter" }]);
     const result = await processDueAiRefreshQueueItems({ now: tick(8), tenantId }, { db, call });
     expect(result.processed.map((entry) => entry.outcome)).toEqual(["needs_review"]);
     const item = await db.selectFrom("ai_refresh_queue_items").select(["metadata"]).where("dedupe_key", "=", `${runId}:drop`).executeTakeFirstOrThrow();
     expect((item.metadata as { gateReasons: string[] }).gateReasons).toEqual([`drops 1 supported statement whose sources did not change: "${V1[1]}"`]);
     expect((await getPublishedWikiPageBySlug(tenantId, SLUG, db))?.latestRevisionNumber).toBe(3);
+  });
+
+  it("publishes a removal an editor asked for, since the drop is intended", async () => {
+    await enqueueAiRefreshQueueItem(
+      { tenantId, targetSlug: SLUG, pageTitle: "Runner Shell Drill", reason: "manual_refresh", source: "manual", scheduledFor: tick(8), dedupeKey: `${runId}:trim`, metadata: { editorNote: "Remove the off-topic sentence." } },
+      db,
+    );
+    const call = editingCall((ids) => [{ op: "remove", sentenceId: ids.get(V1[1]), section: null, text: null, extractIds: [], patchRef: null, reason: "off topic" }]);
+    const result = await processDueAiRefreshQueueItems({ now: tick(8), tenantId }, { db, call });
+    expect(result.processed.map((entry) => entry.outcome)).toEqual(["published"]);
+    const after = await getPublishedWikiPageBySlug(tenantId, SLUG, db);
+    expect(after?.latestRevisionNumber).toBe(4);
+    expect(after?.bodyMarkdown).not.toContain(V1[1]);
+    expect(after?.latestRevision?.changeNote).toBe("An editor asked for a re-check: 1 statement removed.");
   });
 
   it("files a revision under the gate threshold for review, and approving it keeps the provenance", async () => {
@@ -173,15 +187,16 @@ describe.sequential("AI editor loop", () => {
       { db, call: createScriptedCall(), policy: { ...DEFAULT_PUBLISH_POLICY, minSupportedClaims: 99 } },
     );
     expect(result.processed.map((entry) => entry.outcome)).toEqual(["needs_review"]);
-    expect((await getPublishedWikiPageBySlug(tenantId, SLUG, db))?.latestRevisionNumber).toBe(3);
+    expect((await getPublishedWikiPageBySlug(tenantId, SLUG, db))?.latestRevisionNumber).toBe(4);
     const pending = await db.selectFrom("wiki_suggestions").select(["id", "status"]).where("tenant_id", "=", tenantId).where("status", "=", "pending").execute();
     expect(pending.map((row) => row.id)).toEqual([result.processed[0].suggestionId]);
 
     await approveWikiSuggestion({ tenantId, suggestionId: result.processed[0].suggestionId!, actorId: "editor-1" }, db);
     const approved = await getPublishedWikiPageBySlug(tenantId, SLUG, db);
-    expect(approved?.latestRevisionNumber).toBe(4);
+    expect(approved?.latestRevisionNumber).toBe(5);
     expect(approved?.latestRevision?.aiProvenance?.refreshReason).toBe("source_update");
-    expect(approved?.latestRevision?.changeNote).toBe("A cited source changed (bungie-runner-shells): 1 statement added.");
+    // Thief, plus the sentence the editor trimmed above: the scripted model writes every line its source states.
+    expect(approved?.latestRevision?.changeNote).toBe("A cited source changed (bungie-runner-shells): 2 statements added.");
   });
 
   it("publishes a held new page once it clears the gate, even when the editor changes nothing", async () => {

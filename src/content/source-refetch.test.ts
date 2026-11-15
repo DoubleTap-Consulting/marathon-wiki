@@ -8,8 +8,9 @@ try {
 
 import { loadRenderedSnapshots, upsertRenderedSnapshots } from "./editor-store";
 import type { PageSpec, SourceRecord } from "./pipeline";
-import { checkBungieNewsFeed, extractReadableText, parseRssItems, refetchPlan, refetchSources } from "./source-refetch";
+import { checkBungieNewsFeed, extractReadableText, manualSources, parseRssItems, refetchPlan, refetchSources, uncoveredFeedPosts } from "./source-refetch";
 import { getDb } from "@/src/db/client";
+import { listSourceCheckTimes } from "@/src/db/wiki";
 
 const paragraph = (text: string) => `<p>${text} ${"Runners extract loot from Tau Ceti IV and sell it to factions. ".repeat(14)}</p>`;
 const page = (body: string) =>
@@ -44,6 +45,24 @@ describe("parseRssItems", () => {
       { title: "Marathon Update 1.1.9.7", url: "https://www.bungie.net/7/en/News/Article/marathon-update-1-1-9-7", publishedAt: "2026-11-10T17:00:00.000Z" },
       { title: "This Week in Destiny \u2013 11/12", url: "https://www.bungie.net/7/en/News/Article/twid", publishedAt: null },
     ]);
+  });
+});
+
+describe("official posts not yet sourced", () => {
+  it("lists feed posts no registry source covers, whatever the URL's locale, without Destiny posts", () => {
+    const items = [
+      { title: "Marathon Update 1.1.9.7", url: "https://www.bungie.net/7/en/News/Article/marathon-update-1-1-9-7", publishedAt: null },
+      { title: "Marathon Update 1.1.9.6", url: "https://www.bungie.net/7/en-us/News/Article/marathon-update-1-1-9-6/", publishedAt: null },
+      { title: "Destiny 2 Update 9.7.0.3", url: "https://www.bungie.net/7/en/News/Article/d2", publishedAt: null },
+    ];
+    const sources = [{ url: "https://www.bungie.net/7/en/News/Article/marathon-update-1-1-9-6" }];
+    expect(uncoveredFeedPosts(items, sources).map((item) => item.title)).toEqual(["Marathon Update 1.1.9.7"]);
+  });
+
+  it("names every registry source the daily re-fetch cannot read", () => {
+    const manual = manualSources();
+    expect(manual.length).toBe(17);
+    expect(manual.every(({ source }) => refetchPlan(source).method === "manual")).toBe(true);
   });
 });
 
@@ -119,10 +138,14 @@ describe.sequential("refetchSources on a throwaway wiki", () => {
     expect(snapshot.text).toBe("Rendered guide text with widgets.");
   });
 
-  it("changes nothing when the page has not changed", async () => {
-    const { results, queued } = await refetchSources({ tenantId, sources: sources.slice(0, 1), specs, fetchImpl, now }, db);
+  it("only records the check time when the page has not changed", async () => {
+    const later = new Date("2031-02-02T08:00:00.000Z");
+    const { results, queued } = await refetchSources({ tenantId, sources: sources.slice(0, 1), specs, fetchImpl, now: later }, db);
     expect(results).toEqual([{ sourceKey: "static-guide", outcome: "unchanged" }]);
     expect(queued).toEqual([]);
+    expect(await listSourceCheckTimes(tenantId, ["static-guide"], db)).toContainEqual(later);
+    const [snapshot] = await loadRenderedSnapshots(tenantId, db);
+    expect(snapshot.text).toBe("Rendered guide text with widgets.");
   });
 
   it("stores the new text and queues the pages that use the source when the page changes, once", async () => {

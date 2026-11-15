@@ -52,6 +52,31 @@ describe("wiki cache tags", () => {
     expect(cache.wikiCacheScope({})).toBe("local");
   });
 
+  it("in production, adds only the deployment id to each key and keeps revalidate and tags as on main", async () => {
+    vi.stubEnv("VERCEL_ENV", "production");
+    vi.stubEnv("VERCEL_DEPLOYMENT_ID", "dpl_prod123");
+    try {
+      const cache = await import("./cache");
+      unstableCache.mockClear();
+      await cache.getCachedWikiHome("marathon");
+      await cache.getCachedWikiPages("marathon", "tenant_123");
+      await cache.getCachedWikiCategory("marathon", "weapons");
+      await cache.getCachedWikiPage("marathon", "weapons");
+      await cache.getCachedWikiPageRevisions("marathon", "weapons", "tenant_123", "page_1");
+      const calls = unstableCache.mock.calls.map(([, keys, options]) => ({ keys, options }));
+      // main's keys, options and tags (origin/main src/wiki/cache.ts), with the deployment id as the second key part.
+      expect(calls).toEqual([
+        { keys: ["wiki-home", "dpl_prod123", "marathon"], options: { revalidate: 300, tags: ["wiki:tenant:marathon", "wiki:tenant:marathon:home", "wiki:tenant:marathon:pages"] } },
+        { keys: ["wiki-pages", "dpl_prod123", "marathon"], options: { revalidate: 300, tags: ["wiki:tenant:marathon", "wiki:tenant:marathon:pages"] } },
+        { keys: ["wiki-category", "dpl_prod123", "marathon", "weapons"], options: { revalidate: 300, tags: ["wiki:tenant:marathon", "wiki:tenant:marathon:pages", "wiki:tenant:marathon:category:weapons"] } },
+        { keys: ["wiki-page", "dpl_prod123", "marathon", "weapons"], options: { revalidate: 300, tags: ["wiki:tenant:marathon", "wiki:tenant:marathon:pages", "wiki:tenant:marathon:page:weapons"] } },
+        { keys: ["wiki-page-revisions", "dpl_prod123", "marathon", "weapons"], options: { revalidate: 300, tags: ["wiki:tenant:marathon", "wiki:tenant:marathon:page:weapons"] } },
+      ]);
+    } finally {
+      vi.unstubAllEnvs();
+    }
+  });
+
   it("passes ISR windows and tags to cached public readers", async () => {
     const cache = await import("./cache");
 

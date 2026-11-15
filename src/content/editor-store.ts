@@ -213,6 +213,7 @@ export async function runEditor(
     refreshReason: input.refreshReason,
     requestedBy: input.actorId,
     readerNotes: [...(input.instructions ?? []), ...notes.flatMap((note) => (note.contextText ? [note.contextText] : []))],
+    editorRequested: (input.instructions ?? []).length > 0,
     previous,
     changedSources: input.changedSources,
     policy: input.policy,

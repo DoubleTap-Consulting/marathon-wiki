@@ -89,10 +89,11 @@ export function tryParseRevision(bodyMarkdown: string, claimSupport: StoredClaim
 export const patchSchema = z.object({
   edits: z.array(
     z.object({
-      op: z.enum(["keep", "replace", "add", "remove"]),
-      /** replace/remove/keep: the sentence edited. add: the sentence the new one follows, or null to start a paragraph under `heading`. */
+      op: z.enum(["keep", "replace", "add", "remove", "move"]),
+      /** keep/replace/remove/move: the sentence edited. add: the sentence the new one should follow, or null. */
       sentenceId: z.string().nullable(),
-      heading: z.string().nullable(),
+      /** add/move: the section heading the sentence belongs under (an existing heading, or a new one). */
+      section: z.string().nullable(),
       text: z.string().nullable(),
       extractIds: z.array(z.string()),
       patchRef: z.string().nullable(),
@@ -108,8 +109,9 @@ export const PATCH_SYSTEM = [
   "You edit an existing page of an unofficial, source-backed wiki about Marathon, Bungie's 2026 extraction shooter.",
   "You do not rewrite the page. You return a short list of sentence edits, and every sentence you do not mention stays exactly as it is.",
   "op=replace: an existing sentence that an extract or an editor note shows is wrong, outdated or imprecise. Give the whole new sentence.",
-  "op=add: a fact the page lacks that an extract states and the note or the page scope calls for. Give sentenceId of the sentence it",
-  "should follow, or sentenceId=null and a section heading to start a new paragraph (an existing heading, or a new one).",
+  "op=add: a fact the page lacks that an extract states and the note or the page scope calls for. Always give section: the heading",
+  "it belongs under (an existing heading, or a new one). Give sentenceId of a sentence in that section it should follow, or null to start a paragraph there.",
+  "op=move: an existing sentence that sits under the wrong heading. Give its sentenceId and the section it belongs under; its words stay as they are.",
   "op=remove: only for a sentence that no extract supports any more. Never remove a sentence just to shorten or restyle the page.",
   "Do not touch sentences that are still correct, even if you would word them differently. Do not repeat a fact the page already states.",
   "Every new sentence lists the extract ids that state its fact and states one fact in under 30 words, in your own words.",
@@ -167,7 +169,37 @@ export type PlannedSentence =
   | { kind: "replace"; sentence: RevisionSentence; next: ValidSentence; claimId: string }
   | { kind: "add"; heading: string; paragraph: number; next: ValidSentence; claimId: string };
 
-export type PatchPlan = { order: PlannedSentence[]; removed: RevisionSentence[]; rejected: Rejection[] };
+export type PatchPlan = { order: PlannedSentence[]; removed: RevisionSentence[]; moved: RevisionSentence[]; rejected: Rejection[] };
+
+function stems(text: string) {
+  return new Set(
+    normalized(text)
+      .split(" ")
+      .filter((word) => word.length > 2)
+      .map((word) => word.replace(/ies$/, "y").replace(/(?<!s)s$/, "")),
+  );
+}
+
+/**
+ * The section a sentence fits best when the model named none: the heading whose words it shares
+ * most, then the section whose sentences it shares most words with. The first section (the
+ * overview) is chosen only when nothing else matches at all.
+ */
+export function bestSection(text: string, sentences: RevisionSentence[]): string | null {
+  const headings = [...new Set(sentences.map((sentence) => sentence.heading))];
+  if (headings.length === 0) return null;
+  const words = stems(text);
+  const overlap = (other: Set<string>) => [...other].filter((word) => words.has(word)).length;
+  const scored = headings.map((heading, index) => ({
+    heading,
+    index,
+    byHeading: overlap(stems(heading)),
+    byBody: overlap(stems(sentences.filter((sentence) => sentence.heading === heading).map((sentence) => sentence.claim.claimText).join(" "))),
+  }));
+  const pick = (key: "byHeading" | "byBody") =>
+    scored.filter((entry) => entry[key] > 0).sort((a, b) => b[key] - a[key] || Number(a.index === 0) - Number(b.index === 0) || a.index - b.index)[0];
+  return (pick("byHeading") ?? pick("byBody") ?? scored[0]).heading;
+}
 
 function normalized(text: string) {
   return text.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
@@ -209,7 +241,9 @@ export function planPatch(input: {
   const removed = new Set<string>();
   const after = new Map<string, Array<{ next: ValidSentence; claimId: string }>>();
   const appended = new Map<string, Array<{ next: ValidSentence; claimId: string }>>();
+  const moved = new Map<string, string>();
   const rejected: Rejection[] = [];
+  const cleanHeading = (value: string | null | undefined) => value?.trim().replace(/^#+\s*/, "") || null;
   const accepted: string[] = input.sentences.map((sentence) => sentence.claim.claimText);
 
   const asSentence = (edit: PatchEdit): ValidSentence | string => {
@@ -222,16 +256,25 @@ export function planPatch(input: {
     if (edit.op === "keep") continue;
     const target = edit.sentenceId ? byId.get(edit.sentenceId) : undefined;
     const label = edit.text ?? edit.sentenceId ?? "(empty edit)";
-    if ((edit.op === "replace" || edit.op === "remove") && !target) {
+    if ((edit.op === "replace" || edit.op === "remove" || edit.op === "move") && !target) {
       rejected.push({ text: label, reason: `${edit.op} names an unknown sentence ${edit.sentenceId ?? "null"}` });
       continue;
     }
-    if (target && (replaced.has(target.id) || removed.has(target.id))) {
+    if (target && edit.op !== "add" && (replaced.has(target.id) || removed.has(target.id) || moved.has(target.id))) {
       rejected.push({ text: label, reason: `${target.id} already has an edit` });
       continue;
     }
     if (edit.op === "remove") {
       removed.add(target!.id);
+      continue;
+    }
+    if (edit.op === "move") {
+      const section = cleanHeading(edit.section);
+      if (!section || section === target!.heading) {
+        rejected.push({ text: target!.claim.claimText, reason: section ? "move names the section the sentence is already in" : "move needs a section" });
+        continue;
+      }
+      moved.set(target!.id, section);
       continue;
     }
     const next = asSentence(edit);
@@ -252,30 +295,51 @@ export function planPatch(input: {
       rejected.push({ text: next.text, reason: `add follows an unknown sentence ${edit.sentenceId}` });
       continue;
     }
-    const heading = edit.heading?.trim().replace(/^#+\s*/, "");
-    if (!target && !heading) {
-      rejected.push({ text: next.text, reason: "add needs a sentence to follow or a section heading" });
+    // The section decides where an addition goes; the sentence it follows only orders it inside that section.
+    const heading = cleanHeading(edit.section) ?? bestSection(next.text, input.sentences);
+    if (!heading) {
+      rejected.push({ text: next.text, reason: "add needs a section" });
       continue;
     }
     accepted.push(next.text);
     const entry = { next, claimId: input.nextClaimId() };
-    if (target) after.set(target.id, [...(after.get(target.id) ?? []), entry]);
-    else appended.set(heading!, [...(appended.get(heading!) ?? []), entry]);
+    if (target && target.heading === heading && !moved.has(target.id)) after.set(target.id, [...(after.get(target.id) ?? []), entry]);
+    else appended.set(heading, [...(appended.get(heading) ?? []), entry]);
   }
 
-  const order: PlannedSentence[] = [];
+  // A moved sentence opens the first paragraph of its new section, word for word.
+  const movedInto = new Map<string, RevisionSentence[]>();
   for (const sentence of input.sentences) {
-    if (removed.has(sentence.id)) continue;
+    const section = moved.get(sentence.id);
+    if (section) movedInto.set(section, [...(movedInto.get(section) ?? []), sentence]);
+  }
+  const order: PlannedSentence[] = [];
+  const opened = new Set<string>();
+  const openSection = (heading: string, paragraph: number) => {
+    if (opened.has(heading)) return;
+    opened.add(heading);
+    for (const sentence of movedInto.get(heading) ?? []) order.push({ kind: "kept", sentence: { ...sentence, heading, paragraph } });
+  };
+  for (const sentence of input.sentences) {
+    if (removed.has(sentence.id) || moved.has(sentence.id)) continue;
+    openSection(sentence.heading, sentence.paragraph);
     const replacement = replaced.get(sentence.id);
     order.push(replacement ? { kind: "replace", sentence, ...replacement } : { kind: "kept", sentence });
     for (const entry of after.get(sentence.id) ?? []) order.push({ kind: "add", heading: sentence.heading, paragraph: sentence.paragraph, ...entry });
   }
+  for (const heading of movedInto.keys()) openSection(heading, 0);
   for (const [heading, entries] of appended) {
-    const paragraph = Math.max(-1, ...input.sentences.filter((sentence) => sentence.heading === heading).map((sentence) => sentence.paragraph)) + 1;
+    const stay = input.sentences.filter((sentence) => sentence.heading === heading && !moved.has(sentence.id) && !removed.has(sentence.id));
+    const paragraph = Math.max(-1, ...stay.map((sentence) => sentence.paragraph)) + 1;
     for (const entry of entries) order.push({ kind: "add", heading, paragraph, ...entry });
   }
 
-  return { order, removed: input.sentences.filter((sentence) => removed.has(sentence.id)), rejected };
+  return {
+    order,
+    removed: input.sentences.filter((sentence) => removed.has(sentence.id)),
+    moved: input.sentences.filter((sentence) => moved.has(sentence.id)),
+    rejected,
+  };
 }
 
 /**

@@ -14,6 +14,7 @@ import {
   type WikiSuggestionSummary,
 } from "@/src/db/wiki";
 import { composeWikiTitle } from "@/src/wiki/metadata";
+import { loadOfficialSourceGaps } from "@/src/wiki/official-gaps";
 import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
 
 import { ClerkSignInControl, ClerkUserControl } from "../_components/auth-controls";
@@ -21,6 +22,7 @@ import { MarkdownArticle } from "../_components/markdown";
 import { EmptyState, WikiChrome } from "../_components/wiki-chrome";
 import { AiRewriteForm } from "./_components/ai-rewrite-form";
 import { AiDraftForm } from "./_components/ai-draft-form";
+import { OfficialSourceGapsSection } from "./_components/official-gaps";
 import {
   queueAiRewriteAction,
   generateAiWikiSuggestionAction,
@@ -66,12 +68,13 @@ export default async function ReviewPage({ params }: ReviewPageProps) {
     Promise.resolve(getAuthMode()),
   ]);
   const canReview = canReviewSuggestions(actor);
-  const [suggestions, communityNotes] = canReview
+  const [suggestions, communityNotes, gaps] = canReview
     ? await Promise.all([
         listWikiSuggestionsForReview(snapshot.tenant.id),
         listWikiCommunityNotesForReview(snapshot.tenant.id),
+        loadOfficialSourceGaps(snapshot.tenant.id),
       ])
-    : [[], []];
+    : [[], [], null];
 
   return (
     <WikiChrome tenant={snapshot.tenant} categories={snapshot.categories}>
@@ -133,6 +136,7 @@ export default async function ReviewPage({ params }: ReviewPageProps) {
                 />
               ))}
             </ReviewSection>
+            {gaps ? <OfficialSourceGapsSection gaps={gaps} /> : null}
             <ReviewSection
               title="Page suggestions"
               description="Approve new page and edit suggestions into normal page revisions."

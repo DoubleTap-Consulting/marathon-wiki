@@ -285,6 +285,8 @@ type ComposeInput = {
   requestedBy?: string;
   /** Approved reader notes and editor instructions. Hints for the model, never sources. */
   readerNotes?: string[];
+  /** An editor instruction on this queue item asked for the edit, so removals it plans are intended. */
+  editorRequested?: boolean;
   previous?: PreviousRevision | null;
   /** Sources the trigger says changed (a queue item's sourceKey), on top of hash differences. */
   changedSources?: string[];
@@ -440,7 +442,10 @@ async function patchExistingPage(
   const rejected: Rejection[] = [...plan.rejected];
   const claims: ResolvedClaim[] = [];
   const superseded = new Set<string>();
-  const edits = { revised: 0, added: 0, removed: plan.removed.length };
+  const edits = { revised: 0, added: 0, removed: plan.removed.length, moved: plan.moved.length };
+  // A removal is intended, not a regression, when an editor instruction on this queue item asked
+  // for the edit. Without one (a source change, a reader note, a routine re-check), the gate holds it.
+  if (input.editorRequested) for (const sentence of plan.removed) superseded.add(sentence.claim.claimId);
   const keep = (sentence: RevisionSentence) => {
     const kept = reverifyClaim({ sentence, extractsBySource, sources: corpus.sources });
     if (kept) claims.push(kept);
@@ -489,11 +494,12 @@ async function patchExistingPage(
   };
 }
 
-function describeEdits(edits: { revised: number; added: number; removed: number }, refreshReason: string, changedSources: string[]) {
+function describeEdits(edits: { revised: number; added: number; removed: number; moved?: number }, refreshReason: string, changedSources: string[]) {
   const counts = [
     [edits.revised, "revised"],
     [edits.added, "added"],
     [edits.removed, "removed"],
+    [edits.moved ?? 0, "moved"],
   ].filter(([count]) => count) as Array<[number, string]>;
   const parts = counts.map(([count, verb], index) => (index === 0 ? `${count} statement${count === 1 ? "" : "s"} ${verb}` : `${count} ${verb}`));
   const lead = TRIGGER_PHRASE[refreshReason] ?? "Re-checked against the sources";

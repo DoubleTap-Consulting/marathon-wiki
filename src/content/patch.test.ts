@@ -52,14 +52,24 @@ const stored = (claims: ResolvedClaim[]): StoredClaim[] =>
 const BODY = assembleMarkdown({ claims: CLAIMS, sectionOrder: ["Holotags", "Scoring"], hubLinks: [{ slug: "recon", title: "Recon" }], related: [{ slug: "rarity-tiers", title: "Rarity tiers" }] });
 const SENTENCES = parseRevision(BODY, stored(CLAIMS))!;
 
-function edit(op: "keep" | "replace" | "add" | "remove", sentenceId: string | null, text: string | null = null, heading: string | null = null) {
-  return { op, sentenceId, heading, text, extractIds: text ? ["bungie-ranked#1"] : [], patchRef: null, reason: "test" };
+function edit(op: "keep" | "replace" | "add" | "remove" | "move", sentenceId: string | null, text: string | null = null, section: string | null = null) {
+  return { op, sentenceId, section, text, extractIds: text ? ["bungie-ranked#1"] : [], patchRef: null, reason: "test" };
 }
 
-function plan(edits: ReturnType<typeof edit>[]) {
-  let next = 4;
-  return planPatch({ sentences: SENTENCES, edits, knownExtractIds: new Set(["bungie-ranked#1"]), nextClaimId: () => `claim_ranked_${(next += 1)}` });
+function plan(edits: ReturnType<typeof edit>[], sentences = SENTENCES) {
+  let next = 20;
+  return planPatch({ sentences, edits, knownExtractIds: new Set(["bungie-ranked#1"]), nextClaimId: () => `claim_ranked_${(next += 1)}` });
 }
+
+const RECON = [
+  claim(11, "Recon is an intel specialist Runner shell.", "Overview"),
+  claim(12, "Recon excels at identifying threats and tracking movement.", "Overview"),
+  claim(13, "Echo Pulse now fires pulses in a cone in the player's aim direction.", "Abilities"),
+  claim(14, "Interrogation's notification to pinged Recon players is delayed by two seconds.", "Traits"),
+];
+const RECON_SENTENCES = parseRevision(assembleMarkdown({ claims: RECON, sectionOrder: ["Overview", "Abilities", "Traits"], hubLinks: [], related: [] }), stored(RECON))!;
+const placed = (result: ReturnType<typeof plan>) =>
+  result.order.map((entry) => (entry.kind === "add" ? `add:${entry.heading}:${entry.paragraph}` : `${entry.sentence.id}:${entry.sentence.heading}:${entry.sentence.paragraph}`));
 
 describe("reading a revision back into sentences", () => {
   it("finds every sentence with its section and paragraph, and skips generated link lists", () => {
@@ -110,15 +120,36 @@ describe("planning a sentence patch", () => {
       edit("replace", "s9", "Ranked has six ranks with three tiers each."),
       edit("replace", "s2", "Bronze [Holotags] cost 3,000."),
       edit("add", null, "Each Holotag sets the score target and the loss penalty of a run."),
-      edit("add", null, "Ranked has six ranks with three tiers each."),
+      edit("move", "s1", null, "Holotags"),
     ]);
     expect(result.order.map((entry) => entry.kind)).toEqual(["kept", "kept", "kept", "kept"]);
     expect(result.rejected.map((entry) => entry.reason)).toEqual([
       "replace names an unknown sentence s9",
       "markup inside sentence text",
       `repeats a statement the page already makes: "Each Holotag sets a run's score target and loss penalty."`,
-      "add needs a sentence to follow or a section heading",
+      "move names the section the sentence is already in",
     ]);
+  });
+
+  it("puts an addition without a section under the heading that matches best, not the overview", () => {
+    // The model points at an Overview sentence but names no section: the heading decides.
+    const result = plan(
+      [edit("add", "s2", "Recon's Prime ability is Echo Pulse."), edit("add", "s2", "Recon has the Stalker Protocol trait.")],
+      RECON_SENTENCES,
+    );
+    expect(placed(result)).toEqual(["s1:Overview:0", "s2:Overview:0", "s3:Abilities:0", "s4:Traits:0", "add:Abilities:1", "add:Traits:1"]);
+  });
+
+  it("places an addition in the section it names, even after a sentence from another section", () => {
+    const result = plan([edit("add", "s1", "Recon's Tactical ability is Tracker Drone.", "Abilities")], RECON_SENTENCES);
+    expect(placed(result)).toEqual(["s1:Overview:0", "s2:Overview:0", "s3:Abilities:0", "s4:Traits:0", "add:Abilities:1"]);
+  });
+
+  it("moves a sentence word for word to the start of the section it names", () => {
+    const result = plan([edit("move", "s2", null, "Traits")], RECON_SENTENCES);
+    expect(placed(result)).toEqual(["s1:Overview:0", "s3:Abilities:0", "s2:Traits:0", "s4:Traits:0"]);
+    expect(result.moved.map((sentence) => sentence.id)).toEqual(["s2"]);
+    expect(result.order.find((entry) => entry.kind === "kept" && entry.sentence.id === "s2")).toMatchObject({ sentence: { claim: RECON_SENTENCES[1].claim } });
   });
 });
 
