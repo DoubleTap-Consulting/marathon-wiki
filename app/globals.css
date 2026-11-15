@@ -2,7 +2,17 @@
 @import "tw-animate-css";
 @import "./themes/generated/marathon.css";
 
-@custom-variant dark (&:is(.dark *));
+/* Dark follows the system unless the scheme cookie put .light or .dark on <html> (see app/layout.tsx). */
+@custom-variant dark {
+  &:where(.dark, .dark *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not(.light), :root:not(.light) *) {
+      @slot;
+    }
+  }
+}
 
 @theme inline {
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
@@ -73,6 +83,17 @@
   --claim-conflict: var(--destructive);
   --diff-added: oklch(0.52 0.109 165);
   --diff-added-surface: oklch(0.95 0.035 165);
+  color-scheme: light;
+}
+
+:root {
+  @variant dark {
+    --destructive: oklch(0.78 0.128 27);
+    --claim-unverified: oklch(0.8 0.15 75);
+    --diff-added: oklch(0.76 0.13 165);
+    --diff-added-surface: oklch(0.27 0.05 165);
+    color-scheme: dark;
+  }
 }
 
 *,
