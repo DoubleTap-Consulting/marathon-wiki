@@ -8,8 +8,8 @@ export function SuggestionAuthPanel({
   authMode: "clerk" | "dev" | "unconfigured";
 }) {
   return (
-    <section className="rounded-lg border bg-card p-6 text-card-foreground">
-      <h1 className="text-title font-semibold">Sign in required</h1>
+    <section className="border bg-card p-6 text-card-foreground">
+      <h1 className="text-title font-display">Sign in required</h1>
       <p className="mt-2 max-w-2xl text-ui text-muted-foreground">
         Suggestions are attributed to a signed-in user before they enter review.
       </p>
@@ -36,7 +36,7 @@ export function SuggestionActorBar({
   authMode: "clerk" | "dev" | "unconfigured";
 }) {
   return (
-    <div className="flex flex-col gap-3 rounded-lg border bg-card p-4 text-card-foreground sm:flex-row sm:items-center sm:justify-between">
+    <div className="flex flex-col gap-3 border bg-card p-4 text-card-foreground sm:flex-row sm:items-center sm:justify-between">
       <p className="text-small text-muted-foreground">
         Submitting as{" "}
         <span className="font-medium text-card-foreground">

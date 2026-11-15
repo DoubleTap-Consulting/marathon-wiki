@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { sourceDelta, triggerLabel } from "@/src/wiki/article";
 
-import { RelativeTime } from "../../_components/trust-ui";
+import { SiteDate } from "../../_components/site-date";
 import { WikiChrome } from "../../_components/wiki-chrome";
 import { toIso } from "../article-data";
 import { loadHistory } from "./history-data";
@@ -26,7 +26,7 @@ export default async function HistoryPage({ params }: HistoryPageProps) {
         <Link href={base as Route} className="inline-flex min-h-11 items-center text-small text-muted-foreground hover:text-foreground">
           ← {snapshot.page.title}
         </Link>
-        <h1 className="mt-1 text-title font-semibold tracking-tight">History</h1>
+        <h1 className="mt-1 text-title font-display">History</h1>
         <p className="mt-2 text-muted-foreground">Every change to this page, newest first.</p>
 
         {revisions.length <= 1 ? (
@@ -50,7 +50,7 @@ export default async function HistoryPage({ params }: HistoryPageProps) {
                   <span className="font-mono text-small text-muted-foreground tabular-nums">r{revision.revisionNumber}</span>
                   <div className="min-w-0 flex-1">
                     <p className="text-small text-muted-foreground">
-                      <RelativeTime iso={toIso(revision.createdAt)} />
+                      <SiteDate iso={toIso(revision.createdAt)} />
                       <span aria-hidden="true" className="mx-2">·</span>
                       {revision.aiProvenance ? "AI refresh" : "Editor"}
                       <span aria-hidden="true" className="mx-2">·</span>
@@ -75,7 +75,7 @@ export default async function HistoryPage({ params }: HistoryPageProps) {
                   {hasDiff ? (
                     <Link
                       href={`${base}/history/${revision.revisionNumber}` as Route}
-                      className="-mx-3 block rounded-md px-3 outline-none hover:bg-muted/50 focus-visible:ring-2 focus-visible:ring-ring"
+                      className="-mx-3 block px-3 hover:bg-muted/50"
                     >
                       {row}
                     </Link>

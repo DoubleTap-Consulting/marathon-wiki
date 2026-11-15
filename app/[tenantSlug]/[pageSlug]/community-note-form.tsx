@@ -4,6 +4,7 @@ import { useActionState, useEffect, useRef } from "react";
 import { useFormStatus } from "react-dom";
 
 import type { CommunityNoteFormState } from "./community-note-actions";
+import { Input, Select, Textarea } from "@/components/ui/input";
 
 type CommunityNoteFormProps = {
   action: (
@@ -42,9 +43,9 @@ export function CommunityNoteForm({ action, onSubmitted }: CommunityNoteFormProp
     >
       {state.message ? (
         <div
-          className={`rounded-md border p-3 text-ui ${
+          className={`border p-3 text-ui ${
             state.ok
-              ? "border-primary/40 bg-primary/10 text-foreground"
+              ? "border-border bg-muted text-foreground"
               : "border-destructive/40 bg-destructive/10 text-foreground"
           }`}
           role="status"
@@ -58,14 +59,14 @@ export function CommunityNoteForm({ action, onSubmitted }: CommunityNoteFormProp
         <label htmlFor="community-note-body" className="text-ui font-medium">
           Community note
         </label>
-        <textarea
+        <Textarea
           id="community-note-body"
           name="bodyMarkdown"
           rows={5}
           required
           autoFocus
           minLength={20}
-          className="min-h-36 w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="min-h-36"
         />
       </div>
 
@@ -73,11 +74,11 @@ export function CommunityNoteForm({ action, onSubmitted }: CommunityNoteFormProp
         <label htmlFor="community-note-target" className="text-ui font-medium">
           Relevant quote
         </label>
-        <textarea
+        <Textarea
           id="community-note-target"
           name="targetQuote"
           rows={2}
-          className="min-h-20 w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="min-h-20"
         />
       </div>
 
@@ -85,14 +86,13 @@ export function CommunityNoteForm({ action, onSubmitted }: CommunityNoteFormProp
         <label htmlFor="community-note-source" className="text-ui font-medium">
           Source URL
         </label>
-        <input
+        <Input
           id="community-note-source"
           name="sourceUrl"
           type="url"
           inputMode="url"
           autoComplete="url"
           placeholder="https://"
-          className="min-h-11 w-full rounded-md border border-input bg-background px-3 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
       </div>
 
@@ -100,10 +100,9 @@ export function CommunityNoteForm({ action, onSubmitted }: CommunityNoteFormProp
         <label htmlFor="community-note-type" className="text-ui font-medium">
           Note type
         </label>
-        <select
+        <Select
           id="community-note-type"
           name="noteType"
-          className="min-h-11 w-full rounded-md border border-input bg-background px-3 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
           defaultValue="general"
         >
           <option value="general">General note</option>
@@ -111,7 +110,7 @@ export function CommunityNoteForm({ action, onSubmitted }: CommunityNoteFormProp
           <option value="source">Source link</option>
           <option value="clarification">Clarification</option>
           <option value="dispute">Dispute</option>
-        </select>
+        </Select>
       </div>
 
       <SubmitButton />
@@ -126,7 +125,7 @@ function SubmitButton() {
     <button
       type="submit"
       disabled={status.pending}
-      className="inline-flex min-h-11 items-center rounded-md bg-primary px-4 text-ui font-medium text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card disabled:cursor-not-allowed disabled:opacity-60"
+      className="inline-flex min-h-11 items-center border border-foreground bg-primary px-4 hover:bg-primary-hover dark:border-transparent text-ui font-medium text-primary-foreground disabled:cursor-not-allowed disabled:opacity-60"
     >
       {status.pending ? "Sending..." : "Send note"}
     </button>

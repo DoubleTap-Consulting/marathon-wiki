@@ -1,10 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
+import { CircleHelp, Sparkles, TriangleAlert, type LucideIcon } from "lucide-react";
+import { useCallback, useId, useRef, useState, useSyncExternalStore } from "react";
 
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+
+import { SiteDate } from "./site-date";
 import { authorityLabel, sourceTypeLabel, type ArticleSource } from "@/src/wiki/article";
 
 function subscribeCoarse(callback: () => void) {
@@ -20,73 +23,6 @@ export function useIsTouch() {
     () => window.matchMedia("(pointer: coarse)").matches,
     () => false,
   );
-}
-
-function formatInReaderZone(iso: string, options: Intl.DateTimeFormatOptions) {
-  return new Intl.DateTimeFormat(undefined, options).format(new Date(iso));
-}
-
-const RELATIVE_UNITS: Array<[Intl.RelativeTimeFormatUnit, number]> = [
-  ["year", 365 * 24 * 3600],
-  ["month", 30 * 24 * 3600],
-  ["week", 7 * 24 * 3600],
-  ["day", 24 * 3600],
-  ["hour", 3600],
-  ["minute", 60],
-];
-
-export function relativeTime(iso: string, now = Date.now()) {
-  const seconds = Math.round((new Date(iso).getTime() - now) / 1000);
-  const format = new Intl.RelativeTimeFormat(undefined, { numeric: "auto" });
-
-  for (const [unit, size] of RELATIVE_UNITS) {
-    if (Math.abs(seconds) >= size) return format.format(Math.round(seconds / size), unit);
-  }
-
-  return "just now";
-}
-
-/**
- * Server renders an absolute UTC date; after hydration it swaps to relative time
- * in the reader's zone. Both strings share one grid cell so the width never jumps.
- */
-export function RelativeTime({ iso, className }: { iso: string; className?: string }) {
-  const [relative, setRelative] = useState<string | null>(null);
-  const [title, setTitle] = useState<string | undefined>(undefined);
-  const absolute = new Intl.DateTimeFormat("en", {
-    month: "short",
-    day: "numeric",
-    timeZone: "UTC",
-  }).format(new Date(iso));
-
-  useEffect(() => {
-    // Reader's clock and zone are only known in the browser.
-    setRelative(relativeTime(iso));
-    setTitle(formatInReaderZone(iso, { dateStyle: "full", timeStyle: "short" }));
-  }, [iso]);
-
-  return (
-    <time dateTime={iso} title={title} className={cn("inline-grid tabular-nums", className)}>
-      <span className={cn("col-start-1 row-start-1", relative && "invisible")} aria-hidden={relative ? true : undefined}>
-        {absolute}
-      </span>
-      <span className="col-start-1 row-start-1" aria-hidden={relative ? undefined : true}>
-        {relative ?? ""}
-      </span>
-    </time>
-  );
-}
-
-export function RetrievedDate({ iso }: { iso: string }) {
-  const [label, setLabel] = useState(() =>
-    new Intl.DateTimeFormat("en", { month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(iso)),
-  );
-
-  useEffect(() => {
-    setLabel(formatInReaderZone(iso, { month: "short", day: "numeric" }));
-  }, [iso]);
-
-  return <time dateTime={iso}>{label}</time>;
 }
 
 /**
@@ -129,7 +65,7 @@ function TrustPopover({
       <>
         {trigger({ onMouseEnter: () => {}, onMouseLeave: () => {}, onFocus: () => {}, onClick: () => setOpen(true) })}
         <Sheet open={open} onOpenChange={setOpen}>
-          <SheetContent side="bottom" className="max-h-[80vh] overflow-y-auto rounded-t-xl px-5 pb-8">
+          <SheetContent side="bottom" className="max-h-[80vh] overflow-y-auto px-5 pb-8">
             <SheetHeader className="px-0">
               <SheetTitle>{title}</SheetTitle>
               <SheetDescription className="sr-only">{label}</SheetDescription>
@@ -197,7 +133,7 @@ export function SourceDetails({ source }: { source: CitedSource }) {
       </p>
       {source.retrievedAt ? (
         <p className="text-muted-foreground">
-          Retrieved <RetrievedDate iso={source.retrievedAt} />
+          Retrieved <SiteDate iso={source.retrievedAt} />
         </p>
       ) : null}
       {source.claimText ? (
@@ -207,11 +143,21 @@ export function SourceDetails({ source }: { source: CitedSource }) {
   );
 }
 
+/** A trust state's icon and words, so no state is told by color alone. */
+export function TrustLabel({ icon: Icon, tone, className, id, children }: { icon: LucideIcon; tone?: string; className?: string; id?: string; children: React.ReactNode }) {
+  return (
+    <span id={id} data-trust-label="" className={cn("inline-flex items-baseline gap-1 whitespace-nowrap", className)}>
+      <Icon className={cn("size-[1em] shrink-0 self-center", tone)} aria-hidden="true" />
+      {children}
+    </span>
+  );
+}
+
 export function CitationMarker({ source }: { source: CitedSource }) {
   const heading = (
     <>
       {source.url ? (
-        <a href={source.url} target="_blank" rel="noreferrer" className="text-link underline decoration-link/40 underline-offset-4 hover:decoration-link">
+        <a href={source.url} target="_blank" rel="noreferrer" className="text-link underline decoration-1 underline-offset-3 hover:decoration-2">
           {source.title}
         </a>
       ) : (
@@ -228,7 +174,7 @@ export function CitationMarker({ source }: { source: CitedSource }) {
         <button
           type="button"
           aria-label={`Source ${source.number}: ${source.title}`}
-          className="relative inline-flex min-h-6 min-w-6 items-center justify-center px-0.5 align-super text-label leading-none font-medium tabular-nums text-link outline-none after:absolute after:-inset-2.5 after:content-[''] hover:underline focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring"
+          className="relative inline-flex min-h-6 min-w-6 items-center justify-center px-0.5 align-super text-label leading-none font-medium tabular-nums text-link after:absolute after:-inset-2.5 after:content-['']"
           {...handlers}
         >
           [{source.number}]
@@ -265,7 +211,7 @@ export function ClaimMark({
             role="button"
             tabIndex={0}
             aria-describedby={descriptionId}
-            className="cursor-help underline decoration-claim-unverified decoration-dotted decoration-2 underline-offset-4 outline-none focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring"
+            className="cursor-help underline decoration-claim-unverified decoration-dotted decoration-2 underline-offset-4"
             onKeyDown={(event) => {
               if (event.key === "Enter" || event.key === " ") {
                 handlers.onClick(event);
@@ -273,10 +219,10 @@ export function ClaimMark({
             }}
             {...handlers}
           >
-            {children}
-            <span id={descriptionId} className="sr-only">
-              (Not yet confirmed by a source)
-            </span>
+            {children}{" "}
+            <TrustLabel id={descriptionId} icon={CircleHelp} tone="text-claim-unverified" className="text-small text-muted-foreground">
+              Unconfirmed
+            </TrustLabel>
           </span>
         )}
       >
@@ -290,7 +236,7 @@ export function ClaimMark({
       className={
         whole
           ? "box-decoration-clone border-l-2 border-claim-conflict bg-destructive/5 py-0.5 pl-1.5"
-          : "box-decoration-clone rounded-[2px] bg-destructive/5 px-0.5 underline decoration-destructive decoration-2 underline-offset-4"
+          : "box-decoration-clone bg-destructive/5 px-0.5 underline decoration-destructive decoration-2 underline-offset-4"
       }
     >
       {children}{" "}
@@ -301,9 +247,10 @@ export function ClaimMark({
           <button
             type="button"
             aria-describedby={descriptionId}
-            className="inline-flex min-h-6 items-center rounded-sm px-1 align-baseline text-label font-medium uppercase tracking-wide text-foreground underline decoration-claim-conflict underline-offset-4 outline-none focus-visible:ring-2 focus-visible:ring-ring pointer-coarse:min-h-11"
+            className="inline-flex min-h-6 items-center gap-1 px-1 align-baseline text-label font-medium uppercase tracking-wide text-foreground underline decoration-claim-conflict underline-offset-4 pointer-coarse:min-h-11"
             {...handlers}
           >
+            <TriangleAlert className="size-[1em] shrink-0 text-claim-conflict" aria-hidden="true" />
             Sources disagree
           </button>
         )}
@@ -318,7 +265,7 @@ export function ClaimMark({
             {sources.map((source) => (
               <li key={source.title}>
                 {source.url ? (
-                  <a href={source.url} target="_blank" rel="noreferrer" className="text-link underline decoration-link/40 underline-offset-4 hover:decoration-link">
+                  <a href={source.url} target="_blank" rel="noreferrer" className="text-link underline decoration-1 underline-offset-3 hover:decoration-2">
                     {source.title}
                   </a>
                 ) : (
@@ -354,7 +301,7 @@ export function ProvenanceTrigger({
           className={className}
           {...handlers}
         >
-          {label}
+          <TrustLabel icon={Sparkles}>{label}</TrustLabel>
         </button>
       )}
     >

@@ -17,6 +17,14 @@
 @theme inline {
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: var(--font-display-face), var(--font-geist-sans), ui-sans-serif, sans-serif;
+  --radius-xs: var(--radius);
+  --radius-sm: var(--radius);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+  --radius-xl: var(--radius);
+  --color-brand: var(--brand);
+  --color-primary-hover: var(--primary-hover);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -42,7 +50,36 @@
   --color-diff-added-surface: var(--diff-added-surface);
 }
 
+/* The theme's display face, for display and title text only; case, tracking and width come from
+   the manifest via the generated CSS. */
+@utility font-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-variation-settings: "wdth" var(--display-wdth);
+  letter-spacing: var(--display-tracking);
+  text-transform: var(--display-case);
+  text-wrap: balance;
+}
+
+/* Mono caps for labels, codes, table heads and counts. Never for sentences. */
+@utility label {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  font-variant-numeric: tabular-nums;
+  color: var(--muted-foreground);
+}
+
+@utility label-strong {
+  @apply label;
+  color: var(--foreground);
+}
+
 @theme {
+  --tracking-label: 0.06em;
   --text-*: initial;
   --text-display: 2.5rem;
   --text-display--line-height: 2.5rem;
@@ -74,12 +111,9 @@
 }
 
 :root {
+  /* Trust colors are core: identical in every theme (spec §3). */
   --destructive: oklch(0.58 0.21 27);
-  /* TODO(PR 4): set from the manifest's corners (square 0, soft 6px). */
-  --radius: 0.5rem;
-  /* Claim support. Unverified underline is non-text (3:1 on --background);
-     conflict reuses destructive (3:1 border, label text uses foreground). */
-  --claim-unverified: oklch(0.555 0.163 49);
+  --claim-unverified: oklch(0.555 0.149 49);
   --claim-conflict: var(--destructive);
   --diff-added: oklch(0.52 0.109 165);
   --diff-added-surface: oklch(0.95 0.035 165);
@@ -107,6 +141,17 @@
   *::before,
   *::after {
     border-color: var(--border);
+  }
+
+  /* A square outline survives forced-colors, where box-shadow rings vanish. */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--brand);
+    color: oklch(0.18 0.005 115);
   }
 }
 

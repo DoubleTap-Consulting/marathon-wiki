@@ -7,7 +7,8 @@ import type {
 } from "@/src/db/wiki";
 
 import { MenuSheet, SchemeToggle, SearchSheet } from "./header-sheets";
-import { RelativeTime } from "./trust-ui";
+import { SiteDate } from "./site-date";
+import { Input } from "@/components/ui/input";
 
 export function WikiChrome({
   tenant,
@@ -40,12 +41,12 @@ export function WikiChrome({
           className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
           aria-hidden="true"
         />
-        <input
+        <Input
           id={`wiki-search-${idSuffix}`}
           name="q"
           type="search"
           placeholder="Search pages"
-          className="h-9 w-full rounded-md border border-input bg-background px-9 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring md:text-ui pointer-coarse:h-11"
+          className="px-9"
         />
       </div>
     </form>
@@ -55,7 +56,7 @@ export function WikiChrome({
     <div className="min-h-screen bg-background">
       <a
         href={`#${skipTarget}`}
-        className="sr-only z-50 rounded-md bg-primary px-4 py-2 text-ui font-medium text-primary-foreground focus:not-sr-only focus:fixed focus:left-4 focus:top-2"
+        className="sr-only z-50 border border-foreground bg-primary px-4 hover:bg-primary-hover dark:border-transparent py-2 text-ui font-medium text-primary-foreground focus:not-sr-only focus:fixed focus:left-4 focus:top-2"
       >
         {skipTarget === "article" ? "Skip to article" : "Skip to content"}
       </a>
@@ -67,9 +68,9 @@ export function WikiChrome({
         >
           <a
             href={`/${tenant.slug}`}
-            className="flex min-h-11 shrink-0 items-center gap-2.5 rounded-md text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="flex min-h-11 shrink-0 items-center gap-2.5 text-foreground"
           >
-            <span className="flex size-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
+            <span className="flex size-8 items-center justify-center bg-foreground text-background">
               <BookOpen className="size-4" aria-hidden="true" />
             </span>
             <span className="text-ui font-semibold">{tenant.name}</span>
@@ -141,7 +142,7 @@ export function PageGrid({
         <a
           key={page.id}
           href={`/${tenant.slug}/${page.slug}`}
-          className="block min-h-36 rounded-lg border bg-card p-5 text-card-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className="block min-h-36 border bg-card p-5 text-card-foreground"
         >
           <div className="flex min-h-full flex-col justify-between gap-4">
             <div className="space-y-2">
@@ -151,7 +152,7 @@ export function PageGrid({
               </p>
             </div>
             <p className="text-label text-muted-foreground">
-              Updated {page.updatedAt ? <RelativeTime iso={new Date(page.updatedAt).toISOString()} /> : "Unknown"}
+              Updated {page.updatedAt ? <SiteDate iso={new Date(page.updatedAt).toISOString()} /> : "Unknown"}
             </p>
           </div>
         </a>
@@ -168,7 +169,7 @@ export function EmptyState({
   description: string;
 }) {
   return (
-    <div className="rounded-lg border bg-card p-6 text-card-foreground">
+    <div className="border bg-card p-6 text-card-foreground">
       <h2 className="text-h3 font-semibold">{title}</h2>
       <p className="mt-2 max-w-2xl text-ui text-muted-foreground">
         {description}
@@ -193,7 +194,7 @@ function NavPill({
   return (
     <a
       href={href}
-      className="flex min-h-11 items-center rounded-md px-3 text-ui font-medium text-foreground outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring"
+      className="flex min-h-11 items-center px-3 text-ui font-medium text-foreground hover:bg-muted"
       data-wiki-event={eventName}
       data-wiki-event-label={eventLabel}
       data-wiki-tenant={tenantSlug}

@@ -26,7 +26,7 @@ export function WikiAdSlot({
 
   return (
     <aside
-      className={`rounded-lg border border-dashed bg-card p-4 text-card-foreground ${className}`}
+      className={` border border-dashed bg-card p-4 text-card-foreground ${className}`}
       style={{ minHeight: slot.minHeight }}
       aria-label="Advertisement"
       data-wiki-event="ad_slot_view"
@@ -74,14 +74,14 @@ export function WikiPremiumHook({
   }
 
   return (
-    <section className="rounded-lg border bg-card p-5 text-card-foreground">
+    <section className="border bg-card p-5 text-card-foreground">
       <h2 className="text-h3 font-semibold">{premium.label}</h2>
       <p className="mt-2 text-small text-muted-foreground">
         {premium.description}
       </p>
       <a
         href={premium.url}
-        className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-md bg-primary px-4 text-ui font-medium text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+        className="mt-4 inline-flex min-h-11 w-full items-center justify-center border border-foreground bg-primary px-4 hover:bg-primary-hover dark:border-transparent text-ui font-medium text-primary-foreground"
         data-wiki-event="premium_cta"
         data-wiki-event-label="sidebar"
         data-wiki-tenant={tenantSlug}

@@ -18,53 +18,64 @@ export type ThemeToken =
   | "border"
   | "input"
   | "ring"
-  | "link";
+  | "link"
+  | "brand"
+  | "primary-hover";
 
-type Rule = { seed: "neutral" | "accent"; l: number; c: number; dh?: number } | "accent-seed" | ThemeToken;
+type Rule =
+  | { seed: "neutral" | "accent"; l: number; c: number }
+  | { seed: "accent"; dl: number }
+  | "accent-seed"
+  | "brand-seed"
+  | "ink-on-primary"
+  | ThemeToken;
 
-// Chroma is a fraction of the seed's.
-// TODO(PR 4): delete `dh`. It keeps today's teal hover surface (183) beside the green accent (160)
-// so PR 1 renders unchanged; PR 4 puts the hover surface on the accent hue.
+// Chroma is a fraction of the seed's. The accent is a fill: light-mode links and rings use a darker
+// step of its hue, so any seed works, however light (spec VI §2).
 const LIGHT: Record<ThemeToken, Rule> = {
-  background: { seed: "neutral", l: 0.985, c: 0.1 },
-  foreground: { seed: "neutral", l: 0.16, c: 1 },
+  background: { seed: "neutral", l: 0.985, c: 0.4 },
+  foreground: { seed: "neutral", l: 0.18, c: 0.5 },
   card: { seed: "neutral", l: 1, c: 0 },
   "card-foreground": "foreground",
   popover: "card",
   "popover-foreground": "foreground",
   primary: "accent-seed",
-  "primary-foreground": { seed: "accent", l: 0.98, c: 0.077 },
-  secondary: { seed: "neutral", l: 0.94, c: 0.5 },
-  "secondary-foreground": { seed: "neutral", l: 0.21, c: 1 },
+  "primary-hover": { seed: "accent", dl: -0.06 },
+  "primary-foreground": "ink-on-primary",
+  secondary: { seed: "neutral", l: 0.93, c: 0.5 },
+  "secondary-foreground": "foreground",
   muted: "secondary",
-  "muted-foreground": { seed: "neutral", l: 0.48, c: 1 },
-  accent: { seed: "accent", l: 0.91, c: 0.308, dh: 23 },
-  "accent-foreground": { seed: "accent", l: 0.2, c: 0.308, dh: 23 },
-  border: { seed: "neutral", l: 0.89, c: 0.5 },
-  input: "border",
-  ring: { seed: "accent", l: 0.55, c: 1 },
-  link: "primary",
+  "muted-foreground": { seed: "neutral", l: 0.47, c: 0.6 },
+  accent: "secondary",
+  "accent-foreground": "foreground",
+  border: { seed: "neutral", l: 0.86, c: 0.5 },
+  input: { seed: "neutral", l: 0.6, c: 0.6 },
+  ring: { seed: "accent", l: 0.48, c: 0.54 },
+  link: "ring",
+  brand: "brand-seed",
 };
 
 const DARK: Record<ThemeToken, Rule> = {
-  background: { seed: "neutral", l: 0.16, c: 0.5 },
-  foreground: { seed: "neutral", l: 0.95, c: 0.25 },
-  card: { seed: "neutral", l: 0.2, c: 0.5 },
+  background: { seed: "neutral", l: 0.155, c: 0.3 },
+  foreground: { seed: "neutral", l: 0.95, c: 0.4 },
+  card: { seed: "neutral", l: 0.205, c: 0.3 },
   "card-foreground": "foreground",
   popover: "card",
   "popover-foreground": "foreground",
-  primary: { seed: "accent", l: 0.78, c: 1 },
-  "primary-foreground": { seed: "accent", l: 0.18, c: 0.3 },
-  secondary: { seed: "neutral", l: 0.25, c: 0.5 },
+  primary: "accent-seed",
+  "primary-hover": { seed: "accent", dl: -0.06 },
+  "primary-foreground": "ink-on-primary",
+  secondary: { seed: "neutral", l: 0.25, c: 0.4 },
   "secondary-foreground": "foreground",
   muted: "secondary",
   "muted-foreground": { seed: "neutral", l: 0.79, c: 0.5 },
-  accent: { seed: "accent", l: 0.3, c: 0.308, dh: 23 },
-  "accent-foreground": { seed: "accent", l: 0.95, c: 0.308, dh: 23 },
-  border: { seed: "neutral", l: 0.32, c: 0.5 },
-  input: "border",
-  ring: { seed: "accent", l: 0.72, c: 1 },
-  link: "primary",
+  accent: "secondary",
+  "accent-foreground": "foreground",
+  border: { seed: "neutral", l: 0.32, c: 0.4 },
+  input: { seed: "neutral", l: 0.55, c: 0.5 },
+  ring: "accent-seed",
+  link: "accent-seed",
+  brand: "brand-seed",
 };
 
 export const SCHEMES = ["light", "dark"] as const;
@@ -79,22 +90,51 @@ const round = (n: number, digits: number) => Number(n.toFixed(digits));
 
 export function themeTokens(theme: ThemeManifest, scheme: Scheme = "light"): Record<ThemeToken, Oklch> {
   const mapping = MAPPING[scheme];
-  const { neutral, accent } = theme.color;
+  const { neutral, accent, brand = accent } = theme.color;
   const resolve = (rule: Rule): Oklch => {
-    if (rule === "accent-seed") return accent;
+    if (rule === "accent-seed") return toGamut(accent);
+    if (rule === "brand-seed") return toGamut(brand);
+    if (rule === "ink-on-primary") {
+      const [primary, ink, paper] = [resolve(mapping.primary), resolve(mapping.foreground), resolve(mapping.background)];
+      return wcagRatio(ink, primary) >= wcagRatio(paper, primary) ? ink : paper;
+    }
     if (typeof rule === "string") return resolve(mapping[rule]);
+    if ("dl" in rule) return toGamut({ ...accent, l: round(accent.l + rule.dl, 3) });
     const seed = rule.seed === "neutral" ? neutral : accent;
-    return { l: rule.l, c: round(seed.c * rule.c, 3), h: (seed.h + (rule.dh ?? 0)) % 360 };
+    return toGamut({ l: rule.l, c: round(seed.c * rule.c, 3), h: seed.h });
   };
   return Object.fromEntries(Object.entries(mapping).map(([token, rule]) => [token, resolve(rule)])) as Record<ThemeToken, Oklch>;
 }
 
+const inGamut = (color: Oklch) => linearRgb(color).every((x) => x >= -1e-4 && x <= 1 + 1e-4);
+
+// Keeps lightness and hue and lowers chroma until the color fits sRGB.
+function toGamut(color: Oklch): Oklch {
+  if (inGamut(color)) return color;
+  let [lo, hi] = [0, color.c];
+  while (hi - lo > 1e-4) {
+    const mid = (lo + hi) / 2;
+    if (inGamut({ ...color, c: mid })) lo = mid;
+    else hi = mid;
+  }
+  return { ...color, c: Math.floor(lo * 1000) / 1000 };
+}
+
 const formatOklch = ({ l, c, h }: Oklch) => `oklch(${round(l, 3)} ${round(c, 3)} ${round(h, 1)})`;
+
+const RADIUS = { square: "0", soft: "6px" } as const;
 
 export function renderCss(theme: ThemeManifest): string {
   const lines = (scheme: Scheme, indent: string) =>
     Object.entries(themeTokens(theme, scheme)).map(([token, value]) => `${indent}--${token}: ${formatOklch(value)};`).join("\n");
-  return `/* Generated by scripts/theme/build.ts from themes/${theme.slug}/theme.ts. Do not edit. */\n[data-theme="${theme.slug}"] {\n${lines("light", "  ")}\n\n  @variant dark {\n${lines("dark", "    ")}\n  }\n}\n`;
+  const { display } = theme.type;
+  const shape = [
+    `  --radius: ${RADIUS[theme.shape.corners]};`,
+    `  --display-case: ${display.case === "upper" ? "uppercase" : "none"};`,
+    `  --display-tracking: ${display.tracking}em;`,
+    `  --display-wdth: ${display.axes?.wdth ?? 100};`,
+  ].join("\n");
+  return `/* Generated by scripts/theme/build.ts from themes/${theme.slug}/theme.ts. Do not edit. */\n[data-theme="${theme.slug}"] {\n${shape}\n${lines("light", "  ")}\n\n  @variant dark {\n${lines("dark", "    ")}\n  }\n}\n`;
 }
 
 // Light values come from the first top-level `:root {}`, dark overrides from `:root { @variant dark {} }`.
@@ -167,10 +207,7 @@ const FLOORS = {
   ui: { ratio: 3, lc: 0 },
 } as const;
 
-// TODO(PR 4): gamut-map the seeds and fail out-of-sRGB tokens. Today's primary, ring,
-// accent-foreground and claim-unverified sit just outside sRGB and browsers clip them; mapping
-// them now would change pixels.
-const PAIRS: [fg: Token, bg: Token, floor: keyof typeof FLOORS, warn?: "error in PR 4"][] = [
+const PAIRS: [fg: Token, bg: Token, floor: keyof typeof FLOORS][] = [
   ["foreground", "background", "body"],
   ["foreground", "card", "body"],
   ["muted-foreground", "background", "text"],
@@ -191,40 +228,42 @@ const PAIRS: [fg: Token, bg: Token, floor: keyof typeof FLOORS, warn?: "error in
   ["claim-conflict", "card", "ui"],
   ["diff-added", "background", "ui"],
   ["foreground", "diff-added-surface", "body"],
-  // TODO(PR 4): drop the marker so this fails the build; PR 4's input (L 0.60) is 3.67:1.
-  ["input", "background", "ui", "error in PR 4"],
+  ["input", "background", "ui"],
+  ["input", "card", "ui"],
+  ["primary-foreground", "primary-hover", "text"],
 ];
 
 const MIN_TRUST_HUE_DISTANCE = 30;
 const TRUST_HUES: CoreToken[] = ["destructive", "claim-unverified", "claim-conflict", "diff-added"];
-// TODO(PR 4): delete. Today's green accent (160) sits 5° from diff-added (165); PR 4's acid (125.5)
-// clears it, and tokens.test.ts fails while this exemption outlives its reason.
-export const HUE_EXEMPT_UNTIL_PR4: ReadonlySet<CoreToken> = new Set(["diff-added"]);
 
 export const hueDistance = (a: number, b: number) => Math.min(Math.abs(a - b), 360 - Math.abs(a - b));
 
-export type CheckResult = { errors: string[]; warnings: string[]; lines: string[] };
+export type CheckResult = { errors: string[]; lines: string[] };
 
 // Keeps the shared trust values passing on every theme (spec §2).
 const BACKGROUND_BAND: Record<Scheme, [min: number, max: number]> = { light: [0.95, 0.99], dark: [0.14, 0.22] };
 
 export function checkTheme(theme: ThemeManifest, core: CoreTokens): CheckResult {
-  const result: CheckResult = { errors: [], warnings: [], lines: [] };
-  const check = (line: string, pass: boolean, softFail?: string) => {
-    result.lines.push(`${pass ? "PASS" : softFail ?? "FAIL"} ${line}`);
-    if (!pass) (softFail ? result.warnings : result.errors).push(line);
+  const result: CheckResult = { errors: [], lines: [] };
+  const check = (line: string, pass: boolean) => {
+    result.lines.push(`${pass ? "PASS" : "FAIL"} ${line}`);
+    if (!pass) result.errors.push(line);
   };
 
   for (const scheme of SCHEMES) {
     const name = `${theme.slug} ${scheme}`;
     const tokens: Record<Token, Oklch> = { ...themeTokens(theme, scheme), ...core[scheme] };
 
-    for (const [fg, bg, floor, warn] of PAIRS) {
+    for (const [token, value] of Object.entries(tokens)) {
+      if (!inGamut(value)) check(`${name} ${token} ${formatOklch(value)} is outside sRGB`, false);
+    }
+
+    for (const [fg, bg, floor] of PAIRS) {
       const ratio = wcagRatio(tokens[fg], tokens[bg]);
       const lc = apcaLc(tokens[fg], tokens[bg]);
       const need = FLOORS[floor];
       const line = `${name} ${fg} on ${bg}: ${ratio.toFixed(2)}:1 Lc ${lc.toFixed(1)} (${floor} needs ${need.ratio}:1, Lc ${need.lc})`;
-      check(line, ratio >= need.ratio && lc >= need.lc, warn && `WARN (${warn})`);
+      check(line, ratio >= need.ratio && lc >= need.lc);
     }
 
     const [min, max] = BACKGROUND_BAND[scheme];
@@ -235,7 +274,7 @@ export function checkTheme(theme: ThemeManifest, core: CoreTokens): CheckResult 
     for (const token of TRUST_HUES) {
       const distance = hueDistance(accentHue, core[scheme][token].h);
       const line = `${name} accent hue ${accentHue} is ${round(distance, 1)}° from ${token} hue ${core[scheme][token].h} (needs ≥ ${MIN_TRUST_HUE_DISTANCE}°)`;
-      check(line, distance >= MIN_TRUST_HUE_DISTANCE, HUE_EXEMPT_UNTIL_PR4.has(token) ? "EXEMPT (until PR 4)" : undefined);
+      check(line, distance >= MIN_TRUST_HUE_DISTANCE);
     }
   }
 

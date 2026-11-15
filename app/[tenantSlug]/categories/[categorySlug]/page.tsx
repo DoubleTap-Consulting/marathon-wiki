@@ -66,7 +66,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           <p className="text-label font-medium uppercase tracking-normal text-muted-foreground">
             Category
           </p>
-          <h1 className="text-title font-semibold text-foreground">
+          <h1 className="text-title font-display text-foreground">
             {snapshot.category.name}
           </h1>
           <p className="max-w-3xl text-body text-muted-foreground">

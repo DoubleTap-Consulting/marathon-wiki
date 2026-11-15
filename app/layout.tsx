@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Archivo, Geist, Geist_Mono } from "next/font/google";
 
 import { applyScheme } from "@/app/_components/scheme";
 import { SchemeSync } from "@/app/_components/scheme-sync";
@@ -14,6 +14,17 @@ import "./globals.css";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+});
+
+// The Marathon manifest's display face (themes/marathon/theme.ts: Archivo, wdth axis).
+const displayFace = Archivo({
+  variable: "--font-display-face",
+  subsets: ["latin"],
+  // Variable weight: next/font only loads the wdth axis on the variable file; 700 and 800 come from it.
+  weight: "variable",
+  axes: ["wdth"],
+  display: "swap",
+  adjustFontFallback: true,
 });
 
 const geistMono = Geist_Mono({
@@ -72,7 +83,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-theme={THEME}
-      className={`${geistSans.variable} ${geistMono.variable}`}
+      className={`${geistSans.variable} ${geistMono.variable} ${displayFace.variable}`}
       suppressHydrationWarning
     >
       <head>

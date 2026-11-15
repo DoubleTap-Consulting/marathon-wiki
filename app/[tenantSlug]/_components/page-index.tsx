@@ -6,6 +6,7 @@ import { Search } from "lucide-react";
 import type { WikiPageSummary, WikiTenant } from "@/src/db/wiki";
 
 import { EmptyState, PageGrid } from "./wiki-chrome";
+import { Input } from "@/components/ui/input";
 
 export function PageIndex({
   tenant,
@@ -54,7 +55,7 @@ export function PageIndex({
             className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
             aria-hidden="true"
           />
-          <input
+          <Input
             id="page-index-search"
             name="q"
             type="search"
@@ -63,13 +64,13 @@ export function PageIndex({
               setQuery(event.target.value);
             }}
             placeholder="Filter page index"
-            className="min-h-11 w-full rounded-md border border-input bg-card px-9 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="px-9"
           />
         </div>
       </form>
 
       {query ? (
-        <div className="rounded-lg border bg-card p-4 text-card-foreground">
+        <div className="border bg-card p-4 text-card-foreground">
           <p className="text-small text-muted-foreground">
             Showing results for{" "}
             <span className="font-medium text-card-foreground">{query}</span>.

@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 
 import { changesOnly, diffParagraphs, triggerLabel } from "@/src/wiki/article";
 
-import { RelativeTime } from "../../../_components/trust-ui";
+import { SiteDate } from "../../../_components/site-date";
 import { WikiChrome } from "../../../_components/wiki-chrome";
 import { toIso } from "../../article-data";
 import { loadHistory } from "../history-data";
@@ -41,11 +41,11 @@ export default async function DiffPage({ params }: DiffPageProps) {
         <Link href={`${base}/history` as Route} className="inline-flex min-h-11 items-center text-small text-muted-foreground hover:text-foreground">
           ← History of {snapshot.page.title}
         </Link>
-        <h1 className="mt-1 text-title font-semibold tracking-tight">
+        <h1 className="mt-1 text-title font-display">
           Revision {revision.revisionNumber}
         </h1>
         <p className="mt-2 text-small text-muted-foreground">
-          <RelativeTime iso={toIso(revision.createdAt)} />
+          <SiteDate iso={toIso(revision.createdAt)} />
           <span aria-hidden="true" className="mx-2">·</span>
           {revision.aiProvenance ? `AI refresh · ${triggerLabel(revision.aiProvenance.refreshReason)}` : "Editor"}
           <span aria-hidden="true" className="mx-2">·</span>
@@ -57,18 +57,18 @@ export default async function DiffPage({ params }: DiffPageProps) {
 
         <nav aria-label="Revisions" className="mt-10 flex justify-between gap-4 border-t pt-4 text-ui">
           {previous ? (
-            <Link href={`${base}/history/${previous.revisionNumber}` as Route} className="inline-flex min-h-11 items-center text-link hover:underline">
+            <Link href={`${base}/history/${previous.revisionNumber}` as Route} className="inline-flex min-h-11 items-center text-foreground underline decoration-1 underline-offset-3 hover:decoration-2">
               ← Revision {previous.revisionNumber}
             </Link>
           ) : (
             <span />
           )}
           {newer ? (
-            <Link href={`${base}/history/${newer.revisionNumber}` as Route} className="inline-flex min-h-11 items-center text-link hover:underline">
+            <Link href={`${base}/history/${newer.revisionNumber}` as Route} className="inline-flex min-h-11 items-center text-foreground underline decoration-1 underline-offset-3 hover:decoration-2">
               Revision {newer.revisionNumber} →
             </Link>
           ) : (
-            <Link href={base as Route} className="inline-flex min-h-11 items-center text-link hover:underline">
+            <Link href={base as Route} className="inline-flex min-h-11 items-center text-foreground underline decoration-1 underline-offset-3 hover:decoration-2">
               Current page →
             </Link>
           )}
