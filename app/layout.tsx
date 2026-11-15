@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Geist, Geist_Mono } from "next/font/google";
 
+import { applyScheme } from "@/app/_components/scheme";
+import { SchemeSync } from "@/app/_components/scheme-sync";
 import { WikiAnalytics } from "@/app/_components/wiki-analytics";
 import { isWikiAnalyticsEnabled } from "@/src/analytics/wiki-events";
 import { isClerkConfigured } from "@/src/auth/wiki-auth";
@@ -47,9 +49,11 @@ export const metadata: Metadata = {
   },
 };
 
+const THEME = "marathon";
+
 // Runs before first paint so a saved scheme never flashes the system one. Pages stay static (ISR),
 // which reading the cookie on the server would break.
-const SCHEME_SCRIPT = `const s=document.cookie.match(/(?:^|; )scheme=(light|dark)(?:;|$)/);if(s)document.documentElement.classList.add(s[1]);`;
+const SCHEME_SCRIPT = `(${applyScheme.toString()})(${JSON.stringify(THEME)})`;
 
 export default function RootLayout({
   children,
@@ -60,13 +64,14 @@ export default function RootLayout({
     <body>
       {children}
       <WikiAnalytics enabled={isWikiAnalyticsEnabled()} />
+      <SchemeSync theme={THEME} />
     </body>
   );
 
   return (
     <html
       lang="en"
-      data-theme="marathon"
+      data-theme={THEME}
       className={`${geistSans.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
