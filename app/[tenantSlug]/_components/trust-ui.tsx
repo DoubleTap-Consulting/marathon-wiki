@@ -247,7 +247,7 @@ export function ClaimMark({
           <button
             type="button"
             aria-describedby={descriptionId}
-            className="inline-flex min-h-6 items-center gap-1 px-1 align-baseline text-label font-medium uppercase tracking-wide text-foreground underline decoration-claim-conflict underline-offset-4 pointer-coarse:min-h-11"
+            className="inline-flex min-h-6 items-center gap-1 px-1 align-baseline text-small font-medium text-foreground underline decoration-claim-conflict underline-offset-4 pointer-coarse:min-h-11"
             {...handlers}
           >
             <TriangleAlert className="size-[1em] shrink-0 text-claim-conflict" aria-hidden="true" />

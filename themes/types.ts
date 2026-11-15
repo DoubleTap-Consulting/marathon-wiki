@@ -23,14 +23,23 @@ export const themeManifest = z.strictObject({
     siteName: z.string().min(1),
     developer: z.string().min(1),
     wordmark: z.object({ src: svgPath, label: z.string().min(1), minWidth: z.number().positive() }),
+    /** The game in plain words, set under the network wordmark: never a logo. */
+    descriptor: z.string().min(1).max(60),
+    tagline: z.string().min(40).max(140).optional(),
+    kicker: z.string().min(1).max(40).optional(),
   }),
+  /** "ink" keeps the header and footer on the dark scheme in both modes; "surface" lets them follow the page. */
+  chrome: z.enum(["ink", "surface"]),
   color: z.object({
     neutral: z.object({ h: hue, c: z.number().min(0).max(0.03) }),
     accent: oklch,
     brand: oklch.optional(),
     accentFill: z.literal("seed"),
   }),
-  type: z.object({ display: displayFont }),
+  type: z.object({
+    display: displayFont,
+    sectionIndex: z.enum(["none", "decimal-leading-zero", "upper-roman"]),
+  }),
   shape: z.object({ corners: z.enum(["square", "soft"]) }),
   texture: z
     .object({

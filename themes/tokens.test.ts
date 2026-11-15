@@ -3,6 +3,7 @@ import { globSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 import badFixture from "@/scripts/theme/bad-theme.fixture.ts";
+import silksongFixture from "@/scripts/theme/silksong.fixture.ts";
 import marathon from "@/themes/marathon/theme.ts";
 import { checkTheme, parseCoreTokens, renderCss, themeTokens, toHex } from "@/themes/tokens.ts";
 import { themeManifest } from "@/themes/types.ts";
@@ -60,6 +61,14 @@ describe("checks", () => {
   it("reject a manifest outside the type", () => {
     const loud = { ...marathon, color: { ...marathon.color, neutral: { h: 250, c: 0.08 } } };
     expect(themeManifest.safeParse(loud).success).toBe(false);
+  });
+
+  it("parse the Silksong manifest with the identity fields", () => {
+    expect(themeManifest.parse(silksongFixture)).toMatchObject({
+      chrome: "surface",
+      type: { sectionIndex: "upper-roman" },
+      identity: { descriptor: "An unofficial guide to Hollow Knight: Silksong", kicker: "Field notes · Pharloom" },
+    });
   });
 });
 

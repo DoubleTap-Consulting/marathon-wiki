@@ -51,7 +51,7 @@ export function SearchSheet({ children }: { children: React.ReactNode }) {
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent side="top" className="px-5 pb-6">
           <SheetHeader className="px-0">
-            <SheetTitle>Search</SheetTitle>
+            <SheetTitle className="label-strong">Search</SheetTitle>
             <SheetDescription className="sr-only">Search wiki pages</SheetDescription>
           </SheetHeader>
           {children}
@@ -85,7 +85,7 @@ export function MenuSheet({
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent side="right" className="w-full overflow-y-auto px-5 pb-8 sm:max-w-sm">
           <SheetHeader className="px-0">
-            <SheetTitle>Browse the wiki</SheetTitle>
+            <SheetTitle className="label-strong">Browse the wiki</SheetTitle>
             <SheetDescription className="sr-only">Sections and categories</SheetDescription>
           </SheetHeader>
           <nav

@@ -196,7 +196,7 @@ export async function runEditor(
   const specs = input.specs ?? CONTENT_SPECS;
   const spec = specs.find((candidate) => candidate.slug === input.targetSlug) ?? specForTitle(input.targetSlug, input.pageTitle);
   const snapshots = await loadRenderedSnapshots(input.tenant.id, db);
-  if (snapshots.length === 0) throw new Error("No rendered source snapshots are stored for this wiki. Run the snapshot ingest first.");
+  if (snapshots.length === 0) throw new Error("The AI editor has no copies of the sources to work from yet. Import the sources by hand, then try again.");
   const corpus = buildCorpus(input.sources ?? CONTENT_SOURCES, snapshots);
 
   const existing = await getPublishedWikiPageBySlug(input.tenant.id, input.targetSlug, db);
