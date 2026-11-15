@@ -62,6 +62,8 @@ export function createGatewayCaller(options: {
   tags?: string[];
   generate?: GenerateText;
   log?: (message: string) => void;
+  /** A hung request fails over to the next model instead of stalling the run. */
+  timeoutMs?: number;
 }): StructuredCall {
   const models = options.models ?? [PRIMARY_MODEL, FALLBACK_MODEL];
   const generate = options.generate ?? generateText;
@@ -82,6 +84,7 @@ export function createGatewayCaller(options: {
           system,
           prompt,
           output: Output.object({ schema }),
+          abortSignal: AbortSignal.timeout(options.timeoutMs ?? 180_000),
           providerOptions: {
             openai: { reasoningEffort: "low" },
             gateway: { tags: options.tags ?? ["app:marathon-wiki", "feature:ai-editor"] },

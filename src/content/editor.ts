@@ -178,6 +178,41 @@ function weaponsTable(corpus: Corpus) {
   return { heading: "Launch weapons", intro, columns: ["Weapon", "Class", "Ammo"], rows: rows.map((row) => [row.name, row.weaponClass, row.ammo]), extract: press };
 }
 
+/** Verifies each editor-flagged disagreement's quotes against the rendered sources. */
+export function resolveKnownConflicts(spec: PageSpec, corpus: Corpus): { claims: ResolvedClaim[]; dropped: Rejection[] } {
+  const claims: ResolvedClaim[] = [];
+  const dropped: Rejection[] = [];
+  (spec.knownConflicts ?? []).forEach((conflict, conflictIndex) => {
+    const positions = conflict.positions.flatMap((position) => {
+      const extract = corpus.extractsBySource.get(position.sourceKey)?.find((candidate) => quoteOccursIn(position.quote, candidate.text));
+      return extract ? [{ extractId: extract.id, quote: position.quote }] : [];
+    });
+    const sourceKeys = [...new Set(positions.map((position) => position.extractId.split("#")[0]))];
+    if (positions.length < conflict.positions.length || sourceKeys.length < 2) {
+      dropped.push({ text: conflict.sentence, reason: "editor-flagged disagreement: a quote no longer appears in its source" });
+      return;
+    }
+    claims.push({
+      claimId: `claim_${spec.slug}_disagreement_${conflictIndex + 1}`,
+      claimText: conflict.sentence,
+      status: "contradicted",
+      sourceKeys,
+      extractIds: positions.map((position) => position.extractId),
+      quotes: positions,
+      reason: positions
+        .map((position) => {
+          const source = corpus.sources.get(position.extractId.split("#")[0]);
+          return `${source ? `${source.publisher} (${source.title})` : position.extractId} says: "${position.quote}"`;
+        })
+        .join(" "),
+      patchRef: null,
+      heading: conflict.heading,
+      paragraph: 99,
+    });
+  });
+  return { claims, dropped };
+}
+
 export async function composePage(input: {
   spec: PageSpec;
   corpus: Corpus;
@@ -211,11 +246,27 @@ export async function composePage(input: {
       paragraph.map((sentence) => ({ claimId: `claim_${spec.slug}_${(index += 1)}`, text: sentence.text, extractIds: sentence.extractIds })),
     ),
   );
-  const checkCall = checkable.length
-    ? await input.call({ page: spec.slug, step: "claim-check", system: CHECK_SYSTEM, prompt: buildCheckPrompt(checkable, corpus.extractsById), schema: claimCheckSchema })
-    : { output: { checks: [] }, modelId: draftCall.modelId, responseId: null };
+  // Editor-flagged disagreements replace the model's own on that page.
+  const modelConflictsDropped: Rejection[] = spec.knownConflicts?.length
+    ? draft.conflicts.map((conflict) => ({ text: conflict.sentence, reason: "superseded by an editor-flagged disagreement" }))
+    : [];
+  if (spec.knownConflicts?.length) draft.conflicts = [];
+  const conflicts = draft.conflicts.map((conflict, conflictIndex) => ({ conflictId: `conflict_${conflictIndex + 1}`, sentence: conflict.sentence, positions: conflict.positions }));
+  const checkCall =
+    checkable.length || conflicts.length
+      ? await input.call({ page: spec.slug, step: "claim-check", system: CHECK_SYSTEM, prompt: buildCheckPrompt(checkable, corpus.extractsById, conflicts), schema: claimCheckSchema })
+      : { output: { checks: [], conflicts: [] }, modelId: draftCall.modelId, responseId: null };
+  const conflictVerdicts = new Map(
+    conflicts.flatMap((conflict, conflictIndex) => {
+      const verdict = checkCall.output.conflicts.find((entry) => entry.conflictId === conflict.conflictId);
+      return verdict ? [[conflictIndex, verdict] as const] : [];
+    }),
+  );
 
-  const { claims, dropped } = resolveClaims(draft, checkCall.output.checks, corpus.extractsById, corpus.sources, spec.slug);
+  const resolved = resolveClaims(draft, checkCall.output.checks, corpus.extractsById, corpus.sources, spec.slug, conflictVerdicts);
+  const flagged = resolveKnownConflicts(spec, corpus);
+  const claims = [...resolved.claims, ...flagged.claims];
+  const dropped = [...resolved.dropped, ...flagged.dropped, ...modelConflictsDropped];
   const table = spec.table === "weapons" ? weaponsTable(corpus) : null;
   const allClaims = table ? [...claims, table.intro] : claims;
   const gate = evaluatePublishGate(allClaims, input.policy);

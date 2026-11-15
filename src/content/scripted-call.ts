@@ -32,7 +32,7 @@ export function createScriptedCall(options: { maxSentences?: number; modelId?: s
       quote: text.split(/\s+/).slice(0, 6).join(" "),
       reason: "Scripted check quotes the claim's opening words from the cited extract.",
     }));
-    return { output: schema.parse({ checks }), modelId: options.modelId ?? "scripted/editor-drill", responseId: null };
+    return { output: schema.parse({ checks, conflicts: [] }), modelId: options.modelId ?? "scripted/editor-drill", responseId: null };
   }) as StructuredCall & { calls: Array<{ page: string; step: string; prompt: string }> };
   call.calls = calls;
   return call;

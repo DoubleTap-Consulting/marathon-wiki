@@ -226,3 +226,38 @@ describe("parseWeaponTable", () => {
     ]);
   });
 });
+
+describe("quotesAgreeNumerically", () => {
+  it("treats rounded prices as agreement and leaves wording conflicts alone", async () => {
+    const { quotesAgreeNumerically } = await import("./pipeline");
+    expect(quotesAgreeNumerically(["Expect to pay $40/£30", "priced it at $39.99"])).toBe(true);
+    expect(quotesAgreeNumerically(["went dark a century ago", "Decades later, the Marathon ship"])).toBe(false);
+    expect(quotesAgreeNumerically(["launches March 5", "launches March 12"])).toBe(false);
+    expect(quotesAgreeNumerically(["30,000 colonists", "30000 people"])).toBe(true);
+  });
+});
+
+describe("editor-flagged disagreements", () => {
+  it("shows a disagreement only when both quotes still appear in their sources", async () => {
+    const { buildCorpus, resolveKnownConflicts } = await import("./editor");
+    const sources = [
+      { sourceKey: "a", sourceId: "src_a", sourceType: "official", authorityTier: "official" as const, authorityScore: 95, title: "Site", publisher: "Bungie", url: "https://a.test", publishedDate: null },
+      { sourceKey: "b", sourceId: "src_b", sourceType: "official", authorityTier: "official" as const, authorityScore: 95, title: "Post", publisher: "Bungie", url: "https://b.test", publishedDate: null },
+    ];
+    const corpus = buildCorpus(sources, [
+      { sourceKey: "a", text: "No one knows what happened a century ago.", sha256: "1", fetchedAt: null },
+      { sourceKey: "b", text: "Decades later, the ship still hangs in orbit.", sha256: "2", fetchedAt: null },
+    ]);
+    const spec = {
+      slug: "lore", title: "Lore", category: "lore", group: "lore", scope: "", keywords: [], preferredSources: [], hubChildren: [], related: [], table: null,
+      knownConflicts: [{ heading: "Timeline", sentence: "Sources give different spans.", positions: [{ sourceKey: "a", quote: "what happened a century ago" }, { sourceKey: "b", quote: "Decades later, the ship" }] }],
+    };
+    const ok = resolveKnownConflicts(spec, corpus);
+    expect(ok.claims.map((claim) => claim.status)).toEqual(["contradicted"]);
+    expect(ok.claims[0].reason).toBe('Bungie (Site) says: "what happened a century ago" Bungie (Post) says: "Decades later, the ship"');
+
+    const stale = resolveKnownConflicts({ ...spec, knownConflicts: [{ ...spec.knownConflicts[0], positions: [spec.knownConflicts[0].positions[0], { sourceKey: "b", quote: "Two centuries later" }] }] }, corpus);
+    expect(stale.claims).toEqual([]);
+    expect(stale.dropped[0].reason).toMatch(/no longer appears/);
+  });
+});

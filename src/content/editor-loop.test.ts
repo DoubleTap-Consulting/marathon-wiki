@@ -11,6 +11,7 @@ import { loadRenderedSnapshots, upsertRenderedSnapshots } from "./editor-store";
 import { enqueueReaderNoteRefresh, enqueueSourceChangeRefreshes } from "./editor-triggers";
 import { BudgetExceeded, MemoryLedger, createGatewayCaller } from "./model-gateway";
 import { createScriptedCall } from "./scripted-call";
+import { CONTENT_PROMPT_VERSION } from "./pipeline";
 import { enqueueAiRefreshQueueItem, processDueAiRefreshQueueItems } from "@/src/ai/wiki-refresh-queue";
 import { getDb } from "@/src/db/client";
 import {
@@ -76,7 +77,7 @@ describe.sequential("AI editor loop", () => {
     const provenance = page?.latestRevision?.aiProvenance;
     expect(page?.latestRevisionNumber).toBe(1);
     expect(page?.latestRevision?.changeNote).toBe("First version of the page, written from cited sources.");
-    expect(provenance).toMatchObject({ refreshReason: "new_page", modelId: "scripted/editor-drill", promptVersion: "marathon-real-content-v1" });
+    expect(provenance).toMatchObject({ refreshReason: "new_page", modelId: "scripted/editor-drill", promptVersion: CONTENT_PROMPT_VERSION });
     expect(provenance?.claimSupport?.every((claim) => claim.status === "supported")).toBe(true);
     expect(provenance?.sourceReferences?.map((reference) => reference.sourceKey)).toEqual(["bungie-runner-shells"]);
     expect(page?.bodyMarkdown).toContain("{{cite:bungie-runner-shells}}");

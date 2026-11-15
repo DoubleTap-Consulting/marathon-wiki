@@ -1,0 +1,1401 @@
+[
+  {
+    "sourceKey": "marathon-official-site",
+    "url": "https://www.marathonthegame.com/",
+    "authorityTier": "official",
+    "fetchedAt": "2026-11-15T03:40:29.969Z",
+    "httpStatus": 200,
+    "contentSha256": "123bd8f75bbc0f04c66938fb8209723d9655440e403af25949c85392b6b84898",
+    "citedExtracts": [
+      {
+        "id": "marathon-official-site#1",
+        "quotes": [
+          "A PVPVE SURVIVAL EXTRACTION FPS FROM THE CREATORS OF HALO AND DESTINY",
+          "A PVPVE SURVIVAL EXTRACTION FPS"
+        ]
+      },
+      {
+        "id": "marathon-official-site#2",
+        "quotes": [
+          "comes from fragmented transmissions, recovered field data, and incomplete zone surveys",
+          "AS YOU SCAVENGE FOR VALUABLES WITH A CREW OR ALONE, TENSE EXPLORATION BREAKS INTO FAST-PACED PVP COMBAT.",
+          "EXFIL TO ASSEMBLE STRONGER BUILDS WITH YOUR STOLEN LOOT.",
+          "Tau Ceti IV remains a restricted zone.",
+          "comes from fragmented transmissions, recovered field data",
+          "RIFE WITH RUNNERS, UESC SECURITY FORCES"
+        ]
+      },
+      {
+        "id": "marathon-official-site#3",
+        "quotes": [
+          "Scavenge an arsenal of moddable weapons, body implants, and core system upgrades",
+          "No one knows what happened a century ago when the Marathon expedition went dark",
+          "No one knows what happened a century ago when the Marathon expedition went dark."
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "bungie-runner-shells",
+    "url": "https://www.bungie.net/7/en/news/article/dev-insights-runner-shells-new-video",
+    "authorityTier": "official",
+    "fetchedAt": "2026-11-15T03:40:33.277Z",
+    "httpStatus": 200,
+    "contentSha256": "652258a6c811b9900c2f2c7bcdb1a25b5c8fb7c60ca17c53418985398c2c8fa2",
+    "citedExtracts": [
+      {
+        "id": "bungie-runner-shells#1",
+        "quotes": [
+          "the moddable biosynthetic bodies you’ll inhabit",
+          "moddable biosynthetic bodies you’ll inhabit",
+          "transferred your consciousness into a biosynthetic shell",
+          "archetype, such as intel gathering, combat disruption, or combat healing"
+        ]
+      },
+      {
+        "id": "bungie-runner-shells#2",
+        "quotes": [
+          "customized using the cores, implants, weapons, and mods you bring on your runs.",
+          "Equip cores that turn your double jump into a triple jump",
+          "increase your base movement speed, jump height, and improve your heat capacity",
+          "turn your arm cannon into a self-propel",
+          "use your airtime to position where to land, then deal AoE damage wherever you fall (without taking fall damage)",
+          "Each Runner shell’s playstyle can be customized using the cores, implants, weapons, and mods you bring on your runs.",
+          "turn your arm cannon into a self-propel, which you can then fire downwards to propel yourself into the air"
+        ]
+      },
+      {
+        "id": "bungie-runner-shells#3",
+        "quotes": [
+          "Cores are generally designed for one specific Runner shell",
+          "Implants can be used by any Runner shell, and they grant additional stats as well as a random perk",
+          "one of Thief's cores gives you a second charge of your Grapple Device",
+          "causes your Pickpocket Drone to periodically ping nearby enemies while it’s not being piloted",
+          "Cores are generally designed for one specific Runner shell, and they tend to buff or modify the way your abilities work.",
+          "another causes your Pickpocket Drone to periodically ping nearby enemies while it’s not being piloted"
+        ]
+      },
+      {
+        "id": "bungie-runner-shells#4",
+        "quotes": [
+          "Archetype: Combat specialist",
+          "Armed with a personal defense barricade, missile systems, and movement thrusters",
+          "Archetype: Shadow agent",
+          "Synthetic smoke deployment",
+          "camouflage technology allow Assassin shells to plan unseen strikes",
+          "Archetype: Intel specialist",
+          "excel at identifying threats and tracking movements",
+          "holographic footstep trails",
+          "Archetype: Combat anarchist",
+          "Vandal shells traverse ground at incredible speeds"
+        ]
+      },
+      {
+        "id": "bungie-runner-shells#5",
+        "quotes": [
+          "The Rook frame is designed for scavenger mode",
+          "Archetype: Covert acquisitions",
+          "With enhanced visors and piloted butterfly drone, Thief shells can locate and acquire loot",
+          "use their grapple to push an advantage or make an escape",
+          "Archetype: Field medic",
+          "using deployable healing drones",
+          "onboard reboot abilities",
+          "Archetype: Scavenger",
+          "As Rook, you’ll drop into a match that’s already in progress as a solo player.",
+          "As Rook, you’ll drop into a match that’s already in progress as a solo player. You won’t be able to bring a loadout"
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "bungie-cryo-archive",
+    "url": "https://www.bungie.net/7/en/News/Article/cryo_archive_overview",
+    "authorityTier": "official",
+    "fetchedAt": "2026-11-15T03:40:37.163Z",
+    "httpStatus": 200,
+    "contentSha256": "536825dd58f50a3dd8215f9f582c9d850d3be64a1c6fe1921c1660942585b646",
+    "citedExtracts": [
+      {
+        "id": "bungie-cryo-archive#1",
+        "quotes": [
+          "It arrived 300 years later. Then… silence.",
+          "left Mars for the Tau Ceti solar system in 2472. It arrived 300 years later",
+          "the 30,000 colonists who set out"
+        ]
+      },
+      {
+        "id": "bungie-cryo-archive#2",
+        "quotes": [
+          "Cryo Archive is the first deck of the UESC Marathon, where you'll find a labyrinth of cryopods, medical bays, and storage wings",
+          "a frozen snapshot of the past promising valuable resources and information",
+          "six interconnected wings with a central hub",
+          "hangs abandoned in orbit, a frozen snapshot of the past promising valuable resources and information",
+          "frozen Vaults containing powerful loot",
+          "Decades later, the Marathon ship still hangs abandoned in orbit",
+          "Decades later, the Marathon ship still hangs abandoned in orbit, a frozen snapshot of the past",
+          "Battle your way through intense UESC security, decked out Runner crews",
+          "Battle your way through intense UESC security",
+          "a labyrinth of cryopods"
+        ]
+      },
+      {
+        "id": "bungie-cryo-archive#3",
+        "quotes": [
+          "Minimum Runner Level: 25\nAll six factions unlocked (liaison contracts completed)\nMinimum Loadout Value: 5,000 credits",
+          "Cryo Archive opens up for play on the weekends, starting this Friday, March 20.",
+          "tight corridors give way to massive open spaces, pitting enemy crews against each other to unseal frozen Vaults",
+          "you'll also be eligible for a one-time Cryo Archive Sponsored Kit from the Armory",
+          "opens up for play on the weekends, starting this Friday, March 20.",
+          "raid-style puzzle solving and layered mechanics wrapped around brutal extraction stakes",
+          "you'll need a crew of three"
+        ]
+      },
+      {
+        "id": "bungie-cryo-archive#4",
+        "quotes": [
+          "To access each Vault, you'll need to complete its unique entry challenge or access requirements.",
+          "Systems in Cryo Archive, including doors, supply rooms, and exfils, are locked behind specific Security Clearance levels.",
+          "You can also find Vault Keys on the ship itself, both within locked Vaults and by downing enemy Runner crews",
+          "Cryo Archive runs on Security Clearance, a progression you build up over the course of a single run",
+          "Each Vault also requires a specific Vault Key for entry."
+        ]
+      },
+      {
+        "id": "bungie-cryo-archive#5",
+        "quotes": [
+          "you'll work through tense puzzle interactions and race against other crews who know exactly how valuable these rooms are.",
+          "High-tier containers loaded with valuables, materials, and top-end equipment"
+        ]
+      },
+      {
+        "id": "bungie-cryo-archive#6",
+        "quotes": [
+          "a pool of seven unique Cryo contracts appears in CyberAcme.",
+          "When Cryo Archive is available, a pool of seven unique Cryo contracts appears in CyberAcme.",
+          "Your Codex progression carries over from week-to-week and does not reset.",
+          "You and your crew can re-roll which contract is active so you're all working toward the same objective during a run.",
+          "Completing a contract removes it from your pool for that week.",
+          "Each contract you complete provides you with a random high-rarity item, which could be a locked room key, Vault key, material, or piece of gear."
+        ]
+      },
+      {
+        "id": "bungie-cryo-archive#7",
+        "quotes": [
+          "You will need Runner Level 25, all six factions unlocked, and a 5,000 credit loadout to queue up."
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "bungie-server-slam",
+    "url": "https://www.bungie.net/7/en/News/Article/marathon-server-slam",
+    "authorityTier": "official",
+    "fetchedAt": "2026-11-15T03:40:41.043Z",
+    "httpStatus": 200,
+    "contentSha256": "6aa80de082bb937b6b967a30faf201712022cda01a03e343d943913a8f6aab8d",
+    "citedExtracts": [
+      {
+        "id": "bungie-server-slam#2",
+        "quotes": [
+          "Standard Runner shell cores (4x)",
+          "Deluxe and Enhanced Runner shell cores (1x each for each shell, 12x total)",
+          "Deluxe and Enhanced implants (3x each, 6x total)",
+          "Unlock the Standard Arrival Cache",
+          "Unlock the Enhanced Arrival Cache (Green)",
+          "Unlock the Deluxe Arrival Cache (Blue)"
+        ]
+      },
+      {
+        "id": "bungie-server-slam#3",
+        "quotes": [
+          "Take on the early contracts for five factions: CyberAcme, NuCaloric, Traxus, MIDA, and Arachne",
+          "Progress though the early faction levels and progression trees for each faction",
+          "plus our scavenger experience Rook",
+          "Perimeter, an edge-site expansion on the colony's outskirts",
+          "Infil into two zones: Perimeter, an edge-site expansion on the colony's outskirts",
+          "Dire Marsh, the colony’s agricultural research hub"
+        ]
+      },
+      {
+        "id": "bungie-server-slam#4",
+        "quotes": [
+          "Marathon officially launches on March 5, 2026",
+          "Cryo Archive, an end-game zone aboard the derelict UESC Marathon",
+          "Full progression for all six factions, including additional contracts, deeper upgrade trees, and the addition of the sixth faction Sekiguchi Genetics",
+          "Thief, the sixth Runner shell",
+          "Outpost, set in the middle of a thriving UESC military installation",
+          "In 2472, the UESC Marathon left Mars with 30,000 colonists aboard."
+        ]
+      },
+      {
+        "id": "bungie-server-slam#5",
+        "quotes": [
+          "If you’re playing on PS5 with PlayStation Plus at launch, you’ll get access to a set of exclusive weapon charms"
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "bungie-introducing-seasons",
+    "url": "https://www.bungie.net/7/en/News/Article/introducing_seasons_marathon",
+    "authorityTier": "official",
+    "fetchedAt": "2026-11-15T03:40:44.990Z",
+    "httpStatus": 200,
+    "contentSha256": "32b81fc84a1aab066f1611f41dec5990cf7dde2d9e2c41c84a9f90069d6d3179",
+    "citedExtracts": [
+      {
+        "id": "bungie-introducing-seasons#1",
+        "quotes": [
+          "Seasons in Marathon last about three months",
+          "Seasons in Marathon last about three months,",
+          "Seasonal updates will introduce new gameplay, including gear, Runner shells, zones, events, and more, which will be free for all players to access or earn"
+        ]
+      },
+      {
+        "id": "bungie-introducing-seasons#2",
+        "quotes": [
+          "complete contracts and progress your faction upgrades, granting you access to stronger base stats and better wares in the Armory",
+          "raising your power floor and the options available to you."
+        ]
+      },
+      {
+        "id": "bungie-introducing-seasons#3",
+        "quotes": [
+          "These resets include everyone’s gear, contract progression, faction progression, and player level.",
+          "This includes cosmetics (earned and paid), titles, and other rewards you earn by playing and reaching milestones each season. Your Codex progression also carries over",
+          "Each season of Marathon brings a clean slate for the whole community with progression resets.",
+          "This includes cosmetics (earned and paid), titles, and other rewards",
+          "A few other things carry over too, such as your liaison contract progression; no need to unlock the factions every season."
+        ]
+      },
+      {
+        "id": "bungie-introducing-seasons#4",
+        "quotes": [
+          "you’ll soon discover a way aboard the derelict UESC Marathon ship",
+          "the 30,000 lost souls of the New Cascadia Colony",
+          "start of a new gold rush on Tau Ceti. It's the beginning of a proxy war"
+        ]
+      },
+      {
+        "id": "bungie-introducing-seasons#5",
+        "quotes": [
+          "end-game zone on the Marathon ship, where you’ll solve security puzzles"
+        ]
+      },
+      {
+        "id": "bungie-introducing-seasons#6",
+        "quotes": [
+          "All six factions, including Sekiguchi Genetics",
+          "All six launch Runner shells, including Thief",
+          "28 weapons, plus mods, implants, cores, and more to craft your perfect builds",
+          "28 weapons, plus mods, implants, cores",
+          "Outpost will unlock the day after launch, giving the community time to gear up and unlock the zone at Runner Level 12",
+          "28 weapons, plus mods, implants, cores, and more"
+        ]
+      },
+      {
+        "id": "bungie-introducing-seasons#7",
+        "quotes": [
+          "This can include any combination of: weapons, mods, cores, implants, backpacks, Runner shells, zones, PvE combatants, faction upgrades, contracts, and new ways to play existing zones.",
+          "a new system designed to give you more autonomy over your Runner shell’s statistical strengths and weaknesses.",
+          "This can include any combination of: weapons, mods, cores, implants, backpacks, Runner shells"
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "bungie-s2-combat-tuning",
+    "url": "https://www.bungie.net/7/en/News/Article/season_2_combat_tuning_preview",
+    "authorityTier": "official",
+    "fetchedAt": "2026-11-15T03:40:48.250Z",
+    "httpStatus": 200,
+    "contentSha256": "fc5d0a04324f86a50caf915957612fa01e6022628ba5ab04136bc2586d363301",
+    "citedExtracts": [
+      {
+        "id": "bungie-s2-combat-tuning#1",
+        "quotes": [
+          "including Night Marsh, the new Runner shell Sentinel"
+        ]
+      },
+      {
+        "id": "bungie-s2-combat-tuning#11",
+        "quotes": [
+          "Folding stocks are a new mod family that will first be present on the new KKV and D54 Battle Pistol weapons"
+        ]
+      },
+      {
+        "id": "bungie-s2-combat-tuning#13",
+        "quotes": [
+          "Weapon chips are the backbone of weapon buildcrafting. They are the software upgrades that make your weapon do things",
+          "while ADS, you can press the toggle optic input to activate the night vision effect and light up the world around them."
+        ]
+      },
+      {
+        "id": "bungie-s2-combat-tuning#15",
+        "quotes": [
+          "Increased the amount of credits rewarded per UESC kill"
+        ]
+      },
+      {
+        "id": "bungie-s2-combat-tuning#2",
+        "quotes": [
+          "broader updates to ammo economy, time to kill, and range identities"
+        ]
+      },
+      {
+        "id": "bungie-s2-combat-tuning#20",
+        "quotes": [
+          "creates a field of revealing pulses that linger in the world for a short time, highlighting spaces in a large area",
+          "we’re adding Signal Flares in three colors. Signal flares come in red, green, and blue varieties"
+        ]
+      },
+      {
+        "id": "bungie-s2-combat-tuning#21",
+        "quotes": [
+          "defensive specialist, made for carving out pockets of space within the battlefield",
+          "Deploy a defensive platform that harmlessly neutralizes incoming explosives"
+        ]
+      },
+      {
+        "id": "bungie-s2-combat-tuning#22",
+        "quotes": [
+          "Toss a proximity-triggered mine which detonates into several Immobilizing submunitions",
+          "see moving enemies on radar within a conical zone in front of you",
+          "You ready and reload SMGs, Pistols, and Shotguns more quickly based on the number of nearby hostiles"
+        ]
+      },
+      {
+        "id": "bungie-s2-combat-tuning#23",
+        "quotes": [
+          "adding a full suite of 10 Sentinel-specific Runner cores across the various rarity tiers",
+          "Defeating an Immobilized target heals you over time",
+          "While standing near your Defender System, you and your allies use medical items more quickly",
+          "Runner grenades neutralized by your Defender System fall to the floor and become lootable",
+          "We’re also adding a full suite of 10 Sentinel-specific Runner cores across the various rarity tiers."
+        ]
+      },
+      {
+        "id": "bungie-s2-combat-tuning#24",
+        "quotes": [
+          "our implementation in Season 1 led to a number of problems",
+          "add random perks to implants in addition to the stats"
+        ]
+      },
+      {
+        "id": "bungie-s2-combat-tuning#25",
+        "quotes": [
+          "Every implant now grants a single fixed perk, which is reflected directly in the item name, and has a fixed stat package.",
+          "Going Dark which makes you invisible while using healing consumables.",
+          "Every implant now grants a single fixed perk",
+          "Triage Cloaking Device torso implant which grants Revive Speed, Tactical Recovery, and Hardware",
+          "Implants will be primarily focused on perks, with Runner stats being a secondary element.",
+          "plus eight brand-new ones we’ve added in Season 2, such as Going Dark which makes you invisible while using healing consumables"
+        ]
+      },
+      {
+        "id": "bungie-s2-combat-tuning#3",
+        "quotes": [
+          "Its Prestige mod, Flechette Drum, adds sustainability by healing you when breaking a hostile's shield."
+        ]
+      },
+      {
+        "id": "bungie-s2-combat-tuning#4",
+        "quotes": [
+          "a fully automatic, 3-round burst handgun"
+        ]
+      },
+      {
+        "id": "bungie-s2-combat-tuning#6",
+        "quotes": [
+          "Rate of fire increase granted from Full-Auto Selector reduced from 150RPM to 90RPM."
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "bungie-welcome-season-2",
+    "url": "https://www.bungie.net/7/en/News/article/welcome_season_2",
+    "authorityTier": "official",
+    "fetchedAt": "2026-11-15T03:40:51.589Z",
+    "httpStatus": 200,
+    "contentSha256": "b9a42b4570bf93983439565f505e68b13d09d8039a1075cee07fc9cf133df588",
+    "citedExtracts": [
+      {
+        "id": "bungie-welcome-season-2#1",
+        "quotes": [
+          "Season 2 begins on June 2 and kicks off with an Open Play* Week from June 2 to June 9.",
+          "all the assets in your Vault and personalized Armory access will be wiped"
+        ]
+      },
+      {
+        "id": "bungie-welcome-season-2#10",
+        "quotes": [
+          "we’re also adding eight new chips with Season 2",
+          "Brain Freeze Chip: Precision downs and kills with this weapon create a small explosion"
+        ]
+      },
+      {
+        "id": "bungie-welcome-season-2#11",
+        "quotes": [
+          "In Season 2, implants are now defined by their perk first and have fixed stats, with the name of each implant reflecting its perk.",
+          "name of each implant reflecting its perk",
+          "introducing a new system called the Cradle",
+          "some implants will now only exist at higher rarity tiers, as we want to balance the power of high-utility perks",
+          "they still give a stat benefit that scales with each rarity tier, from gray all the way up to gold",
+          "scales with each rarity tier, from gray all the way up to gold.",
+          "some implants will now only exist at higher rarity tiers",
+          "implants are now defined by their perk first and have fixed stats"
+        ]
+      },
+      {
+        "id": "bungie-welcome-season-2#12",
+        "quotes": [
+          "Your Cradle progression is shared across all Runner shells",
+          "empower the WEAVEworms that create your biocybernetic bodies to increase your Runner shell stats across six categories",
+          "the Matter Converter, which turns weapons, equipment, and other items into experience for your Cradle.",
+          "Level up your Cradle to earn Energy, which you can then allocate to any of the six stat categories.",
+          "You can reallocate your Energy to different stats at any time, with no penalties or limitations.",
+          "Your Cradle progression is shared across all Runner shells, and it resets at the start of a new season."
+        ]
+      },
+      {
+        "id": "bungie-welcome-season-2#13",
+        "quotes": [
+          "Runner shell upgrades in the faction progression trees being moved to the Cradle",
+          "NuCaloric offers implants that help with healing and durability",
+          "MIDA has ones more proficient in mobility or disruption.",
+          "With all of the Runner shell upgrades in the faction progression trees being moved to the Cradle,",
+          "no more needing to level up a faction to gain access to stats",
+          "we’ve been able to expand the Armory options",
+          "each faction now has a unique family of implants (head, torso, and leg)",
+          "each faction now has a unique family of implants (head, torso, and leg) which fits the playstyle of that faction"
+        ]
+      },
+      {
+        "id": "bungie-welcome-season-2#14",
+        "quotes": [
+          "which can now unlock specific Barter offers in the Armory"
+        ]
+      },
+      {
+        "id": "bungie-welcome-season-2#15",
+        "quotes": [
+          "Standard Contracts will grant significantly increased faction reputation"
+        ]
+      },
+      {
+        "id": "bungie-welcome-season-2#16",
+        "quotes": [
+          "Priority Contracts will be more focused on granting loot rewards rather than being hard requirements for reputation. Priority Contracts are also no longer gated behind faction reputation levels",
+          "we reworked these to set more achievable goals that can be progressed over multiple runs and to help teach Cryo softshells the mechanics of the ship, with the seventh contract still requiring you to take down the Compiler.",
+          "We’ve also refreshed Standard and Liaison contracts to shave off some of those rough edges.",
+          "if you’ve completed the Liaison contracts and unlocked a faction in Season 1, they’ll be unlocked for you in Season 2.",
+          "reworked these to set more achievable goals that can be progressed over multiple runs and to help teach Cryo softshells the mechanics of the ship, with the seventh contract still requiring you to take down the Compiler.",
+          "Priority Contracts will be more focused on granting loot rewards rather than being hard requirements for reputation."
+        ]
+      },
+      {
+        "id": "bungie-welcome-season-2#17",
+        "quotes": [
+          "Last season, we introduced experimental queues—including Duos Queue and Sponsored Queue",
+          "We’re also adding Duos Queue in Season 2 with a rotating daily queue for Perimeter, Dire Marsh, Night Marsh, and Outpost.",
+          "adding Duos Queue in Season 2 with a rotating daily queue for Perimeter, Dire Marsh, Night Marsh, and Outpost",
+          "the experience of completing contracts to be more organic and enjoyable."
+        ]
+      },
+      {
+        "id": "bungie-welcome-season-2#18",
+        "quotes": [
+          "Players must also now bring a Holotag that matches their current rank.",
+          "combining the Low and High Stakes modes into a single queue with a 5,000 Loadout value minimum.",
+          "Ranked will return in Season 2 on June 14, with all new rewards across the board.",
+          "Progression has been adjusted and should feel faster across all ranks."
+        ]
+      },
+      {
+        "id": "bungie-welcome-season-2#19",
+        "quotes": [
+          "Players can earn Arachne reputation by exfiling with a Tag Chip",
+          "There is a new daily Ranked Sponsored Kit that contains a loadout appropriate for your rank—the higher your rank, the better the gear.",
+          "There is a new daily Ranked Sponsored Kit that contains a loadout appropriate for your rank"
+        ]
+      },
+      {
+        "id": "bungie-welcome-season-2#2",
+        "quotes": [
+          "the UESC is stepping up its efforts to keep Tau Ceti IV on lockdown"
+        ]
+      },
+      {
+        "id": "bungie-welcome-season-2#3",
+        "quotes": [
+          "built to be slower-paced than Day Marsh and plays more like a survival horror experience",
+          "long sight lines are obscured in the dark",
+          "The Anomaly blocks your path, long sight lines are obscured in the dark",
+          "Flashlights, a new tool all Runners have access to on Night Marsh."
+        ]
+      },
+      {
+        "id": "bungie-welcome-season-2#4",
+        "quotes": [
+          "staircases on Marsh that led to closed-off doors. Anomalous energy is flowing from Complex.",
+          "hunt down what enemies, mysteries, and powerful loot that awaits in the upper rooms of Complex Control",
+          "hack into Network Towers across Night Marsh to gain access to their stockpiles",
+          "Gather enough UESC Certs to open the doors and hunt down what enemies, mysteries, and powerful loot that awaits in the upper rooms of Complex Control",
+          "Kill UESC to gather their encryption certificates, or Certs for short"
+        ]
+      },
+      {
+        "id": "bungie-welcome-season-2#5",
+        "quotes": [
+          "MIDA and Traxus are both interested in learning more about what the UESC are hiding in the dark",
+          "the maps will rotate availability with one another every 90 minutes",
+          "introducing some new Night Marsh exclusive contracts—MIDA and Traxus",
+          "After that, the maps will rotate availability with one another every 90 minutes",
+          "will both be available at all times for at least the first week of the season.",
+          "the maps will rotate availability with one another every 90 minutes."
+        ]
+      },
+      {
+        "id": "bungie-welcome-season-2#6",
+        "quotes": [
+          "New Runner Shell: Sentinel\nSeason 2 introduces Sentinel, a new shell built for controlling space and defending areas.",
+          "automated laser platform which identifies and destroys incoming enemy grenades and missiles",
+          "If you unlocked and completed a run on Dire Marsh last season, you’ll have access to both Dire Marsh and Night Marsh when Season 2 begins (same rules apply for Outpost). Otherwise both Marshes unlock at Runner Level 3.",
+          "Otherwise both Marshes unlock at Runner Level 3",
+          "Otherwise both Marshes unlock at Runner Level 3."
+        ]
+      },
+      {
+        "id": "bungie-welcome-season-2#8",
+        "quotes": [
+          "pistol-frame SMG with an integrated suppressor",
+          "Keep it closed for benefits when firing from the hip, or use your weapon action to unfold the stock and trade those benefits for ADS benefits"
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "bungie-nightfall-refresh",
+    "url": "https://www.bungie.net/7/en/News/article/nighfall_refresh_symbiosis_roadmap",
+    "authorityTier": "official",
+    "fetchedAt": "2026-11-15T03:40:55.428Z",
+    "httpStatus": 200,
+    "contentSha256": "27979c60e11f52945ba510c73114c2efe41dd9eafe02e5ff0aaaff9fecc41612",
+    "citedExtracts": [
+      {
+        "id": "bungie-nightfall-refresh#1",
+        "quotes": [
+          "Symbiosis in December expands the world with permanent PvE, social features, and a larger Perimeter",
+          "Today marks the first step toward that March experience."
+        ]
+      },
+      {
+        "id": "bungie-nightfall-refresh#2",
+        "quotes": [
+          "October: A refresh to progression, rewards, and the live experience.",
+          "December: Symbiosis introduces Marathon’s first permanent PvE experience, an expanded Perimeter, a new shell, improved onboarding, and a social space with a firing range.",
+          "your Cradle enhancements and Faction aftermarket upgrades have also been restored to their default state.",
+          "Symbiosis introduces Marathon’s first permanent PvE experience, an expanded Perimeter, a new shell, improved onboarding"
+        ]
+      },
+      {
+        "id": "bungie-nightfall-refresh#3",
+        "quotes": [
+          "Take these first few days to focus on exploring Perimeter and Dire Marsh",
+          "it will still run every week, starting Thursday October 15, but it won't end on Sundays, but on Mondays."
+        ]
+      },
+      {
+        "id": "bungie-nightfall-refresh#4",
+        "quotes": [
+          "new Reward Pass available at no additional cost to everyone who owns Marathon.",
+          "Let us know what you think of the new NuCal inspired skins!",
+          "Sponsored Queues will return every weekend from Thursday through Monday",
+          "Sponsored Night Marsh in Week 3. That three-week rotation will repeat"
+        ]
+      },
+      {
+        "id": "bungie-nightfall-refresh#6",
+        "quotes": [
+          "a little bit less oppressive and mandatory when fighting other teams"
+        ]
+      },
+      {
+        "id": "bungie-nightfall-refresh#7",
+        "quotes": [
+          "we have also developed a new Runner shell: Bishop. Players looking for a fast, surgical hunter-killer"
+        ]
+      },
+      {
+        "id": "bungie-nightfall-refresh#8",
+        "quotes": [
+          "A refactored Cradle and deeper shell progression"
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "bungie-ranked",
+    "url": "https://www.bungie.net/7/en/News/Article/ranked_in_marathon",
+    "authorityTier": "official",
+    "fetchedAt": "2026-11-15T03:40:59.337Z",
+    "httpStatus": 200,
+    "contentSha256": "5cb6e72f8b17c8420d3c5774a979484bba0acc012a453e13d0aeae9acb38a47c",
+    "citedExtracts": [
+      {
+        "id": "bungie-ranked#1",
+        "quotes": [
+          "test everything you’ve learned in Marathon, including looting, PvP success, and strategic risk taking.",
+          "Your first chance to play Ranked is this weekend, March 21 at 10:00 AM PT – March 24 at 10:00 AM PT. Ranked mode is in beta for Season 1.",
+          "climb through six ranks (Bronze, Silver, Gold, Platinum, Diamond, and Pinnacle) with three tiers each"
+        ]
+      },
+      {
+        "id": "bungie-ranked#2",
+        "quotes": [
+          "Runner Shell Style (Destroyer)"
+        ]
+      },
+      {
+        "id": "bungie-ranked#3",
+        "quotes": [
+          "each weekend featuring a different planet-side zone: Perimeter, Dire Marsh, or Outpost"
+        ]
+      },
+      {
+        "id": "bungie-ranked#4",
+        "quotes": [
+          "You can purchase Holotags using credits in the Armory"
+        ]
+      },
+      {
+        "id": "bungie-ranked#5",
+        "quotes": [
+          "If you die, you lose Rated Points based on your team's Holotag values",
+          "You can purchase up to your current rank of Holotag tier in the Armory."
+        ]
+      },
+      {
+        "id": "bungie-ranked#6",
+        "quotes": [
+          "The Holotag you bring into the match sets two important values for your run: a score target and a loss penalty.",
+          "Your score target is decided by your team’s combined Holotag value"
+        ]
+      },
+      {
+        "id": "bungie-ranked#7",
+        "quotes": [
+          "Holotags persist after exfil so you can use them on your next run. You can sell Holotags for full value after exfil.",
+          "Starting loadouts don’t count towards your score target",
+          "Exfil at your score target to earn RP\nExfil with less than your score target, and your Rank has no change",
+          "You can gain overperformance capacity by looting enemy Runner Holotags or Tag Chips, which drop from high-value UESC and in-run activities",
+          "Loss penalty = how much you lose by failing to exfil\nThis number is decided by you team’s combined Holotag value\nYou only lose RP if you fail to exfil"
+        ]
+      },
+      {
+        "id": "bungie-ranked#8",
+        "quotes": [
+          "Tag Chips count as valuable loot towards your score target, and they also grant overperformance capacity. Tag Chips auto-sell on exfil",
+          "Tag Chips count as valuable loot towards your score target",
+          "Bronze Holotag\t500\t3,000\t600\t600",
+          "Silver Holotag\t750\t5,000\t2,000\t1,000",
+          "Gold Holotag\t1000\t7,000\t4,200\t1,500",
+          "Platinum Holotag\t1500\t10,000\t8,000\t2,250",
+          "Diamond Holotag\t2000\t15,000\t15,000\t3,250",
+          "Pinnacle Holotag\t3500\t20,000\t20,000\t5,000",
+          "Tag Chips count as valuable loot towards your score target, and they also grant overperformance capacity. Tag Chips auto-sell on exfil."
+        ]
+      },
+      {
+        "id": "bungie-ranked#9",
+        "quotes": [
+          "Ranked mode is in beta for Season 1,"
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "bungie-expedition-phase-1",
+    "url": "https://www.bungie.net/7/en/News/Article/dev_deep_dive_expedition_phase_1",
+    "authorityTier": "official",
+    "fetchedAt": "2026-11-15T03:41:02.765Z",
+    "httpStatus": 200,
+    "contentSha256": "1e15003212742ea10d238f97120c11436921bab7d26c1ad720380a78120a9747",
+    "citedExtracts": [
+      {
+        "id": "bungie-expedition-phase-1#1",
+        "quotes": [
+          "Expedition is a fully PvE cooperative roguelite mode",
+          "CyberAcme and other interested parties have aligned to establish a Runner non-aggression pact",
+          "Perimeter, Night Marsh, Outpost, and Cryo Archive.",
+          "you’ll be able to complete Priority Contracts while in Expedition mode,",
+          "with a dedicated queue across Perimeter, Night Marsh, Outpost, and Cryo Archive",
+          "Whether you’re rolling out solo, duo, or with a full trio",
+          "establish a Runner non-aggression pact to combat the increased UESC security measures across Tau Ceti IV"
+        ]
+      },
+      {
+        "id": "bungie-expedition-phase-1#2",
+        "quotes": [
+          "Each session will consist of three runs of escalating difficulty called a Run Series",
+          "new in-run upgrade system we're calling Flash Boosts"
+        ]
+      },
+      {
+        "id": "bungie-expedition-phase-1#3",
+        "quotes": [
+          "the final run being the pinnacle challenge or the “Critical Incident.” Here you can adjust the difficulty",
+          "you can also roll your current run series into a new one"
+        ]
+      },
+      {
+        "id": "bungie-expedition-phase-1#4",
+        "quotes": [
+          "testing your luck against a new enemy, the Tick Queen on Perimeter",
+          "solving Upper Complex in Night Marsh"
+        ]
+      },
+      {
+        "id": "bungie-expedition-phase-1#5",
+        "quotes": [
+          "Perimeter, Night Marsh, Outpost, and Cryo Archive will be available for Expedition",
+          "Perimeter, Night Marsh, Outpost, and Cryo Archive will be available for Expedition with similar scaling difficulties",
+          "will be available for Expedition with similar scaling difficulties you would experience in Extraction"
+        ]
+      },
+      {
+        "id": "bungie-expedition-phase-1#6",
+        "quotes": [
+          "Although the loadout will be locked per run series, weapons and items can be looted or improved on your runs",
+          "you’ll be able to unlock faction upgrades to continually improve your starting faction loadout",
+          "Flash Boosts and other gear that you pick up during Expedition, will be sold upon the completion of your Run Series – but, your credits and XP will still live on"
+        ]
+      },
+      {
+        "id": "bungie-expedition-phase-1#7",
+        "quotes": [
+          "revamped Perimeter swallowed by fungi and opening up two new major zones",
+          "looted from around the zones, killing a tough foe, or completing objectives"
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "bungie-season-2-live",
+    "url": "https://www.bungie.net/7/en-us/News/Article/season_2_is_now_live",
+    "authorityTier": "official",
+    "fetchedAt": "2026-11-15T03:41:06.353Z",
+    "httpStatus": 200,
+    "contentSha256": "135ffabf964e85e6680673952f86f5a53f49785293b9635cc97ba7e98e6bd1d4",
+    "citedExtracts": [
+      {
+        "id": "bungie-season-2-live#2",
+        "quotes": [
+          "Night Marsh: A pitch black version of Dire Marsh, with new threats lurking Sentinel: Find new ways to control the battlefield with this defensive Runner shell",
+          "Sentinel: Find new ways to control the battlefield with this defensive Runner shell",
+          "Night Marsh: A pitch black version of Dire Marsh",
+          "Night Marsh: A pitch black version of Dire Marsh, with new threats lurking",
+          "The Cradle: Invest in your Runner shell over the course of the season to customize your stats and perks for your playstyle"
+        ]
+      },
+      {
+        "id": "bungie-season-2-live#3",
+        "quotes": [
+          "After some period of time, solo Rook players will backfill onto the map."
+        ]
+      },
+      {
+        "id": "bungie-season-2-live#4",
+        "quotes": [
+          "Rooks come in naked—which makes this a low-stakes way to check out the new map",
+          "any Subroutines you collected in Season 1 carry forward into Season 2."
+        ]
+      },
+      {
+        "id": "bungie-season-2-live#5",
+        "quotes": [
+          "Successfully exfil as all available Runner shells (Assassin, Destroyer, Recon, Sentinel, Thief, Triage, and Vandal) and claim the Renaissance Runner Codex Challenge",
+          "Assassin, Destroyer, Recon, Sentinel, Thief, Triage, and Vandal"
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "bungie-press-symbiosis",
+    "url": "https://press.bungie.com/First-look-Marathon-Symbiosis-gameplay-trailer-reveals-whats-coming-De",
+    "authorityTier": "official",
+    "fetchedAt": "2026-11-15T03:41:10.052Z",
+    "httpStatus": 200,
+    "contentSha256": "ade81eda3c558f333436edf8fe830f79cf1de9491d09ced9a05bcb59861fbd7a",
+    "citedExtracts": [
+      {
+        "id": "bungie-press-symbiosis#1",
+        "quotes": [
+          "Open Play Week December 8-15, with limited-time Crew Up rewards available through December 22",
+          "new playable spaces including the underground Burrows and the submerged Reservoir",
+          "updated Perimeter zone, and more ahead of its December 8 launch"
+        ]
+      },
+      {
+        "id": "bungie-press-symbiosis#2",
+        "quotes": [
+          "The V17 Flamethrower brings the heat and short-range area denial while the Maverick introduces a new revolver archetype",
+          "without PvP threats"
+        ]
+      },
+      {
+        "id": "bungie-press-symbiosis#3",
+        "quotes": [
+          "Marathon is available in Standard and Deluxe editions for PlayStation 5, XBOX Series X|S, and Steam"
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "bungie-update-1-1-9-7",
+    "url": "https://www.bungie.net/7/en/News/Article/marathon_update_1_1_9_7",
+    "authorityTier": "official",
+    "fetchedAt": "2026-11-15T03:41:15.001Z",
+    "httpStatus": 200,
+    "contentSha256": "351e3f6b7c7cfdccce73bd1d8733d4c873e8cebeb8fae710e5c8918ce5ffa226",
+    "citedExtracts": [
+      {
+        "id": "bungie-update-1-1-9-7#1",
+        "quotes": [
+          "Traxus themed weapon: Stock decreased from 2/week to 1/week and rarity decreased from Superior to Deluxe.",
+          "Deluxe sponsored kit: Stock decreased from 3/week to 2/week.",
+          "Sponsored Survival: Perimeter will be available all week until November 17"
+        ]
+      },
+      {
+        "id": "bungie-update-1-1-9-7#2",
+        "quotes": [
+          "Fixed an issue where Stickers were not properly displaying when applied with NuCal weapon styles.",
+          "Fixed an issue in Vault 4 of Cryo Archive where players could fall into a particular spot and get stuck."
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "bungie-update-1-1-9-2",
+    "url": "https://www.bungie.net/7/en/News/Article/marathon_update_1_1_9_2",
+    "authorityTier": "official",
+    "fetchedAt": "2026-11-15T03:41:18.292Z",
+    "httpStatus": 200,
+    "contentSha256": "6c16ebe9daae67383d23ba560f1b1fb9db3c8bc76b48f491847af9b8def3ba1f",
+    "citedExtracts": [
+      {
+        "id": "bungie-update-1-1-9-2#1",
+        "quotes": [
+          "The NuCaloric Reward Pass is available now at no additional cost to everyone who owns Marathon.",
+          "The following have been reset:\nRunner, Cradle, and Faction levels"
+        ]
+      },
+      {
+        "id": "bungie-update-1-1-9-2#2",
+        "quotes": [
+          "Vault Key 4, 5, and 6: Only available for purchase during the 2nd and 3rd weeks of Vault Breaker being active."
+        ]
+      },
+      {
+        "id": "bungie-update-1-1-9-2#3",
+        "quotes": [
+          "Deluxe sponsored kit: Stock decreased from 3/week to 2/week.",
+          "rarity decreased from Superior to Deluxe."
+        ]
+      },
+      {
+        "id": "bungie-update-1-1-9-2#4",
+        "quotes": [
+          "Traxus themed weapon: Stock decreased from 2/week to 1/week and rarity decreased from Superior to Deluxe."
+        ]
+      },
+      {
+        "id": "bungie-update-1-1-9-2#5",
+        "quotes": [
+          "Weapon and Backpack Schema wares in the Armory now cost Credits",
+          "Reduced UESC aggression against runners in Solo playlists. Reduced UESC damage dealt to runners by 20% in Solo playlists."
+        ]
+      },
+      {
+        "id": "bungie-update-1-1-9-2#7",
+        "quotes": [
+          "limiting the scan area to a cone, players need to predict in 3D space"
+        ]
+      },
+      {
+        "id": "bungie-update-1-1-9-2#8",
+        "quotes": [
+          "Added double-tap protection to prevent the ability from being accidentally deactivated before the shield is deployed.",
+          "Invisibility can now flicker if the invisible player fires their weapon after 0.2 seconds has elapsed since the invisibility was applied, down from 0.9 seconds.",
+          "Fixed an issue where certain grenades would get stuck when they impacted surfaces inside an ally's Defender System radius",
+          "Removed flares from Rook’s kit. Dev Note: All other inventory buffs previously added during the end of Nightfall will be retained"
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "bungie-update-1-0-0-4",
+    "url": "https://www.bungie.net/7/en/News/Article/marathon_update_1_0_0_4",
+    "authorityTier": "official",
+    "fetchedAt": "2026-11-15T03:41:21.571Z",
+    "httpStatus": 200,
+    "contentSha256": "a9975ae0895a93609631dbf9b43e516b9ba77482e06488fd95f0cc6e2a492185",
+    "citedExtracts": [
+      {
+        "id": "bungie-update-1-0-0-4#1",
+        "quotes": [
+          "Increased the amount of starting ammo in MIDA, CyberAcme, and Arachne free Sponsored Kits",
+          "Increased the number of Med Cabinets and Munitions Crates that can spawn on Perimeter"
+        ]
+      },
+      {
+        "id": "bungie-update-1-0-0-4#2",
+        "quotes": [
+          "Reduced health of most UESC enemies by ~10-15%",
+          "Fixed an issue where backpacks could be deleted when exfiling with Rook",
+          "Increased CyAc reputation gain from exfilling with Rook",
+          "Reduced health of most UESC enemies by ~10-15% and shield hp of UESC bosses by 25%"
+        ]
+      },
+      {
+        "id": "bungie-update-1-0-0-4#3",
+        "quotes": [
+          "Introducing NuCaloric Contract",
+          "Temporarily disabled switches access route to the Broken Wing on Outpost"
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "bungie-update-1-1-0-1",
+    "url": "https://www.bungie.net/7/en/News/Article/marathon_update_1_1_0_1",
+    "authorityTier": "official",
+    "fetchedAt": "2026-11-15T03:41:25.359Z",
+    "httpStatus": 200,
+    "contentSha256": "e8a6ae9527918cd3a47718cbceedef86ff8adb9c9d922fc345e3b0b2bade470b",
+    "citedExtracts": [
+      {
+        "id": "bungie-update-1-1-0-1#1",
+        "quotes": [
+          "Fixed an issue with the D54 Battle Pistol Prestige mod perk “Daredevil Stock” where spam clicking could extend the super burst",
+          "Slightly reduced the chance for Prestige Weapon Mods to appear in all sources.",
+          "Fixed an issue with the D54 Battle Pistol Prestige mod perk “Daredevil Stock” where spam clicking could extend the super burst for the full duration of the magazine."
+        ]
+      },
+      {
+        "id": "bungie-update-1-1-0-1#3",
+        "quotes": [
+          "Fixed an issue where the Standard contract “CyAc Guidance: Complex Control” displayed an Enhanced (green) Hardline PR instead of a Deluxe (blue) version",
+          "Fixed an issue in Expose/Extinguish where the Gantry’s voice could fail to play after completing the terminal hacking step."
+        ]
+      },
+      {
+        "id": "bungie-update-1-1-0-1#4",
+        "quotes": [
+          "Fixed an issue where the NuCaloric Armored Barter was showing the incorrect upgrade icon.",
+          "the Traxus Prestige mod “Triple Barrel” showed the wrong cost, requiring 3 Reflex Coils instead of 1 Synapse Cube.",
+          "Fixed an issue where “Information Economy” could not be completed after meeting the requirements"
+        ]
+      },
+      {
+        "id": "bungie-update-1-1-0-1#5",
+        "quotes": [
+          "Thief’s voice over lines could duplicate while using the Russian language",
+          "Fixed an issue that prevented some landmarks from showing up on the mini-map"
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "bungie-symbiosis-open-play",
+    "url": "https://www.bungie.net/7/en/News/Article/symbiosis_open_play_week_crew_up",
+    "authorityTier": "official",
+    "fetchedAt": "2026-11-15T03:41:28.646Z",
+    "httpStatus": 200,
+    "contentSha256": "5494dcf9d3a5160c3cb33cd99b513fb1833ef9cb885a856096ca2123cf1693c7",
+    "citedExtracts": [
+      {
+        "id": "bungie-symbiosis-open-play#2",
+        "quotes": [
+          "During the Open Play Week from December 8 until December 15, players will be able to access and experience everything Symbiosis has to offer, including the new Expedition PvE game mode"
+        ]
+      },
+      {
+        "id": "bungie-symbiosis-open-play#3",
+        "quotes": [
+          "Destroyer skin: Arata Vectus",
+          "Crew Up starts on Symbiosis launch date, December 8, at 12PM PT and will be available through December 22, 10am PT"
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "bungie-press-mid-season-2",
+    "url": "https://press.bungie.com/Marathons-mid-Season-2-Update-and-experimental-PvE-mode-are-live-now",
+    "authorityTier": "official",
+    "fetchedAt": "2026-11-15T03:41:32.115Z",
+    "httpStatus": 200,
+    "contentSha256": "8aef72a704b4cfdd99deb57a2085b1fc9a907e349d0fd02048e895411e7d4307",
+    "citedExtracts": [
+      {
+        "id": "bungie-press-mid-season-2#1",
+        "quotes": [
+          "playable straight away solo, as a duo, or with a full trio"
+        ]
+      },
+      {
+        "id": "bungie-press-mid-season-2#2",
+        "quotes": [
+          "Vault Breaker: Marathon’s first experimental PvE mode, a roguelite experience set inside Cryo Archive where Runners take on progressively tougher Vaults across multiple runs. Available July 21 through August 4.",
+          "For a full breakdown of everything in the Mid-Season 2 Update, including Sponsored Kit upgrade paths, Armory offers",
+          "Season 2 of Marathon, available to all players, continues with the Night Marsh zone, the new Sentinel Runner shell",
+          "WSTR Combat Shotgun buffs, balance changes to the D54 Battle Pistol and Misriah 2442 shotgun",
+          "Vault Breaker: Marathon’s first experimental PvE mode, a roguelite experience set inside Cryo Archive"
+        ]
+      },
+      {
+        "id": "bungie-press-mid-season-2#3",
+        "quotes": [
+          "players scavenge the lost colony of Tau Ceti IV as a bio-cybernetic Runner while surviving against hostile security forces, rival players, and unpredictable environments",
+          "Destroyer Shell Cinematic | Marathon",
+          "Assassin Shell Cinematic | Marathon",
+          "Vandal Shell Cinematic | Marathon",
+          "Thief Shell Cinematic | Marathon",
+          "Triage Shell Cinematic | Marathon",
+          "Rook Cinematic | Marathon"
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "bungie-vidoc",
+    "url": "https://www.bungie.net/7/en/News/Article/marathonvidoc",
+    "authorityTier": "official",
+    "fetchedAt": "2026-11-15T03:41:35.324Z",
+    "httpStatus": 200,
+    "contentSha256": "42a7993bfbf039edd738fa9027b5d0d388a5f4cdf6b7570cc8c8cb109796366f",
+    "citedExtracts": [
+      {
+        "id": "bungie-vidoc#3",
+        "quotes": [
+          "Three surface zones–Perimeter, Dire Marsh, and Outpost",
+          "Three surface zones–Perimeter, Dire Marsh, and Outpost\nThe first zone on the UESC Marathon–Cryo Archive"
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "pcgamer-review",
+    "url": "https://www.pcgamer.com/games/fps/marathon-review/",
+    "authorityTier": "reputable_editorial",
+    "fetchedAt": "2026-11-15T03:49:02.564Z",
+    "httpStatus": 200,
+    "contentSha256": "724801d33ced929b5e3cd67fa43cd78007326392faa6f1d95318324a7533f937",
+    "citedExtracts": [
+      {
+        "id": "pcgamer-review#12",
+        "quotes": [
+          "Volt guns drain shields faster than bullets and can recharge over time",
+          "but reloading early dumps its remaining energy.",
+          "Heavy ammo guns hit harder at the cost of fire rate and recoil."
+        ]
+      },
+      {
+        "id": "pcgamer-review#13",
+        "quotes": [
+          "MIPS ammo is expensive and only stacks 15 rounds"
+        ]
+      },
+      {
+        "id": "pcgamer-review#16",
+        "quotes": [
+          "the Pinwheel, an imposing three-pronged megastructure",
+          "one huge compound made up of factories, dormitories, and air hangars",
+          "There are something like five or six different ways to get into the Pinwheel"
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "pcgamer-guide",
+    "url": "https://www.pcgamer.com/games/fps/marathon-guide/",
+    "authorityTier": "reputable_editorial",
+    "fetchedAt": "2026-11-15T03:49:20.290Z",
+    "httpStatus": 200,
+    "contentSha256": "2d3a14ac7fc9f3bed6246e0cb2494c21fb858a8ff9eaea11426ac4a7c4172254",
+    "citedExtracts": [
+      {
+        "id": "pcgamer-guide#10",
+        "quotes": [
+          "When a runner dies, they lose all of their loot and don’t have a chance to get it back."
+        ]
+      },
+      {
+        "id": "pcgamer-guide#12",
+        "quotes": [
+          "Prime: Echo Pulse",
+          "Tactical: Tracker Drone",
+          "Trait 1: Interrogation",
+          "Trait 2: Stalker Protocol",
+          "A runner’s kit gears them toward distinct playstyles",
+          "equipped with a Prime and Tactical ability, plus two Traits"
+        ]
+      },
+      {
+        "id": "pcgamer-guide#13",
+        "quotes": [
+          "Prime: Smoke Screen",
+          "Tactical: Active Camo",
+          "Trait 1: Shadow Dive",
+          "Trait 2: Shroud",
+          "Thief (the \"loot goblin\") and Triage (the medic) will also be in the full release",
+          "limited loadout option that only enables solo players to drop into matches later than everyone else and scavenge loot without risking anything they've previously earned",
+          "only enables solo players to drop into matches later than everyone else and scavenge loot",
+          "woody, five-crew map Perimeter"
+        ]
+      },
+      {
+        "id": "pcgamer-guide#14",
+        "quotes": [
+          "So far, Bungie’s revealed six factions: Cyberacme, Arachne, Sekiguchi, MIDA, Traxus, and NuCal."
+        ]
+      },
+      {
+        "id": "pcgamer-guide#6",
+        "quotes": [
+          "Thief sits out, but will be available at launch",
+          "Only two maps will be available in the playtest (Dire Marsh and Perimeter)"
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "gamesradar-weapons",
+    "url": "https://www.gamesradar.com/games/fps/marathon-weapons/",
+    "authorityTier": "reputable_editorial",
+    "fetchedAt": "2026-11-15T03:49:37.427Z",
+    "httpStatus": 200,
+    "contentSha256": "e9961bb339f9525887eb109d4e728a1c3ebfeaacbc0cb25b3d057daa843ac4a1",
+    "citedExtracts": [
+      {
+        "id": "gamesradar-weapons#1",
+        "quotes": [
+          "Assault Rifles Shotguns SMGs Precision Rifles Machine Guns Railguns Sniper Rifles Pistols",
+          "from ballistic light and heavy rounds to energy-based batteries and cells."
+        ]
+      },
+      {
+        "id": "gamesradar-weapons#3",
+        "quotes": [
+          "All weapons have three or four mod slots, covering things like optics, magazines, barrels, grips",
+          "all weapons have one slot for a chip, which is a special mod that adds an extra perk to the gun",
+          "radically change your guns, similar to Marathon Cores for your Runner Shell."
+        ]
+      },
+      {
+        "id": "gamesradar-weapons#table",
+        "quotes": [
+          "Marathon will feature 28 weapons at launch"
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "gamesradar-factions",
+    "url": "https://www.gamesradar.com/games/fps/marathon-factions/",
+    "authorityTier": "reputable_editorial",
+    "fetchedAt": "2026-11-15T03:49:54.835Z",
+    "httpStatus": 200,
+    "contentSha256": "342b0b85de03eb17786a2210dfe97f2fd1250667060d5eb309d92405dc399be6",
+    "citedExtracts": [
+      {
+        "id": "gamesradar-factions#10",
+        "quotes": [
+          "created by the company's WEAVEworms",
+          "Through their AI agent Nona",
+          "Rank-up rewards: Cores, Sekiguchi Salvage items, and Head Implants",
+          "Armory offerings: Marathon Cores, Energy Amp consumable, and Implants",
+          "Complete Sekiguchi contracts; loot Bioprinters, Core Storage, and Crash Carts;"
+        ]
+      },
+      {
+        "id": "gamesradar-factions#11",
+        "quotes": [
+          "sending sophisticated humanoid combat robots and drones to patrol the ruined Tau Ceti IV colony and kill any intruders"
+        ]
+      },
+      {
+        "id": "gamesradar-factions#2",
+        "quotes": [
+          "To unlock a faction in Marathon, you need to complete its liaison contract",
+          "Priority contracts are one-time missions that are essential to the faction's goals and offer superior rewards,"
+        ]
+      },
+      {
+        "id": "gamesradar-factions#3",
+        "quotes": [
+          "Standard contracts are simple challenges that offer basic faction rewards and some reputation",
+          "all players are limited to just one active contract at a time, if you're playing with a crew, contract progress is shared"
+        ]
+      },
+      {
+        "id": "gamesradar-factions#6",
+        "quotes": [
+          "This megacorporation's expertise lies in digital technology and artificial intelligence functionality.",
+          "All Marathon Runner Shells have its Onboard Navigation Intelligence (ONI) installed",
+          "Armory offerings: Ammo, healing consumables, basic weapons, backpacks, and keys",
+          "Rank-up rewards: Ammo, Torso Implants, and Backpacks"
+        ]
+      },
+      {
+        "id": "gamesradar-factions#7",
+        "quotes": [
+          "NuCaloric Agricultural is a major food production company and Marathon faction",
+          "Rank-up rewards: Consumables, NuCaloric Salvage items, and Implants",
+          "Consumables that heal and remove status effects, Self-Revives, Shields, and Implants",
+          "Complete NuCaloric contracts; loot Medical Cabinets and Tick Nests",
+          "Traxus OffWorld Industries is the most powerful corporation in human history",
+          "Through their agent Vulcan, you'll be tasked with salvaging valuables"
+        ]
+      },
+      {
+        "id": "gamesradar-factions#8",
+        "quotes": [
+          "Rank-up rewards: Weapon chip mods, Traxus Salvage items, and weapons",
+          "Armory offerings: Weapons and mods of all kinds",
+          "How to gain reputation: Complete Traxus contracts; loot Arms Lockers, Tool Carts, and Transport Drones; destroy UESC drones; complete Convoy and Lockdown events; and exfil with Traxus valuables",
+          "This political-party-turned-anarchist-terrorist-group from Mars",
+          "Through their agent Gantry,",
+          "How to gain reputation: Complete MIDA contracts;"
+        ]
+      },
+      {
+        "id": "gamesradar-factions#9",
+        "quotes": [
+          "Rank-up rewards: Equipment, MIDA Salvage items, and Leg Implants",
+          "Armory offerings: Grenades; gadgets; Cardio Kick and Anti-Virus Kit consumables; and Implants",
+          "Arachne is a mysterious death cult focused on the thermodynamics of violence",
+          "which manifests as a very PvP-focused faction in-game",
+          "The organization's agent, Charter, doesn't sounds particularly interested in Tau Ceti, but would very much like you to kill your fellow Runners",
+          "How to gain reputation: Complete Arachne contracts",
+          "Rank-up rewards: Non-chip weapon mods, Arachne Salvage items, and weapons",
+          "Armory offerings: Weapons, mods, and Implants"
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "gamesradar-maps",
+    "url": "https://www.gamesradar.com/games/fps/marathon-maps/",
+    "authorityTier": "reputable_editorial",
+    "fetchedAt": "2026-11-15T03:50:12.069Z",
+    "httpStatus": 200,
+    "contentSha256": "00d8816eb796676cfdca99b46cba6bd76f5db7b77f6c4b9e4983db0ff5746866",
+    "citedExtracts": [
+      {
+        "id": "gamesradar-maps#2",
+        "quotes": [
+          "A disaster point based around a central complex with an action focus.",
+          "Perimeter and Dire Marsh will be playable during the Marathon Server Slam.",
+          "Outpost: A smaller, more vertical map building around a structure called the Pinwheel"
+        ]
+      },
+      {
+        "id": "gamesradar-maps#4",
+        "quotes": [
+          "Described as the most beginner-friendly map in Marathon, Perimeter is set on the edges",
+          "Described as the most beginner-friendly map in Marathon"
+        ]
+      },
+      {
+        "id": "gamesradar-maps#5",
+        "quotes": [
+          "all based around a structure called the Pinwheel.",
+          "This zone is an epicentre for whatever disaster hit Tau Ceti IV",
+          "The contained environment means it's harder to go unnoticed, either by players or robots"
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "techradar-launch",
+    "url": "https://www.techradar.com/gaming/marathon-will-launch-in-march-2026-at-usd40-and-will-include-a-roadmap-of-free-gameplay-updates",
+    "authorityTier": "reputable_editorial",
+    "fetchedAt": "2026-11-15T03:50:29.392Z",
+    "httpStatus": 200,
+    "contentSha256": "1c677f9ffff3c8e2228ea8098ecc18d0c988bfbfa915f1a35d76c5106d55bd0f",
+    "citedExtracts": [
+      {
+        "id": "techradar-launch#4",
+        "quotes": [
+          "There will also be six factions in this game: Arachne, Cyberacme, Nucaloric, Sekiguchi, Traxus, and Mida"
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "kotaku-season-2",
+    "url": "https://kotaku.com/everything-you-need-to-know-about-marathon-season-2-and-its-first-free-week-2000701243",
+    "authorityTier": "reputable_editorial",
+    "fetchedAt": "2026-11-15T03:50:46.605Z",
+    "httpStatus": 200,
+    "contentSha256": "ea26f37aff3cdc37e7ef906a015fdc48cde23d9103e4af56f2bcdf27b7c92adc",
+    "citedExtracts": [
+      {
+        "id": "kotaku-season-2#5",
+        "quotes": [
+          "Reach Runner Level 10: Unlock Enhanced CyberAcme Sponsored Kit"
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "marathonwiki-com-priority-contracts",
+    "url": "https://www.marathonwiki.com/Priority_contract",
+    "authorityTier": "community_wiki",
+    "fetchedAt": "2026-11-15T03:48:40.528Z",
+    "httpStatus": 200,
+    "contentSha256": "907848b4e01c3bd147faeaefc883ce9a13a3a05dc7760e1569fc7f73cbacbb4e",
+    "citedExtracts": [
+      {
+        "id": "marathonwiki-com-priority-contracts#1",
+        "quotes": [
+          "serve the same function as levels or chapters in other games"
+        ]
+      },
+      {
+        "id": "marathonwiki-com-priority-contracts#2",
+        "quotes": [
+          "Traxus[edit] Cutthroat Competition Equitable Distribution (1/4)"
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "marathonwiki-org-runners",
+    "url": "https://marathonwiki.org/wiki/runners",
+    "authorityTier": "community_wiki",
+    "fetchedAt": "2026-11-15T03:48:43.116Z",
+    "httpStatus": 200,
+    "contentSha256": "2b7bba81d7fa3d0734b2695a5236c1e766df8729d54d5ce3680f1e0d2dba0f61",
+    "citedExtracts": [
+      {
+        "id": "marathonwiki-org-runners#1",
+        "quotes": [
+          "Assassin (also known by the codename Void)"
+        ]
+      }
+    ]
+  },
+  {
+    "sourceKey": "allpatchnotes-marathon",
+    "url": "https://allpatchnotes.com/g/marathon",
+    "authorityTier": "community",
+    "fetchedAt": "2026-11-15T03:48:46.032Z",
+    "httpStatus": 200,
+    "contentSha256": "b511b186a450e678ad9ad157688d21209a95d93ca38769393233d1bd1d06370f",
+    "citedExtracts": []
+  }
+]

@@ -8,7 +8,7 @@
  * Inputs:  content/marathon/{sources,pages}.json, rendered snapshots outside the repo
  *          (../marathon-wiki-content/snapshots, from scripts/content/snapshot.mjs).
  * Outputs: content/marathon/generated/pages.json            (bodies + aiProvenance)
- *          content/marathon/generated/sources.manifest.json (url, fetch date, sha256, cited extracts ONLY)
+ *          content/marathon/generated/sources.manifest.json (url, fetch date, sha256, cited quotes ONLY)
  * Credentials: AI_GATEWAY_API_KEY or VERCEL_OIDC_TOKEN from the environment or .env.local. Nothing
  *          else is read from .env.local, and no secret is ever printed.
  * Spend:   every call's token usage is priced and appended to a ledger outside the repo; the run
@@ -27,7 +27,7 @@ import {
   type SpendEntry,
   type SpendLedger,
 } from "../../src/content/model-gateway.ts";
-import { DRAFT_SYSTEM, buildDraftPrompt, selectExtracts, type PageSpec, type SourceRecord } from "../../src/content/pipeline.ts";
+import { CONTENT_PROMPT_VERSION, DRAFT_SYSTEM, buildDraftPrompt, selectExtracts, type PageSpec, type SourceRecord } from "../../src/content/pipeline.ts";
 
 const CAP_USD = Number(process.env.CONTENT_SPEND_CAP_USD ?? 15);
 
@@ -45,6 +45,8 @@ if (process.env.VERCEL || process.env.VERCEL_ENV) {
 
 const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");
+const writeOnly = args.includes("--write-only"); // rebuild the committed files from cached runs, no model calls
+const resume = args.includes("--resume") || writeOnly; // keep cached pages written with the current prompt version
 const onlySlugs = new Set(args.filter((arg) => !arg.startsWith("--")));
 
 function readJson<T>(file: string): T {
@@ -117,7 +119,13 @@ function writeOutputs(results: PageResult[]) {
 
   // The repo is public: commit provenance and only the passages a published claim cites.
   const cited = new Map<string, Set<string>>();
-  const extractText = new Map(ordered.flatMap((result) => result.citedExtracts.map((extract) => [extract.id, extract.text] as const)));
+  // Only the verbatim quotes each published claim relies on, not the surrounding passages.
+  const quotesById = new Map<string, Set<string>>();
+  for (const result of ordered) {
+    for (const claim of result.aiProvenance.claimSupport) {
+      for (const quote of claim.quotes) quotesById.set(quote.extractId, (quotesById.get(quote.extractId) ?? new Set()).add(quote.quote));
+    }
+  }
   for (const result of ordered) {
     for (const id of result.citedExtractIds) {
       const key = id.split("#")[0];
@@ -133,7 +141,7 @@ function writeOutputs(results: PageResult[]) {
       fetchedAt: entry?.fetchedAt ?? null,
       httpStatus: entry?.httpStatus ?? null,
       contentSha256: entry?.sha256 ?? null,
-      citedExtracts: [...(cited.get(source.sourceKey) ?? [])].sort().map((id) => ({ id, text: extractText.get(id) ?? "" })),
+      citedExtracts: [...(cited.get(source.sourceKey) ?? [])].sort().map((id) => ({ id, quotes: [...(quotesById.get(id) ?? [])] })),
     };
   });
   writeFileSync(path.join(outDir, "sources.manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
@@ -162,35 +170,50 @@ if (dryRun) {
 }
 
 const credential = loadGatewayCredential();
-if (!credential) {
+if (!credential && !writeOnly) {
   console.error("generate: no AI Gateway credential. Set AI_GATEWAY_API_KEY (or VERCEL_OIDC_TOKEN) in .env.local. Nothing was called or spent.");
   process.exit(2);
 }
 
 mkdirSync(runsDir, { recursive: true });
 const call = createGatewayCaller({ ledger, capUsd: CAP_USD, tags: ["app:marathon-wiki", "feature:real-content-generation"], log: (message) => console.warn(`generate: ${message}`) });
-const results: PageResult[] = [];
-for (const spec of pages) {
+const CONCURRENCY = Number(process.env.CONTENT_CONCURRENCY ?? 4);
+let stopped = false;
+
+async function runOne(spec: PageSpec): Promise<PageResult | null> {
   const cache = path.join(runsDir, `${spec.slug}.json`);
-  if (!targets.includes(spec)) {
-    if (existsSync(cache)) results.push(readJson<PageResult>(cache));
-    continue;
-  }
+  const cached = existsSync(cache) ? readJson<PageResult>(cache) : null;
+  if (resume && cached?.aiProvenance.promptVersion === CONTENT_PROMPT_VERSION) return cached;
+  if (!targets.includes(spec) || stopped || writeOnly) return cached;
   try {
     const { gate: _gate, ...result } = await composePage({ spec, corpus, titles, today, call });
     writeFileSync(cache, JSON.stringify(result, null, 2));
-    results.push(result);
     const counts = result.aiProvenance.claimSupport.reduce<Record<string, number>>((acc, claim) => ({ ...acc, [claim.status]: (acc[claim.status] ?? 0) + 1 }), {});
     console.log(`ok   ${spec.slug.padEnd(24)} ${JSON.stringify(counts)} rejected=${result.rejected.length} gate=${result.aiProvenance.publishGate.decision} model=${result.aiProvenance.modelId} spent=$${ledger.totalUsd().toFixed(3)}`);
+    return result;
   } catch (error) {
     if (error instanceof BudgetExceeded) {
+      stopped = true;
       console.error(`generate: STOPPED. ${error.message}`);
-      break;
+    } else {
+      console.error(`FAIL ${spec.slug}: ${error instanceof Error ? error.message.slice(0, 300) : String(error)}`);
     }
-    console.error(`FAIL ${spec.slug}: ${error instanceof Error ? error.message.slice(0, 300) : String(error)}`);
-    if (existsSync(cache)) results.push(readJson<PageResult>(cache));
+    return cached;
   }
 }
+
+// A small worker pool; results keep the page-plan order.
+const byIndex: Array<PageResult | null> = new Array(pages.length).fill(null);
+let next = 0;
+await Promise.all(
+  Array.from({ length: CONCURRENCY }, async () => {
+    while (next < pages.length) {
+      const index = next++;
+      byIndex[index] = await runOne(pages[index]);
+    }
+  }),
+);
+const results = byIndex.filter((result): result is PageResult => result !== null);
 
 writeOutputs(results);
 console.log(`generate: wrote ${results.length} pages. Total spend so far $${ledger.totalUsd().toFixed(3)} (cap $${CAP_USD}).`);

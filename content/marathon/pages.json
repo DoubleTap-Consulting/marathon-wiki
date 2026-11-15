@@ -1155,7 +1155,23 @@
       "uesc-marathon",
       "uesc"
     ],
-    "table": null
+    "table": null,
+    "knownConflicts": [
+      {
+        "heading": "When the expedition went dark",
+        "sentence": "Bungie's own materials give different spans for how long the Marathon has been silent.",
+        "positions": [
+          {
+            "sourceKey": "marathon-official-site",
+            "quote": "No one knows what happened a century ago when the Marathon expedition went dark"
+          },
+          {
+            "sourceKey": "bungie-cryo-archive",
+            "quote": "Decades later, the Marathon ship still hangs abandoned in orbit"
+          }
+        ]
+      }
+    ]
   },
   {
     "slug": "uesc-marathon",
@@ -1185,7 +1201,23 @@
       "cryo-archive",
       "tau-ceti-iv"
     ],
-    "table": null
+    "table": null,
+    "knownConflicts": [
+      {
+        "heading": "When the expedition went dark",
+        "sentence": "Bungie's own materials give different spans for how long the Marathon has been silent.",
+        "positions": [
+          {
+            "sourceKey": "marathon-official-site",
+            "quote": "No one knows what happened a century ago when the Marathon expedition went dark"
+          },
+          {
+            "sourceKey": "bungie-cryo-archive",
+            "quote": "Decades later, the Marathon ship still hangs abandoned in orbit"
+          }
+        ]
+      }
+    ]
   },
   {
     "slug": "uesc",
