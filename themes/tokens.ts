@@ -21,8 +21,9 @@ export type ThemeToken =
 
 type Rule = { seed: "neutral" | "accent"; l: number; c: number; dh?: number } | "accent-seed" | ThemeToken;
 
-// Chroma is a fraction of the seed's. `dh` keeps today's teal hover surface (183) beside the
-// green accent (160) so PR 1 renders unchanged; PR 4 moves the hover surface onto the accent hue.
+// Chroma is a fraction of the seed's.
+// TODO(PR 4): delete `dh`. It keeps today's teal hover surface (183) beside the green accent (160)
+// so PR 1 renders unchanged; PR 4 puts the hover surface on the accent hue.
 const LIGHT: Record<ThemeToken, Rule> = {
   background: { seed: "neutral", l: 0.985, c: 0.1 },
   foreground: { seed: "neutral", l: 0.16, c: 1 },
@@ -129,8 +130,10 @@ const FLOORS = {
   ui: { ratio: 3, lc: 0 },
 } as const;
 
-// `warn` marks a pair today's palette misses that PR 4's palette fixes; it prints but does not fail.
-const PAIRS: [fg: Token, bg: Token, floor: keyof typeof FLOORS, warn?: "warn"][] = [
+// TODO(PR 4): gamut-map the seeds and fail out-of-sRGB tokens. Today's primary, ring,
+// accent-foreground and claim-unverified sit just outside sRGB and browsers clip them; mapping
+// them now would change pixels.
+const PAIRS: [fg: Token, bg: Token, floor: keyof typeof FLOORS, warn?: "error in PR 4"][] = [
   ["foreground", "background", "body"],
   ["foreground", "card", "body"],
   ["muted-foreground", "background", "text"],
@@ -149,7 +152,8 @@ const PAIRS: [fg: Token, bg: Token, floor: keyof typeof FLOORS, warn?: "warn"][]
   ["claim-unverified", "card", "ui"],
   ["claim-conflict", "background", "ui"],
   ["claim-conflict", "card", "ui"],
-  ["input", "background", "ui", "warn"],
+  // TODO(PR 4): drop the marker so this fails the build; PR 4's input (L 0.60) is 3.67:1.
+  ["input", "background", "ui", "error in PR 4"],
 ];
 
 const MIN_TRUST_HUE_DISTANCE = 30;
@@ -166,7 +170,7 @@ export function checkTheme(theme: ThemeManifest, core: CoreTokens): CheckResult 
     const need = FLOORS[floor];
     const pass = ratio >= need.ratio && lc >= need.lc;
     const line = `${theme.slug} ${fg} on ${bg}: ${ratio.toFixed(2)}:1 Lc ${lc.toFixed(1)} (${floor} needs ${need.ratio}:1, Lc ${need.lc})`;
-    result.lines.push(`${pass ? "PASS" : warn ? "WARN" : "FAIL"} ${line}`);
+    result.lines.push(`${pass ? "PASS" : warn ? `WARN (${warn})` : "FAIL"} ${line}`);
     if (!pass) (warn ? result.warnings : result.errors).push(line);
   }
 

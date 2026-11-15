@@ -31,6 +31,7 @@
 
 :root {
   --destructive: oklch(0.58 0.21 27);
+  /* TODO(PR 4): set from the manifest's corners (square 0, soft 6px). */
   --radius: 0.5rem;
   /* Claim support. Unverified underline is non-text (3:1 on --background);
      conflict reuses destructive (3:1 border, label text uses foreground). */
