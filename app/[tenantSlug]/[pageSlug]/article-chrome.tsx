@@ -16,7 +16,7 @@ import type { TocEntry } from "@/src/wiki/article";
 import type { CommunityNoteFormState } from "./community-note-actions";
 import { CommunityNoteForm } from "./community-note-form";
 
-const META = "text-xs font-medium uppercase tracking-wide text-muted-foreground";
+const META = "text-label font-medium uppercase tracking-wide text-muted-foreground";
 
 function useActiveHeading(ids: string[]) {
   const [active, setActive] = useState<string | null>(ids[0] ?? null);
@@ -57,7 +57,7 @@ function TocList({ toc, active, onNavigate }: { toc: TocEntry[]; active: string 
   }, [active]);
 
   return (
-    <ol ref={listRef} className="relative border-l text-sm">
+    <ol ref={listRef} className="relative border-l text-ui">
       {rule ? (
         <span
           aria-hidden="true"
@@ -106,7 +106,7 @@ export function ContentsControl({ toc }: { toc: TocEntry[] }) {
   return (
     <>
       <Collapsible className="mt-6 hidden border-y md:block lg:hidden">
-        <CollapsibleTrigger className="group flex min-h-11 w-full items-center gap-2 text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring">
+        <CollapsibleTrigger className="group flex min-h-11 w-full items-center gap-2 text-ui font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring">
           <ChevronRight className="size-4 transition-transform duration-200 ease-out group-data-[state=open]:rotate-90" aria-hidden="true" />
           Contents
         </CollapsibleTrigger>
@@ -229,14 +229,14 @@ export function TrustOverflow({ suggestHref }: { suggestHref: string }) {
       <PopoverContent align="start" className="w-56 p-1">
         <button
           type="button"
-          className="flex min-h-10 w-full items-center rounded-sm px-3 text-left text-sm hover:bg-muted focus-visible:bg-muted focus-visible:outline-none"
+          className="flex min-h-10 w-full items-center rounded-sm px-3 text-left text-ui hover:bg-muted focus-visible:bg-muted focus-visible:outline-none"
           onClick={() => window.dispatchEvent(new Event(ADD_NOTE_EVENT))}
         >
           Add a note
         </button>
         <Link
           href={suggestHref as Route}
-          className="flex min-h-10 w-full items-center rounded-sm px-3 text-sm hover:bg-muted focus-visible:bg-muted focus-visible:outline-none"
+          className="flex min-h-10 w-full items-center rounded-sm px-3 text-ui hover:bg-muted focus-visible:bg-muted focus-visible:outline-none"
           data-wiki-event="suggestion_cta"
           data-wiki-event-label="trust-strip"
         >

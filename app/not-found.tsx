@@ -12,16 +12,16 @@ export default function NotFound() {
           <div className="flex size-11 items-center justify-center rounded-md bg-secondary text-secondary-foreground">
             <BookOpen className="size-5" aria-hidden="true" />
           </div>
-          <h1 className="mt-5 text-2xl font-semibold leading-9">
+          <h1 className="mt-5 text-title font-semibold">
             Page not found
           </h1>
-          <p className="mt-2 text-base leading-7 text-muted-foreground">
+          <p className="mt-2 text-ui text-muted-foreground">
             This wiki page may not exist yet, may be unpublished, or may belong
             to a different tenant.
           </p>
           <a
             href={`/${tenantSlug}`}
-            className="mt-6 inline-flex min-h-11 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+            className="mt-6 inline-flex min-h-11 items-center rounded-md bg-primary px-4 text-ui font-medium text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
           >
             Go to wiki home
           </a>

@@ -6,7 +6,7 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { cn } from "@/lib/utils";
 import type { DiffRow } from "@/src/wiki/article";
 
-const ADDED = "border-l-2 border-emerald-600 bg-emerald-500/10 pl-3";
+const ADDED = "border-l-2 border-diff-added bg-diff-added-surface pl-3";
 const REMOVED = "border-l-2 border-destructive/60 bg-destructive/5 pl-3 text-muted-foreground line-through decoration-destructive/50";
 
 function Paragraph({ text }: { text: string }) {
@@ -36,11 +36,11 @@ export function DiffView({ full, changes }: { full: DiffRow[]; changes: DiffRow[
       {!hasChanges ? (
         <p className="mt-6 text-muted-foreground">The text did not change in this revision.</p>
       ) : (
-        <div className="mt-6 space-y-4 text-[17px] leading-[1.65] whitespace-pre-line">
+        <div className="mt-6 space-y-4 text-body whitespace-pre-line">
           {rows.map((row, index) => {
             if (row.kind === "gap") {
               return (
-                <p key={index} className="text-center text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                <p key={index} className="text-center text-label font-medium uppercase tracking-wide text-muted-foreground">
                   {row.count} unchanged {row.count === 1 ? "paragraph" : "paragraphs"}
                 </p>
               );
@@ -51,10 +51,10 @@ export function DiffView({ full, changes }: { full: DiffRow[]; changes: DiffRow[
                 ? [{ ...row.parts[0], value: row.parts[0].value.slice(heading[0].length) }, ...row.parts.slice(1)]
                 : row.parts;
               return (
-                <p key={index} className={cn("border-l-2 border-emerald-600/40 pl-3", heading && "font-semibold")}>
+                <p key={index} className={cn("border-l-2 border-diff-added/40 pl-3", heading && "font-semibold")}>
                   {parts.map((part, partIndex) =>
                     part.added ? (
-                      <ins key={partIndex} className="bg-emerald-500/15 no-underline">
+                      <ins key={partIndex} className="bg-diff-added-surface no-underline">
                         <span className="sr-only">Added: </span>
                         {part.value}
                       </ins>

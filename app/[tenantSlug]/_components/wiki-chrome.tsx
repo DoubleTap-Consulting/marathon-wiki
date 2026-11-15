@@ -45,7 +45,7 @@ export function WikiChrome({
           name="q"
           type="search"
           placeholder="Search pages"
-          className="h-9 w-full rounded-md border border-input bg-background px-9 text-base text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring md:text-sm pointer-coarse:h-11"
+          className="h-9 w-full rounded-md border border-input bg-background px-9 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring md:text-ui pointer-coarse:h-11"
         />
       </div>
     </form>
@@ -55,7 +55,7 @@ export function WikiChrome({
     <div className="min-h-screen bg-background">
       <a
         href={`#${skipTarget}`}
-        className="sr-only z-50 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground focus:not-sr-only focus:fixed focus:left-4 focus:top-2"
+        className="sr-only z-50 rounded-md bg-primary px-4 py-2 text-ui font-medium text-primary-foreground focus:not-sr-only focus:fixed focus:left-4 focus:top-2"
       >
         {skipTarget === "article" ? "Skip to article" : "Skip to content"}
       </a>
@@ -72,7 +72,7 @@ export function WikiChrome({
             <span className="flex size-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
               <BookOpen className="size-4" aria-hidden="true" />
             </span>
-            <span className="text-base font-semibold">{tenant.name}</span>
+            <span className="text-ui font-semibold">{tenant.name}</span>
           </a>
           <div className="ml-auto hidden w-full max-w-xs md:block">{searchForm("header")}</div>
           <div className="ml-auto flex items-center gap-1 md:ml-0">
@@ -88,7 +88,7 @@ export function WikiChrome({
             >
               <>
                 {categories.length > 0 ? (
-                  <p className="mt-4 mb-1 px-3 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                  <p className="mt-4 mb-1 px-3 text-label font-medium uppercase tracking-wide text-muted-foreground">
                     Categories
                   </p>
                 ) : null}
@@ -144,12 +144,12 @@ export function PageGrid({
         >
           <div className="flex min-h-full flex-col justify-between gap-4">
             <div className="space-y-2">
-              <h3 className="text-lg font-semibold leading-7">{page.title}</h3>
-              <p className="line-clamp-3 text-sm leading-6 text-muted-foreground">
+              <h3 className="text-h3 font-semibold">{page.title}</h3>
+              <p className="line-clamp-3 text-ui text-muted-foreground">
                 {page.summary ?? "No summary has been published for this page yet."}
               </p>
             </div>
-            <p className="text-xs leading-5 text-muted-foreground">
+            <p className="text-label text-muted-foreground">
               Updated {page.updatedAt ? <RelativeTime iso={new Date(page.updatedAt).toISOString()} /> : "Unknown"}
             </p>
           </div>
@@ -168,8 +168,8 @@ export function EmptyState({
 }) {
   return (
     <div className="rounded-lg border bg-card p-6 text-card-foreground">
-      <h2 className="text-lg font-semibold leading-7">{title}</h2>
-      <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
+      <h2 className="text-h3 font-semibold">{title}</h2>
+      <p className="mt-2 max-w-2xl text-ui text-muted-foreground">
         {description}
       </p>
     </div>
@@ -192,7 +192,7 @@ function NavPill({
   return (
     <a
       href={href}
-      className="flex min-h-11 items-center rounded-md px-3 text-sm font-medium text-foreground outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring"
+      className="flex min-h-11 items-center rounded-md px-3 text-ui font-medium text-foreground outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring"
       data-wiki-event={eventName}
       data-wiki-event-label={eventLabel}
       data-wiki-tenant={tenantSlug}

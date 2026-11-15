@@ -22,13 +22,13 @@ export function AiDraftForm({ action }: AiDraftFormProps) {
   return (
     <section className="min-w-0 overflow-hidden rounded-lg border bg-card p-5 text-card-foreground sm:p-6">
       <div className="min-w-0 space-y-2">
-        <p className="text-sm font-medium uppercase tracking-normal text-muted-foreground">
+        <p className="text-label font-medium uppercase tracking-normal text-muted-foreground">
           AI assistance
         </p>
-        <h2 className="break-words text-2xl font-semibold leading-8">
+        <h2 className="break-words text-h2 font-semibold">
           Generate a draft suggestion
         </h2>
-        <p className="max-w-full text-base leading-7 text-muted-foreground sm:max-w-3xl">
+        <p className="max-w-full text-ui text-muted-foreground sm:max-w-3xl">
           Ask AI Gateway for a starting draft. The result is saved as a pending
           suggestion and still requires editorial approval before publication.
         </p>
@@ -52,7 +52,7 @@ export function AiDraftForm({ action }: AiDraftFormProps) {
         <div className="grid min-w-0 gap-4">
           {state.message ? (
             <div
-              className={`rounded-md border p-4 text-sm leading-6 ${
+              className={`rounded-md border p-4 text-ui ${
                 state.ok
                   ? "border-primary/40 bg-primary/10 text-foreground"
                   : "border-destructive/40 bg-destructive/10 text-foreground"
@@ -65,7 +65,7 @@ export function AiDraftForm({ action }: AiDraftFormProps) {
           ) : null}
 
           <div className="grid min-w-0 gap-2">
-            <label htmlFor="ai-page-title" className="text-sm font-medium">
+            <label htmlFor="ai-page-title" className="text-ui font-medium">
               Page title or topic
             </label>
             <input
@@ -75,12 +75,12 @@ export function AiDraftForm({ action }: AiDraftFormProps) {
               required
               minLength={3}
               placeholder="Overrun AR"
-              className="min-h-11 w-full min-w-0 rounded-md border border-input bg-background px-3 text-base text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="min-h-11 w-full min-w-0 rounded-md border border-input bg-background px-3 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
           </div>
 
           <div className="grid min-w-0 gap-2">
-            <label htmlFor="ai-target-slug" className="text-sm font-medium">
+            <label htmlFor="ai-target-slug" className="text-ui font-medium">
               Target slug
             </label>
             <input
@@ -91,13 +91,13 @@ export function AiDraftForm({ action }: AiDraftFormProps) {
               placeholder="overrun-ar"
               autoComplete="off"
               spellCheck="false"
-              className="min-h-11 w-full min-w-0 rounded-md border border-input bg-background px-3 text-base text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="min-h-11 w-full min-w-0 rounded-md border border-input bg-background px-3 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
           </div>
         </div>
 
         <div className="grid min-w-0 gap-3">
-          <label htmlFor="ai-source-notes" className="text-sm font-medium">
+          <label htmlFor="ai-source-notes" className="text-ui font-medium">
             Source or context notes
           </label>
           <textarea
@@ -105,7 +105,7 @@ export function AiDraftForm({ action }: AiDraftFormProps) {
             name="sourceNotes"
             rows={7}
             placeholder="Official weapon notes, screenshots, or constraints editors should verify."
-            className="min-h-40 w-full min-w-0 resize-y rounded-md border border-input bg-background px-3 py-2 text-base leading-7 text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="min-h-40 w-full min-w-0 resize-y rounded-md border border-input bg-background px-3 py-2 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
           />
           <SubmitButton />
         </div>
@@ -121,7 +121,7 @@ function SubmitButton() {
     <button
       type="submit"
       disabled={status.pending}
-      className="inline-flex min-h-11 items-center justify-center rounded-md bg-primary px-4 text-base font-medium text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card disabled:cursor-not-allowed disabled:opacity-60"
+      className="inline-flex min-h-11 items-center justify-center rounded-md bg-primary px-4 text-ui font-medium text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card disabled:cursor-not-allowed disabled:opacity-60"
     >
       {status.pending ? "Generating..." : "Generate draft"}
     </button>
