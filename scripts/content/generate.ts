@@ -4,11 +4,13 @@
  *
  *   node scripts/content/generate.ts --dry-run          # build every prompt, estimate cost, no AI calls
  *   node scripts/content/generate.ts [slug ...]         # generate (all 40 pages, or the given slugs)
+ *   node scripts/content/generate.ts --write-only       # rebuild the committed files from runs/ (no model calls)
+ *   (--resume regenerates every cached page written with an older prompt version; it can spend.)
  *
  * Inputs:  content/marathon/{sources,pages}.json, rendered snapshots outside the repo
  *          (../marathon-wiki-content/snapshots, from scripts/content/snapshot.mjs).
  * Outputs: content/marathon/generated/pages.json            (bodies + aiProvenance)
- *          content/marathon/generated/sources.manifest.json (url, fetch date, sha256, cited extracts ONLY)
+ *          content/marathon/generated/sources.manifest.json (url, fetch date, sha256, cited quotes ONLY)
  * Credentials: AI_GATEWAY_API_KEY or VERCEL_OIDC_TOKEN from the environment or .env.local. Nothing
  *          else is read from .env.local, and no secret is ever printed.
  * Spend:   every call's token usage is priced and appended to a ledger outside the repo; the run
@@ -17,37 +19,18 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
-import { generateText, Output } from "ai";
-
+import { buildCorpus, composePage, type ComposedPage, type Snapshot } from "../../src/content/editor.ts";
 import {
-  CHECK_SYSTEM,
-  DRAFT_SYSTEM,
-  assembleMarkdown,
-  buildCheckPrompt,
-  buildDraftPrompt,
-  buildProvenance,
-  chunkSnapshot,
-  claimCheckSchema,
-  draftSchema,
-  parseWeaponTable,
-  quoteOccursIn,
-  resolveClaims,
-  selectExtracts,
-  validateDraft,
-  type Extract,
-  type PageSpec,
-  type ResolvedClaim,
-  type SourceRecord,
-} from "../../src/content/pipeline.ts";
+  BudgetExceeded,
+  FALLBACK_MODEL,
+  MODEL_PRICES as PRICES,
+  PRIMARY_MODEL,
+  createGatewayCaller,
+  type SpendEntry,
+  type SpendLedger,
+} from "../../src/content/model-gateway.ts";
+import { CONTENT_PROMPT_VERSION, DRAFT_SYSTEM, buildDraftPrompt, datePatchText, selectExtracts, type PageSpec, type SourceRecord } from "../../src/content/pipeline.ts";
 
-const PRIMARY_MODEL = "openai/gpt-5-mini";
-const FALLBACK_MODEL = "openai/gpt-5-nano";
-// USD per token, Vercel AI Gateway /v1/models list prices (fetched 2026-11-14).
-const PRICES: Record<string, { input: number; output: number }> = {
-  "openai/gpt-5-mini": { input: 0.25e-6, output: 2e-6 },
-  "openai/gpt-5-nano": { input: 0.05e-6, output: 0.4e-6 },
-};
-const MAX_CALL_USD = 0.25; // headroom assumed for any single call when checking the cap
 const CAP_USD = Number(process.env.CONTENT_SPEND_CAP_USD ?? 15);
 
 const root = new URL("../../", import.meta.url).pathname;
@@ -64,6 +47,8 @@ if (process.env.VERCEL || process.env.VERCEL_ENV) {
 
 const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");
+const writeOnly = args.includes("--write-only"); // rebuild the committed files from cached runs, no model calls
+const resume = args.includes("--resume") || writeOnly; // keep cached pages written with the current prompt version
 const onlySlugs = new Set(args.filter((arg) => !arg.startsWith("--")));
 
 function readJson<T>(file: string): T {
@@ -94,161 +79,64 @@ const snapshotIndex = readJson<Record<string, { url: string; fetchedAt: string; 
   path.join(snapshotDir, "index.json"),
 );
 
-const extractsBySource = new Map<string, Extract[]>();
-for (const source of sourcesList) {
+const snapshots: Snapshot[] = sourcesList.flatMap((source) => {
   const entry = snapshotIndex[source.sourceKey];
   const file = path.join(snapshotDir, `${source.sourceKey}.txt`);
   if (!entry?.ok || !existsSync(file)) {
     console.warn(`generate: no usable snapshot for ${source.sourceKey}; it will not be offered to the model.`);
-    continue;
+    return [];
   }
-  extractsBySource.set(source.sourceKey, chunkSnapshot(source.sourceKey, readFileSync(file, "utf8")));
-}
-const extractsById = new Map([...extractsBySource.values()].flat().map((extract) => [extract.id, extract]));
+  return [{ sourceKey: source.sourceKey, text: readFileSync(file, "utf8"), sha256: entry.sha256, fetchedAt: entry.fetchedAt }];
+});
+const corpus = buildCorpus(sourcesList, snapshots);
+const { extractsBySource } = corpus;
 
-type Ledger = { totalUsd: number; calls: Array<{ at: string; page: string; step: string; model: string; inputTokens: number; outputTokens: number; usd: number }> };
-const ledger: Ledger = existsSync(ledgerPath) ? readJson<Ledger>(ledgerPath) : { totalUsd: 0, calls: [] };
-
-function record(page: string, step: string, model: string, usage: { inputTokens?: number; outputTokens?: number } | undefined) {
-  const price = PRICES[model] ?? PRICES[PRIMARY_MODEL];
-  const inputTokens = usage?.inputTokens ?? 0;
-  const outputTokens = usage?.outputTokens ?? 0;
-  const usd = inputTokens * price.input + outputTokens * price.output;
-  ledger.calls.push({ at: new Date().toISOString(), page, step, model, inputTokens, outputTokens, usd });
-  ledger.totalUsd += usd;
-  writeFileSync(ledgerPath, JSON.stringify(ledger, null, 2));
-}
-
-class BudgetExceeded extends Error {}
-
-async function callModel<T>(page: string, step: string, system: string, prompt: string, schema: import("zod").ZodType<T>) {
-  if (ledger.totalUsd + MAX_CALL_USD > CAP_USD) {
-    throw new BudgetExceeded(`Spend cap: $${ledger.totalUsd.toFixed(2)} spent, next call could pass $${CAP_USD}.`);
+/** Spend ledger kept outside the repo, so the cap holds across runs. */
+class FileLedger implements SpendLedger {
+  private data: { totalUsd: number; calls: SpendEntry[] } = existsSync(ledgerPath) ? readJson(ledgerPath) : { totalUsd: 0, calls: [] };
+  totalUsd() {
+    return this.data.totalUsd;
   }
-  let lastError: unknown;
-  for (const model of [PRIMARY_MODEL, FALLBACK_MODEL]) {
-    try {
-      const result = await generateText({
-        model,
-        system,
-        prompt,
-        output: Output.object({ schema }),
-        providerOptions: {
-          openai: { reasoningEffort: "low" },
-          gateway: { tags: ["app:marathon-wiki", "feature:real-content-generation"] },
-        },
-      });
-      record(page, step, model, result.usage);
-      const modelId = (result.response as { modelId?: string } | undefined)?.modelId ?? model;
-      const responseId = (result.response as { id?: string } | undefined)?.id ?? null;
-      return { output: schema.parse(result.output), modelId: modelId.includes("/") ? modelId : `openai/${modelId}`, requestedModel: model, responseId };
-    } catch (error) {
-      lastError = error;
-      const message = error instanceof Error ? error.message : String(error);
-      console.warn(`generate: ${page} ${step} failed on ${model}: ${message.slice(0, 200)}`);
-      if (/401|403|unauthori[sz]ed|forbidden|api key|credential/i.test(message)) break; // fallback cannot help
-    }
+  record(entry: SpendEntry) {
+    this.data.calls.push(entry);
+    this.data.totalUsd += entry.usd;
+    writeFileSync(ledgerPath, JSON.stringify(this.data, null, 2));
   }
-  throw lastError instanceof Error ? lastError : new Error(String(lastError));
 }
+const ledger = new FileLedger();
 
-function weaponsTable(): { heading: string; intro: ResolvedClaim | null; columns: string[]; rows: string[][]; extract: Extract } | null {
-  const text = existsSync(path.join(snapshotDir, "gamesradar-weapons.txt")) ? readFileSync(path.join(snapshotDir, "gamesradar-weapons.txt"), "utf8") : "";
-  const rows = parseWeaponTable(text);
-  if (rows.length === 0) return null;
-  const quote = "Marathon will feature 28 weapons at launch";
-  const bungie = extractsBySource.get("bungie-introducing-seasons")?.find((extract) => quoteOccursIn("28 weapons, plus mods, implants, cores", extract.text));
-  const press = { id: "gamesradar-weapons#table", sourceKey: "gamesradar-weapons", text: [quote, ...rows.map((row) => `${row.weaponClass}: ${row.name} (${row.ammo})`)].join("\n") };
-  if (!quoteOccursIn(quote, text)) return null;
-  const quotes = [{ extractId: press.id, quote }];
-  if (bungie) quotes.unshift({ extractId: bungie.id, quote: "28 weapons, plus mods, implants, cores" });
-  extractsById.set(press.id, press);
-  return {
-    heading: "Launch weapons",
-    intro: {
-      claimId: "claim_weapons_table",
-      claimText: `Marathon launched with ${rows.length} weapons, listed below by class and ammo type as published by GamesRadar+ on February 26, 2026.`,
-      status: "supported",
-      sourceKeys: bungie ? ["bungie-introducing-seasons", "gamesradar-weapons"] : ["gamesradar-weapons"],
-      extractIds: quotes.map((entry) => entry.extractId),
-      quotes,
-      reason: "Verified against quoted passages from official and reputable editorial sources.",
-      patchRef: null,
-      heading: "Launch weapons",
-      paragraph: 0,
-    },
-    columns: ["Weapon", "Class", "Ammo"],
-    rows: rows.map((row) => [row.name, row.weaponClass, row.ammo]),
-    extract: press,
-  };
-}
+type PageResult = Omit<ComposedPage, "gate">;
 
-type PageResult = {
-  slug: string;
-  title: string;
-  summary: string;
-  category: string;
-  bodyMarkdown: string;
-  aiProvenance: ReturnType<typeof buildProvenance>;
-  rejected: Array<{ text: string; reason: string }>;
-  citedExtractIds: string[];
-};
-
-async function generatePage(spec: PageSpec, today: string): Promise<PageResult> {
-  const extracts = selectExtracts(spec, extractsBySource);
-  if (extracts.length === 0) throw new Error(`No relevant extracts for ${spec.slug}.`);
-  const known = new Set(extracts.map((extract) => extract.id));
-
-  const draftCall = await callModel(spec.slug, "draft", DRAFT_SYSTEM, buildDraftPrompt(spec, extracts, sources, today), draftSchema);
-  const draft = validateDraft(draftCall.output, known);
-
-  let index = 0;
-  const checkable = draft.sections.flatMap((section) =>
-    section.paragraphs.flatMap((paragraph) => paragraph.map((sentence) => ({ claimId: `claim_${spec.slug}_${(index += 1)}`, text: sentence.text, extractIds: sentence.extractIds }))),
-  );
-  const checkCall = checkable.length
-    ? await callModel(spec.slug, "claim-check", CHECK_SYSTEM, buildCheckPrompt(checkable, extractsById), claimCheckSchema)
-    : { output: { checks: [] }, modelId: draftCall.modelId };
-
-  const { claims, dropped } = resolveClaims(draft, checkCall.output.checks, extractsById, sources, spec.slug);
-  const table = spec.table === "weapons" ? weaponsTable() : null;
-  const allClaims = table?.intro ? [...claims, table.intro] : claims;
-
-  const bodyMarkdown = assembleMarkdown({
-    claims,
-    sectionOrder: draft.sections.map((section) => section.heading),
-    table,
-    hubLinks: spec.hubChildren.map((slug) => ({ slug, title: titles.get(slug) ?? slug })),
-    related: spec.related.filter((slug) => !spec.hubChildren.includes(slug)).map((slug) => ({ slug, title: titles.get(slug) ?? slug })),
+/** Cached pages predate the patch-dating rule; apply it deterministically so no model call is needed. */
+function withPatchDates(result: PageResult): PageResult {
+  let bodyMarkdown = result.bodyMarkdown;
+  const claimSupport = result.aiProvenance.claimSupport.map((claim) => {
+    if (claim.status !== "supported") return claim;
+    const dated = datePatchText(claim.claimText, claim.matchedSourceKeys, sources);
+    if (!dated || !bodyMarkdown.includes(claim.claimText)) return claim;
+    bodyMarkdown = bodyMarkdown.replace(claim.claimText, dated.text);
+    return { ...claim, claimText: dated.text, patchRef: dated.patchRef };
   });
-
-  return {
-    slug: spec.slug,
-    title: spec.title,
-    summary: draft.summary,
-    category: spec.category,
-    bodyMarkdown,
-    aiProvenance: buildProvenance({
-      claims: allClaims,
-      sources,
-      modelId: draftCall.modelId,
-      checkModelId: checkCall.modelId,
-      responseId: draftCall.responseId,
-      generatedAt: new Date().toISOString(),
-      extractCount: extracts.length,
-    }),
-    rejected: [...draft.rejected, ...dropped],
-    citedExtractIds: [...new Set(allClaims.flatMap((claim) => claim.quotes.map((quote) => quote.extractId)))],
-  };
+  return { ...result, bodyMarkdown, aiProvenance: { ...result.aiProvenance, claimSupport } };
 }
 
-function writeOutputs(results: PageResult[]) {
+function writeOutputs(rawResults: PageResult[]) {
   mkdirSync(outDir, { recursive: true });
-  const ordered = pages.flatMap((spec) => results.filter((result) => result.slug === spec.slug));
+  const results = rawResults.map(withPatchDates);
+  // Earlier published revisions of a page (runs/<slug>.history.json, oldest first; written by
+  // export-from-db.ts) are emitted before its current version so the preview shows real history.
+  const history = (slug: string) => {
+    const file = path.join(runsDir, `${slug}.history.json`);
+    return existsSync(file) ? readJson<PageResult[]>(file).map(withPatchDates) : [];
+  };
+  const ordered = pages.flatMap((spec) => {
+    const current = results.filter((result) => result.slug === spec.slug);
+    return current.length ? [...history(spec.slug), ...current] : [];
+  });
   writeFileSync(
     path.join(outDir, "pages.json"),
     `${JSON.stringify(
-      ordered.map(({ citedExtractIds: _cited, rejected: _rejected, ...page }) => page),
+      ordered.map(({ citedExtractIds: _cited, citedExtracts: _extracts, rejected: _rejected, ...page }) => page),
       null,
       2,
     )}\n`,
@@ -256,6 +144,13 @@ function writeOutputs(results: PageResult[]) {
 
   // The repo is public: commit provenance and only the passages a published claim cites.
   const cited = new Map<string, Set<string>>();
+  // Only the verbatim quotes each published claim relies on, not the surrounding passages.
+  const quotesById = new Map<string, Set<string>>();
+  for (const result of ordered) {
+    for (const claim of result.aiProvenance.claimSupport) {
+      for (const quote of claim.quotes) quotesById.set(quote.extractId, (quotesById.get(quote.extractId) ?? new Set()).add(quote.quote));
+    }
+  }
   for (const result of ordered) {
     for (const id of result.citedExtractIds) {
       const key = id.split("#")[0];
@@ -271,7 +166,7 @@ function writeOutputs(results: PageResult[]) {
       fetchedAt: entry?.fetchedAt ?? null,
       httpStatus: entry?.httpStatus ?? null,
       contentSha256: entry?.sha256 ?? null,
-      citedExtracts: [...(cited.get(source.sourceKey) ?? [])].sort().map((id) => ({ id, text: extractsById.get(id)?.text ?? "" })),
+      citedExtracts: [...(cited.get(source.sourceKey) ?? [])].sort().map((id) => ({ id, quotes: [...(quotesById.get(id) ?? [])] })),
     };
   });
   writeFileSync(path.join(outDir, "sources.manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
@@ -294,40 +189,56 @@ if (dryRun) {
     // draft in + check in (~0.8x of draft) ; outputs ~6k draft + ~3k check tokens per page incl. reasoning
     return (draftIn * 1.8) * p.input + targets.length * 9_000 * p.output;
   };
-  console.log(`dry run: ${targets.length} pages, ~${Math.round(draftIn).toLocaleString()} draft input tokens. Estimated: gpt-5-mini $${est(PRIMARY_MODEL).toFixed(2)}, gpt-5-nano $${est(FALLBACK_MODEL).toFixed(2)}. Ledger so far $${ledger.totalUsd.toFixed(2)}.`);
+  console.log(`dry run: ${targets.length} pages, ~${Math.round(draftIn).toLocaleString()} draft input tokens. Estimated: gpt-5-mini $${est(PRIMARY_MODEL).toFixed(2)}, gpt-5-nano $${est(FALLBACK_MODEL).toFixed(2)}. Ledger so far $${ledger.totalUsd().toFixed(2)}.`);
   console.log(`credential available: ${loadGatewayCredential() ? "yes" : "NO"} (value not shown)`);
   process.exit(0);
 }
 
 const credential = loadGatewayCredential();
-if (!credential) {
+if (!credential && !writeOnly) {
   console.error("generate: no AI Gateway credential. Set AI_GATEWAY_API_KEY (or VERCEL_OIDC_TOKEN) in .env.local. Nothing was called or spent.");
   process.exit(2);
 }
 
 mkdirSync(runsDir, { recursive: true });
-const results: PageResult[] = [];
-for (const spec of pages) {
+const call = createGatewayCaller({ ledger, capUsd: CAP_USD, tags: ["app:marathon-wiki", "feature:real-content-generation"], log: (message) => console.warn(`generate: ${message}`) });
+const CONCURRENCY = Number(process.env.CONTENT_CONCURRENCY ?? 4);
+let stopped = false;
+
+async function runOne(spec: PageSpec): Promise<PageResult | null> {
   const cache = path.join(runsDir, `${spec.slug}.json`);
-  if (!targets.includes(spec)) {
-    if (existsSync(cache)) results.push(readJson<PageResult>(cache));
-    continue;
-  }
+  const cached = existsSync(cache) ? readJson<PageResult>(cache) : null;
+  if (resume && cached?.aiProvenance.promptVersion === CONTENT_PROMPT_VERSION) return cached;
+  if (!targets.includes(spec) || stopped || writeOnly) return cached;
   try {
-    const result = await generatePage(spec, today);
+    const { gate: _gate, ...result } = await composePage({ spec, corpus, titles, today, call });
     writeFileSync(cache, JSON.stringify(result, null, 2));
-    results.push(result);
     const counts = result.aiProvenance.claimSupport.reduce<Record<string, number>>((acc, claim) => ({ ...acc, [claim.status]: (acc[claim.status] ?? 0) + 1 }), {});
-    console.log(`ok   ${spec.slug.padEnd(24)} ${JSON.stringify(counts)} rejected=${result.rejected.length} model=${result.aiProvenance.modelId} spent=$${ledger.totalUsd.toFixed(3)}`);
+    console.log(`ok   ${spec.slug.padEnd(24)} ${JSON.stringify(counts)} rejected=${result.rejected.length} gate=${result.aiProvenance.publishGate.decision} model=${result.aiProvenance.modelId} spent=$${ledger.totalUsd().toFixed(3)}`);
+    return result;
   } catch (error) {
     if (error instanceof BudgetExceeded) {
+      stopped = true;
       console.error(`generate: STOPPED. ${error.message}`);
-      break;
+    } else {
+      console.error(`FAIL ${spec.slug}: ${error instanceof Error ? error.message.slice(0, 300) : String(error)}`);
     }
-    console.error(`FAIL ${spec.slug}: ${error instanceof Error ? error.message.slice(0, 300) : String(error)}`);
-    if (existsSync(cache)) results.push(readJson<PageResult>(cache));
+    return cached;
   }
 }
 
+// A small worker pool; results keep the page-plan order.
+const byIndex: Array<PageResult | null> = new Array(pages.length).fill(null);
+let next = 0;
+await Promise.all(
+  Array.from({ length: CONCURRENCY }, async () => {
+    while (next < pages.length) {
+      const index = next++;
+      byIndex[index] = await runOne(pages[index]);
+    }
+  }),
+);
+const results = byIndex.filter((result): result is PageResult => result !== null);
+
 writeOutputs(results);
-console.log(`generate: wrote ${results.length} pages. Total spend so far $${ledger.totalUsd.toFixed(3)} (cap $${CAP_USD}).`);
+console.log(`generate: wrote ${results.length} pages. Total spend so far $${ledger.totalUsd().toFixed(3)} (cap $${CAP_USD}).`);

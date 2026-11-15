@@ -38,6 +38,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { Pool, type PoolClient } from "@neondatabase/serverless";
 
 import { checkNonProductionTarget, previewTargetUrl } from "./db-guard.mjs";
+import { loadGeneratedPages, type GeneratedPage } from "./content/generated-load.ts";
 
 const DAY = 24 * 60 * 60 * 1000;
 const TENANT_SLUG = "marathon";
@@ -389,15 +390,6 @@ async function counts(client: PoolClient) {
   return result.rows[0] as Record<string, number>;
 }
 
-type GeneratedPage = {
-  slug: string;
-  title: string;
-  summary: string;
-  category: string;
-  bodyMarkdown: string;
-  aiProvenance: { generatedAt: string; sourceReferences: Array<{ sourceId: string; sourceKey: string; sourceType: string; title: string; url: string; publisher: string; authorityTier: string; authorityScore: number }> } & Record<string, unknown>;
-};
-
 const generatedFile = new URL("../content/marathon/generated/pages.json", import.meta.url);
 const manifestFile = new URL("../content/marathon/generated/sources.manifest.json", import.meta.url);
 const GENERATED: GeneratedPage[] = existsSync(generatedFile) ? JSON.parse(readFileSync(generatedFile, "utf8")) : [];
@@ -433,6 +425,12 @@ try {
   await client.query("delete from wiki_page_revisions where id like 'sample\\_%'");
   await client.query("delete from wiki_sources where id like 'gen\\_%'");
   await client.query("delete from wiki_page_revisions where id like 'gen\\_%'");
+  await client.query("delete from wiki_suggestions where id like 'gen\\_%'");
+  // A page this seed created earlier that now goes to Review must not stay published from the last run.
+  const reviewOnly = [...new Set(GENERATED.map((page) => page.slug))].filter((slug) =>
+    GENERATED.filter((page) => page.slug === slug).every((page) => page.aiProvenance.publishGate?.decision === "needs_review"),
+  );
+  if (reviewOnly.length) await client.query("delete from wiki_pages where tenant_id = $1 and id like 'gen\\_page\\_%' and slug = any($2)", [tenantId, reviewOnly]);
 
   const pageIds = new Map<string, string>();
 
@@ -517,69 +515,7 @@ try {
     }
   }
 
-  for (const page of GENERATED) {
-    const existing = await client.query("select id from wiki_pages where tenant_id = $1 and slug = $2", [tenantId, page.slug]);
-    let pageId: string;
-    if (existing.rows.length > 0) {
-      pageId = existing.rows[0].id;
-    } else {
-      pageId = `gen_page_${page.slug}`;
-      await client.query(
-        `insert into wiki_pages (id, tenant_id, slug, title, summary, body_markdown, status, latest_revision_number, created_by, updated_by, published_at)
-         values ($1, $2, $3, $4, $5, '', 'published', 0, 'content-pipeline', 'content-pipeline', $6)`,
-        [pageId, tenantId, page.slug, page.title, page.summary, page.aiProvenance.generatedAt],
-      );
-    }
-    const max = await client.query(
-      "select coalesce(max(revision_number), 0)::int as max from wiki_page_revisions where tenant_id = $1 and page_id = $2",
-      [tenantId, pageId],
-    );
-    const revisionNumber: number = max.rows[0].max + 1;
-    const revisionId = `gen_rev_${page.slug}`;
-    const changeNote = revisionNumber === 1 ? "First version of the page, written from cited sources." : "Rewritten from cited official and press sources.";
-    await client.query(
-      `insert into wiki_page_revisions (id, tenant_id, page_id, revision_number, title, summary, body_markdown, change_note, ai_provenance, created_by, created_at)
-       values ($1, $2, $3, $4, $5, $6, $7, $8, $9, 'content-pipeline', $10)`,
-      [revisionId, tenantId, pageId, revisionNumber, page.title, page.summary, page.bodyMarkdown, changeNote, JSON.stringify(page.aiProvenance), page.aiProvenance.generatedAt],
-    );
-    for (const source of page.aiProvenance.sourceReferences) {
-      await client.query(
-        `insert into wiki_sources (id, tenant_id, page_id, revision_id, source_key, source_type, title, url, publisher, retrieved_at, metadata)
-         values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
-        [
-          `gen_src_${page.slug}_${source.sourceKey}`,
-          tenantId,
-          pageId,
-          revisionId,
-          source.sourceKey,
-          source.sourceType,
-          source.title,
-          source.url,
-          source.publisher,
-          FETCHED_AT.get(source.sourceKey) ?? page.aiProvenance.generatedAt,
-          JSON.stringify({
-            origin: "canonical_generation_context",
-            copiedFromSourceId: source.sourceId,
-            authorityTier: source.authorityTier,
-            authorityScore: source.authorityScore,
-            generated: true,
-          }),
-        ],
-      );
-    }
-    await client.query(
-      `update wiki_pages set title = $3, summary = $4, body_markdown = $5, latest_revision_number = $6, status = 'published',
-         updated_by = 'content-pipeline', updated_at = $7
-       where tenant_id = $1 and id = $2`,
-      [tenantId, pageId, page.title, page.summary, page.bodyMarkdown, revisionNumber, page.aiProvenance.generatedAt],
-    );
-    await client.query(
-      `insert into wiki_page_categories (tenant_id, page_id, category_id)
-       select $1, $2, id from wiki_categories where tenant_id = $1 and slug = $3
-       on conflict do nothing`,
-      [tenantId, pageId, page.category],
-    );
-  }
+  const loaded = useGenerated ? await loadGeneratedPages(client, { tenantId, pages: GENERATED, fetchedAt: FETCHED_AT, actor: "content-pipeline" }) : null;
 
   for (const note of useGenerated ? [] : NOTES) {
     await client.query(
@@ -593,7 +529,7 @@ try {
   await client.query("commit");
   console.log(
     useGenerated
-      ? `seed-preview: loaded ${GENERATED.length} generated pages from content/marathon/generated/pages.json (sample revisions and notes skipped). Row counts: ${JSON.stringify(after)}`
+      ? `seed-preview: loaded ${GENERATED.length} generated pages from content/marathon/generated/pages.json (${new Set(loaded?.published).size} pages published from ${loaded?.published.length ?? 0} revisions, ${loaded?.review.length ?? 0} filed for Review${loaded?.review.length ? `: ${loaded.review.join(", ")}` : ""}; sample revisions and notes skipped). Row counts: ${JSON.stringify(after)}`
       : `seed-preview: seeded ${PAGES.length} pages with sample revisions and ${NOTES.length} notes. Row counts: ${JSON.stringify(after)}`,
   );
 } catch (error) {

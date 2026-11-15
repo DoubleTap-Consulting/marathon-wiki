@@ -332,7 +332,10 @@ export function diffParagraphs(previous: string, next: string): DiffRow[] {
     if (change.removed && following?.added) {
       const pairs = Math.min(change.value.length, following.value.length);
       for (let pair = 0; pair < pairs; pair += 1) {
-        rows.push({ kind: "changed", parts: diffWords(change.value[pair], following.value[pair]) });
+        const [before, after] = [change.value[pair], following.value[pair]];
+        // Word-diff only a rewrite of the same paragraph; unrelated text reads better as remove + add.
+        if (isRewriteOf(before, after)) rows.push({ kind: "changed", parts: diffWords(before, after) });
+        else rows.push({ kind: "removed", text: before }, { kind: "added", text: after });
       }
       for (const text of change.value.slice(pairs)) rows.push({ kind: "removed", text });
       for (const text of following.value.slice(pairs)) rows.push({ kind: "added", text });
@@ -345,6 +348,18 @@ export function diffParagraphs(previous: string, next: string): DiffRow[] {
   }
 
   return rows;
+}
+
+const isHeading = (text: string) => /^#{1,6}\s/.test(text);
+const wordSet = (text: string) => new Set(text.toLowerCase().match(/[a-z0-9][a-z0-9'’-]*/g) ?? []);
+
+/** Same block type and enough shared words that a word-level diff is readable. */
+export function isRewriteOf(before: string, after: string) {
+  if (isHeading(before) !== isHeading(after)) return false;
+  const [a, b] = [wordSet(before), wordSet(after)];
+  if (!a.size || !b.size) return false;
+  const shared = [...a].filter((word) => b.has(word)).length;
+  return shared / (a.size + b.size - shared) >= 0.4;
 }
 
 /** Keeps changed rows plus `context` unchanged paragraphs either side; the rest collapse into gaps. */

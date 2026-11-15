@@ -16,8 +16,8 @@
  */
 import { z } from "zod";
 
-export const CONTENT_PROMPT_VERSION = "marathon-real-content-v1";
-export const CLAIM_CHECK_PROMPT_VERSION = "marathon-claim-check-v1";
+export const CONTENT_PROMPT_VERSION = "marathon-real-content-v5";
+export const CLAIM_CHECK_PROMPT_VERSION = "marathon-claim-check-v2";
 
 export type AuthorityTier = "official" | "reputable_editorial" | "community_wiki" | "community";
 
@@ -44,7 +44,40 @@ export type PageSpec = {
   hubChildren: string[];
   related: string[];
   table: string | null;
+  /**
+   * Disagreements an editor flagged while planning. Each quote is checked verbatim against the
+   * rendered source before it is shown as "Sources disagree", so a stale quote is dropped.
+   */
+  knownConflicts?: Array<{ heading: string; sentence: string; positions: Array<{ sourceKey: string; quote: string }> }>;
+  /** A topic hub without child pages (hubChildren already marks a page as a hub). Hubs must meet the gate's length minimum. */
+  hub?: boolean;
+  /**
+   * Parsed tables given to the model as clean rows ("Assault rifle: M77 (Light Rounds)") in place of
+   * the raw table text, where column headers sit next to values and get misread.
+   */
+  contextTables?: Array<"weapons">;
+  /** Wider source context for pages that came out thin: overrides selectExtracts' budget and per-source cap. */
+  extracts?: { budget?: number; perSource?: number };
 };
+
+export function isHubSpec(spec: Pick<PageSpec, "hubChildren" | "hub">) {
+  return Boolean(spec.hub) || spec.hubChildren.length > 0;
+}
+
+/**
+ * Words a reader actually reads: prose and table cells. Headings, citation markers and the
+ * link-only "See also" / child-page lists are not counted.
+ */
+export function countReadableWords(markdown: string) {
+  return markdown
+    .replace(/\{\{cite:[^}]+\}\}/g, " ")
+    .split("\n")
+    .filter((line) => !/^\s*#/.test(line) && !/^\s*\|?\s*:?-{3,}/.test(line) && !/^\s*[-*]\s+\[[^\]]+\]\([^)]+\)\s*$/.test(line))
+    .join(" ")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .split(/[\s|]+/)
+    .filter((word) => /[\p{L}\p{N}]/u.test(word)).length;
+}
 
 export type Extract = { id: string; sourceKey: string; text: string };
 
@@ -177,6 +210,7 @@ export const draftSchema = z.object({
 export type Draft = z.infer<typeof draftSchema>;
 
 export const claimCheckSchema = z.object({
+  conflicts: z.array(z.object({ conflictId: z.string(), genuine: z.boolean(), reason: z.string() })),
   checks: z.array(
     z.object({
       claimId: z.string(),
@@ -209,25 +243,60 @@ export function renderExtracts(extracts: Extract[], sources: Map<string, SourceR
 export const DRAFT_SYSTEM = [
   "You write pages for an unofficial, source-backed wiki about Marathon, Bungie's 2026 extraction shooter.",
   "You may ONLY state facts that appear in the extracts provided. Never use outside knowledge, never guess, never fill gaps.",
+  "State each fact once. Do not restate a fact in other words, and do not pad with sentences about what a publication lists.",
   "Write in your own words. Do not copy sentences from the extracts, and never copy text from community wikis.",
   "Every sentence must list the extract ids that state its fact. A sentence without a supporting extract must be left out.",
+  "One fact per sentence, under 30 words: a fact checker must find it stated in a single cited extract, so long sentences that",
+  "combine facts from several places get removed.",
   "Prefer official (Bungie) extracts; use press to add detail; community extracts only when nothing better exists.",
   "If two extracts disagree on a fact (for example a date or a count), do NOT pick one and do NOT hedge in prose:",
-  "put that sentence in `conflicts`, with a verbatim quote from each disagreeing extract.",
+  "put that sentence in `conflicts`, with a verbatim quote from each disagreeing extract. Copy each quote character for character",
+  "from the extract (3 to 15 words, no ellipses). Rounding or currency formatting is not a disagreement.",
   "If a fact can change with updates (stock, drop rates, tuning, requirements, schedules, event dates), set patchRef and",
   "name the update and its date inside the sentence, e.g. 'As of Update 1.1.9.7 (November 10, 2026), ...'.",
   "Announced-but-unreleased content must be written as announced, e.g. 'Bungie has announced ... for December 8, 2026.'",
   "Plain sentences only: no markdown, links, lists, brackets, asterisks, pipes or citations inside sentence text.",
   "Neutral encyclopedic tone. No marketing language, no second person, no speculation.",
+  "Do not attribute in prose ('according to press', 'per coverage', 'as listed by'); citations show the source. Name a source only",
+  "for Bungie announcements or when the attribution is itself the fact.",
 ].join("\n");
 
-export function buildDraftPrompt(spec: PageSpec, extracts: Extract[], sources: Map<string, SourceRecord>, today: string) {
+export function buildDraftPrompt(
+  spec: PageSpec,
+  extracts: Extract[],
+  sources: Map<string, SourceRecord>,
+  today: string,
+  readerNotes: string[] = [],
+  previousSentences: string[] = [],
+) {
+  const previous = previousSentences.length
+    ? [
+        "",
+        "This is a refresh. The current page says the following. Keep a sentence's wording when the extracts still support it,",
+        "drop it when they no longer do, and add what is new, so readers can see what actually changed:",
+        ...previousSentences.map((sentence) => `- ${sentence}`),
+      ]
+    : [];
+  const notes = readerNotes.length
+    ? [
+        "",
+        "Reader notes (NOT sources). Use them only to decide what to check; write a fact only if an extract states it:",
+        ...readerNotes.map((note) => `- ${note.replace(/\s+/g, " ").slice(0, 400)}`),
+      ]
+    : [];
   return [
     `Today is ${today}. Write the wiki page "${spec.title}" (slug: ${spec.slug}).`,
     `Scope: ${spec.scope}`,
-    "Length: 2 to 5 sections, 120 to 450 words in total. Fewer, well-supported sentences beat more, weaker ones.",
+    isHubSpec(spec)
+      ? "Length: this is a hub page, so 3 to 6 sections and 260 to 500 words in total, all from the extracts. If the extracts cannot support that much, write less rather than padding; a thin hub goes to editor review."
+      : "Length: 2 to 5 sections, 120 to 450 words in total. Fewer, well-supported sentences beat more, weaker ones.",
     "The summary is one plain sentence (it is shown under the title and is not fact-checked, so keep it to the page's scope).",
     "Do not write a references section; citations are added automatically from extractIds.",
+    ...(spec.table === "weapons"
+      ? ["A table of every launch weapon (name, class, ammo) is added below your text automatically. Do not list weapons by class in prose; cover what the table cannot: how weapons work, ammo types in general, and post-launch changes."]
+      : []),
+    ...notes,
+    ...previous,
     "",
     "Extracts:",
     renderExtracts(extracts, sources),
@@ -240,11 +309,16 @@ export const CHECK_SYSTEM = [
   "quote (copied exactly, 3 to 30 words) from it that proves the claim.",
   "verdict=contradicted if a cited extract states something incompatible; quote the incompatible text.",
   "Otherwise verdict=not_supported with quote=null. Paraphrase is fine in the claim, but numbers, names and dates must match.",
+  "You may also get claimed disagreements between sources. genuine=true only if the quoted statements cannot both be true",
+  "(for example 'decades' versus 'a century' for the same span). Different events, rounding, or facts that fit together",
+  "(a departure year, a travel time and a later setting year) are genuine=false. Explain briefly in reason.",
 ].join("\n");
 
 export type CheckableClaim = { claimId: string; text: string; extractIds: string[] };
 
-export function buildCheckPrompt(claims: CheckableClaim[], extractsById: Map<string, Extract>) {
+export type CheckableConflict = { conflictId: string; sentence: string; positions: Array<{ extractId: string; quote: string }> };
+
+export function buildCheckPrompt(claims: CheckableClaim[], extractsById: Map<string, Extract>, conflicts: CheckableConflict[] = []) {
   const needed = new Set(claims.flatMap((claim) => claim.extractIds));
   const extracts = [...needed].flatMap((id) => {
     const extract = extractsById.get(id);
@@ -253,6 +327,15 @@ export function buildCheckPrompt(claims: CheckableClaim[], extractsById: Map<str
   return [
     "Claims:",
     ...claims.map((claim) => `- ${claim.claimId}: ${claim.text} [cites: ${claim.extractIds.join(", ")}]`),
+    ...(conflicts.length
+      ? [
+          "",
+          "Claimed disagreements:",
+          ...conflicts.map(
+            (conflict) => `- ${conflict.conflictId}: ${conflict.sentence} ${conflict.positions.map((position) => `| ${position.extractId} says "${position.quote}"`).join(" ")}`,
+          ),
+        ]
+      : []),
     "",
     "Extracts:",
     ...extracts,
@@ -377,6 +460,8 @@ export function resolveClaims(
   extractsById: Map<string, Extract>,
   sources: Map<string, SourceRecord>,
   slug: string,
+  /** Checker verdicts by conflict index; when given, only disagreements judged genuine are kept. */
+  conflictVerdicts?: Map<number, { genuine: boolean; reason: string }>,
 ): Resolution {
   const claims: ResolvedClaim[] = [];
   const dropped: Rejection[] = [];
@@ -430,15 +515,25 @@ export function resolveClaims(
     });
   });
 
-  draft.conflicts.forEach((conflict) => {
+  draft.conflicts.forEach((conflict, conflictIndex) => {
     index += 1;
+    const verdict = conflictVerdicts?.get(conflictIndex);
+    if (conflictVerdicts && !verdict?.genuine) {
+      dropped.push({ text: conflict.sentence, reason: `checker found no real disagreement: ${verdict?.reason ?? "no verdict"}` });
+      return;
+    }
     const positions = conflict.positions.filter((position) => {
       const extract = extractsById.get(position.extractId);
       return extract ? quoteOccursIn(position.quote, extract.text) : false;
     });
     const sourceKeys = unique(positions.map((position) => position.extractId.split("#")[0]));
     if (sourceKeys.length < 2) {
-      dropped.push({ text: conflict.sentence, reason: "disagreement could not be verified in two sources" });
+      const unverified = conflict.positions.filter((position) => !positions.includes(position)).map((position) => `${position.extractId}: "${position.quote}"`);
+      dropped.push({ text: conflict.sentence, reason: `disagreement could not be verified in two sources (unverified quotes: ${unverified.join("; ") || "none"})` });
+      return;
+    }
+    if (quotesAgreeNumerically(positions.map((position) => position.quote))) {
+      dropped.push({ text: conflict.sentence, reason: "not a disagreement: every quoted figure rounds to the same number" });
       return;
     }
     claims.push({
@@ -463,6 +558,17 @@ export function resolveClaims(
   return { claims, dropped };
 }
 
+/**
+ * "$40", "$39.99" and "$40/£30" are the same price, not a disagreement. True when every quote has
+ * a number and one rounded value appears in all of them. Quotes without numbers (for example
+ * "decades" vs "a century") are left for the reader to see.
+ */
+export function quotesAgreeNumerically(quotes: string[]) {
+  const sets = quotes.map((quote) => new Set((quote.replace(/(\d),(\d{3})/g, "$1$2").match(/\d+(?:\.\d+)?/g) ?? []).map((value) => Math.round(Number(value)))));
+  if (sets.some((set) => set.size === 0)) return false;
+  return [...sets[0]].some((value) => sets.every((set) => set.has(value)));
+}
+
 function unique<T>(values: T[]) {
   return [...new Set(values)];
 }
@@ -474,6 +580,39 @@ function tierLabel(checks: Array<{ extractId: string | null }>, tierOf: (id: str
 
 // ---------------------------------------------------------------------------
 // Assembly
+
+const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+/**
+ * Patch facts must name the patch and its date. When a claim rests only on patch notes and the
+ * sentence does not already say which update, prefix it from the patch notes' own title and date.
+ */
+export function datePatchClaims(claims: ResolvedClaim[], sources: Map<string, SourceRecord>): ResolvedClaim[] {
+  return claims.map((claim) => {
+    if (claim.status !== "supported") return claim;
+    const dated = datePatchText(claim.claimText, claim.sourceKeys, sources);
+    return dated ? { ...claim, claimText: dated.text, patchRef: dated.patchRef } : claim;
+  });
+}
+
+/** The dated sentence for a claim backed only by patch notes, or null when it needs no change. */
+export function datePatchText(text: string, sourceKeys: string[], sources: Map<string, SourceRecord>) {
+  if (PATCH_REFERENCE.test(text) && DATE_REFERENCE.test(text)) return null;
+  const patchSources = sourceKeys.map((key) => sources.get(key));
+  if (!patchSources.length || patchSources.some((source) => source?.sourceType !== "patch_notes")) return null;
+  const latest = [...patchSources].sort((a, b) => (b?.publishedDate ?? "").localeCompare(a?.publishedDate ?? ""))[0]!;
+  const match = latest.publishedDate?.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  const version = latest.title.match(/Update\s+\d+(?:\.\d+)+/i)?.[0];
+  if (!match || !version) return null;
+  const date = `${MONTHS[Number(match[2]) - 1]} ${Number(match[3])}, ${match[1]}`;
+  const patchRef = `${version}, ${date}`;
+  const number = version.replace(/^Update\s+/i, "");
+  const named = new RegExp(`\\b(?:Update|Patch|patch|update)\\s+${number.replace(/\./g, "\\.")}\\b`);
+  // Already names the update: add its date there. Otherwise cite update and date at the end.
+  if (named.test(text)) return { text: text.replace(named, (found) => `${found} (${date})`), patchRef };
+  const body = text.replace(/[.!?]$/, "");
+  return { text: `${body} (${patchRef}).`, patchRef };
+}
 
 export type TableSpec = { caption: ResolvedClaim | null; columns: string[]; rows: string[][] };
 
@@ -549,6 +688,8 @@ export function buildProvenance(input: {
   responseId: string | null;
   generatedAt: string;
   extractCount: number;
+  refreshReason?: string;
+  requestedBy?: string;
 }) {
   const citedKeys = unique(input.claims.flatMap((claim) => claim.sourceKeys));
   const references = citedKeys.flatMap((key) => {
@@ -600,8 +741,8 @@ export function buildProvenance(input: {
         patchRef: claim.patchRef,
       };
     }),
-    refreshReason: "new_page",
-    requestedBy: "content-pipeline",
+    refreshReason: input.refreshReason ?? "new_page",
+    requestedBy: input.requestedBy ?? "content-pipeline",
   };
 }
 
@@ -620,6 +761,11 @@ const WEAPON_CLASSES = [
 ] as const;
 
 const AMMO = new Set(["Light Rounds", "Heavy Rounds", "Volt Battery", "Volt Cell", "MIPS"]);
+
+/** Raw extracts that are mostly table cells (three or more lines that are just an ammo type). */
+export function isTableShapedExtract(text: string) {
+  return text.split("\n").filter((line) => AMMO.has(line.trim())).length >= 3;
+}
 
 export function parseWeaponTable(text: string) {
   const lines = text.split("\n").map((line) => line.trim()).filter(Boolean);

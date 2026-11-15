@@ -89,3 +89,15 @@ export function checkNonProductionTarget(env = process.env) {
 
   return { ok: true };
 }
+
+/**
+ * True when any database var points at a production endpoint. Never returns or logs the host.
+ * @param {Record<string, string | undefined>} [env]
+ */
+export function pointsAtProduction(env = process.env) {
+  const production = productionEndpointIds(env);
+  return DATABASE_HOST_VARS.some((name) => {
+    const id = endpointIdOf(env[name]);
+    return Boolean(id && production.includes(id));
+  });
+}

@@ -11,6 +11,11 @@ export function isAiRefreshCronRequestAuthorized(
     return false;
   }
 
+  // Even on Production, the AI editor's scheduled work stays off until it is switched on explicitly.
+  if (env.VERCEL_ENV === "production" && env.WIKI_AI_EDITOR_CRON !== "1") {
+    return false;
+  }
+
   const secret = env.WIKI_CRON_SECRET?.trim() || env.CRON_SECRET?.trim();
 
   if (!secret) {

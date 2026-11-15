@@ -1375,7 +1375,10 @@ export async function approveWikiSuggestion(
         actorId: input.actorId,
         changeNote:
           input.reviewNote ??
+          aiSuggestionChangeNote(suggestion.metadata) ??
           `Approved suggestion ${suggestion.id} (${suggestion.suggestionType})`,
+        // An AI editor revision that waited for review keeps its claim-level provenance.
+        aiProvenance: aiSuggestionProvenance(suggestion.metadata),
       },
       trx,
     );
@@ -1395,6 +1398,15 @@ export async function approveWikiSuggestion(
 
     return { pageSlug: targetSlug };
   });
+}
+
+function aiSuggestionProvenance(metadata: WikiSuggestionMetadata | null | undefined) {
+  const provenance = metadata?.origin === "ai_generated" ? metadata.aiProvenance : null;
+  return provenance && typeof provenance === "object" ? (provenance as WikiPageRevisionAiProvenance) : null;
+}
+
+function aiSuggestionChangeNote(metadata: WikiSuggestionMetadata | null | undefined) {
+  return metadata?.origin === "ai_generated" && typeof metadata.changeNote === "string" ? metadata.changeNote : null;
 }
 
 async function saveWikiPageWithRevisionInTransaction(

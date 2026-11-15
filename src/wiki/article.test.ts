@@ -114,3 +114,14 @@ describe("diffParagraphs", () => {
     expect(changesOnly(rows).map((row) => row.kind)).toEqual(["gap", "same", "changed", "same", "same", "added"]);
   });
 });
+
+describe("diffParagraphs pairing", () => {
+  it("word-diffs a reworded paragraph but not an unrelated replacement", async () => {
+    const { diffParagraphs } = await import("./article");
+    const rows = diffParagraphs(
+      "## Holotags\n\nHolotags set the score target and the loss penalty for a run.",
+      "## Entry rules\n\nHolotags set the score target and loss penalty for each run.",
+    );
+    expect(rows.map((row) => row.kind)).toEqual(["removed", "added", "changed"]);
+  });
+});

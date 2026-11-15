@@ -617,24 +617,44 @@
     "group": "weapons",
     "scope": "Light Rounds, Heavy Rounds, Volt Battery, Volt Cell and MIPS, and how they behave.",
     "keywords": [
-      "Light Rounds",
-      "Heavy Rounds",
-      "Volt Battery",
-      "Volt Cell",
-      "MIPS",
       "ammo",
+      "Ammo Backpack",
+      "ammo capacity",
+      "ammo economy",
+      "battery",
+      "energy",
+      "Heavy Rounds",
+      "Light Rounds",
+      "MIPS",
+      "recharge",
       "shields",
-      "recharge"
+      "stacks",
+      "starting ammo",
+      "Volt Battery",
+      "Volt Cell"
     ],
     "preferredSources": [
       "gamesradar-weapons",
-      "pcgamer-review"
+      "pcgamer-review",
+      "bungie-update-1-0-0-4",
+      "bungie-update-1-1-9-2",
+      "bungie-s2-combat-tuning",
+      "gamesradar-factions",
+      "bungie-ranked"
     ],
     "hubChildren": [],
     "related": [
       "weapons"
     ],
-    "table": null
+    "table": null,
+    "hub": true,
+    "extracts": {
+      "budget": 32000,
+      "perSource": 8
+    },
+    "contextTables": [
+      "weapons"
+    ]
   },
   {
     "slug": "weapon-mods-and-chips",
@@ -963,28 +983,43 @@
     "title": "Armory",
     "category": "gameplay",
     "group": "mechanics",
-    "scope": "The faction Armory: what it sells, barters, sponsored kits, and recent stock changes.",
+    "scope": "The faction Armory: what it sells, barters, sponsored kits, and recent stock changes. Keep separate changes in separate sentences: in Update 1.1.9.2, Weapon and Backpack Schema wares in the Armory began costing Credits, and, as a different change, schemas and materials in the Season 2 Rewards Pass were replaced with Credits.",
     "keywords": [
       "Armory",
+      "Barter",
+      "Credits",
+      "Deluxe",
+      "Holotag",
+      "Rewards Pass",
+      "Schema",
       "Sponsored Kit",
       "sponsored kit",
-      "Barter",
       "stock",
+      "Superior",
       "Synapse Cube",
-      "Holotag"
+      "wares",
+      "weekly"
     ],
     "preferredSources": [
       "bungie-update-1-1-9-7",
       "gamesradar-factions",
       "bungie-welcome-season-2",
       "bungie-update-1-1-0-1",
-      "bungie-update-1-0-0-4"
+      "bungie-update-1-0-0-4",
+      "bungie-update-1-1-9-2",
+      "kotaku-season-2",
+      "bungie-ranked"
     ],
     "hubChildren": [],
     "related": [
       "factions"
     ],
-    "table": null
+    "table": null,
+    "hub": true,
+    "extracts": {
+      "budget": 32000,
+      "perSource": 8
+    }
   },
   {
     "slug": "expedition",
@@ -1155,7 +1190,23 @@
       "uesc-marathon",
       "uesc"
     ],
-    "table": null
+    "table": null,
+    "knownConflicts": [
+      {
+        "heading": "When the expedition went dark",
+        "sentence": "Bungie's own materials give different spans for how long the Marathon has been silent.",
+        "positions": [
+          {
+            "sourceKey": "marathon-official-site",
+            "quote": "No one knows what happened a century ago when the Marathon expedition went dark"
+          },
+          {
+            "sourceKey": "bungie-cryo-archive",
+            "quote": "Decades later, the Marathon ship still hangs abandoned in orbit"
+          }
+        ]
+      }
+    ]
   },
   {
     "slug": "uesc-marathon",
@@ -1185,7 +1236,23 @@
       "cryo-archive",
       "tau-ceti-iv"
     ],
-    "table": null
+    "table": null,
+    "knownConflicts": [
+      {
+        "heading": "When the expedition went dark",
+        "sentence": "Bungie's own materials give different spans for how long the Marathon has been silent.",
+        "positions": [
+          {
+            "sourceKey": "marathon-official-site",
+            "quote": "No one knows what happened a century ago when the Marathon expedition went dark"
+          },
+          {
+            "sourceKey": "bungie-cryo-archive",
+            "quote": "Decades later, the Marathon ship still hangs abandoned in orbit"
+          }
+        ]
+      }
+    ]
   },
   {
     "slug": "uesc",

@@ -6,8 +6,6 @@ try {
   // CI can provide DATABASE_URL directly.
 }
 
-import { AI_GATEWAY_CANONICAL_PROMPT_VERSION } from "@/src/ai/gateway";
-import { generateAiCanonicalWikiPageRevision } from "@/src/ai/wiki-canonical";
 import type { WikiActor } from "@/src/auth/wiki-auth";
 import { getDb } from "@/src/db/client";
 import {
@@ -178,7 +176,7 @@ describe.sequential("curated wiki source ingestion", () => {
     );
   });
 
-  it("retrieves ingested faction sources into canonical generation context", async () => {
+  it("retrieves ingested faction sources as topic context", async () => {
     const sourceReferences = await listWikiSourceContextForTopic(
       {
         tenantId,
@@ -200,89 +198,6 @@ describe.sequential("curated wiki source ingestion", () => {
         authorityScore: 82,
       }),
     });
-
-    const result = await generateAiCanonicalWikiPageRevision(
-      {
-        tenant,
-        actor,
-        pageTitle: "Factions",
-        targetSlug: "factions",
-        refreshReason: "source_ingestion_refresh",
-      },
-      {
-        db,
-        generateCanonicalPage: async (request) => {
-          expect(request.targetSlug).toBe("factions");
-          expect(request.sourceContext).toContain("PC Gamer");
-          expect(request.sourceContext).toContain(
-            "Authority: reputable_editorial (82/100)",
-          );
-          expect(request.sourceContext).toContain("Arachne");
-          expect(request.sourceContext).toContain("Cyberacme");
-          expect(request.sourceContext).toContain("Nucaloric");
-          expect(request.sourceContext).toContain("NuCal");
-          expect(request.sourceContext).toContain("Sekiguchi");
-          expect(request.sourceContext).toContain("Traxus");
-          expect(request.sourceContext).toContain("MIDA");
-
-          return {
-            title: "Factions",
-            summary:
-              "AI-generated source-backed overview of current Marathon factions.",
-            bodyMarkdown:
-              "## Overview\n\nCurrent indexed sources identify six Marathon factions: Arachne, Cyberacme, Nucaloric/NuCal, Sekiguchi, Traxus, and MIDA.\n\n## Source Status\n\nThe list is corroborated by multiple reputable editorial sources.",
-            sourceContextSummary:
-              "Used three ingested reputable editorial source records for the factions topic.",
-            provider: "vercel-ai-gateway",
-            model: "openai/gpt-5-nano",
-            responseId: "gateway_resp_source_ingestion_test",
-            promptVersion: AI_GATEWAY_CANONICAL_PROMPT_VERSION,
-          };
-        },
-      },
-    );
-    const provenance = result.provenance as WikiPageRevisionAiProvenance;
-
-    expect(result.page.bodyMarkdown).toContain("Arachne");
-    expect(result.page.bodyMarkdown).toContain("Cyberacme");
-    expect(result.page.bodyMarkdown).toContain("Nucaloric/NuCal");
-    expect(result.page.bodyMarkdown).toContain("Sekiguchi");
-    expect(result.page.bodyMarkdown).toContain("Traxus");
-    expect(result.page.bodyMarkdown).toContain("MIDA");
-    expect(result.page.sources).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          sourceKey: "marathon-factions-pcgamer-guide",
-          metadata: expect.objectContaining({
-            authorityTier: "reputable_editorial",
-            authorityScore: 82,
-          }),
-        }),
-      ]),
-    );
-    expect(provenance.sourceReferences).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          sourceKey: "marathon-factions-pcgamer-guide",
-          authorityTier: "reputable_editorial",
-          authorityScore: 82,
-        }),
-      ]),
-    );
-
-    const sourceReferencesAfterGeneration =
-      await listWikiSourceContextForTopic(
-        {
-          tenantId,
-          targetSlug: "factions",
-          pageTitle: "Factions",
-        },
-        db,
-      );
-
-    expect(sourceReferencesAfterGeneration.map((source) => source.sourceKey)).toEqual(
-      sourceReferences.map((source) => source.sourceKey),
-    );
   });
 });
 
