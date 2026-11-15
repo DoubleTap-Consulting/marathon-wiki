@@ -68,13 +68,13 @@ export default async function SuggestEditPage({
     <WikiChrome tenant={snapshot.tenant} categories={snapshot.categories}>
       <section className="mx-auto max-w-3xl space-y-6">
         <div className="space-y-3">
-          <p className="text-sm font-medium uppercase tracking-normal text-muted-foreground">
+          <p className="text-label font-medium uppercase tracking-normal text-muted-foreground">
             Editorial suggestions
           </p>
-          <h1 className="text-4xl font-semibold leading-tight text-foreground">
+          <h1 className="text-title font-semibold text-foreground">
             Suggest an edit
           </h1>
-          <p className="text-base leading-8 text-muted-foreground">
+          <p className="text-body text-muted-foreground">
             Propose changes to {snapshot.page.title}. Editors can approve,
             reject, or request changes before the public page is updated.
           </p>

@@ -63,14 +63,14 @@ export function PageIndex({
               setQuery(event.target.value);
             }}
             placeholder="Filter page index"
-            className="min-h-11 w-full rounded-md border border-input bg-card px-9 text-base text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="min-h-11 w-full rounded-md border border-input bg-card px-9 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
           />
         </div>
       </form>
 
       {query ? (
         <div className="rounded-lg border bg-card p-4 text-card-foreground">
-          <p className="text-sm leading-6 text-muted-foreground">
+          <p className="text-small text-muted-foreground">
             Showing results for{" "}
             <span className="font-medium text-card-foreground">{query}</span>.
           </p>

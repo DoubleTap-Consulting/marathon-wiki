@@ -41,7 +41,7 @@ import { submitWikiCommunityNoteAction } from "../community-note-actions";
 
 export const revalidate = 300;
 
-const META = "text-xs font-medium uppercase tracking-wide text-muted-foreground";
+const META = "text-label font-medium uppercase tracking-wide text-muted-foreground";
 const STRIP_LINK = "text-foreground underline-offset-4 outline-none hover:underline focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring";
 
 type ArticlePageProps = {
@@ -134,7 +134,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               tenant.name
             )}
           </p>
-          <h1 className="mt-2 text-3xl leading-tight font-semibold tracking-tight text-foreground md:text-4xl">
+          <h1 className="mt-2 text-title font-semibold tracking-tight text-foreground">
             {page.title}
           </h1>
           <TrustStrip
@@ -144,7 +144,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             notes={notes}
             suggestHref={`/${tenant.slug}/suggest/${page.slug}`}
           />
-          {page.summary ? <p className="mt-4 text-lg leading-relaxed text-muted-foreground">{page.summary}</p> : null}
+          {page.summary ? <p className="mt-4 text-body text-muted-foreground">{page.summary}</p> : null}
 
           <ContentsControl toc={toc} />
 
@@ -262,7 +262,7 @@ function TrustStrip({
   );
 
   return (
-    <p className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 sm:gap-x-0 text-sm leading-6 text-muted-foreground">
+    <p className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 sm:gap-x-0 text-small text-muted-foreground">
       {segments.map((segment, index) => (
         <span key={index} className="inline-flex items-center whitespace-nowrap">
           {index > 0 ? (
@@ -287,16 +287,16 @@ function InlineNote({ note }: { note: WikiCommunityNoteSummary }) {
     <aside
       id={`note-${note.id}`}
       aria-label="Community note"
-      className="my-6 scroll-mt-20 border-l-2 border-primary/60 py-2 pl-4 text-[15px] leading-relaxed"
+      className="my-6 scroll-mt-20 border-l-2 border-primary/60 py-2 pl-4 text-ui"
     >
       <p className={META}>Community note</p>
       <p className="mt-1 text-foreground">{note.bodyMarkdown}</p>
-      <p className="mt-1 text-sm text-muted-foreground">
+      <p className="mt-1 text-small text-muted-foreground">
         {note.sourceUrl ? (
           <>
             <a
               href={note.sourceUrl}
-              className="text-primary underline decoration-primary/40 underline-offset-4 hover:decoration-primary"
+              className="text-link underline decoration-link/40 underline-offset-4 hover:decoration-link"
             >
               Source
             </a>
@@ -329,7 +329,7 @@ function WhatChanged({
 
   return (
     <Collapsible className="mt-12 border-y">
-      <CollapsibleTrigger className="group flex min-h-12 w-full items-center gap-2 text-left text-sm text-muted-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring">
+      <CollapsibleTrigger className="group flex min-h-12 w-full items-center gap-2 text-left text-small text-muted-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring">
         <span className="font-medium text-foreground">What changed in revision {revision.revisionNumber}</span>
         <span aria-hidden="true">·</span>
         <RelativeTime iso={toIso(revision.createdAt)} />
@@ -338,8 +338,8 @@ function WhatChanged({
         </span>
       </CollapsibleTrigger>
       <CollapsibleContent className="overflow-hidden data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
-        <div className="space-y-3 pb-5 text-[15px] leading-relaxed">
-          <p className="text-sm text-muted-foreground">{triggerLabel(provenance?.refreshReason)}</p>
+        <div className="space-y-3 pb-5 text-ui">
+          <p className="text-small text-muted-foreground">{triggerLabel(provenance?.refreshReason)}</p>
           {revision.changeNote ? <p>{revision.changeNote}</p> : null}
           {delta.added.length > 0 ? (
             <p className="text-muted-foreground">Sources added: {delta.added.map(titleFor).join(", ")}</p>
@@ -349,7 +349,7 @@ function WhatChanged({
           ) : null}
           <Link
             href={`${base}/history/${revision.revisionNumber}` as Route}
-            className="inline-flex min-h-11 items-center text-primary underline decoration-primary/40 underline-offset-4 hover:decoration-primary"
+            className="inline-flex min-h-11 items-center text-link underline decoration-link/40 underline-offset-4 hover:decoration-link"
           >
             See full diff
           </Link>
@@ -362,10 +362,10 @@ function WhatChanged({
 function References({ references }: { references: CitedSource[] }) {
   return (
     <section id="references" aria-labelledby="references-heading" className="mt-12 scroll-mt-20">
-      <h2 id="references-heading" className="text-2xl font-semibold tracking-tight">
+      <h2 id="references-heading" className="text-h2 font-semibold tracking-tight">
         References
       </h2>
-      <ol className="mt-4 space-y-3 text-[15px] leading-relaxed">
+      <ol className="mt-4 space-y-3 text-small">
         {references.map((source) => (
           <li key={source.id} id={`ref-${source.number}`} className="grid grid-cols-[2.5ch_1fr] gap-2">
             <span className="text-muted-foreground tabular-nums">{source.number}.</span>
@@ -373,16 +373,16 @@ function References({ references }: { references: CitedSource[] }) {
               {source.url ? (
                 <a
                   href={source.url}
-                  className="text-primary underline decoration-primary/40 underline-offset-4 hover:decoration-primary"
+                  className="text-link underline decoration-link/40 underline-offset-4 hover:decoration-link"
                 >
                   {source.title}
                 </a>
               ) : (
                 <span className="font-medium">{source.title}</span>
               )}
-              <p className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-foreground">
+              <p className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-small text-muted-foreground">
                 {source.publisher ? <span>{source.publisher}</span> : null}
-                <span className="inline-flex h-5 items-center rounded border px-1.5 text-xs font-medium text-foreground">
+                <span className="inline-flex h-5 items-center rounded border px-1.5 text-label font-medium text-foreground">
                   {sourceTypeLabel(source.sourceType)}
                 </span>
                 {source.authorityTier ? <span>{authorityLabel(source.authorityTier)}</span> : null}
