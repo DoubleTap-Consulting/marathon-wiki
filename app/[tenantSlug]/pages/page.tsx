@@ -57,7 +57,7 @@ export default async function TenantPages({
           <p className="text-label font-medium uppercase tracking-normal text-muted-foreground">
             Page index
           </p>
-          <h1 className="text-title font-semibold text-foreground">
+          <h1 className="text-title font-display text-foreground">
             All pages
           </h1>
           <p className="max-w-3xl text-body text-muted-foreground">

@@ -61,7 +61,7 @@ function TocList({ toc, active, onNavigate }: { toc: TocEntry[]; active: string 
       {rule ? (
         <span
           aria-hidden="true"
-          className="absolute -left-px w-0.5 bg-primary transition-transform duration-150 ease-out"
+          className="absolute -left-px w-0.5 bg-ring transition-transform duration-150 ease-out"
           style={{ height: rule.height, transform: `translateY(${rule.top}px)`, top: 0 }}
         />
       ) : null}
@@ -72,7 +72,7 @@ function TocList({ toc, active, onNavigate }: { toc: TocEntry[]; active: string 
             onClick={onNavigate}
             aria-current={active === entry.id ? "location" : undefined}
             className={cn(
-              "flex min-h-8 items-center py-1 leading-5 outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring pointer-coarse:min-h-11",
+              "flex min-h-8 items-center py-1 leading-5 hover:text-foreground pointer-coarse:min-h-11",
               entry.depth === 3 ? "pl-7" : "pl-4",
               active === entry.id ? "text-foreground" : "text-muted-foreground",
             )}
@@ -106,7 +106,7 @@ export function ContentsControl({ toc }: { toc: TocEntry[] }) {
   return (
     <>
       <Collapsible className="mt-6 hidden border-y md:block lg:hidden">
-        <CollapsibleTrigger className="group flex min-h-11 w-full items-center gap-2 text-ui font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring">
+        <CollapsibleTrigger className="group flex min-h-11 w-full items-center gap-2 text-ui font-medium">
           <ChevronRight className="size-4 transition-transform duration-200 ease-out group-data-[state=open]:rotate-90" aria-hidden="true" />
           Contents
         </CollapsibleTrigger>
@@ -124,7 +124,7 @@ export function ContentsControl({ toc }: { toc: TocEntry[] }) {
         </Button>
       </div>
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-        <SheetContent side="bottom" className="max-h-[75vh] overflow-y-auto rounded-t-xl px-5 pb-8">
+        <SheetContent side="bottom" className="max-h-[75vh] overflow-y-auto px-5 pb-8">
           <SheetHeader className="px-0">
             <SheetTitle>Contents</SheetTitle>
             <SheetDescription className="sr-only">Jump to a section of this page</SheetDescription>
@@ -185,7 +185,7 @@ export function AddNoteSheet({ action }: { action: NoteAction }) {
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetContent
         side={wide ? "right" : "bottom"}
-        className={cn("overflow-y-auto px-5 pb-8", wide ? "w-full sm:max-w-md" : "max-h-[90vh] rounded-t-xl")}
+        className={cn("overflow-y-auto px-5 pb-8", wide ? "w-full sm:max-w-md" : "max-h-[90vh]")}
         onCloseAutoFocus={(event) => {
           event.preventDefault();
           const target = returnFocus.current?.isConnected
@@ -221,7 +221,7 @@ export function TrustOverflow({ suggestHref }: { suggestHref: string }) {
         <button
           type="button"
           aria-label="More actions"
-          className="relative inline-flex size-6 items-center justify-center rounded-sm align-middle text-muted-foreground outline-none after:absolute after:-inset-2.5 after:content-[''] hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
+          className="relative inline-flex size-6 items-center justify-center align-middle text-muted-foreground after:absolute after:-inset-2.5 after:content-[''] hover:text-foreground"
         >
           <MoreHorizontal className="size-4" aria-hidden="true" />
         </button>
@@ -229,14 +229,14 @@ export function TrustOverflow({ suggestHref }: { suggestHref: string }) {
       <PopoverContent align="start" className="w-56 p-1">
         <button
           type="button"
-          className="flex min-h-10 w-full items-center rounded-sm px-3 text-left text-ui hover:bg-muted focus-visible:bg-muted focus-visible:outline-none"
+          className="flex min-h-10 w-full items-center px-3 text-left text-ui hover:bg-muted focus-visible:bg-muted"
           onClick={() => window.dispatchEvent(new Event(ADD_NOTE_EVENT))}
         >
           Add a note
         </button>
         <Link
           href={suggestHref as Route}
-          className="flex min-h-10 w-full items-center rounded-sm px-3 text-ui hover:bg-muted focus-visible:bg-muted focus-visible:outline-none"
+          className="flex min-h-10 w-full items-center px-3 text-ui hover:bg-muted focus-visible:bg-muted"
           data-wiki-event="suggestion_cta"
           data-wiki-event-label="trust-strip"
         >

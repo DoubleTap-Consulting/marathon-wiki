@@ -72,7 +72,7 @@ export default async function SuggestEditPage({
           <p className="text-label font-medium uppercase tracking-normal text-muted-foreground">
             Editorial suggestions
           </p>
-          <h1 className="text-title font-semibold text-foreground">
+          <h1 className="text-title font-display text-foreground">
             Suggest an edit
           </h1>
           <p className="text-body text-muted-foreground">
@@ -84,7 +84,7 @@ export default async function SuggestEditPage({
         {actor ? (
           <>
             <SuggestionActorBar actor={actor} authMode={authMode} />
-            <div className="rounded-lg border bg-card p-5 text-card-foreground sm:p-6">
+            <div className="border bg-card p-5 text-card-foreground sm:p-6">
               <SuggestionForm
                 action={submitWikiSuggestion.bind(
                   null,

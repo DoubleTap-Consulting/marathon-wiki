@@ -60,7 +60,7 @@ export default async function TenantHome({ params }: TenantHomeProps) {
             <p className="text-label font-medium uppercase tracking-normal text-muted-foreground">
               Public wiki
             </p>
-            <h1 className="max-w-3xl text-display font-semibold text-foreground">
+            <h1 className="max-w-3xl text-display font-display font-extrabold text-foreground">
               {snapshot.tenant.gameTitle}
             </h1>
             <p className="max-w-3xl text-body text-muted-foreground">
@@ -79,7 +79,7 @@ export default async function TenantHome({ params }: TenantHomeProps) {
               </h2>
               <a
                 href={`/${snapshot.tenant.slug}/pages`}
-                className="inline-flex min-h-11 items-center rounded-md border bg-card px-3 text-ui font-medium text-card-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                className="inline-flex min-h-11 items-center border bg-card px-3 text-ui font-medium text-card-foreground"
               >
                 View all
               </a>
@@ -94,7 +94,7 @@ export default async function TenantHome({ params }: TenantHomeProps) {
         </div>
 
         <aside className="space-y-4">
-          <section className="rounded-lg border bg-card p-5 text-card-foreground">
+          <section className="border bg-card p-5 text-card-foreground">
             <h2 className="text-h3 font-semibold">Categories</h2>
             {snapshot.categories.length > 0 ? (
               <div className="mt-4 space-y-3">
@@ -102,7 +102,7 @@ export default async function TenantHome({ params }: TenantHomeProps) {
                   <a
                     key={category.id}
                     href={`/${snapshot.tenant.slug}/categories/${category.slug}`}
-                    className="block min-h-16 rounded-md border bg-background p-3 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+                    className="block min-h-16 border bg-background p-3"
                   >
                     <span className="block text-ui font-medium text-foreground">
                       {category.name}

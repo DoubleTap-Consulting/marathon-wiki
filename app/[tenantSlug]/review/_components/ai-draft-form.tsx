@@ -4,6 +4,7 @@ import { useActionState, useRef } from "react";
 import { useFormStatus } from "react-dom";
 
 import type { AiDraftFormState } from "../ai-actions";
+import { Input, Textarea } from "@/components/ui/input";
 
 type AiDraftFormProps = {
   action: (
@@ -20,7 +21,7 @@ export function AiDraftForm({ action }: AiDraftFormProps) {
   });
 
   return (
-    <section className="min-w-0 overflow-hidden rounded-lg border bg-card p-5 text-card-foreground sm:p-6">
+    <section className="min-w-0 overflow-hidden border bg-card p-5 text-card-foreground sm:p-6">
       <div className="min-w-0 space-y-2">
         <p className="text-label font-medium uppercase tracking-normal text-muted-foreground">
           AI assistance
@@ -52,9 +53,9 @@ export function AiDraftForm({ action }: AiDraftFormProps) {
         <div className="grid min-w-0 gap-4">
           {state.message ? (
             <div
-              className={`rounded-md border p-4 text-ui ${
+              className={`border p-4 text-ui ${
                 state.ok
-                  ? "border-primary/40 bg-primary/10 text-foreground"
+                  ? "border-border bg-muted text-foreground"
                   : "border-destructive/40 bg-destructive/10 text-foreground"
               }`}
               role="status"
@@ -68,22 +69,21 @@ export function AiDraftForm({ action }: AiDraftFormProps) {
             <label htmlFor="ai-page-title" className="text-ui font-medium">
               Page title or topic
             </label>
-            <input
+            <Input
               id="ai-page-title"
               name="pageTitle"
               type="text"
               required
               minLength={3}
               placeholder="Overrun AR"
-              className="min-h-11 w-full min-w-0 rounded-md border border-input bg-background px-3 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
-            />
+              />
           </div>
 
           <div className="grid min-w-0 gap-2">
             <label htmlFor="ai-target-slug" className="text-ui font-medium">
               Target slug
             </label>
-            <input
+            <Input
               id="ai-target-slug"
               name="targetSlug"
               type="text"
@@ -91,8 +91,7 @@ export function AiDraftForm({ action }: AiDraftFormProps) {
               placeholder="overrun-ar"
               autoComplete="off"
               spellCheck="false"
-              className="min-h-11 w-full min-w-0 rounded-md border border-input bg-background px-3 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
-            />
+              />
           </div>
         </div>
 
@@ -100,12 +99,12 @@ export function AiDraftForm({ action }: AiDraftFormProps) {
           <label htmlFor="ai-source-notes" className="text-ui font-medium">
             Source or context notes
           </label>
-          <textarea
+          <Textarea
             id="ai-source-notes"
             name="sourceNotes"
             rows={7}
             placeholder="Official weapon notes, screenshots, or constraints editors should verify."
-            className="min-h-40 w-full min-w-0 resize-y rounded-md border border-input bg-background px-3 py-2 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="min-h-40"
           />
           <SubmitButton />
         </div>
@@ -121,7 +120,7 @@ function SubmitButton() {
     <button
       type="submit"
       disabled={status.pending}
-      className="inline-flex min-h-11 items-center justify-center rounded-md bg-primary px-4 text-ui font-medium text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card disabled:cursor-not-allowed disabled:opacity-60"
+      className="inline-flex min-h-11 items-center justify-center border border-foreground bg-primary px-4 hover:bg-primary-hover dark:border-transparent text-ui font-medium text-primary-foreground disabled:cursor-not-allowed disabled:opacity-60"
     >
       {status.pending ? "Generating..." : "Generate draft"}
     </button>

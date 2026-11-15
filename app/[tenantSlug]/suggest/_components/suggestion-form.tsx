@@ -4,6 +4,7 @@ import { useActionState, useRef } from "react";
 import { useFormStatus } from "react-dom";
 
 import type { SuggestionFormState } from "../actions";
+import { Input, Textarea } from "@/components/ui/input";
 
 type SuggestionFormProps = {
   action: (
@@ -58,9 +59,9 @@ export function SuggestionForm({
 
       {state.message ? (
         <div
-          className={`rounded-md border p-4 text-ui ${
+          className={`border p-4 text-ui ${
             state.ok
-              ? "border-primary/40 bg-primary/10 text-foreground"
+              ? "border-border bg-muted text-foreground"
               : "border-destructive/40 bg-destructive/10 text-foreground"
           }`}
           role="status"
@@ -74,7 +75,7 @@ export function SuggestionForm({
         <label htmlFor="suggestion-title" className="text-ui font-medium">
           Page title
         </label>
-        <input
+        <Input
           id="suggestion-title"
           name="title"
           type="text"
@@ -82,7 +83,6 @@ export function SuggestionForm({
           minLength={3}
           defaultValue={initialTitle}
           spellCheck="true"
-          className="min-h-11 w-full rounded-md border border-input bg-background px-3 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
       </div>
 
@@ -90,7 +90,7 @@ export function SuggestionForm({
         <label htmlFor="suggestion-slug" className="text-ui font-medium">
           Page slug
         </label>
-        <input
+        <Input
           id="suggestion-slug"
           name="targetSlug"
           type="text"
@@ -99,7 +99,7 @@ export function SuggestionForm({
           defaultValue={initialSlug}
           autoComplete="off"
           spellCheck="false"
-          className="min-h-11 w-full rounded-md border border-input bg-background px-3 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring read-only:bg-secondary"
+          className="read-only:bg-secondary"
         />
       </div>
 
@@ -107,12 +107,11 @@ export function SuggestionForm({
         <label htmlFor="suggestion-summary" className="text-ui font-medium">
           Summary
         </label>
-        <textarea
+        <Textarea
           id="suggestion-summary"
           name="summary"
           rows={3}
           defaultValue={initialSummary ?? ""}
-          className="min-h-24 w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
       </div>
 
@@ -120,14 +119,14 @@ export function SuggestionForm({
         <label htmlFor="suggestion-body" className="text-ui font-medium">
           Proposed page body
         </label>
-        <textarea
+        <Textarea
           id="suggestion-body"
           name="bodyMarkdown"
           rows={16}
           required
           minLength={20}
           defaultValue={initialBodyMarkdown}
-          className="min-h-80 w-full resize-y rounded-md border border-input bg-background px-3 py-2 font-mono text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="min-h-80 font-mono"
         />
       </div>
 
@@ -135,14 +134,13 @@ export function SuggestionForm({
         <label htmlFor="suggestion-source" className="text-ui font-medium">
           Source URL
         </label>
-        <input
+        <Input
           id="suggestion-source"
           name="sourceUrl"
           type="url"
           inputMode="url"
           autoComplete="url"
           placeholder="https://"
-          className="min-h-11 w-full rounded-md border border-input bg-background px-3 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
       </div>
 
@@ -158,7 +156,7 @@ function SubmitButton({ label }: { label: string }) {
     <button
       type="submit"
       disabled={status.pending}
-      className="inline-flex min-h-11 items-center rounded-md bg-primary px-4 text-ui font-medium text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card disabled:cursor-not-allowed disabled:opacity-60"
+      className="inline-flex min-h-11 items-center border border-foreground bg-primary px-4 hover:bg-primary-hover dark:border-transparent text-ui font-medium text-primary-foreground disabled:cursor-not-allowed disabled:opacity-60"
     >
       {status.pending ? "Submitting..." : label}
     </button>

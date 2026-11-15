@@ -4,43 +4,20 @@ import { describe, expect, it } from "vitest";
 
 import badFixture from "@/scripts/theme/bad-theme.fixture.ts";
 import marathon from "@/themes/marathon/theme.ts";
-import { checkTheme, HUE_EXEMPT_UNTIL_PR4, hueDistance, parseCoreTokens, renderCss, SCHEMES, themeTokens, toHex } from "@/themes/tokens.ts";
+import { checkTheme, parseCoreTokens, renderCss, themeTokens, toHex } from "@/themes/tokens.ts";
 import { themeManifest } from "@/themes/types.ts";
 
 const globals = readFileSync(new URL("../app/globals.css", import.meta.url), "utf8");
 const core = parseCoreTokens(globals);
 
-const mainRoot = {
-  background: "0.985 0.002 247",
-  foreground: "0.16 0.02 250",
-  card: "1 0 0",
-  "card-foreground": "0.16 0.02 250",
-  popover: "1 0 0",
-  "popover-foreground": "0.16 0.02 250",
-  primary: "0.44 0.13 160",
-  "primary-foreground": "0.98 0.01 160",
-  secondary: "0.94 0.01 247",
-  "secondary-foreground": "0.21 0.02 250",
-  muted: "0.94 0.01 247",
-  "muted-foreground": "0.48 0.02 250",
-  accent: "0.91 0.04 183",
-  "accent-foreground": "0.2 0.04 183",
-  border: "0.89 0.01 247",
-  input: "0.89 0.01 247",
-  ring: "0.55 0.13 160",
-  link: "0.44 0.13 160",
-};
-
-const hexOf = (triple: string) => {
-  const [l, c, h] = triple.split(" ").map(Number);
-  return toHex({ l, c, h });
-};
-
 describe("marathon theme", () => {
-  it("generates the same sRGB colors as main's :root (bb02a67), with link equal to its primary", () => {
-    const generated = Object.fromEntries(Object.entries(themeTokens(themeManifest.parse(marathon))).map(([token, value]) => [token, toHex(value)]));
-    const expected = Object.fromEntries(Object.entries(mainRoot).map(([token, triple]) => [token, hexOf(triple)]));
-    expect(generated).toEqual(expected);
+  it("turns the Marathon palette on: acid fill, darker light-mode link, square corners", () => {
+    const theme = themeManifest.parse(marathon);
+    expect(toHex(themeTokens(theme).primary)).toBe("#c0fe08");
+    expect(toHex(themeTokens(theme)["primary-foreground"])).toBe(toHex(themeTokens(theme).foreground));
+    expect(toHex(themeTokens(theme).link)).toBe("#4d6901");
+    expect(toHex(themeTokens(theme, "dark").link)).toBe("#c0fe08");
+    expect(renderCss(theme)).toContain("--radius: 0;");
   });
 
   it("matches the committed generated CSS", () => {
@@ -60,11 +37,13 @@ describe("marathon theme", () => {
 });
 
 describe("checks", () => {
-  it("keep a hue exemption only while the Marathon accent still needs it", () => {
-    const cleared = [...HUE_EXEMPT_UNTIL_PR4].filter((token) =>
-      SCHEMES.every((scheme) => hueDistance(marathon.color.accent.h, core[scheme][token].h) >= 30),
-    );
-    expect(cleared, "the accent now clears these trust hues: delete them from HUE_EXEMPT_UNTIL_PR4").toEqual([]);
+  it("map an out-of-gamut seed into sRGB, keeping lightness and hue", () => {
+    const loud = { ...marathon, color: { ...marathon.color, accent: { l: 0.7, c: 0.37, h: 300 } } };
+    const primary = themeTokens(themeManifest.parse(loud)).primary;
+    expect(primary.l).toBe(0.7);
+    expect(primary.h).toBe(300);
+    expect(primary.c).toBeLessThan(0.37);
+    expect(checkTheme(themeManifest.parse(loud), core).errors.some((line) => line.includes("outside sRGB"))).toBe(false);
   });
 
   it("fail an accent within 30° of a trust hue", () => {
@@ -73,9 +52,9 @@ describe("checks", () => {
   });
 
   it("fail a text pair under its floor", () => {
-    const pale = { ...marathon, color: { ...marathon.color, accent: { l: 0.8, c: 0.1, h: 250 } } };
-    const { errors } = checkTheme(themeManifest.parse(pale), core);
-    expect(errors.some((line) => line.startsWith("marathon light link on background"))).toBe(true);
+    const dim = { ...marathon, color: { ...marathon.color, accent: { l: 0.5, c: 0.1, h: 250 } } };
+    const { errors } = checkTheme(themeManifest.parse(dim), core);
+    expect(errors.some((line) => line.startsWith("marathon dark link on background"))).toBe(true);
   });
 
   it("reject a manifest outside the type", () => {
@@ -93,7 +72,15 @@ describe("component class names", () => {
     "raw palette color": /\b(?:[\w-]+:)*(?:bg|text|border|ring|fill|stroke|from|via|to|decoration|outline|divide|placeholder|caret|shadow)-(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-\d{2,3}\b/g,
     "text-primary on text (use text-link)": /\btext-primary(?![-\w])/g,
     "size outside the type scale": /\b(?:[\w-]+:)*text-(?:xs|sm|base|lg|xl|[2-9]xl|\[\d+(?:px|rem)\])(?![-\w])/g,
+    "ring focus (the global outline is the focus style)": /\b(?:[\w-]+:)*(?:focus(?:-visible)?:ring|outline-none)[\w/[\]-]*/g,
   };
+
+  it("ban rounded corners outside components/ui, which read --radius", () => {
+    const hits = sources
+      .filter(({ file }) => !file.startsWith("components/ui/"))
+      .flatMap(({ file, text }) => [...text.matchAll(/\b(?:[\w-]+:)*rounded(?:-[\w[\]]+)*(?![-\w])/g)].map((match) => `${file}: ${match[0]}`));
+    expect(hits).toEqual([]);
+  });
 
   for (const [rule, pattern] of Object.entries(banned)) {
     it(`ban ${rule}`, () => {

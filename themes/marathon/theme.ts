@@ -9,8 +9,8 @@ export default {
     wordmark: { src: "themes/marathon/wordmark.svg", label: "Marathon Wiki", minWidth: 132 },
   },
   color: {
-    neutral: { h: 250, c: 0.02 },
-    accent: { l: 0.44, c: 0.13, h: 160 },
+    neutral: { h: 115, c: 0.01 },
+    accent: { l: 0.921, c: 0.233, h: 125.5 },
     accentFill: "seed",
   },
   type: {

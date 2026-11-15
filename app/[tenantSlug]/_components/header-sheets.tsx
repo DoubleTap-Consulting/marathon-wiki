@@ -5,44 +5,37 @@ import { useState, useSyncExternalStore } from "react";
 
 import { canReviewAction } from "../review/actions";
 
+import { applyScheme } from "@/app/_components/scheme";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 
 const ICON_BUTTON =
-  "inline-flex size-11 items-center justify-center rounded-md text-foreground outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring";
+  "inline-flex size-11 items-center justify-center text-foreground hover:bg-muted";
 
 const SCHEMES = ["system", "light", "dark"] as const;
 type Scheme = (typeof SCHEMES)[number];
-const SCHEME_ICON = { system: Monitor, light: Sun, dark: Moon };
 const schemeListeners = new Set<() => void>();
 const subscribeScheme = (listener: () => void) => {
   schemeListeners.add(listener);
   return () => schemeListeners.delete(listener);
 };
-const readScheme = (): Scheme => {
-  const classes = document.documentElement.classList;
-  return classes.contains("dark") ? "dark" : classes.contains("light") ? "light" : "system";
-};
+const readScheme = () => (document.documentElement.dataset.schemePref ?? "system") as Scheme;
 
-// Cycles system → light → dark. The cookie is read by the script in app/layout.tsx on the next load.
+// Cycles system → light → dark. The icon follows data-scheme-pref in CSS, so it is right before hydration.
 export function SchemeToggle() {
   const scheme = useSyncExternalStore(subscribeScheme, readScheme, () => "system" as const);
   const next = SCHEMES[(SCHEMES.indexOf(scheme) + 1) % SCHEMES.length];
-  const Icon = SCHEME_ICON[scheme];
 
   const choose = () => {
-    document.documentElement.classList.remove("light", "dark");
-    if (next === "system") {
-      document.cookie = "scheme=; path=/; max-age=0; samesite=lax";
-    } else {
-      document.documentElement.classList.add(next);
-      document.cookie = `scheme=${next}; path=/; max-age=31536000; samesite=lax`;
-    }
+    document.cookie = next === "system" ? "scheme=; path=/; max-age=0; samesite=lax" : `scheme=${next}; path=/; max-age=31536000; samesite=lax`;
+    applyScheme(document.documentElement.dataset.theme ?? "");
     schemeListeners.forEach((listener) => listener());
   };
 
   return (
     <button type="button" aria-label={`Color scheme: ${scheme}. Switch to ${next}`} className={ICON_BUTTON} onClick={choose}>
-      <Icon className="size-5" aria-hidden="true" />
+      <Monitor className="size-5 [[data-scheme-pref=dark]_&]:hidden [[data-scheme-pref=light]_&]:hidden" aria-hidden="true" />
+      <Sun className="hidden size-5 [[data-scheme-pref=light]_&]:block" aria-hidden="true" />
+      <Moon className="hidden size-5 [[data-scheme-pref=dark]_&]:block" aria-hidden="true" />
     </button>
   );
 }

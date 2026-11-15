@@ -26,10 +26,9 @@ import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
 import { MarkdownArticle, planArticle } from "../../_components/markdown";
 import {
   ProvenanceTrigger,
-  RelativeTime,
-  RetrievedDate,
   type CitedSource,
 } from "../../_components/trust-ui";
+import { SiteDate } from "../../_components/site-date";
 import { WikiChrome } from "../../_components/wiki-chrome";
 import {
   AddNoteButton,
@@ -46,7 +45,7 @@ export const revalidate = 300;
 // The ::after hit area grows each tap target to 24px, and to 44px on small screens, where the
 // wider row gap and overflow margin keep neighbouring 44px areas from overlapping.
 const STRIP_ITEM =
-  "relative text-foreground underline-offset-4 outline-none hover:underline focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring after:absolute after:top-1/2 after:left-1/2 after:h-6 after:w-full after:min-w-6 after:-translate-1/2 after:content-[''] max-sm:after:h-11 max-sm:after:min-w-11";
+  "relative text-foreground underline-offset-4 hover:underline after:absolute after:top-1/2 after:left-1/2 after:h-6 after:w-full after:min-w-6 after:-translate-1/2 after:content-[''] max-sm:after:h-11 max-sm:after:min-w-11";
 
 const META = "text-label font-medium uppercase tracking-wide text-muted-foreground";
 
@@ -144,7 +143,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               tenant.name
             )}
           </p>
-          <h1 className="mt-2 text-title font-semibold tracking-tight text-foreground">
+          <h1 className="mt-2 text-title font-display text-foreground">
             {page.title}
           </h1>
           <TrustStrip
@@ -227,7 +226,7 @@ function TrustStrip({
       <span key="when">
         {summary.hasAiHistory ? "Edited" : "Edited by the editors"}{" "}
         <Link href={diffHref as Route} className={STRIP_ITEM}>
-          <RelativeTime iso={summary.at} />
+          <SiteDate iso={summary.at} />
         </Link>
       </span>,
     );
@@ -243,7 +242,7 @@ function TrustStrip({
           className={STRIP_ITEM}
         />{" "}
         <Link href={diffHref as Route} className={STRIP_ITEM}>
-          <RelativeTime iso={summary.at} />
+          <SiteDate iso={summary.at} />
         </Link>
       </span>,
     );
@@ -260,7 +259,7 @@ function TrustStrip({
       <span key="checked">
         {sourceCheck.kind === "checked" ? (
           <>
-            Sources checked <RetrievedDate iso={sourceCheck.at} />
+            Sources checked <SiteDate iso={sourceCheck.at} />
           </>
         ) : sourceCheck.dailyRefetch ? (
           "Source check date unknown; re-checked daily"
@@ -286,7 +285,7 @@ function TrustStrip({
   );
 
   return (
-    <p data-slot="trust-strip" className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 max-sm:gap-y-[22px] sm:gap-x-0 text-small text-muted-foreground">
+    <p data-slot="trust-strip" className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 max-sm:gap-y-[25px] sm:gap-x-0 text-small text-muted-foreground">
       {segments.map((segment, index) => (
         <span key={index} className="inline-flex items-center whitespace-nowrap">
           {index > 0 ? (
@@ -311,7 +310,7 @@ function InlineNote({ note }: { note: WikiCommunityNoteSummary }) {
     <aside
       id={`note-${note.id}`}
       aria-label="Community note"
-      className="my-6 scroll-mt-20 border-l-2 border-primary/60 py-2 pl-4 text-ui"
+      className="my-6 scroll-mt-20 border-l-2 border-input py-2 pl-4 text-ui"
     >
       <p className={META}>Community note</p>
       <p className="mt-1 text-foreground">{note.bodyMarkdown}</p>
@@ -329,7 +328,7 @@ function InlineNote({ note }: { note: WikiCommunityNoteSummary }) {
             </span>
           </>
         ) : null}
-        <RelativeTime iso={toIso(note.reviewedAt ?? note.createdAt)} />
+        <SiteDate iso={toIso(note.reviewedAt ?? note.createdAt)} />
       </p>
     </aside>
   );
@@ -353,10 +352,10 @@ function WhatChanged({
 
   return (
     <Collapsible className="mt-12 border-y">
-      <CollapsibleTrigger className="group flex min-h-12 w-full items-center gap-2 text-left text-small text-muted-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring">
+      <CollapsibleTrigger className="group flex min-h-12 w-full items-center gap-2 text-left text-small text-muted-foreground">
         <span className="font-medium text-foreground">What changed in revision {revision.revisionNumber}</span>
         <span aria-hidden="true">·</span>
-        <RelativeTime iso={toIso(revision.createdAt)} />
+        <SiteDate iso={toIso(revision.createdAt)} />
         <span aria-hidden="true" className="ml-auto transition-transform duration-200 ease-out group-data-[state=open]:rotate-90">
           ▸
         </span>
@@ -406,13 +405,13 @@ function References({ references }: { references: CitedSource[] }) {
               )}
               <p className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-small text-muted-foreground">
                 {source.publisher ? <span>{source.publisher}</span> : null}
-                <span className="inline-flex h-5 items-center rounded border px-1.5 text-label font-medium text-foreground">
+                <span className="inline-flex h-5 items-center border px-1.5 text-label font-medium text-foreground">
                   {sourceTypeLabel(source.sourceType)}
                 </span>
                 {source.authorityTier ? <span>{authorityLabel(source.authorityTier)}</span> : null}
                 {source.retrievedAt ? (
                   <span>
-                    retrieved <RetrievedDate iso={source.retrievedAt} />
+                    retrieved <SiteDate iso={source.retrievedAt} />
                   </span>
                 ) : null}
               </p>

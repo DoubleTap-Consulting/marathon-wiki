@@ -32,7 +32,7 @@ const schema = {
 };
 
 const LINK_CLASS =
-  "text-link underline decoration-link/40 underline-offset-4 hover:decoration-link focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+  "text-link underline decoration-link/40 underline-offset-4 hover:decoration-link";
 
 const BASE_COMPONENTS: Components = {
   h2: ({ children, id }) => (
@@ -56,7 +56,7 @@ const BASE_COMPONENTS: Components = {
   ol: ({ children }) => <ol className="my-5 list-decimal space-y-2 pl-6">{children}</ol>,
   blockquote: ({ children }) => <blockquote className="my-5 border-l-2 pl-4 text-muted-foreground">{children}</blockquote>,
   table: ({ children }) => (
-    <div className="my-6 overflow-x-auto rounded-md border">
+    <div className="my-6 overflow-x-auto border">
       <table className="w-full border-collapse text-left text-ui tabular-nums">{children}</table>
     </div>
   ),
