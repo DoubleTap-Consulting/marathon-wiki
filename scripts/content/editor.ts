@@ -8,6 +8,9 @@
  *   ingest                         store rendered snapshots in the database and queue pages whose sources changed
  *   enqueue <slug> [--reason r]    queue one page (default reason manual_refresh)
  *   process [--limit n]            run the worker once (needs an AI Gateway credential)
+ *   note <slug> --text "..." [--quote "..."] [--source-url u]
+ *                                  file an editor correction as an approved reader note and queue the page
+ *                                  (the same path as approving a reader note in Review)
  *   drill [slug] [--model]         full refresh cycle on a throwaway wiki that is deleted afterwards:
  *                                  ingest, write the page, edit a snapshot, detect the change, queue, regenerate, diff.
  *                                  Uses the scripted no-spend model unless --model is given.
@@ -35,7 +38,8 @@ const flag = (name: string) => {
   return index >= 0 ? (args[index + 1] ?? "") : null;
 };
 const has = (name: string) => args.includes(`--${name}`);
-const positional = args.filter((arg, index) => !arg.startsWith("--") && !args[index - 1]?.startsWith("--tenant") && !args[index - 1]?.startsWith("--reason") && !args[index - 1]?.startsWith("--limit") && !args[index - 1]?.startsWith("--env-file"));
+const VALUE_FLAGS = ["--tenant", "--reason", "--limit", "--env-file", "--text", "--quote", "--source-url"];
+const positional = args.filter((arg, index) => !arg.startsWith("--") && !VALUE_FLAGS.includes(args[index - 1] ?? ""));
 const [command, target] = positional;
 
 const ALLOWED = ["DATABASE_URL", "DATABASE_URL_UNPOOLED", "AI_GATEWAY_API_KEY", "VERCEL_OIDC_TOKEN"];
@@ -57,7 +61,8 @@ const snapshotDir = path.join(workDir, "snapshots");
 
 const { getDb } = await import("@/src/db/client");
 const { CONTENT_SOURCES, CONTENT_SPECS, upsertRenderedSnapshots, loadRenderedSnapshots } = await import("@/src/content/editor-store");
-const { enqueueSourceChangeRefreshes } = await import("@/src/content/editor-triggers");
+const { enqueueReaderNoteRefresh, enqueueSourceChangeRefreshes } = await import("@/src/content/editor-triggers");
+const { createWikiCommunityNote, updateWikiCommunityNoteModerationStatus } = await import("@/src/db/wiki");
 const { enqueueAiRefreshQueueItem, processDueAiRefreshQueueItems } = await import("@/src/ai/wiki-refresh-queue");
 const { createGatewayCaller, hasGatewayCredential, MemoryLedger } = await import("@/src/content/model-gateway");
 const { createScriptedCall } = await import("@/src/content/scripted-call");
@@ -87,7 +92,13 @@ function modelCaller(useModel: boolean) {
     process.exit(2);
   }
   const ledger = new MemoryLedger();
-  const call = createGatewayCaller({ ledger, capUsd: Number(process.env.WIKI_AI_RUN_CAP_USD ?? 1), minIntervalMs: 1_000, log: (message) => console.warn(`editor: ${message}`) });
+  const call = createGatewayCaller({
+    ledger,
+    capUsd: Number(process.env.WIKI_AI_RUN_CAP_USD ?? 1),
+    minIntervalMs: 1_000,
+    timeoutMs: Number(process.env.WIKI_AI_CALL_TIMEOUT_MS ?? 180_000),
+    log: (message) => console.warn(`editor: ${message}`),
+  });
   return Object.assign(call, { ledger });
 }
 
@@ -174,8 +185,21 @@ try {
   else if (command === "enqueue") {
     const tenant = await tenantBySlug(tenantSlug);
     const spec = CONTENT_SPECS.find((candidate) => candidate.slug === target);
-    const item = await enqueueAiRefreshQueueItem({ tenantId: tenant.id, targetSlug: target!, pageTitle: spec?.title ?? target!, reason: flag("reason") || "manual_refresh", source: "manual_trigger", scheduledFor: new Date() }, db);
+    const item = await enqueueAiRefreshQueueItem({ tenantId: tenant.id, targetSlug: target!, pageTitle: spec?.title ?? target!, reason: flag("reason") || "manual_refresh", source: "manual_trigger", scheduledFor: new Date(), dedupeKey: `manual_trigger:${tenant.id}:${target}:${Date.now()}` }, db);
     console.log(`editor: queued ${item.targetSlug} (${item.reason}) as ${item.id}.`);
+  } else if (command === "note") {
+    const tenant = await tenantBySlug(tenantSlug);
+    const text = flag("text");
+    if (!target || !text) throw new Error('usage: note <slug> --text "..." [--quote "..."]');
+    const page = await db.selectFrom("wiki_pages").select(["id", "title"]).where("tenant_id", "=", tenant.id).where("slug", "=", target).executeTakeFirstOrThrow();
+    const actorId = "editor-review";
+    const note = await createWikiCommunityNote(
+      { tenantId: tenant.id, pageId: page.id, noteType: "correction", bodyMarkdown: text, targetQuote: flag("quote"), sourceUrl: flag("source-url"), actorId, metadata: { origin: "human", editorReview: true } },
+      db,
+    );
+    await updateWikiCommunityNoteModerationStatus({ tenantId: tenant.id, noteId: note.id, status: "approved", actorId, reviewNote: "Editor correction from preview review." }, db);
+    const item = await enqueueReaderNoteRefresh({ tenantId: tenant.id, noteId: note.id, pageId: page.id, pageSlug: target, pageTitle: page.title }, db);
+    console.log(`editor: approved correction note ${note.id} on ${target}; queued ${item.reason} as ${item.id}.`);
   } else if (command === "process") {
     const tenant = await tenantBySlug(tenantSlug);
     const call = modelCaller(true);
@@ -183,7 +207,7 @@ try {
     console.log(JSON.stringify({ processed: result.processed.map((entry) => [entry.pageSlug, entry.outcome]), failed: result.failed.map((entry) => [entry.item.targetSlug, entry.error]), skipped: result.skipped, spendUsd: "ledger" in call ? call.ledger.totalUsd() : 0 }, null, 2));
   } else if (command === "drill") await drill(target ?? "runner-shells", has("model"));
   else {
-    console.error("usage: editor.ts status | ingest | enqueue <slug> | process | drill [slug] [--model]");
+    console.error("usage: editor.ts status | ingest | enqueue <slug> | note <slug> --text ... | process | drill [slug] [--model]");
     process.exitCode = 1;
   }
 } finally {

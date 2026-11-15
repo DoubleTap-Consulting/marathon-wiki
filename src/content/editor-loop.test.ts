@@ -6,7 +6,8 @@ try {
   // CI can provide DATABASE_URL directly.
 }
 
-import { evaluatePublishGate, describeChanges, type Snapshot } from "./editor";
+import { DEFAULT_PUBLISH_POLICY, evaluatePublishGate, describeChanges, type Snapshot } from "./editor";
+import { countReadableWords, isHubSpec } from "./pipeline";
 import { loadRenderedSnapshots, upsertRenderedSnapshots } from "./editor-store";
 import { enqueueReaderNoteRefresh, enqueueSourceChangeRefreshes } from "./editor-triggers";
 import { BudgetExceeded, MemoryLedger, createGatewayCaller } from "./model-gateway";
@@ -124,7 +125,7 @@ describe.sequential("AI editor loop", () => {
     await enqueueAiRefreshQueueItem({ tenantId, targetSlug: SLUG, pageTitle: "Runner Shell Drill", reason: "scheduled_weekly", source: "weekly_cron", scheduledFor: tick(5), dedupeKey: `${runId}:weekly` }, db);
     const result = await processDueAiRefreshQueueItems(
       { now: tick(6), tenantId },
-      { db, call: createScriptedCall(), policy: { minSupportedRatio: 0.8, minSupportedClaims: 99, maxUnsupported: 3 } },
+      { db, call: createScriptedCall(), policy: { ...DEFAULT_PUBLISH_POLICY, minSupportedClaims: 99 } },
     );
     expect(result.processed.map((entry) => entry.outcome)).toEqual(["needs_review"]);
     expect((await getPublishedWikiPageBySlug(tenantId, SLUG, db))?.latestRevisionNumber).toBe(3);
@@ -169,6 +170,23 @@ describe("publish gate and change notes", () => {
     expect(evaluatePublishGate(claims(8, 1, 1)).decision).toBe("publish");
     expect(evaluatePublishGate(claims(2, 0)).reasons).toEqual(["only 2 supported statements (need 3)"]);
     expect(evaluatePublishGate(claims(6, 4)).decision).toBe("needs_review");
+  });
+
+  it("sends a hub page under the length minimum to Review, but not a short leaf page", () => {
+    const solid = Array.from({ length: 10 }, () => ({ status: "supported" as const }));
+    const thinHub = evaluatePublishGate(solid, DEFAULT_PUBLISH_POLICY, { hub: true, words: 106 });
+    expect(thinHub.decision).toBe("needs_review");
+    expect(thinHub.reasons).toEqual(["hub page has 106 words (need 250)"]);
+    expect(evaluatePublishGate(solid, DEFAULT_PUBLISH_POLICY, { hub: true, words: 250 }).decision).toBe("publish");
+    expect(evaluatePublishGate(solid, DEFAULT_PUBLISH_POLICY, { hub: false, words: 106 }).decision).toBe("publish");
+  });
+
+  it("treats child-page hubs and flagged topic hubs as hubs, and counts only readable words", () => {
+    expect(isHubSpec({ hubChildren: ["recon"] })).toBe(true);
+    expect(isHubSpec({ hubChildren: [], hub: true })).toBe(true);
+    expect(isHubSpec({ hubChildren: [] })).toBe(false);
+    const body = "## Overview\n\nThe Armory sells kits.{{cite:a}} It barters too.\n\n| Weapon | Ammo |\n| --- | --- |\n| KKV | Light |\n\n## See also\n\n- [Factions](/marathon/factions)";
+    expect(countReadableWords(body)).toBe(11);
   });
 
   it("counts a reworded statement as unchanged", () => {

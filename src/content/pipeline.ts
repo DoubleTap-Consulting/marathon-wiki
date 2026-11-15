@@ -16,7 +16,7 @@
  */
 import { z } from "zod";
 
-export const CONTENT_PROMPT_VERSION = "marathon-real-content-v3";
+export const CONTENT_PROMPT_VERSION = "marathon-real-content-v5";
 export const CLAIM_CHECK_PROMPT_VERSION = "marathon-claim-check-v2";
 
 export type AuthorityTier = "official" | "reputable_editorial" | "community_wiki" | "community";
@@ -49,7 +49,35 @@ export type PageSpec = {
    * rendered source before it is shown as "Sources disagree", so a stale quote is dropped.
    */
   knownConflicts?: Array<{ heading: string; sentence: string; positions: Array<{ sourceKey: string; quote: string }> }>;
+  /** A topic hub without child pages (hubChildren already marks a page as a hub). Hubs must meet the gate's length minimum. */
+  hub?: boolean;
+  /**
+   * Parsed tables given to the model as clean rows ("Assault rifle: M77 (Light Rounds)") in place of
+   * the raw table text, where column headers sit next to values and get misread.
+   */
+  contextTables?: Array<"weapons">;
+  /** Wider source context for pages that came out thin: overrides selectExtracts' budget and per-source cap. */
+  extracts?: { budget?: number; perSource?: number };
 };
+
+export function isHubSpec(spec: Pick<PageSpec, "hubChildren" | "hub">) {
+  return Boolean(spec.hub) || spec.hubChildren.length > 0;
+}
+
+/**
+ * Words a reader actually reads: prose and table cells. Headings, citation markers and the
+ * link-only "See also" / child-page lists are not counted.
+ */
+export function countReadableWords(markdown: string) {
+  return markdown
+    .replace(/\{\{cite:[^}]+\}\}/g, " ")
+    .split("\n")
+    .filter((line) => !/^\s*#/.test(line) && !/^\s*\|?\s*:?-{3,}/.test(line) && !/^\s*[-*]\s+\[[^\]]+\]\([^)]+\)\s*$/.test(line))
+    .join(" ")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .split(/[\s|]+/)
+    .filter((word) => /[\p{L}\p{N}]/u.test(word)).length;
+}
 
 export type Extract = { id: string; sourceKey: string; text: string };
 
@@ -215,6 +243,7 @@ export function renderExtracts(extracts: Extract[], sources: Map<string, SourceR
 export const DRAFT_SYSTEM = [
   "You write pages for an unofficial, source-backed wiki about Marathon, Bungie's 2026 extraction shooter.",
   "You may ONLY state facts that appear in the extracts provided. Never use outside knowledge, never guess, never fill gaps.",
+  "State each fact once. Do not restate a fact in other words, and do not pad with sentences about what a publication lists.",
   "Write in your own words. Do not copy sentences from the extracts, and never copy text from community wikis.",
   "Every sentence must list the extract ids that state its fact. A sentence without a supporting extract must be left out.",
   "One fact per sentence, under 30 words: a fact checker must find it stated in a single cited extract, so long sentences that",
@@ -258,7 +287,9 @@ export function buildDraftPrompt(
   return [
     `Today is ${today}. Write the wiki page "${spec.title}" (slug: ${spec.slug}).`,
     `Scope: ${spec.scope}`,
-    "Length: 2 to 5 sections, 120 to 450 words in total. Fewer, well-supported sentences beat more, weaker ones.",
+    isHubSpec(spec)
+      ? "Length: this is a hub page, so 3 to 6 sections and 260 to 500 words in total, all from the extracts. If the extracts cannot support that much, write less rather than padding; a thin hub goes to editor review."
+      : "Length: 2 to 5 sections, 120 to 450 words in total. Fewer, well-supported sentences beat more, weaker ones.",
     "The summary is one plain sentence (it is shown under the title and is not fact-checked, so keep it to the page's scope).",
     "Do not write a references section; citations are added automatically from extractIds.",
     ...(spec.table === "weapons"
@@ -730,6 +761,11 @@ const WEAPON_CLASSES = [
 ] as const;
 
 const AMMO = new Set(["Light Rounds", "Heavy Rounds", "Volt Battery", "Volt Cell", "MIPS"]);
+
+/** Raw extracts that are mostly table cells (three or more lines that are just an ammo type). */
+export function isTableShapedExtract(text: string) {
+  return text.split("\n").filter((line) => AMMO.has(line.trim())).length >= 3;
+}
 
 export function parseWeaponTable(text: string) {
   const lines = text.split("\n").map((line) => line.trim()).filter(Boolean);

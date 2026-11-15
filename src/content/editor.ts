@@ -14,7 +14,10 @@ import {
   buildDraftPrompt,
   buildProvenance,
   chunkSnapshot,
+  countReadableWords,
   datePatchClaims,
+  isHubSpec,
+  isTableShapedExtract,
   claimCheckSchema,
   draftSchema,
   parseWeaponTable,
@@ -65,10 +68,16 @@ export function buildCorpus(sources: SourceRecord[], snapshots: Snapshot[]): Cor
 // ---------------------------------------------------------------------------
 // Publish gate
 
-export type PublishPolicy = { minSupportedRatio: number; minSupportedClaims: number; maxUnsupported: number };
+export type PublishPolicy = { minSupportedRatio: number; minSupportedClaims: number; maxUnsupported: number; minHubWords: number };
 
-/** Auto-publish only when nearly every statement is backed by an official or press quote. */
-export const DEFAULT_PUBLISH_POLICY: PublishPolicy = { minSupportedRatio: 0.8, minSupportedClaims: 3, maxUnsupported: 3 };
+/**
+ * Auto-publish only when nearly every statement is backed by an official or press quote, and a
+ * hub page is long enough to be worth landing on (a thin hub goes to Review instead).
+ */
+export const DEFAULT_PUBLISH_POLICY: PublishPolicy = { minSupportedRatio: 0.8, minSupportedClaims: 3, maxUnsupported: 3, minHubWords: 250 };
+
+/** What the gate needs to know about the page itself, beyond its claims. */
+export type GateShape = { hub: boolean; words: number };
 
 export type GateResult = {
   decision: "publish" | "needs_review";
@@ -78,13 +87,18 @@ export type GateResult = {
   supportedRatio: number;
   reasons: string[];
   policy: PublishPolicy;
+  shape?: GateShape;
 };
 
 /**
  * Contradicted claims count as honest, since resolveClaims only keeps a disagreement when two
  * sources' quotes verify. Unsupported claims (community-only) pull the ratio down.
  */
-export function evaluatePublishGate(claims: Array<{ status: ClaimStatus }>, policy: PublishPolicy = DEFAULT_PUBLISH_POLICY): GateResult {
+export function evaluatePublishGate(
+  claims: Array<{ status: ClaimStatus }>,
+  policy: PublishPolicy = DEFAULT_PUBLISH_POLICY,
+  shape?: GateShape,
+): GateResult {
   const count = (status: ClaimStatus) => claims.filter((claim) => claim.status === status).length;
   const supported = count("supported");
   const unsupported = count("unsupported");
@@ -96,7 +110,8 @@ export function evaluatePublishGate(claims: Array<{ status: ClaimStatus }>, poli
     reasons.push(`${Math.round(supportedRatio * 100)}% of statements supported (need ${Math.round(policy.minSupportedRatio * 100)}%)`);
   }
   if (unsupported > policy.maxUnsupported) reasons.push(`${unsupported} statements only community sources back (max ${policy.maxUnsupported})`);
-  return { decision: reasons.length ? "needs_review" : "publish", supported, unsupported, contradicted, supportedRatio, reasons, policy };
+  if (shape?.hub && shape.words < policy.minHubWords) reasons.push(`hub page has ${shape.words} words (need ${policy.minHubWords})`);
+  return { decision: reasons.length ? "needs_review" : "publish", supported, unsupported, contradicted, supportedRatio, reasons, policy, ...(shape ? { shape } : {}) };
 }
 
 // ---------------------------------------------------------------------------
@@ -240,8 +255,14 @@ export async function composePage(input: {
   now?: Date;
 }): Promise<ComposedPage> {
   const { spec, corpus } = input;
-  const extracts = selectExtracts(spec, corpus.extractsBySource);
+  const tableContext = spec.contextTables?.includes("weapons") ? weaponsTable(corpus) : null;
+  const selected = selectExtracts(spec, corpus.extractsBySource, spec.extracts);
+  const extracts = tableContext
+    ? [...selected.filter((extract) => !(extract.sourceKey === tableContext.extract.sourceKey && isTableShapedExtract(extract.text))), tableContext.extract]
+    : selected;
   if (extracts.length === 0) throw new Error(`No relevant extracts for ${spec.slug}.`);
+  const extractsById = new Map(corpus.extractsById);
+  if (tableContext) extractsById.set(tableContext.extract.id, tableContext.extract);
   const known = new Set(extracts.map((extract) => extract.id));
 
   const draftCall = await input.call({
@@ -267,7 +288,7 @@ export async function composePage(input: {
   const conflicts = draft.conflicts.map((conflict, conflictIndex) => ({ conflictId: `conflict_${conflictIndex + 1}`, sentence: conflict.sentence, positions: conflict.positions }));
   const checkCall =
     checkable.length || conflicts.length
-      ? await input.call({ page: spec.slug, step: "claim-check", system: CHECK_SYSTEM, prompt: buildCheckPrompt(checkable, corpus.extractsById, conflicts), schema: claimCheckSchema })
+      ? await input.call({ page: spec.slug, step: "claim-check", system: CHECK_SYSTEM, prompt: buildCheckPrompt(checkable, extractsById, conflicts), schema: claimCheckSchema })
       : { output: { checks: [], conflicts: [] }, modelId: draftCall.modelId, responseId: null };
   const conflictVerdicts = new Map(
     conflicts.flatMap((conflict, conflictIndex) => {
@@ -276,14 +297,12 @@ export async function composePage(input: {
     }),
   );
 
-  const resolved = resolveClaims(draft, checkCall.output.checks, corpus.extractsById, corpus.sources, spec.slug, conflictVerdicts);
+  const resolved = resolveClaims(draft, checkCall.output.checks, extractsById, corpus.sources, spec.slug, conflictVerdicts);
   const flagged = resolveKnownConflicts(spec, corpus);
   const claims = datePatchClaims([...resolved.claims, ...flagged.claims], corpus.sources);
   const dropped = [...resolved.dropped, ...flagged.dropped, ...modelConflictsDropped];
   const table = spec.table === "weapons" ? weaponsTable(corpus) : null;
   const allClaims = table ? [...claims, table.intro] : claims;
-  const gate = evaluatePublishGate(allClaims, input.policy);
-
   const bodyMarkdown = assembleMarkdown({
     claims,
     sectionOrder: draft.sections.map((section) => section.heading),
@@ -291,8 +310,9 @@ export async function composePage(input: {
     hubLinks: spec.hubChildren.map((slug) => ({ slug, title: input.titles.get(slug) ?? slug })),
     related: spec.related.filter((slug) => !spec.hubChildren.includes(slug)).map((slug) => ({ slug, title: input.titles.get(slug) ?? slug })),
   });
+  const gate = evaluatePublishGate(allClaims, input.policy, { hub: isHubSpec(spec), words: countReadableWords(bodyMarkdown) });
 
-  const extractLookup = new Map(corpus.extractsById);
+  const extractLookup = new Map(extractsById);
   if (table) extractLookup.set(table.extract.id, table.extract);
   const citedExtractIds = [...new Set(allClaims.flatMap((claim) => claim.quotes.map((quote) => quote.extractId)))];
 

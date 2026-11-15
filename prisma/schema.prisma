@@ -288,3 +288,20 @@ model AiRefreshQueueItem {
   @@index([source, scheduledFor])
   @@map("ai_refresh_queue_items")
 }
+
+/// One-time loads of committed generated content (scripts/content/load-generated-once.ts).
+/// The unique loadKey blocks a second load of the generated file into the same wiki.
+model ContentLoadRecord {
+  id             String   @id
+  loadKey        String   @unique @map("load_key")
+  tenantId       String   @map("tenant_id")
+  fileSha256     String   @map("file_sha256")
+  pageCount      Int      @map("page_count")
+  publishedCount Int      @default(0) @map("published_count")
+  reviewCount    Int      @default(0) @map("review_count")
+  target         String
+  loadedBy       String   @map("loaded_by")
+  loadedAt       DateTime @default(now()) @map("loaded_at")
+
+  @@map("content_load_records")
+}

@@ -5221,6 +5221,310 @@
     }
   },
   {
+    "slug": "recon",
+    "title": "Recon",
+    "summary": "Page covers the Recon Runner shell: archetype, abilities, traits, and notable changes.",
+    "category": "gameplay",
+    "bodyMarkdown": "## Overview\n\nRecon is an intel specialist Runner shell.{{cite:bungie-runner-shells}} Recon excels at identifying threats and tracking movement.{{cite:bungie-runner-shells}} Recon's kit includes echo pulses, tracker drones, and holographic footstep trails.{{cite:bungie-runner-shells}}\n\n## Abilities\n\nEcho Pulse now fires pulses in a cone in the player's aim direction (Update 1.1.9.2, October 6, 2026).{{cite:bungie-update-1-1-9-2}} Echo Pulse now staggers enemy non-Runner combatants and briefly prevents their combat abilities when first struck (Update 1.1.9.2, October 6, 2026).{{cite:bungie-update-1-1-9-2}}\n\n## Traits\n\nInterrogation's notification to pinged Recon players is delayed by two seconds (Update 1.1.9.2, October 6, 2026).{{cite:bungie-update-1-1-9-2}}\n\n## Notable Changes\n\nBungie stated Echo Pulse is less oppressive and mandatory after the October 6, 2026 changes.{{cite:bungie-nightfall-refresh}} Developers said limiting Echo Pulse to a cone forces Recon players to predict targets in three-dimensional space (Update 1.1.9.2, October 6, 2026).{{cite:bungie-update-1-1-9-2}}\n\n## See also\n\n- [[runner-shells|Runner shells]]\n- [[cores|Cores]]\n- [[implants|Implants]]",
+    "aiProvenance": {
+      "modelId": "openai/gpt-5-mini",
+      "provider": "vercel-ai-gateway",
+      "changeNote": "A reader's note prompted a re-check: 7 statements added, 8 removed.",
+      "responseId": "aitxt-AdlltRbZhcy3wJHiMasCXHoB",
+      "generatedAt": "2026-11-15T20:53:43.489Z",
+      "publishGate": {
+        "shape": {
+          "hub": false,
+          "words": 125
+        },
+        "policy": {
+          "minHubWords": 250,
+          "maxUnsupported": 3,
+          "minSupportedRatio": 0.8,
+          "minSupportedClaims": 3
+        },
+        "reasons": [],
+        "decision": "publish",
+        "supported": 8,
+        "unsupported": 0,
+        "contradicted": 0,
+        "supportedRatio": 1
+      },
+      "requestedBy": "ai-refresh-queue",
+      "claimSupport": [
+        {
+          "quotes": [
+            {
+              "quote": "Archetype: Intel specialist",
+              "extractId": "bungie-runner-shells#4"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_recon_1",
+          "patchRef": null,
+          "claimText": "Recon is an intel specialist Runner shell.",
+          "extractIds": [
+            "bungie-runner-shells#4"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_runner_shells"
+          ],
+          "matchedSourceKeys": [
+            "bungie-runner-shells"
+          ],
+          "matchedSourceTitles": [
+            "Dev Insights: Runner Shells"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "excel at identifying threats and tracking movements",
+              "extractId": "bungie-runner-shells#4"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_recon_2",
+          "patchRef": null,
+          "claimText": "Recon excels at identifying threats and tracking movement.",
+          "extractIds": [
+            "bungie-runner-shells#4"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_runner_shells"
+          ],
+          "matchedSourceKeys": [
+            "bungie-runner-shells"
+          ],
+          "matchedSourceTitles": [
+            "Dev Insights: Runner Shells"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "using echo pulses, tracker drones, and holographic footstep trails",
+              "extractId": "bungie-runner-shells#4"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_recon_3",
+          "patchRef": null,
+          "claimText": "Recon's kit includes echo pulses, tracker drones, and holographic footstep trails.",
+          "extractIds": [
+            "bungie-runner-shells#4"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_runner_shells"
+          ],
+          "matchedSourceKeys": [
+            "bungie-runner-shells"
+          ],
+          "matchedSourceTitles": [
+            "Dev Insights: Runner Shells"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Echo Pulse now fires its pulses in a cone in your aim direction",
+              "extractId": "bungie-update-1-1-9-2#6"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_recon_6",
+          "patchRef": "Update 1.1.9.2 (October 6, 2026)",
+          "claimText": "Echo Pulse now fires pulses in a cone in the player's aim direction (Update 1.1.9.2, October 6, 2026).",
+          "extractIds": [
+            "bungie-update-1-1-9-2#6"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_update_1_1_9_2"
+          ],
+          "matchedSourceKeys": [
+            "bungie-update-1-1-9-2"
+          ],
+          "matchedSourceTitles": [
+            "Marathon Update 1.1.9.2"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Echo Pulse now staggers enemy non-Runner combatants and briefly prevents them from activating combat abilities when struck for the first time",
+              "extractId": "bungie-update-1-1-9-2#6"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_recon_7",
+          "patchRef": "Update 1.1.9.2 (October 6, 2026)",
+          "claimText": "Echo Pulse now staggers enemy non-Runner combatants and briefly prevents their combat abilities when first struck (Update 1.1.9.2, October 6, 2026).",
+          "extractIds": [
+            "bungie-update-1-1-9-2#6"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_update_1_1_9_2"
+          ],
+          "matchedSourceKeys": [
+            "bungie-update-1-1-9-2"
+          ],
+          "matchedSourceTitles": [
+            "Marathon Update 1.1.9.2"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "The notification received by pinged Recon players is now delayed by two seconds",
+              "extractId": "bungie-update-1-1-9-2#8"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_recon_10",
+          "patchRef": "Update 1.1.9.2 (October 6, 2026)",
+          "claimText": "Interrogation's notification to pinged Recon players is delayed by two seconds (Update 1.1.9.2, October 6, 2026).",
+          "extractIds": [
+            "bungie-update-1-1-9-2#8"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_update_1_1_9_2"
+          ],
+          "matchedSourceKeys": [
+            "bungie-update-1-1-9-2"
+          ],
+          "matchedSourceTitles": [
+            "Marathon Update 1.1.9.2"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "a little bit less oppressive and mandatory when fighting other teams",
+              "extractId": "bungie-nightfall-refresh#6"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_recon_11",
+          "patchRef": null,
+          "claimText": "Bungie stated Echo Pulse is less oppressive and mandatory after the October 6, 2026 changes.",
+          "extractIds": [
+            "bungie-nightfall-refresh#6"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_nightfall_refresh"
+          ],
+          "matchedSourceKeys": [
+            "bungie-nightfall-refresh"
+          ],
+          "matchedSourceTitles": [
+            "Marathon: Nightfall Refresh and Symbiosis Roadmap"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "players need to predict in 3D space where they believe their targets are",
+              "extractId": "bungie-update-1-1-9-2#7"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_recon_12",
+          "patchRef": "Update 1.1.9.2 (October 6, 2026)",
+          "claimText": "Developers said limiting Echo Pulse to a cone forces Recon players to predict targets in three-dimensional space (Update 1.1.9.2, October 6, 2026).",
+          "extractIds": [
+            "bungie-update-1-1-9-2#7"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_update_1_1_9_2"
+          ],
+          "matchedSourceKeys": [
+            "bungie-update-1-1-9-2"
+          ],
+          "matchedSourceTitles": [
+            "Marathon Update 1.1.9.2"
+          ]
+        }
+      ],
+      "promptVersion": "marathon-real-content-v4",
+      "refreshReason": "community_note",
+      "sourceReferences": [
+        {
+          "url": "https://www.bungie.net/7/en/news/article/dev-insights-runner-shells-new-video",
+          "title": "Dev Insights: Runner Shells",
+          "sourceId": "src_bungie_runner_shells",
+          "publisher": "Bungie",
+          "sourceKey": "bungie-runner-shells",
+          "sourceType": "official",
+          "authorityTier": "official",
+          "authorityScore": 93
+        },
+        {
+          "url": "https://www.bungie.net/7/en/News/Article/marathon_update_1_1_9_2",
+          "title": "Marathon Update 1.1.9.2",
+          "sourceId": "src_bungie_update_1_1_9_2",
+          "publisher": "Bungie",
+          "sourceKey": "bungie-update-1-1-9-2",
+          "sourceType": "patch_notes",
+          "authorityTier": "official",
+          "authorityScore": 94
+        },
+        {
+          "url": "https://www.bungie.net/7/en/News/article/nighfall_refresh_symbiosis_roadmap",
+          "title": "Marathon: Nightfall Refresh and Symbiosis Roadmap",
+          "sourceId": "src_bungie_nightfall_refresh",
+          "publisher": "Bungie",
+          "sourceKey": "bungie-nightfall-refresh",
+          "sourceType": "official",
+          "authorityTier": "official",
+          "authorityScore": 93
+        }
+      ],
+      "claimCheckModelId": "openai/gpt-5-mini",
+      "sourceContextSummary": "11 extracts from rendered source snapshots considered; 3 sources cited.",
+      "claimCheckPromptVersion": "marathon-claim-check-v2",
+      "readerNotes": [
+        {
+          "noteType": "correction",
+          "note": "Correction from editor review: the Echo Pulse sentence misstates Update 1.1.9.2. The patch notes say Echo Pulse now fires its pulses in a cone in your aim direction, rather than an omnidirectional sphere. Rewrite that sentence from the patch notes.",
+          "targetQuote": "Bungie reduced Echo Pulse’s omnidirectional ease to require three-dimensional prediction from Recon players",
+          "approvedBy": "editor-review"
+        }
+      ]
+    }
+  },
+  {
     "slug": "vandal",
     "title": "Vandal",
     "summary": "The Vandal Runner shell focuses on high mobility and combat disruption.",
@@ -7714,58 +8018,56 @@
   {
     "slug": "ammo-types",
     "title": "Ammo types",
-    "summary": "Overview of Marathon's Light Rounds, Heavy Rounds, Volt Battery, Volt Cell, and MIPS and how they behave.",
+    "summary": "Overview of Marathon's ballistic Light and Heavy Rounds, energy Volt Batteries and Volt Cells, and MIPS ammunition behavior.",
     "category": "equipment",
-    "bodyMarkdown": "## Overview\n\nMarathon features multiple ammo types including ballistic Light Rounds and Heavy Rounds plus energy Volt Batteries, Volt Cells, and MIPS ammunition.{{cite:gamesradar-weapons}} The CyberAcme vendor stocks ammo for runners in its armory offerings.{{cite:gamesradar-factions}}\n\n## Volt energy ammo behavior\n\nVolt weapons drain shields faster than ballistic weapons and can recharge over time.{{cite:pcgamer-review}} Reloading a Volt weapon before its energy fully depletes will discard its remaining energy.{{cite:pcgamer-review}}\n\n## Light Rounds and Heavy Rounds\n\nHeavy ammo guns deal higher damage but trade off fire rate and increased recoil.{{cite:pcgamer-review}} Light and Heavy Rounds are the ballistic ammo categories players must manage.{{cite:gamesradar-weapons}}\n\n## See also\n\n- [[weapons|Weapons]]",
+    "bodyMarkdown": "## Overview\n\nMarathon uses multiple ammo types including ballistic Light Rounds and Heavy Rounds plus energy Volt Batteries, Volt Cells, and MIPS ammunition.{{cite:gamesradar-weapons}} CyberAcme stocks basic ammo in its armory offerings to help runners stay supplied.{{cite:gamesradar-factions}}\n\n## Ballistic ammo\n\nLight Rounds and Heavy Rounds are Marathon's ballistic ammo categories players must manage.{{cite:gamesradar-weapons}} Heavy ammo guns deal higher damage but trade off fire rate and increased recoil.{{cite:pcgamer-review}} Examples: the M77 uses Light Rounds and the Ares railgun uses Heavy Rounds.{{cite:gamesradar-weapons}}\n\n## Energy ammo (Volt)\n\nVolt weapons are powered by energy cartridges referred to as Volt Batteries or Volt Cells.{{cite:gamesradar-weapons}} Volt guns drain shields faster than ballistic weapons and can recharge over time.{{cite:pcgamer-review}} Reloading a Volt weapon before its energy fully depletes discards its remaining energy.{{cite:pcgamer-review}} Examples: the V75 SCAR uses a Volt Battery and the V00 Zeus railgun uses a Volt Cell.{{cite:gamesradar-weapons}}\n\n## MIPS and special ammo behavior\n\nMIPS ammunition is an expensive power ammo type used by certain shotguns and snipers.{{cite:pcgamer-review}} MIPS ammo only stacks up to 15 rounds.{{cite:pcgamer-review}} Examples: the Misriah-2442 shotgun and Longshot sniper both use MIPS ammo.{{cite:gamesradar-weapons}}\n\n## Design and economy notes\n\nSeason 2 tuning focuses on ammo economy and clearer weapon roles to make choices more intentional.{{cite:bungie-s2-combat-tuning}} Marathon's weapon and ammo design aims to make close-range tools dangerous and mid-range options hold ground.{{cite:bungie-s2-combat-tuning}}\n\n## See also\n\n- [[weapons|Weapons]]",
     "aiProvenance": {
-      "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
-      "claimCheckModelId": "openai/gpt-5-mini",
-      "promptVersion": "marathon-real-content-v3",
-      "claimCheckPromptVersion": "marathon-claim-check-v1",
-      "generatedAt": "2026-11-15T20:04:08.196Z",
-      "responseId": "aitxt-zwtRHLA4aAyz5092WKtnUF7z",
-      "sourceContextSummary": "11 extracts from rendered source snapshots considered; 3 sources cited.",
-      "sourceReferences": [
-        {
-          "sourceId": "src_gamesradar_weapons",
-          "sourceKey": "gamesradar-weapons",
-          "sourceType": "press",
-          "title": "All Marathon weapons that we know of so far",
-          "url": "https://www.gamesradar.com/games/fps/marathon-weapons/",
-          "publisher": "GamesRadar+",
-          "authorityTier": "reputable_editorial",
-          "authorityScore": 78
+      "provider": "vercel-ai-gateway",
+      "changeNote": "An editor asked for a re-check: 9 statements added, 1 removed.",
+      "responseId": "aitxt-ikWKi7jAgGQ812Q6qfA3i1kT",
+      "generatedAt": "2026-11-15T21:02:28.778Z",
+      "publishGate": {
+        "shape": {
+          "hub": true,
+          "words": 199
         },
-        {
-          "sourceId": "src_gamesradar_factions",
-          "sourceKey": "gamesradar-factions",
-          "sourceType": "press",
-          "title": "All Marathon factions and how contracts work",
-          "url": "https://www.gamesradar.com/games/fps/marathon-factions/",
-          "publisher": "GamesRadar+",
-          "authorityTier": "reputable_editorial",
-          "authorityScore": 78
+        "policy": {
+          "minHubWords": 250,
+          "maxUnsupported": 3,
+          "minSupportedRatio": 0.8,
+          "minSupportedClaims": 3
         },
-        {
-          "sourceId": "src_pcgamer_review",
-          "sourceKey": "pcgamer-review",
-          "sourceType": "press",
-          "title": "Marathon review",
-          "url": "https://www.pcgamer.com/games/fps/marathon-review/",
-          "publisher": "PC Gamer",
-          "authorityTier": "reputable_editorial",
-          "authorityScore": 82
-        }
-      ],
+        "reasons": [
+          "hub page has 199 words (need 250)"
+        ],
+        "decision": "needs_review",
+        "supported": 14,
+        "unsupported": 0,
+        "contradicted": 0,
+        "supportedRatio": 1
+      },
+      "requestedBy": "ai-refresh-queue",
       "claimSupport": [
         {
-          "claimId": "claim_ammo-types_1",
-          "claimText": "Marathon features multiple ammo types including ballistic Light Rounds and Heavy Rounds plus energy Volt Batteries, Volt Cells, and MIPS ammunition.",
+          "quotes": [
+            {
+              "quote": "from ballistic light and heavy rounds to energy-based batteries and cells",
+              "extractId": "gamesradar-weapons#1"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
           "status": "supported",
-          "supportScore": 0.9,
+          "claimId": "claim_ammo-types_1",
+          "patchRef": null,
+          "claimText": "Marathon uses multiple ammo types including ballistic Light Rounds and Heavy Rounds plus energy Volt Batteries, Volt Cells, and MIPS ammunition.",
+          "extractIds": [
+            "gamesradar-weapons#1",
+            "gamesradar-weapons#table"
+          ],
           "matchedTerms": [],
           "missingTerms": [],
+          "supportScore": 0.9,
           "matchedSourceIds": [
             "src_gamesradar_weapons"
           ],
@@ -7774,27 +8076,26 @@
           ],
           "matchedSourceTitles": [
             "All Marathon weapons that we know of so far"
-          ],
-          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
-          "extractIds": [
-            "gamesradar-weapons#1",
-            "gamesradar-weapons#5"
-          ],
-          "quotes": [
-            {
-              "extractId": "gamesradar-weapons#1",
-              "quote": "from ballistic light and heavy rounds to energy-based batteries and cells."
-            }
-          ],
-          "patchRef": null
+          ]
         },
         {
-          "claimId": "claim_ammo-types_3",
-          "claimText": "The CyberAcme vendor stocks ammo for runners in its armory offerings.",
+          "quotes": [
+            {
+              "quote": "Armory offerings: Ammo, healing consumables, basic weapons, backpacks, and keys",
+              "extractId": "gamesradar-factions#6"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
           "status": "supported",
-          "supportScore": 0.9,
+          "claimId": "claim_ammo-types_3",
+          "patchRef": null,
+          "claimText": "CyberAcme stocks basic ammo in its armory offerings to help runners stay supplied.",
+          "extractIds": [
+            "gamesradar-factions#6"
+          ],
           "matchedTerms": [],
           "missingTerms": [],
+          "supportScore": 0.9,
           "matchedSourceIds": [
             "src_gamesradar_factions"
           ],
@@ -7803,110 +8104,27 @@
           ],
           "matchedSourceTitles": [
             "All Marathon factions and how contracts work"
-          ],
-          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
-          "extractIds": [
-            "gamesradar-factions#6"
-          ],
-          "quotes": [
-            {
-              "extractId": "gamesradar-factions#6",
-              "quote": "Armory offerings: Ammo, healing consumables, basic weapons, backpacks, and keys"
-            }
-          ],
-          "patchRef": null
+          ]
         },
         {
+          "quotes": [
+            {
+              "quote": "from ballistic light and heavy rounds",
+              "extractId": "gamesradar-weapons#1"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
           "claimId": "claim_ammo-types_4",
-          "claimText": "Volt weapons drain shields faster than ballistic weapons and can recharge over time.",
-          "status": "supported",
-          "supportScore": 0.9,
-          "matchedTerms": [],
-          "missingTerms": [],
-          "matchedSourceIds": [
-            "src_pcgamer_review"
-          ],
-          "matchedSourceKeys": [
-            "pcgamer-review"
-          ],
-          "matchedSourceTitles": [
-            "Marathon review"
-          ],
-          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "patchRef": null,
+          "claimText": "Light Rounds and Heavy Rounds are Marathon's ballistic ammo categories players must manage.",
           "extractIds": [
-            "pcgamer-review#12"
+            "gamesradar-weapons#1",
+            "gamesradar-weapons#table"
           ],
-          "quotes": [
-            {
-              "extractId": "pcgamer-review#12",
-              "quote": "Volt guns drain shields faster than bullets and can recharge over time"
-            }
-          ],
-          "patchRef": null
-        },
-        {
-          "claimId": "claim_ammo-types_5",
-          "claimText": "Reloading a Volt weapon before its energy fully depletes will discard its remaining energy.",
-          "status": "supported",
-          "supportScore": 0.9,
           "matchedTerms": [],
           "missingTerms": [],
-          "matchedSourceIds": [
-            "src_pcgamer_review"
-          ],
-          "matchedSourceKeys": [
-            "pcgamer-review"
-          ],
-          "matchedSourceTitles": [
-            "Marathon review"
-          ],
-          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
-          "extractIds": [
-            "pcgamer-review#12"
-          ],
-          "quotes": [
-            {
-              "extractId": "pcgamer-review#12",
-              "quote": "but reloading early dumps its remaining energy."
-            }
-          ],
-          "patchRef": null
-        },
-        {
-          "claimId": "claim_ammo-types_6",
-          "claimText": "Heavy ammo guns deal higher damage but trade off fire rate and increased recoil.",
-          "status": "supported",
           "supportScore": 0.9,
-          "matchedTerms": [],
-          "missingTerms": [],
-          "matchedSourceIds": [
-            "src_pcgamer_review"
-          ],
-          "matchedSourceKeys": [
-            "pcgamer-review"
-          ],
-          "matchedSourceTitles": [
-            "Marathon review"
-          ],
-          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
-          "extractIds": [
-            "pcgamer-review#12"
-          ],
-          "quotes": [
-            {
-              "extractId": "pcgamer-review#12",
-              "quote": "Heavy ammo guns hit harder at the cost of fire rate and recoil."
-            }
-          ],
-          "patchRef": null
-        },
-        {
-          "claimId": "claim_ammo-types_7",
-          "claimText": "Light and Heavy Rounds are the ballistic ammo categories players must manage.",
-          "status": "supported",
-          "supportScore": 0.9,
-          "matchedTerms": [],
-          "missingTerms": [],
           "matchedSourceIds": [
             "src_gamesradar_weapons"
           ],
@@ -7915,35 +8133,366 @@
           ],
           "matchedSourceTitles": [
             "All Marathon weapons that we know of so far"
-          ],
-          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
-          "extractIds": [
-            "gamesradar-weapons#1"
-          ],
+          ]
+        },
+        {
           "quotes": [
             {
-              "extractId": "gamesradar-weapons#1",
-              "quote": "from ballistic light and heavy rounds to energy-based batteries and cells."
+              "quote": "Heavy ammo guns hit harder at the cost of fire rate and recoil",
+              "extractId": "pcgamer-review#12"
             }
           ],
-          "patchRef": null
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_ammo-types_5",
+          "patchRef": null,
+          "claimText": "Heavy ammo guns deal higher damage but trade off fire rate and increased recoil.",
+          "extractIds": [
+            "pcgamer-review#12"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_pcgamer_review"
+          ],
+          "matchedSourceKeys": [
+            "pcgamer-review"
+          ],
+          "matchedSourceTitles": [
+            "Marathon review"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Assault rifle: M77 (Light Rounds)",
+              "extractId": "gamesradar-weapons#table"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_ammo-types_6",
+          "patchRef": null,
+          "claimText": "Examples: the M77 uses Light Rounds and the Ares railgun uses Heavy Rounds.",
+          "extractIds": [
+            "gamesradar-weapons#table"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_gamesradar_weapons"
+          ],
+          "matchedSourceKeys": [
+            "gamesradar-weapons"
+          ],
+          "matchedSourceTitles": [
+            "All Marathon weapons that we know of so far"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "energy-based batteries and cells",
+              "extractId": "gamesradar-weapons#1"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_ammo-types_7",
+          "patchRef": null,
+          "claimText": "Volt weapons are powered by energy cartridges referred to as Volt Batteries or Volt Cells.",
+          "extractIds": [
+            "gamesradar-weapons#1",
+            "gamesradar-weapons#table"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_gamesradar_weapons"
+          ],
+          "matchedSourceKeys": [
+            "gamesradar-weapons"
+          ],
+          "matchedSourceTitles": [
+            "All Marathon weapons that we know of so far"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Volt guns drain shields faster than bullets and can recharge over time",
+              "extractId": "pcgamer-review#12"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_ammo-types_8",
+          "patchRef": null,
+          "claimText": "Volt guns drain shields faster than ballistic weapons and can recharge over time.",
+          "extractIds": [
+            "pcgamer-review#12"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_pcgamer_review"
+          ],
+          "matchedSourceKeys": [
+            "pcgamer-review"
+          ],
+          "matchedSourceTitles": [
+            "Marathon review"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "reloading early dumps its remaining energy",
+              "extractId": "pcgamer-review#12"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_ammo-types_9",
+          "patchRef": null,
+          "claimText": "Reloading a Volt weapon before its energy fully depletes discards its remaining energy.",
+          "extractIds": [
+            "pcgamer-review#12"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_pcgamer_review"
+          ],
+          "matchedSourceKeys": [
+            "pcgamer-review"
+          ],
+          "matchedSourceTitles": [
+            "Marathon review"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Assault rifle: V75 SCAR (Volt Battery)",
+              "extractId": "gamesradar-weapons#table"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_ammo-types_10",
+          "patchRef": null,
+          "claimText": "Examples: the V75 SCAR uses a Volt Battery and the V00 Zeus railgun uses a Volt Cell.",
+          "extractIds": [
+            "gamesradar-weapons#table"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_gamesradar_weapons"
+          ],
+          "matchedSourceKeys": [
+            "gamesradar-weapons"
+          ],
+          "matchedSourceTitles": [
+            "All Marathon weapons that we know of so far"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "their MIPS ammo is expensive and only stacks 15 rounds",
+              "extractId": "pcgamer-review#13"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_ammo-types_11",
+          "patchRef": null,
+          "claimText": "MIPS ammunition is an expensive power ammo type used by certain shotguns and snipers.",
+          "extractIds": [
+            "pcgamer-review#13",
+            "gamesradar-weapons#table"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_pcgamer_review"
+          ],
+          "matchedSourceKeys": [
+            "pcgamer-review"
+          ],
+          "matchedSourceTitles": [
+            "Marathon review"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "only stacks 15 rounds",
+              "extractId": "pcgamer-review#13"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_ammo-types_12",
+          "patchRef": null,
+          "claimText": "MIPS ammo only stacks up to 15 rounds.",
+          "extractIds": [
+            "pcgamer-review#13"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_pcgamer_review"
+          ],
+          "matchedSourceKeys": [
+            "pcgamer-review"
+          ],
+          "matchedSourceTitles": [
+            "Marathon review"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Shotgun: Misriah-2442 (MIPS)",
+              "extractId": "gamesradar-weapons#table"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_ammo-types_13",
+          "patchRef": null,
+          "claimText": "Examples: the Misriah-2442 shotgun and Longshot sniper both use MIPS ammo.",
+          "extractIds": [
+            "gamesradar-weapons#table"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_gamesradar_weapons"
+          ],
+          "matchedSourceKeys": [
+            "gamesradar-weapons"
+          ],
+          "matchedSourceTitles": [
+            "All Marathon weapons that we know of so far"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "broader updates to ammo economy, time to kill, and range identities",
+              "extractId": "bungie-s2-combat-tuning#2"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_ammo-types_14",
+          "patchRef": null,
+          "claimText": "Season 2 tuning focuses on ammo economy and clearer weapon roles to make choices more intentional.",
+          "extractIds": [
+            "bungie-s2-combat-tuning#2"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_s2_combat_tuning"
+          ],
+          "matchedSourceKeys": [
+            "bungie-s2-combat-tuning"
+          ],
+          "matchedSourceTitles": [
+            "Season 2 Combat Tuning Preview"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "close-range tools stay dangerous up close, mid-range options better hold their ground",
+              "extractId": "bungie-s2-combat-tuning#2"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_ammo-types_15",
+          "patchRef": null,
+          "claimText": "Marathon's weapon and ammo design aims to make close-range tools dangerous and mid-range options hold ground.",
+          "extractIds": [
+            "bungie-s2-combat-tuning#2"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_s2_combat_tuning"
+          ],
+          "matchedSourceKeys": [
+            "bungie-s2-combat-tuning"
+          ],
+          "matchedSourceTitles": [
+            "Season 2 Combat Tuning Preview"
+          ]
         }
       ],
-      "refreshReason": "new_page",
-      "requestedBy": "content-pipeline",
-      "publishGate": {
-        "decision": "publish",
-        "supported": 6,
-        "unsupported": 0,
-        "contradicted": 0,
-        "supportedRatio": 1,
-        "reasons": [],
-        "policy": {
-          "minSupportedRatio": 0.8,
-          "minSupportedClaims": 3,
-          "maxUnsupported": 3
+      "promptVersion": "marathon-real-content-v5",
+      "refreshReason": "manual_refresh",
+      "sourceReferences": [
+        {
+          "url": "https://www.gamesradar.com/games/fps/marathon-weapons/",
+          "title": "All Marathon weapons that we know of so far",
+          "sourceId": "src_gamesradar_weapons",
+          "publisher": "GamesRadar+",
+          "sourceKey": "gamesradar-weapons",
+          "sourceType": "press",
+          "authorityTier": "reputable_editorial",
+          "authorityScore": 78
+        },
+        {
+          "url": "https://www.gamesradar.com/games/fps/marathon-factions/",
+          "title": "All Marathon factions and how contracts work",
+          "sourceId": "src_gamesradar_factions",
+          "publisher": "GamesRadar+",
+          "sourceKey": "gamesradar-factions",
+          "sourceType": "press",
+          "authorityTier": "reputable_editorial",
+          "authorityScore": 78
+        },
+        {
+          "url": "https://www.pcgamer.com/games/fps/marathon-review/",
+          "title": "Marathon review",
+          "sourceId": "src_pcgamer_review",
+          "publisher": "PC Gamer",
+          "sourceKey": "pcgamer-review",
+          "sourceType": "press",
+          "authorityTier": "reputable_editorial",
+          "authorityScore": 82
+        },
+        {
+          "url": "https://www.bungie.net/7/en/News/Article/season_2_combat_tuning_preview",
+          "title": "Season 2 Combat Tuning Preview",
+          "sourceId": "src_bungie_s2_combat_tuning",
+          "publisher": "Bungie",
+          "sourceKey": "bungie-s2-combat-tuning",
+          "sourceType": "official",
+          "authorityTier": "official",
+          "authorityScore": 93
         }
-      }
+      ],
+      "claimCheckModelId": "openai/gpt-5-mini",
+      "sourceContextSummary": "24 extracts from rendered source snapshots considered; 4 sources cited.",
+      "claimCheckPromptVersion": "marathon-claim-check-v2"
     }
   },
   {
@@ -13138,6 +13687,529 @@
     }
   },
   {
+    "slug": "ranked",
+    "title": "Ranked mode",
+    "summary": "Ranked is a score-based competitive extraction mode using Holotags to set targets, loss penalties, and progression, with Season 2 adjustments to queueing and progression.",
+    "category": "gameplay",
+    "bodyMarkdown": "## Overview\n\nRanked tests looting, PvP success, and strategic risk taking through score-based runs.{{cite:bungie-ranked}}\n\n## Entry and Holotags\n\nRuns require a Holotag that sets the run’s score target and loss penalty.{{cite:bungie-ranked}} Holotags persist after exfil and can be sold for full value after exfil.{{cite:bungie-ranked}} Players can purchase Holotags up to their current rank tier in the Armory.{{cite:bungie-ranked}} Season 2 requires players to bring a Holotag that matches their current rank.{{cite:bungie-welcome-season-2}}\n\n## Scoring and Ranked Points\n\nYour team’s combined Holotag value decides the score target for a run.{{cite:bungie-ranked}} Starting loadouts do not count toward your score target.{{cite:bungie-ranked}} You must exfil at or above the score target to earn Ranked Points; exfiling below yields no RP change.{{cite:bungie-ranked}} Loss penalties are decided by your team’s combined Holotag value, and you only lose RP if you fail to exfil.{{cite:bungie-ranked}} Tag Chips count as loot toward the score target, grant overperformance capacity, and auto-sell on exfil.{{cite:bungie-ranked}}\n\n## Ranks and Season 2 changes\n\nPlayers climb six ranks: Bronze, Silver, Gold, Platinum, Diamond, and Pinnacle, each with three tiers.{{cite:bungie-ranked}} Ranked first ran March 21–24, 2026 during a Season 1 beta weekend.{{cite:bungie-ranked}} Season 2 returned Ranked on June 14 with new rewards and progression changes.{{cite:bungie-welcome-season-2}} Season 2 combined Low and High Stakes into a single queue with a 5,000 Loadout value minimum.{{cite:bungie-welcome-season-2}} Season 2 adjusted progression to be faster and modified win/loss point changes by average match rank.{{cite:bungie-welcome-season-2}} Season 2 added a daily Ranked Sponsored Kit containing a loadout appropriate for a player’s rank.{{cite:bungie-welcome-season-2}}\n\n## See also\n\n- [[rarity-tiers|Rarity tiers]]",
+    "aiProvenance": {
+      "modelId": "openai/gpt-5-mini",
+      "provider": "vercel-ai-gateway",
+      "changeNote": "An editor asked for a re-check: 2 statements added, 9 removed.",
+      "responseId": "aitxt-61s7vXmY3kaJkhuF4eeJvbTO",
+      "generatedAt": "2026-11-15T21:01:35.400Z",
+      "publishGate": {
+        "shape": {
+          "hub": false,
+          "words": 232
+        },
+        "policy": {
+          "minHubWords": 250,
+          "maxUnsupported": 3,
+          "minSupportedRatio": 0.8,
+          "minSupportedClaims": 3
+        },
+        "reasons": [],
+        "decision": "publish",
+        "supported": 16,
+        "unsupported": 0,
+        "contradicted": 0,
+        "supportedRatio": 1
+      },
+      "requestedBy": "ai-refresh-queue",
+      "claimSupport": [
+        {
+          "quotes": [
+            {
+              "quote": "test everything you’ve learned in Marathon, including looting, PvP success, and strategic risk taking",
+              "extractId": "bungie-ranked#1"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_ranked_1",
+          "patchRef": null,
+          "claimText": "Ranked tests looting, PvP success, and strategic risk taking through score-based runs.",
+          "extractIds": [
+            "bungie-ranked#1"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_ranked"
+          ],
+          "matchedSourceKeys": [
+            "bungie-ranked"
+          ],
+          "matchedSourceTitles": [
+            "Ranked in Marathon"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "The Holotag you bring into the match sets two important values for your run: a score target and a loss penalty.",
+              "extractId": "bungie-ranked#6"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_ranked_2",
+          "patchRef": null,
+          "claimText": "Runs require a Holotag that sets the run’s score target and loss penalty.",
+          "extractIds": [
+            "bungie-ranked#6",
+            "bungie-ranked#7"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_ranked"
+          ],
+          "matchedSourceKeys": [
+            "bungie-ranked"
+          ],
+          "matchedSourceTitles": [
+            "Ranked in Marathon"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Holotags persist after exfil so you can use them on your next run. You can sell Holotags for full value after exfil.",
+              "extractId": "bungie-ranked#7"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_ranked_3",
+          "patchRef": null,
+          "claimText": "Holotags persist after exfil and can be sold for full value after exfil.",
+          "extractIds": [
+            "bungie-ranked#7"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_ranked"
+          ],
+          "matchedSourceKeys": [
+            "bungie-ranked"
+          ],
+          "matchedSourceTitles": [
+            "Ranked in Marathon"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "You can purchase up to your current rank of Holotag tier in the Armory.",
+              "extractId": "bungie-ranked#5"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_ranked_4",
+          "patchRef": null,
+          "claimText": "Players can purchase Holotags up to their current rank tier in the Armory.",
+          "extractIds": [
+            "bungie-ranked#5"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_ranked"
+          ],
+          "matchedSourceKeys": [
+            "bungie-ranked"
+          ],
+          "matchedSourceTitles": [
+            "Ranked in Marathon"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Players must also now bring a Holotag that matches their current rank.",
+              "extractId": "bungie-welcome-season-2#18"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_ranked_5",
+          "patchRef": null,
+          "claimText": "Season 2 requires players to bring a Holotag that matches their current rank.",
+          "extractIds": [
+            "bungie-welcome-season-2#18"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_welcome_season_2"
+          ],
+          "matchedSourceKeys": [
+            "bungie-welcome-season-2"
+          ],
+          "matchedSourceTitles": [
+            "Welcome to Season 2"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Your score target is decided by your team’s combined Holotag value",
+              "extractId": "bungie-ranked#6"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_ranked_6",
+          "patchRef": null,
+          "claimText": "Your team’s combined Holotag value decides the score target for a run.",
+          "extractIds": [
+            "bungie-ranked#6",
+            "bungie-ranked#7"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_ranked"
+          ],
+          "matchedSourceKeys": [
+            "bungie-ranked"
+          ],
+          "matchedSourceTitles": [
+            "Ranked in Marathon"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Starting loadouts don’t count towards your score target",
+              "extractId": "bungie-ranked#7"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_ranked_7",
+          "patchRef": null,
+          "claimText": "Starting loadouts do not count toward your score target.",
+          "extractIds": [
+            "bungie-ranked#7"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_ranked"
+          ],
+          "matchedSourceKeys": [
+            "bungie-ranked"
+          ],
+          "matchedSourceTitles": [
+            "Ranked in Marathon"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Exfil at your score target to earn RP\nExfil with less than your score target, and your Rank has no change",
+              "extractId": "bungie-ranked#7"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_ranked_8",
+          "patchRef": null,
+          "claimText": "You must exfil at or above the score target to earn Ranked Points; exfiling below yields no RP change.",
+          "extractIds": [
+            "bungie-ranked#5",
+            "bungie-ranked#7"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_ranked"
+          ],
+          "matchedSourceKeys": [
+            "bungie-ranked"
+          ],
+          "matchedSourceTitles": [
+            "Ranked in Marathon"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Loss penalty = how much you lose by failing to exfil\nThis number is decided by you team’s combined Holotag value\nYou only lose RP if you fail to exfil",
+              "extractId": "bungie-ranked#7"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_ranked_9",
+          "patchRef": null,
+          "claimText": "Loss penalties are decided by your team’s combined Holotag value, and you only lose RP if you fail to exfil.",
+          "extractIds": [
+            "bungie-ranked#6",
+            "bungie-ranked#7"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_ranked"
+          ],
+          "matchedSourceKeys": [
+            "bungie-ranked"
+          ],
+          "matchedSourceTitles": [
+            "Ranked in Marathon"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Tag Chips count as valuable loot towards your score target, and they also grant overperformance capacity. Tag Chips auto-sell on exfil.",
+              "extractId": "bungie-ranked#8"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_ranked_11",
+          "patchRef": null,
+          "claimText": "Tag Chips count as loot toward the score target, grant overperformance capacity, and auto-sell on exfil.",
+          "extractIds": [
+            "bungie-ranked#8"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_ranked"
+          ],
+          "matchedSourceKeys": [
+            "bungie-ranked"
+          ],
+          "matchedSourceTitles": [
+            "Ranked in Marathon"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "six ranks (Bronze, Silver, Gold, Platinum, Diamond, and Pinnacle) with three tiers each",
+              "extractId": "bungie-ranked#1"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_ranked_12",
+          "patchRef": null,
+          "claimText": "Players climb six ranks: Bronze, Silver, Gold, Platinum, Diamond, and Pinnacle, each with three tiers.",
+          "extractIds": [
+            "bungie-ranked#1"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_ranked"
+          ],
+          "matchedSourceKeys": [
+            "bungie-ranked"
+          ],
+          "matchedSourceTitles": [
+            "Ranked in Marathon"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Your first chance to play Ranked is this weekend, March 21 at 10:00 AM PT – March 24 at 10:00 AM PT.",
+              "extractId": "bungie-ranked#1"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_ranked_13",
+          "patchRef": null,
+          "claimText": "Ranked first ran March 21–24, 2026 during a Season 1 beta weekend.",
+          "extractIds": [
+            "bungie-ranked#1"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_ranked"
+          ],
+          "matchedSourceKeys": [
+            "bungie-ranked"
+          ],
+          "matchedSourceTitles": [
+            "Ranked in Marathon"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Ranked will return in Season 2 on June 14, with all new rewards across the board.",
+              "extractId": "bungie-welcome-season-2#18"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_ranked_14",
+          "patchRef": null,
+          "claimText": "Season 2 returned Ranked on June 14 with new rewards and progression changes.",
+          "extractIds": [
+            "bungie-welcome-season-2#18",
+            "bungie-season-2-live#4"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_welcome_season_2"
+          ],
+          "matchedSourceKeys": [
+            "bungie-welcome-season-2"
+          ],
+          "matchedSourceTitles": [
+            "Welcome to Season 2"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "combining the Low and High Stakes modes into a single queue with a 5,000 Loadout value minimum",
+              "extractId": "bungie-welcome-season-2#18"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_ranked_15",
+          "patchRef": null,
+          "claimText": "Season 2 combined Low and High Stakes into a single queue with a 5,000 Loadout value minimum.",
+          "extractIds": [
+            "bungie-welcome-season-2#18"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_welcome_season_2"
+          ],
+          "matchedSourceKeys": [
+            "bungie-welcome-season-2"
+          ],
+          "matchedSourceTitles": [
+            "Welcome to Season 2"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Progression has been adjusted and should feel faster across all ranks.\nWin/loss point progression will be influenced by the average rank of the players in that match",
+              "extractId": "bungie-welcome-season-2#18"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_ranked_16",
+          "patchRef": null,
+          "claimText": "Season 2 adjusted progression to be faster and modified win/loss point changes by average match rank.",
+          "extractIds": [
+            "bungie-welcome-season-2#18"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_welcome_season_2"
+          ],
+          "matchedSourceKeys": [
+            "bungie-welcome-season-2"
+          ],
+          "matchedSourceTitles": [
+            "Welcome to Season 2"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "There is a new daily Ranked Sponsored Kit that contains a loadout appropriate for your rank",
+              "extractId": "bungie-welcome-season-2#19"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_ranked_17",
+          "patchRef": null,
+          "claimText": "Season 2 added a daily Ranked Sponsored Kit containing a loadout appropriate for a player’s rank.",
+          "extractIds": [
+            "bungie-welcome-season-2#19"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_welcome_season_2"
+          ],
+          "matchedSourceKeys": [
+            "bungie-welcome-season-2"
+          ],
+          "matchedSourceTitles": [
+            "Welcome to Season 2"
+          ]
+        }
+      ],
+      "promptVersion": "marathon-real-content-v5",
+      "refreshReason": "manual_refresh",
+      "sourceReferences": [
+        {
+          "url": "https://www.bungie.net/7/en/News/Article/ranked_in_marathon",
+          "title": "Ranked in Marathon",
+          "sourceId": "src_bungie_ranked",
+          "publisher": "Bungie",
+          "sourceKey": "bungie-ranked",
+          "sourceType": "official",
+          "authorityTier": "official",
+          "authorityScore": 93
+        },
+        {
+          "url": "https://www.bungie.net/7/en/News/article/welcome_season_2",
+          "title": "Welcome to Season 2",
+          "sourceId": "src_bungie_welcome_season_2",
+          "publisher": "Bungie",
+          "sourceKey": "bungie-welcome-season-2",
+          "sourceType": "official",
+          "authorityTier": "official",
+          "authorityScore": 93
+        }
+      ],
+      "claimCheckModelId": "openai/gpt-5-mini",
+      "sourceContextSummary": "12 extracts from rendered source snapshots considered; 2 sources cited.",
+      "claimCheckPromptVersion": "marathon-claim-check-v2",
+      "readerNotes": [
+        {
+          "noteType": "correction",
+          "note": "Correction from editor review: the loss penalty is decided by the team's combined Holotag value. The source does not say the penalty equals that value (the table lists separate cost and loss penalty figures). Rewrite that sentence from the Ranked article.",
+          "targetQuote": "Loss penalties apply only when a team fails to exfil; the penalty equals the combined Holotag value.",
+          "approvedBy": "editor-review"
+        }
+      ]
+    }
+  },
+  {
     "slug": "the-cradle",
     "title": "The Cradle",
     "summary": "The Cradle is Marathon Season 2’s system for turning loot into shared Runner shell stat progression and perks.",
@@ -13591,68 +14663,55 @@
   {
     "slug": "armory",
     "title": "Armory",
-    "summary": "Overview of the Armory faction: its wares, barter interactions, sponsored kits, and recent stock tuning across updates.",
+    "summary": "Hub page for the Armory faction: offerings, barter options, sponsored kits, and recent stock and economy changes.",
     "category": "gameplay",
-    "bodyMarkdown": "## Offerings\n\nThe Armory sells Holotags that can be purchased with credits for Ranked queues.{{cite:bungie-ranked}} Weapon schemas and materials were moved to cost Credits in the Armory during Season 2 economy changes (Update 1.1.9.2, October 6, 2026).{{cite:bungie-update-1-1-9-2}}\n\n## Barters and Schemas\n\nSeason 2 adjusted schemas so specific Schemas can now unlock Barter offers in the Armory.{{cite:bungie-welcome-season-2}} Faction progression changes expanded Armory options and added faction-specific implant families.{{cite:bungie-welcome-season-2}}\n\n## Sponsored Kits\n\nPlayers meeting Cryo Archive requirements are eligible for a one-time Cryo Archive Sponsored Kit from the Armory.{{cite:bungie-cryo-archive}} A new daily Ranked Sponsored Kit grants a loadout scaled to a player’s rank.{{cite:bungie-welcome-season-2}}\n\n## See also\n\n- [[factions|Factions]]",
+    "bodyMarkdown": "## Overview\n\nThe Armory offers purchasable Holotags using Credits for Ranked queues.{{cite:bungie-ranked}} Season 2 moved many Runner shell upgrades into the Cradle, which allowed the Armory options to expand.{{cite:bungie-welcome-season-2}}\n\n## What the Armory Sells and Barters\n\nCyberAcme's Armory offerings include basic weapons, backpacks, ammo, healing consumables, and keys.{{cite:gamesradar-factions}} NuCaloric's Armory offerings include healing consumables, self-revives, shields, and implants.{{cite:gamesradar-factions}} Traxus's Armory offerings emphasize weapons and a wide range of mods.{{cite:gamesradar-factions}} Certain Schemas can now unlock specific Barter offers in the Armory.{{cite:bungie-welcome-season-2}}\n\n## Sponsored Kits and Ranked\n\nSeason 2 introduced a daily Ranked Sponsored Kit that supplies a loadout scaled to a player's rank.{{cite:bungie-welcome-season-2}} Sponsored Kits are tiered and unlock as players reach certain Runner Levels, including Enhanced and Deluxe tiers.{{cite:kotaku-season-2}} Ranked requires a Holotag in the backpack to queue, which can be purchased from the Armory for Credits.{{cite:bungie-ranked}}\n\n## Cryo Archive Sponsored Kit\n\nPlayers meeting Cryo Archive requirements become eligible for a one-time Cryo Archive Sponsored Kit from the Armory.{{cite:bungie-cryo-archive}} The Cryo Archive Sponsored Kit is a blue-tier bundle tuned for an early Cryo Archive run.{{cite:bungie-cryo-archive}}\n\n## See also\n\n- [[factions|Factions]]",
     "aiProvenance": {
-      "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
-      "claimCheckModelId": "openai/gpt-5-mini",
-      "promptVersion": "marathon-real-content-v3",
-      "claimCheckPromptVersion": "marathon-claim-check-v1",
-      "generatedAt": "2026-11-15T20:09:21.272Z",
-      "responseId": "aitxt-xsvOHHIyUMaQODniXTN40tUZ",
-      "sourceContextSummary": "25 extracts from rendered source snapshots considered; 4 sources cited.",
-      "sourceReferences": [
-        {
-          "sourceId": "src_bungie_ranked",
-          "sourceKey": "bungie-ranked",
-          "sourceType": "official",
-          "title": "Ranked in Marathon",
-          "url": "https://www.bungie.net/7/en/News/Article/ranked_in_marathon",
-          "publisher": "Bungie",
-          "authorityTier": "official",
-          "authorityScore": 93
+      "provider": "vercel-ai-gateway",
+      "changeNote": "An editor asked for a re-check: 9 statements added, 4 removed.",
+      "responseId": "aitxt-p44Dm0uSv4i21RObiKNqhpEV",
+      "generatedAt": "2026-11-15T20:53:43.489Z",
+      "publishGate": {
+        "shape": {
+          "hub": true,
+          "words": 158
         },
-        {
-          "sourceId": "src_bungie_update_1_1_9_2",
-          "sourceKey": "bungie-update-1-1-9-2",
-          "sourceType": "patch_notes",
-          "title": "Marathon Update 1.1.9.2",
-          "url": "https://www.bungie.net/7/en/News/Article/marathon_update_1_1_9_2",
-          "publisher": "Bungie",
-          "authorityTier": "official",
-          "authorityScore": 94
+        "policy": {
+          "minHubWords": 250,
+          "maxUnsupported": 3,
+          "minSupportedRatio": 0.8,
+          "minSupportedClaims": 3
         },
-        {
-          "sourceId": "src_bungie_welcome_season_2",
-          "sourceKey": "bungie-welcome-season-2",
-          "sourceType": "official",
-          "title": "Welcome to Season 2",
-          "url": "https://www.bungie.net/7/en/News/article/welcome_season_2",
-          "publisher": "Bungie",
-          "authorityTier": "official",
-          "authorityScore": 93
-        },
-        {
-          "sourceId": "src_bungie_cryo_archive",
-          "sourceKey": "bungie-cryo-archive",
-          "sourceType": "official",
-          "title": "Welcome to Cryo Archive",
-          "url": "https://www.bungie.net/7/en/News/Article/cryo_archive_overview",
-          "publisher": "Bungie",
-          "authorityTier": "official",
-          "authorityScore": 93
-        }
-      ],
+        "reasons": [
+          "hub page has 158 words (need 250)"
+        ],
+        "decision": "needs_review",
+        "supported": 11,
+        "unsupported": 0,
+        "contradicted": 0,
+        "supportedRatio": 1
+      },
+      "requestedBy": "ai-refresh-queue",
       "claimSupport": [
         {
-          "claimId": "claim_armory_1",
-          "claimText": "The Armory sells Holotags that can be purchased with credits for Ranked queues.",
+          "quotes": [
+            {
+              "quote": "You can purchase Holotags using credits in the Armory.",
+              "extractId": "bungie-ranked#4"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
           "status": "supported",
-          "supportScore": 0.9,
+          "claimId": "claim_armory_1",
+          "patchRef": null,
+          "claimText": "The Armory offers purchasable Holotags using Credits for Ranked queues.",
+          "extractIds": [
+            "bungie-ranked#4"
+          ],
           "matchedTerms": [],
           "missingTerms": [],
+          "supportScore": 0.9,
           "matchedSourceIds": [
             "src_bungie_ranked"
           ],
@@ -13661,111 +14720,250 @@
           ],
           "matchedSourceTitles": [
             "Ranked in Marathon"
-          ],
-          "reason": "Verified against 1 quoted passage from official sources.",
-          "extractIds": [
-            "bungie-ranked#4",
-            "bungie-ranked#5"
-          ],
-          "quotes": [
-            {
-              "extractId": "bungie-ranked#4",
-              "quote": "You can purchase Holotags using credits in the Armory"
-            }
-          ],
-          "patchRef": null
+          ]
         },
         {
+          "quotes": [
+            {
+              "quote": "moved to the Cradle, we’ve been able to expand the Armory options",
+              "extractId": "bungie-welcome-season-2#13"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
           "claimId": "claim_armory_3",
-          "claimText": "Weapon schemas and materials were moved to cost Credits in the Armory during Season 2 economy changes (Update 1.1.9.2, October 6, 2026).",
-          "status": "supported",
-          "supportScore": 0.9,
-          "matchedTerms": [],
-          "missingTerms": [],
-          "matchedSourceIds": [
-            "src_bungie_update_1_1_9_2"
-          ],
-          "matchedSourceKeys": [
-            "bungie-update-1-1-9-2"
-          ],
-          "matchedSourceTitles": [
-            "Marathon Update 1.1.9.2"
-          ],
-          "reason": "Verified against 1 quoted passage from official sources.",
-          "extractIds": [
-            "bungie-update-1-1-9-2#5"
-          ],
-          "quotes": [
-            {
-              "extractId": "bungie-update-1-1-9-2#5",
-              "quote": "Weapon and Backpack Schema wares in the Armory now cost Credits"
-            }
-          ],
-          "patchRef": "Update 1.1.9.2, October 6, 2026"
-        },
-        {
-          "claimId": "claim_armory_4",
-          "claimText": "Season 2 adjusted schemas so specific Schemas can now unlock Barter offers in the Armory.",
-          "status": "supported",
-          "supportScore": 0.9,
-          "matchedTerms": [],
-          "missingTerms": [],
-          "matchedSourceIds": [
-            "src_bungie_welcome_season_2"
-          ],
-          "matchedSourceKeys": [
-            "bungie-welcome-season-2"
-          ],
-          "matchedSourceTitles": [
-            "Welcome to Season 2"
-          ],
-          "reason": "Verified against 1 quoted passage from official sources.",
-          "extractIds": [
-            "bungie-welcome-season-2#14"
-          ],
-          "quotes": [
-            {
-              "extractId": "bungie-welcome-season-2#14",
-              "quote": "which can now unlock specific Barter offers in the Armory"
-            }
-          ],
-          "patchRef": null
-        },
-        {
-          "claimId": "claim_armory_5",
-          "claimText": "Faction progression changes expanded Armory options and added faction-specific implant families.",
-          "status": "supported",
-          "supportScore": 0.9,
-          "matchedTerms": [],
-          "missingTerms": [],
-          "matchedSourceIds": [
-            "src_bungie_welcome_season_2"
-          ],
-          "matchedSourceKeys": [
-            "bungie-welcome-season-2"
-          ],
-          "matchedSourceTitles": [
-            "Welcome to Season 2"
-          ],
-          "reason": "Verified against 1 quoted passage from official sources.",
+          "patchRef": null,
+          "claimText": "Season 2 moved many Runner shell upgrades into the Cradle, which allowed the Armory options to expand.",
           "extractIds": [
             "bungie-welcome-season-2#13"
           ],
-          "quotes": [
-            {
-              "extractId": "bungie-welcome-season-2#13",
-              "quote": "each faction now has a unique family of implants (head, torso, and leg)"
-            }
-          ],
-          "patchRef": null
-        },
-        {
-          "claimId": "claim_armory_6",
-          "claimText": "Players meeting Cryo Archive requirements are eligible for a one-time Cryo Archive Sponsored Kit from the Armory.",
-          "status": "supported",
-          "supportScore": 0.9,
           "matchedTerms": [],
           "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_welcome_season_2"
+          ],
+          "matchedSourceKeys": [
+            "bungie-welcome-season-2"
+          ],
+          "matchedSourceTitles": [
+            "Welcome to Season 2"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Armory offerings: Ammo, healing consumables, basic weapons, backpacks, and keys",
+              "extractId": "gamesradar-factions#6"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_armory_4",
+          "patchRef": null,
+          "claimText": "CyberAcme's Armory offerings include basic weapons, backpacks, ammo, healing consumables, and keys.",
+          "extractIds": [
+            "gamesradar-factions#6"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_gamesradar_factions"
+          ],
+          "matchedSourceKeys": [
+            "gamesradar-factions"
+          ],
+          "matchedSourceTitles": [
+            "All Marathon factions and how contracts work"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Armory offerings: Consumables that heal and remove status effects, Self-Revives, Shields, and Implants",
+              "extractId": "gamesradar-factions#7"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_armory_5",
+          "patchRef": null,
+          "claimText": "NuCaloric's Armory offerings include healing consumables, self-revives, shields, and implants.",
+          "extractIds": [
+            "gamesradar-factions#7"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_gamesradar_factions"
+          ],
+          "matchedSourceKeys": [
+            "gamesradar-factions"
+          ],
+          "matchedSourceTitles": [
+            "All Marathon factions and how contracts work"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Armory offerings: Weapons and mods of all kinds",
+              "extractId": "gamesradar-factions#8"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_armory_6",
+          "patchRef": null,
+          "claimText": "Traxus's Armory offerings emphasize weapons and a wide range of mods.",
+          "extractIds": [
+            "gamesradar-factions#8"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_gamesradar_factions"
+          ],
+          "matchedSourceKeys": [
+            "gamesradar-factions"
+          ],
+          "matchedSourceTitles": [
+            "All Marathon factions and how contracts work"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "schemas, which can now unlock specific Barter offers in the Armory.",
+              "extractId": "bungie-welcome-season-2#14"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_armory_7",
+          "patchRef": null,
+          "claimText": "Certain Schemas can now unlock specific Barter offers in the Armory.",
+          "extractIds": [
+            "bungie-welcome-season-2#14"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_welcome_season_2"
+          ],
+          "matchedSourceKeys": [
+            "bungie-welcome-season-2"
+          ],
+          "matchedSourceTitles": [
+            "Welcome to Season 2"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "new daily Ranked Sponsored Kit that contains a loadout appropriate for your rank",
+              "extractId": "bungie-welcome-season-2#19"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_armory_8",
+          "patchRef": null,
+          "claimText": "Season 2 introduced a daily Ranked Sponsored Kit that supplies a loadout scaled to a player's rank.",
+          "extractIds": [
+            "bungie-welcome-season-2#19"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_welcome_season_2"
+          ],
+          "matchedSourceKeys": [
+            "bungie-welcome-season-2"
+          ],
+          "matchedSourceTitles": [
+            "Welcome to Season 2"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "Reach Runner Level 10: Unlock Enhanced CyberAcme Sponsored Kit",
+              "extractId": "kotaku-season-2#5"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from reputable editorial sources.",
+          "status": "supported",
+          "claimId": "claim_armory_9",
+          "patchRef": null,
+          "claimText": "Sponsored Kits are tiered and unlock as players reach certain Runner Levels, including Enhanced and Deluxe tiers.",
+          "extractIds": [
+            "kotaku-season-2#5"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_kotaku_season_2"
+          ],
+          "matchedSourceKeys": [
+            "kotaku-season-2"
+          ],
+          "matchedSourceTitles": [
+            "Marathon Season 2 Guide: Everything You Need To Know"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "you must bring one Holotag in your backpack to queue for Ranked. You can purchase Holotags using credits in the Armory",
+              "extractId": "bungie-ranked#4"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_armory_10",
+          "patchRef": null,
+          "claimText": "Ranked requires a Holotag in the backpack to queue, which can be purchased from the Armory for Credits.",
+          "extractIds": [
+            "bungie-ranked#4"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
+          "matchedSourceIds": [
+            "src_bungie_ranked"
+          ],
+          "matchedSourceKeys": [
+            "bungie-ranked"
+          ],
+          "matchedSourceTitles": [
+            "Ranked in Marathon"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "you'll also be eligible for a one-time Cryo Archive Sponsored Kit from the Armory.",
+              "extractId": "bungie-cryo-archive#3"
+            }
+          ],
+          "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_armory_11",
+          "patchRef": null,
+          "claimText": "Players meeting Cryo Archive requirements become eligible for a one-time Cryo Archive Sponsored Kit from the Armory.",
+          "extractIds": [
+            "bungie-cryo-archive#3"
+          ],
+          "matchedTerms": [],
+          "missingTerms": [],
+          "supportScore": 0.9,
           "matchedSourceIds": [
             "src_bungie_cryo_archive"
           ],
@@ -13774,63 +14972,94 @@
           ],
           "matchedSourceTitles": [
             "Welcome to Cryo Archive"
+          ]
+        },
+        {
+          "quotes": [
+            {
+              "quote": "a bundle of blue-tier gear specifically tuned to get you through an early Cryo Archive run",
+              "extractId": "bungie-cryo-archive#3"
+            }
           ],
           "reason": "Verified against 1 quoted passage from official sources.",
+          "status": "supported",
+          "claimId": "claim_armory_12",
+          "patchRef": null,
+          "claimText": "The Cryo Archive Sponsored Kit is a blue-tier bundle tuned for an early Cryo Archive run.",
           "extractIds": [
             "bungie-cryo-archive#3"
           ],
-          "quotes": [
-            {
-              "extractId": "bungie-cryo-archive#3",
-              "quote": "you'll also be eligible for a one-time Cryo Archive Sponsored Kit from the Armory"
-            }
-          ],
-          "patchRef": null
-        },
-        {
-          "claimId": "claim_armory_7",
-          "claimText": "A new daily Ranked Sponsored Kit grants a loadout scaled to a player’s rank.",
-          "status": "supported",
-          "supportScore": 0.9,
           "matchedTerms": [],
           "missingTerms": [],
+          "supportScore": 0.9,
           "matchedSourceIds": [
-            "src_bungie_welcome_season_2"
+            "src_bungie_cryo_archive"
           ],
           "matchedSourceKeys": [
-            "bungie-welcome-season-2"
+            "bungie-cryo-archive"
           ],
           "matchedSourceTitles": [
-            "Welcome to Season 2"
-          ],
-          "reason": "Verified against 1 quoted passage from official sources.",
-          "extractIds": [
-            "bungie-welcome-season-2#19"
-          ],
-          "quotes": [
-            {
-              "extractId": "bungie-welcome-season-2#19",
-              "quote": "There is a new daily Ranked Sponsored Kit that contains a loadout appropriate for your rank"
-            }
-          ],
-          "patchRef": null
+            "Welcome to Cryo Archive"
+          ]
         }
       ],
-      "refreshReason": "new_page",
-      "requestedBy": "content-pipeline",
-      "publishGate": {
-        "decision": "publish",
-        "supported": 6,
-        "unsupported": 0,
-        "contradicted": 0,
-        "supportedRatio": 1,
-        "reasons": [],
-        "policy": {
-          "minSupportedRatio": 0.8,
-          "minSupportedClaims": 3,
-          "maxUnsupported": 3
+      "promptVersion": "marathon-real-content-v4",
+      "refreshReason": "manual_refresh",
+      "sourceReferences": [
+        {
+          "url": "https://www.bungie.net/7/en/News/Article/ranked_in_marathon",
+          "title": "Ranked in Marathon",
+          "sourceId": "src_bungie_ranked",
+          "publisher": "Bungie",
+          "sourceKey": "bungie-ranked",
+          "sourceType": "official",
+          "authorityTier": "official",
+          "authorityScore": 93
+        },
+        {
+          "url": "https://www.bungie.net/7/en/News/article/welcome_season_2",
+          "title": "Welcome to Season 2",
+          "sourceId": "src_bungie_welcome_season_2",
+          "publisher": "Bungie",
+          "sourceKey": "bungie-welcome-season-2",
+          "sourceType": "official",
+          "authorityTier": "official",
+          "authorityScore": 93
+        },
+        {
+          "url": "https://www.gamesradar.com/games/fps/marathon-factions/",
+          "title": "All Marathon factions and how contracts work",
+          "sourceId": "src_gamesradar_factions",
+          "publisher": "GamesRadar+",
+          "sourceKey": "gamesradar-factions",
+          "sourceType": "press",
+          "authorityTier": "reputable_editorial",
+          "authorityScore": 78
+        },
+        {
+          "url": "https://kotaku.com/everything-you-need-to-know-about-marathon-season-2-and-its-first-free-week-2000701243",
+          "title": "Marathon Season 2 Guide: Everything You Need To Know",
+          "sourceId": "src_kotaku_season_2",
+          "publisher": "Kotaku",
+          "sourceKey": "kotaku-season-2",
+          "sourceType": "press",
+          "authorityTier": "reputable_editorial",
+          "authorityScore": 72
+        },
+        {
+          "url": "https://www.bungie.net/7/en/News/Article/cryo_archive_overview",
+          "title": "Welcome to Cryo Archive",
+          "sourceId": "src_bungie_cryo_archive",
+          "publisher": "Bungie",
+          "sourceKey": "bungie-cryo-archive",
+          "sourceType": "official",
+          "authorityTier": "official",
+          "authorityScore": 93
         }
-      }
+      ],
+      "claimCheckModelId": "openai/gpt-5-mini",
+      "sourceContextSummary": "37 extracts from rendered source snapshots considered; 5 sources cited.",
+      "claimCheckPromptVersion": "marathon-claim-check-v2"
     }
   },
   {

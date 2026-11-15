@@ -4,6 +4,8 @@
  *
  *   node scripts/content/generate.ts --dry-run          # build every prompt, estimate cost, no AI calls
  *   node scripts/content/generate.ts [slug ...]         # generate (all 40 pages, or the given slugs)
+ *   node scripts/content/generate.ts --write-only       # rebuild the committed files from runs/ (no model calls)
+ *   (--resume regenerates every cached page written with an older prompt version; it can spend.)
  *
  * Inputs:  content/marathon/{sources,pages}.json, rendered snapshots outside the repo
  *          (../marathon-wiki-content/snapshots, from scripts/content/snapshot.mjs).
@@ -121,7 +123,16 @@ function withPatchDates(result: PageResult): PageResult {
 function writeOutputs(rawResults: PageResult[]) {
   mkdirSync(outDir, { recursive: true });
   const results = rawResults.map(withPatchDates);
-  const ordered = pages.flatMap((spec) => results.filter((result) => result.slug === spec.slug));
+  // Earlier published revisions of a page (runs/<slug>.history.json, oldest first; written by
+  // export-from-db.ts) are emitted before its current version so the preview shows real history.
+  const history = (slug: string) => {
+    const file = path.join(runsDir, `${slug}.history.json`);
+    return existsSync(file) ? readJson<PageResult[]>(file).map(withPatchDates) : [];
+  };
+  const ordered = pages.flatMap((spec) => {
+    const current = results.filter((result) => result.slug === spec.slug);
+    return current.length ? [...history(spec.slug), ...current] : [];
+  });
   writeFileSync(
     path.join(outDir, "pages.json"),
     `${JSON.stringify(

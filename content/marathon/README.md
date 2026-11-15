@@ -68,3 +68,28 @@ The script refuses to run on Vercel. It also refuses any database that `scripts/
 4. Regenerate it, then diff the two revisions.
 
 Without `--model`, the drill uses a scripted stand-in model, so it spends nothing.
+
+### Editor corrections and thin hubs
+
+- `editor.ts note <slug> --text "..." --quote "..."` files an editor correction as an approved reader
+  note and queues the page (the same path as approving a reader note in Review). Notes are context,
+  never sources: the rewrite still has to cite an extract.
+- Hub pages (`hubChildren`, or `"hub": true` in pages.json) need 250 readable words to auto-publish
+  (`DEFAULT_PUBLISH_POLICY.minHubWords`). A thinner hub goes to Review as a pending AI suggestion.
+- `export-from-db.ts <slug ...>` copies the queue's result on a dev/preview database back into the
+  runs cache; `generate.ts --write-only` then rebuilds the committed files. A published revision keeps
+  the earlier version as history; a needs_review result replaces it, so the seed files it for Review.
+
+## One-time production load (code only; Mike runs it)
+
+`scripts/content/load-generated-once.ts` loads `generated/pages.json` into one wiki exactly once.
+
+1. `node scripts/content/load-generated-once.ts --dry-run` prints the counts, the file hash and the
+   exact confirmation phrase, and says whether the wiki was already loaded.
+2. A production target refuses unless `WIKI_ALLOW_PROD_CONTENT_LOAD=1` is set for that one command.
+   Any other target must pass `scripts/db-guard.mjs`.
+3. `--confirm "load <N> pages <sha12> into <production|non-production> <wiki>"` must match exactly,
+   so a different or stale file cannot be confirmed by habit.
+4. The run inserts a `content_load_records` row (unique `load_key = generated-pages:<wiki>`) in the
+   same transaction as the pages. A failed load leaves no record; a finished one blocks every rerun.
+5. It refuses on Vercel and never prints a URL, host or secret.

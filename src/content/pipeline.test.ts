@@ -283,3 +283,11 @@ describe("datePatchClaims", () => {
     expect(named.claimText).toBe("Kit ammo rose in Update 1.1.9.2 (October 6, 2026).");
   });
 });
+
+describe("isTableShapedExtract", () => {
+  it("flags raw table text so a page can read the parsed rows instead", async () => {
+    const { isTableShapedExtract } = await import("./pipeline");
+    expect(isTableShapedExtract("Impact\nHeavy Rounds\nM77\nLight Rounds\nOverrun\nLight Rounds")).toBe(true);
+    expect(isTableShapedExtract("Marathon has ballistic light and heavy rounds and energy-based batteries.")).toBe(false);
+  });
+});

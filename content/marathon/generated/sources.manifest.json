@@ -86,6 +86,7 @@
           "Archetype: Intel specialist",
           "excel at identifying threats and tracking movements",
           "holographic footstep trails",
+          "using echo pulses, tracker drones, and holographic footstep trails",
           "Archetype: Combat anarchist",
           "Vandal shells traverse ground at incredible speeds"
         ]
@@ -144,7 +145,8 @@
           "Minimum Runner Level: 25\nAll six factions unlocked (liaison contracts completed)\nMinimum Loadout Value: 5,000 credits",
           "Cryo Archive opens up for play on the weekends, starting this Friday, March 20.",
           "tight corridors give way to massive open spaces, pitting enemy crews against each other to unseal frozen Vaults",
-          "you'll also be eligible for a one-time Cryo Archive Sponsored Kit from the Armory",
+          "you'll also be eligible for a one-time Cryo Archive Sponsored Kit from the Armory.",
+          "a bundle of blue-tier gear specifically tuned to get you through an early Cryo Archive run",
           "opens up for play on the weekends, starting this Friday, March 20.",
           "raid-style puzzle solving and layered mechanics wrapped around brutal extraction stakes",
           "you'll need a crew of three"
@@ -339,7 +341,8 @@
       {
         "id": "bungie-s2-combat-tuning#2",
         "quotes": [
-          "broader updates to ammo economy, time to kill, and range identities"
+          "broader updates to ammo economy, time to kill, and range identities",
+          "close-range tools stay dangerous up close, mid-range options better hold their ground"
         ]
       },
       {
@@ -467,14 +470,14 @@
           "With all of the Runner shell upgrades in the faction progression trees being moved to the Cradle,",
           "no more needing to level up a faction to gain access to stats",
           "we’ve been able to expand the Armory options",
-          "each faction now has a unique family of implants (head, torso, and leg)",
+          "moved to the Cradle, we’ve been able to expand the Armory options",
           "each faction now has a unique family of implants (head, torso, and leg) which fits the playstyle of that faction"
         ]
       },
       {
         "id": "bungie-welcome-season-2#14",
         "quotes": [
-          "which can now unlock specific Barter offers in the Armory"
+          "schemas, which can now unlock specific Barter offers in the Armory."
         ]
       },
       {
@@ -509,7 +512,9 @@
           "Players must also now bring a Holotag that matches their current rank.",
           "combining the Low and High Stakes modes into a single queue with a 5,000 Loadout value minimum.",
           "Ranked will return in Season 2 on June 14, with all new rewards across the board.",
-          "Progression has been adjusted and should feel faster across all ranks."
+          "Progression has been adjusted and should feel faster across all ranks.",
+          "combining the Low and High Stakes modes into a single queue with a 5,000 Loadout value minimum",
+          "Progression has been adjusted and should feel faster across all ranks.\nWin/loss point progression will be influenced by the average rank of the players in that match"
         ]
       },
       {
@@ -517,7 +522,8 @@
         "quotes": [
           "Players can earn Arachne reputation by exfiling with a Tag Chip",
           "There is a new daily Ranked Sponsored Kit that contains a loadout appropriate for your rank—the higher your rank, the better the gear.",
-          "There is a new daily Ranked Sponsored Kit that contains a loadout appropriate for your rank"
+          "There is a new daily Ranked Sponsored Kit that contains a loadout appropriate for your rank",
+          "new daily Ranked Sponsored Kit that contains a loadout appropriate for your rank"
         ]
       },
       {
@@ -648,7 +654,10 @@
         "quotes": [
           "test everything you’ve learned in Marathon, including looting, PvP success, and strategic risk taking.",
           "Your first chance to play Ranked is this weekend, March 21 at 10:00 AM PT – March 24 at 10:00 AM PT. Ranked mode is in beta for Season 1.",
-          "climb through six ranks (Bronze, Silver, Gold, Platinum, Diamond, and Pinnacle) with three tiers each"
+          "climb through six ranks (Bronze, Silver, Gold, Platinum, Diamond, and Pinnacle) with three tiers each",
+          "test everything you’ve learned in Marathon, including looting, PvP success, and strategic risk taking",
+          "six ranks (Bronze, Silver, Gold, Platinum, Diamond, and Pinnacle) with three tiers each",
+          "Your first chance to play Ranked is this weekend, March 21 at 10:00 AM PT – March 24 at 10:00 AM PT."
         ]
       },
       {
@@ -666,7 +675,8 @@
       {
         "id": "bungie-ranked#4",
         "quotes": [
-          "You can purchase Holotags using credits in the Armory"
+          "You can purchase Holotags using credits in the Armory.",
+          "you must bring one Holotag in your backpack to queue for Ranked. You can purchase Holotags using credits in the Armory"
         ]
       },
       {
@@ -914,14 +924,21 @@
       {
         "id": "bungie-update-1-1-9-2#5",
         "quotes": [
-          "Weapon and Backpack Schema wares in the Armory now cost Credits",
           "Reduced UESC aggression against runners in Solo playlists. Reduced UESC damage dealt to runners by 20% in Solo playlists."
+        ]
+      },
+      {
+        "id": "bungie-update-1-1-9-2#6",
+        "quotes": [
+          "Echo Pulse now fires its pulses in a cone in your aim direction",
+          "Echo Pulse now staggers enemy non-Runner combatants and briefly prevents them from activating combat abilities when struck for the first time"
         ]
       },
       {
         "id": "bungie-update-1-1-9-2#7",
         "quotes": [
-          "limiting the scan area to a cone, players need to predict in 3D space"
+          "limiting the scan area to a cone, players need to predict in 3D space",
+          "players need to predict in 3D space where they believe their targets are"
         ]
       },
       {
@@ -929,6 +946,7 @@
         "quotes": [
           "Added double-tap protection to prevent the ability from being accidentally deactivated before the shield is deployed.",
           "Invisibility can now flicker if the invisible player fires their weapon after 0.2 seconds has elapsed since the invisibility was applied, down from 0.9 seconds.",
+          "The notification received by pinged Recon players is now delayed by two seconds",
           "Fixed an issue where certain grenades would get stuck when they impacted surfaces inside an ally's Defender System radius",
           "Removed flares from Rook’s kit. Dev Note: All other inventory buffs previously added during the end of Nightfall will be retained"
         ]
@@ -1097,15 +1115,17 @@
       {
         "id": "pcgamer-review#12",
         "quotes": [
+          "Heavy ammo guns hit harder at the cost of fire rate and recoil",
           "Volt guns drain shields faster than bullets and can recharge over time",
-          "but reloading early dumps its remaining energy.",
-          "Heavy ammo guns hit harder at the cost of fire rate and recoil."
+          "reloading early dumps its remaining energy"
         ]
       },
       {
         "id": "pcgamer-review#13",
         "quotes": [
-          "MIPS ammo is expensive and only stacks 15 rounds"
+          "MIPS ammo is expensive and only stacks 15 rounds",
+          "their MIPS ammo is expensive and only stacks 15 rounds",
+          "only stacks 15 rounds"
         ]
       },
       {
@@ -1183,7 +1203,9 @@
         "id": "gamesradar-weapons#1",
         "quotes": [
           "Assault Rifles Shotguns SMGs Precision Rifles Machine Guns Railguns Sniper Rifles Pistols",
-          "from ballistic light and heavy rounds to energy-based batteries and cells."
+          "from ballistic light and heavy rounds to energy-based batteries and cells",
+          "from ballistic light and heavy rounds",
+          "energy-based batteries and cells"
         ]
       },
       {
@@ -1197,7 +1219,10 @@
       {
         "id": "gamesradar-weapons#table",
         "quotes": [
-          "Marathon will feature 28 weapons at launch"
+          "Marathon will feature 28 weapons at launch",
+          "Assault rifle: M77 (Light Rounds)",
+          "Assault rifle: V75 SCAR (Volt Battery)",
+          "Shotgun: Misriah-2442 (MIPS)"
         ]
       }
     ]
@@ -1257,7 +1282,8 @@
           "Consumables that heal and remove status effects, Self-Revives, Shields, and Implants",
           "Complete NuCaloric contracts; loot Medical Cabinets and Tick Nests",
           "Traxus OffWorld Industries is the most powerful corporation in human history",
-          "Through their agent Vulcan, you'll be tasked with salvaging valuables"
+          "Through their agent Vulcan, you'll be tasked with salvaging valuables",
+          "Armory offerings: Consumables that heal and remove status effects, Self-Revives, Shields, and Implants"
         ]
       },
       {
