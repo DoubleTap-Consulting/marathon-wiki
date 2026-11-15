@@ -113,6 +113,7 @@ function TrustPopover({
   const [open, setOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const openedByClick = useRef(false);
+  const returningFocus = useRef(false);
 
   const hoverOpen = useCallback(() => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -152,7 +153,9 @@ function TrustPopover({
         {trigger({
           onMouseEnter: hoverOpen,
           onMouseLeave: hoverClose,
-          onFocus: hoverOpen,
+          onFocus: () => {
+            if (!returningFocus.current) hoverOpen();
+          },
           onClick: (event) => {
             event.preventDefault();
             openedByClick.current = true;
@@ -164,6 +167,12 @@ function TrustPopover({
         className="w-80 text-sm leading-6"
         onOpenAutoFocus={(event) => {
           if (!openedByClick.current) event.preventDefault();
+        }}
+        onCloseAutoFocus={() => {
+          returningFocus.current = true;
+          setTimeout(() => {
+            returningFocus.current = false;
+          });
         }}
         onMouseEnter={hoverOpen}
         onMouseLeave={hoverClose}
