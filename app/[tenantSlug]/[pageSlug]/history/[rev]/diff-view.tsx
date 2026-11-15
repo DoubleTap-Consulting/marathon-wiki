@@ -46,9 +46,13 @@ export function DiffView({ full, changes }: { full: DiffRow[]; changes: DiffRow[
               );
             }
             if (row.kind === "changed") {
+              const heading = /^#{1,6}\s+/.exec(row.parts[0]?.value ?? "");
+              const parts = heading
+                ? [{ ...row.parts[0], value: row.parts[0].value.slice(heading[0].length) }, ...row.parts.slice(1)]
+                : row.parts;
               return (
-                <p key={index} className="border-l-2 border-emerald-600/40 pl-3">
-                  {row.parts.map((part, partIndex) =>
+                <p key={index} className={cn("border-l-2 border-emerald-600/40 pl-3", heading && "font-semibold")}>
+                  {parts.map((part, partIndex) =>
                     part.added ? (
                       <ins key={partIndex} className="bg-emerald-500/15 no-underline">
                         <span className="sr-only">Added: </span>

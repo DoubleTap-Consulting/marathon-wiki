@@ -261,3 +261,25 @@ describe("editor-flagged disagreements", () => {
     expect(stale.dropped[0].reason).toMatch(/no longer appears/);
   });
 });
+
+describe("datePatchClaims", () => {
+  it("names the update and date for claims that rest only on patch notes", async () => {
+    const { datePatchClaims } = await import("./pipeline");
+    const sources = new Map([
+      ["patch", { sourceKey: "patch", sourceId: "src_patch", sourceType: "patch_notes", authorityTier: "official" as const, authorityScore: 95, title: "Marathon Update 1.1.9.2", publisher: "Bungie", url: "https://p.test", publishedDate: "2026-10-06" }],
+      ["site", { sourceKey: "site", sourceId: "src_site", sourceType: "official", authorityTier: "official" as const, authorityScore: 95, title: "Site", publisher: "Bungie", url: "https://s.test", publishedDate: null }],
+    ]);
+    const base = { claimId: "c", status: "supported" as const, extractIds: [], quotes: [], reason: "", patchRef: null, heading: "h", paragraph: 0 };
+    const [patched, mixed] = datePatchClaims(
+      [
+        { ...base, claimText: "The Echo Pulse range was reduced.", sourceKeys: ["patch"] },
+        { ...base, claimText: "Recon tracks enemies.", sourceKeys: ["patch", "site"] },
+      ],
+      sources,
+    );
+    expect(patched.claimText).toBe("The Echo Pulse range was reduced (Update 1.1.9.2, October 6, 2026).");
+    expect(mixed.claimText).toBe("Recon tracks enemies.");
+    const [named] = datePatchClaims([{ ...base, claimText: "Kit ammo rose in Update 1.1.9.2.", sourceKeys: ["patch"] }], sources);
+    expect(named.claimText).toBe("Kit ammo rose in Update 1.1.9.2 (October 6, 2026).");
+  });
+});

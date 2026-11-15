@@ -308,9 +308,11 @@ export function ClaimMark({
           </button>
         )}
       >
-        <p id={descriptionId} className="text-muted-foreground">
-          {reason}
-        </p>
+        <div id={descriptionId} className="space-y-1.5 text-muted-foreground">
+          {splitAttributedQuotes(reason).map((line) => (
+            <p key={line}>{line}</p>
+          ))}
+        </div>
         {sources.length > 0 ? (
           <ul className="mt-2 list-disc space-y-1 pl-5">
             {sources.map((source) => (
@@ -360,4 +362,10 @@ export function ProvenanceTrigger({
       {footnote ? <p className="mt-2 text-xs text-muted-foreground">{footnote}</p> : null}
     </TrustPopover>
   );
+}
+
+/** 'A (x) says: "…" B (y) says: "…"' → one line per source, so each position reads on its own. */
+export function splitAttributedQuotes(reason: string) {
+  const lines = reason.split(/(?<=")\s+(?=[^"]+ says: ")/).map((line) => line.trim()).filter(Boolean);
+  return lines.length ? lines : [reason];
 }

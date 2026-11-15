@@ -149,6 +149,7 @@ export async function runEditor(
     refreshReason: input.refreshReason,
     requestedBy: input.actorId,
     readerNotes: notes.flatMap((note) => (note.contextText ? [note.contextText] : [])),
+    previousClaims,
     policy: input.policy,
     now,
   });

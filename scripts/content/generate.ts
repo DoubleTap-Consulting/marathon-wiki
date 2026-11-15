@@ -27,7 +27,7 @@ import {
   type SpendEntry,
   type SpendLedger,
 } from "../../src/content/model-gateway.ts";
-import { CONTENT_PROMPT_VERSION, DRAFT_SYSTEM, buildDraftPrompt, selectExtracts, type PageSpec, type SourceRecord } from "../../src/content/pipeline.ts";
+import { CONTENT_PROMPT_VERSION, DRAFT_SYSTEM, buildDraftPrompt, datePatchText, selectExtracts, type PageSpec, type SourceRecord } from "../../src/content/pipeline.ts";
 
 const CAP_USD = Number(process.env.CONTENT_SPEND_CAP_USD ?? 15);
 
@@ -105,8 +105,22 @@ const ledger = new FileLedger();
 
 type PageResult = Omit<ComposedPage, "gate">;
 
-function writeOutputs(results: PageResult[]) {
+/** Cached pages predate the patch-dating rule; apply it deterministically so no model call is needed. */
+function withPatchDates(result: PageResult): PageResult {
+  let bodyMarkdown = result.bodyMarkdown;
+  const claimSupport = result.aiProvenance.claimSupport.map((claim) => {
+    if (claim.status !== "supported") return claim;
+    const dated = datePatchText(claim.claimText, claim.matchedSourceKeys, sources);
+    if (!dated || !bodyMarkdown.includes(claim.claimText)) return claim;
+    bodyMarkdown = bodyMarkdown.replace(claim.claimText, dated.text);
+    return { ...claim, claimText: dated.text, patchRef: dated.patchRef };
+  });
+  return { ...result, bodyMarkdown, aiProvenance: { ...result.aiProvenance, claimSupport } };
+}
+
+function writeOutputs(rawResults: PageResult[]) {
   mkdirSync(outDir, { recursive: true });
+  const results = rawResults.map(withPatchDates);
   const ordered = pages.flatMap((spec) => results.filter((result) => result.slug === spec.slug));
   writeFileSync(
     path.join(outDir, "pages.json"),

@@ -14,6 +14,7 @@ import {
   buildDraftPrompt,
   buildProvenance,
   chunkSnapshot,
+  datePatchClaims,
   claimCheckSchema,
   draftSchema,
   parseWeaponTable,
@@ -115,14 +116,26 @@ const TRIGGER_PHRASE: Record<string, string> = {
   manual_refresh: "An editor asked for a re-check",
 };
 
+function words(text: string) {
+  return new Set(key(text).split(" ").filter((word) => word.length > 2));
+}
+
+/** Two statements are "the same" when most of their words overlap, so a reworded sentence is not counted as new. */
+export function sameStatement(a: string, b: string) {
+  const left = words(a);
+  const right = words(b);
+  const shared = [...left].filter((word) => right.has(word)).length;
+  return shared / Math.max(1, new Set([...left, ...right]).size) >= 0.6;
+}
+
 /** A plain-language revision note that compares claim sets. Shown as "What changed". */
 export function describeChanges(input: { previous: ClaimLike[] | null; next: ClaimLike[]; refreshReason: string; changedSources?: string[] }) {
   if (!input.previous?.length) return TRIGGER_PHRASE.new_page;
-  const before = new Map(input.previous.map((claim) => [key(claim.claimText), claim]));
-  const after = new Map(input.next.map((claim) => [key(claim.claimText), claim]));
-  const added = [...after.keys()].filter((text) => !before.has(text)).length;
-  const removed = [...before.keys()].filter((text) => !after.has(text)).length;
-  const disputed = [...after.entries()].filter(([text, claim]) => claim.status === "contradicted" && before.get(text)?.status !== "contradicted").length;
+  const previous = input.previous;
+  const match = (claim: ClaimLike, pool: ClaimLike[]) => pool.find((candidate) => key(candidate.claimText) === key(claim.claimText) || sameStatement(candidate.claimText, claim.claimText));
+  const added = input.next.filter((claim) => !match(claim, previous)).length;
+  const removed = previous.filter((claim) => !match(claim, input.next)).length;
+  const disputed = input.next.filter((claim) => claim.status === "contradicted" && match(claim, previous)?.status !== "contradicted").length;
   const parts = [
     added && `${added} statement${added === 1 ? "" : "s"} added`,
     removed && `${removed} removed`,
@@ -235,7 +248,7 @@ export async function composePage(input: {
     page: spec.slug,
     step: "draft",
     system: DRAFT_SYSTEM,
-    prompt: buildDraftPrompt(spec, extracts, corpus.sources, input.today, input.readerNotes),
+    prompt: buildDraftPrompt(spec, extracts, corpus.sources, input.today, input.readerNotes, input.previousClaims?.map((claim) => claim.claimText)),
     schema: draftSchema,
   });
   const draft = validateDraft(draftCall.output, known);
@@ -265,7 +278,7 @@ export async function composePage(input: {
 
   const resolved = resolveClaims(draft, checkCall.output.checks, corpus.extractsById, corpus.sources, spec.slug, conflictVerdicts);
   const flagged = resolveKnownConflicts(spec, corpus);
-  const claims = [...resolved.claims, ...flagged.claims];
+  const claims = datePatchClaims([...resolved.claims, ...flagged.claims], corpus.sources);
   const dropped = [...resolved.dropped, ...flagged.dropped, ...modelConflictsDropped];
   const table = spec.table === "weapons" ? weaponsTable(corpus) : null;
   const allClaims = table ? [...claims, table.intro] : claims;

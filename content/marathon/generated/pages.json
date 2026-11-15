@@ -868,7 +868,7 @@
     "title": "Factions",
     "summary": "This page covers Marathon’s six contract factions, how to unlock them, faction reputation and upgrades, and the UESC as the primary antagonist.",
     "category": "lore",
-    "bodyMarkdown": "## Overview\n\nMarathon features six factions: CyberAcme, Arachne, Sekiguchi Genetics, MIDA, Traxus, and NuCaloric.{{cite:pcgamer-guide}}\n\n## Unlocking factions and contracts\n\nFactions become available after completing liaison contracts, which enable reputation and further contracts for that faction.{{cite:gamesradar-factions}}\n\n## Reputation and upgrades\n\nCompleting contracts grants faction reputation used to unlock seasonal upgrades, stronger base stats, and Armory wares.{{cite:bungie-introducing-seasons}} Each season provides a clean slate with progression resets for faction ranks, while liaison contract progress carries over.{{cite:bungie-introducing-seasons}} Season 2 moved many Runner shell upgrades into the Cradle and introduced unique implant families per faction.{{cite:bungie-welcome-season-2}}\n\n## UESC as antagonist\n\nThe derelict UESC Marathon serves as the site for end-game Cryo Archive content aboard the ship.{{cite:bungie-server-slam}} UESC combatants appear during runs and were tuned by Bungie to adjust their health and combat impact.{{cite:bungie-update-1-0-0-4}}\n\n## Pages in this section\n\n- [[cyberacme|CyberAcme]]\n- [[nucaloric|NuCaloric]]\n- [[traxus|Traxus]]\n- [[mida|MIDA]]\n- [[arachne|Arachne]]\n- [[sekiguchi-genetics|Sekiguchi Genetics]]\n- [[uesc|UESC]]",
+    "bodyMarkdown": "## Overview\n\nMarathon features six factions: CyberAcme, Arachne, Sekiguchi Genetics, MIDA, Traxus, and NuCaloric.{{cite:pcgamer-guide}}\n\n## Unlocking factions and contracts\n\nFactions become available after completing liaison contracts, which enable reputation and further contracts for that faction.{{cite:gamesradar-factions}}\n\n## Reputation and upgrades\n\nCompleting contracts grants faction reputation used to unlock seasonal upgrades, stronger base stats, and Armory wares.{{cite:bungie-introducing-seasons}} Each season provides a clean slate with progression resets for faction ranks, while liaison contract progress carries over.{{cite:bungie-introducing-seasons}} Season 2 moved many Runner shell upgrades into the Cradle and introduced unique implant families per faction.{{cite:bungie-welcome-season-2}}\n\n## UESC as antagonist\n\nThe derelict UESC Marathon serves as the site for end-game Cryo Archive content aboard the ship.{{cite:bungie-server-slam}} UESC combatants appear during runs and were tuned by Bungie to adjust their health and combat impact (Update 1.0.0.4, March 11, 2026).{{cite:bungie-update-1-0-0-4}}\n\n## Pages in this section\n\n- [[cyberacme|CyberAcme]]\n- [[nucaloric|NuCaloric]]\n- [[traxus|Traxus]]\n- [[mida|MIDA]]\n- [[arachne|Arachne]]\n- [[sekiguchi-genetics|Sekiguchi Genetics]]\n- [[uesc|UESC]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -1117,7 +1117,7 @@
         },
         {
           "claimId": "claim_factions_10",
-          "claimText": "UESC combatants appear during runs and were tuned by Bungie to adjust their health and combat impact.",
+          "claimText": "UESC combatants appear during runs and were tuned by Bungie to adjust their health and combat impact (Update 1.0.0.4, March 11, 2026).",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -1141,7 +1141,7 @@
               "quote": "Reduced health of most UESC enemies by ~10-15%"
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.0.0.4, March 11, 2026"
         }
       ],
       "refreshReason": "new_page",
@@ -1166,7 +1166,7 @@
     "title": "CyberAcme",
     "summary": "CyberAcme is a Marathon faction focused on digital technology and contracts that supply basic gear and progression for Runners.",
     "category": "lore",
-    "bodyMarkdown": "## Who they are\n\nCyberAcme is a megacorporation in Marathon focused on digital technology and artificial intelligence functionality.{{cite:gamesradar-factions}} All Marathon Runner shells have CyberAcme's Onboard Navigation Intelligence installed.{{cite:gamesradar-factions}} Bungie listed CyberAcme among the factions playable during the Server Slam preview.{{cite:bungie-server-slam}} Bungie and outlets list CyberAcme as one of Marathon's six factions at launch.{{cite:pcgamer-guide}}\n\n## What they offer Runners\n\nCyberAcme stocks basic armory items such as ammo, healing consumables, basic weapons, backpacks, and keys.{{cite:gamesradar-factions}} Rank-up rewards from CyberAcme include ammo, torso implants, and backpacks.{{cite:gamesradar-factions}} CyberAcme Sponsored Kits have had their starting ammo increased in Update 1.0.0.4.{{cite:bungie-update-1-0-0-4}} Enhanced and Deluxe CyberAcme Sponsored Kits unlock at Runner levels listed in Season 2 documentation.{{cite:kotaku-season-2}}\n\n## Recent changes and activities\n\nWhen the Cryo Archive zone is available, seven unique Cryo contracts appear in CyberAcme's pool.{{cite:bungie-cryo-archive}} Bungie fixed a CyberAcme contract display issue in Update 1.1.0.1.{{cite:bungie-update-1-1-0-1}} CyberAcme joined other parties in a Runner non-aggression pact ahead of the Expedition Phase 1 update.{{cite:bungie-expedition-phase-1}}\n\n## See also\n\n- [[factions|Factions]]\n- [[contracts|Contracts]]\n- [[armory|Armory]]",
+    "bodyMarkdown": "## Who they are\n\nCyberAcme is a megacorporation in Marathon focused on digital technology and artificial intelligence functionality.{{cite:gamesradar-factions}} All Marathon Runner shells have CyberAcme's Onboard Navigation Intelligence installed.{{cite:gamesradar-factions}} Bungie listed CyberAcme among the factions playable during the Server Slam preview.{{cite:bungie-server-slam}} Bungie and outlets list CyberAcme as one of Marathon's six factions at launch.{{cite:pcgamer-guide}}\n\n## What they offer Runners\n\nCyberAcme stocks basic armory items such as ammo, healing consumables, basic weapons, backpacks, and keys.{{cite:gamesradar-factions}} Rank-up rewards from CyberAcme include ammo, torso implants, and backpacks.{{cite:gamesradar-factions}} CyberAcme Sponsored Kits have had their starting ammo increased in Update 1.0.0.4 (March 11, 2026).{{cite:bungie-update-1-0-0-4}} Enhanced and Deluxe CyberAcme Sponsored Kits unlock at Runner levels listed in Season 2 documentation.{{cite:kotaku-season-2}}\n\n## Recent changes and activities\n\nWhen the Cryo Archive zone is available, seven unique Cryo contracts appear in CyberAcme's pool.{{cite:bungie-cryo-archive}} Bungie fixed a CyberAcme contract display issue in Update 1.1.0.1 (June 9, 2026).{{cite:bungie-update-1-1-0-1}} CyberAcme joined other parties in a Runner non-aggression pact ahead of the Expedition Phase 1 update.{{cite:bungie-expedition-phase-1}}\n\n## See also\n\n- [[factions|Factions]]\n- [[contracts|Contracts]]\n- [[armory|Armory]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -1430,7 +1430,7 @@
         },
         {
           "claimId": "claim_cyberacme_8",
-          "claimText": "CyberAcme Sponsored Kits have had their starting ammo increased in Update 1.0.0.4.",
+          "claimText": "CyberAcme Sponsored Kits have had their starting ammo increased in Update 1.0.0.4 (March 11, 2026).",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -1454,7 +1454,7 @@
               "quote": "Increased the amount of starting ammo in MIDA, CyberAcme, and Arachne free Sponsored Kits"
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.0.0.4, March 11, 2026"
         },
         {
           "claimId": "claim_cyberacme_9",
@@ -1514,7 +1514,7 @@
         },
         {
           "claimId": "claim_cyberacme_11",
-          "claimText": "Bungie fixed a CyberAcme contract display issue in Update 1.1.0.1.",
+          "claimText": "Bungie fixed a CyberAcme contract display issue in Update 1.1.0.1 (June 9, 2026).",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -1538,7 +1538,7 @@
               "quote": "Fixed an issue where the Standard contract “CyAc Guidance: Complex Control” displayed an Enhanced (green) Hardline PR instead of a Deluxe (blue) version"
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.1.0.1, June 9, 2026"
         },
         {
           "claimId": "claim_cyberacme_12",
@@ -1591,7 +1591,7 @@
     "title": "NuCaloric",
     "summary": "NuCaloric is a Marathon faction focused on food production, survival, and healing-oriented rewards for Runners.",
     "category": "lore",
-    "bodyMarkdown": "## Overview\n\nNuCaloric is a Marathon faction described as an agricultural company focused on food production and humanity's survival.{{cite:gamesradar-factions}} Bungie included NuCaloric among the early factions playable in the Server Slam preview.{{cite:bungie-server-slam}} Bungie introduced a NuCaloric contract in an early post-launch update.{{cite:bungie-update-1-0-0-4}}\n\n## What NuCaloric offers Runners\n\nNuCaloric faction rank rewards include consumables, NuCaloric salvage items, and implants.{{cite:gamesradar-factions}} NuCaloric's armory offers healing consumables that remove status effects, self-revives, shields, and implants.{{cite:gamesradar-factions}} NuCaloric provides a family of head, torso, and leg implants that support healing and durability.{{cite:bungie-welcome-season-2}} GamesRadar lists methods to gain NuCaloric reputation, including completing NuCaloric contracts and looting medical cabinets.{{cite:gamesradar-factions}}\n\n## Recent changes and events\n\nThe Nightfall Refresh added a NuCaloric Reward Pass available at no extra cost to Marathon owners.{{cite:bungie-update-1-1-9-2}} Bungie also released a NuCaloric inspired Reward Pass with new NuCal skins during the Nightfall Refresh update.{{cite:bungie-nightfall-refresh}} Nightfall Refresh reset Runner, Cradle, and Faction levels as part of its release.{{cite:bungie-update-1-1-9-2}} A follow-up update fixed an issue where NuCal weapon styles' Stickers were not displaying correctly.{{cite:bungie-update-1-1-9-7}} An earlier update corrected the NuCaloric Armored Barter icon in the Armory.{{cite:bungie-update-1-1-0-1}}\n\n## See also\n\n- [[factions|Factions]]\n- [[contracts|Contracts]]\n- [[armory|Armory]]",
+    "bodyMarkdown": "## Overview\n\nNuCaloric is a Marathon faction described as an agricultural company focused on food production and humanity's survival.{{cite:gamesradar-factions}} Bungie included NuCaloric among the early factions playable in the Server Slam preview.{{cite:bungie-server-slam}} Bungie introduced a NuCaloric contract in an early post-launch update (Update 1.0.0.4, March 11, 2026).{{cite:bungie-update-1-0-0-4}}\n\n## What NuCaloric offers Runners\n\nNuCaloric faction rank rewards include consumables, NuCaloric salvage items, and implants.{{cite:gamesradar-factions}} NuCaloric's armory offers healing consumables that remove status effects, self-revives, shields, and implants.{{cite:gamesradar-factions}} NuCaloric provides a family of head, torso, and leg implants that support healing and durability.{{cite:bungie-welcome-season-2}} GamesRadar lists methods to gain NuCaloric reputation, including completing NuCaloric contracts and looting medical cabinets.{{cite:gamesradar-factions}}\n\n## Recent changes and events\n\nThe Nightfall Refresh added a NuCaloric Reward Pass available at no extra cost to Marathon owners (Update 1.1.9.2, October 6, 2026).{{cite:bungie-update-1-1-9-2}} Bungie also released a NuCaloric inspired Reward Pass with new NuCal skins during the Nightfall Refresh update.{{cite:bungie-nightfall-refresh}} Nightfall Refresh reset Runner, Cradle, and Faction levels as part of its release (Update 1.1.9.2, October 6, 2026).{{cite:bungie-update-1-1-9-2}} A follow-up update fixed an issue where NuCal weapon styles' Stickers were not displaying correctly (Update 1.1.9.7, November 10, 2026).{{cite:bungie-update-1-1-9-7}} An earlier update corrected the NuCaloric Armored Barter icon in the Armory (Update 1.1.0.1, June 9, 2026).{{cite:bungie-update-1-1-0-1}}\n\n## See also\n\n- [[factions|Factions]]\n- [[contracts|Contracts]]\n- [[armory|Armory]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -1742,7 +1742,7 @@
         },
         {
           "claimId": "claim_nucaloric_3",
-          "claimText": "Bungie introduced a NuCaloric contract in an early post-launch update.",
+          "claimText": "Bungie introduced a NuCaloric contract in an early post-launch update (Update 1.0.0.4, March 11, 2026).",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -1766,7 +1766,7 @@
               "quote": "Introducing NuCaloric Contract"
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.0.0.4, March 11, 2026"
         },
         {
           "claimId": "claim_nucaloric_4",
@@ -1882,7 +1882,7 @@
         },
         {
           "claimId": "claim_nucaloric_8",
-          "claimText": "The Nightfall Refresh added a NuCaloric Reward Pass available at no extra cost to Marathon owners.",
+          "claimText": "The Nightfall Refresh added a NuCaloric Reward Pass available at no extra cost to Marathon owners (Update 1.1.9.2, October 6, 2026).",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -1907,7 +1907,7 @@
               "quote": "The NuCaloric Reward Pass is available now at no additional cost to everyone who owns Marathon."
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.1.9.2, October 6, 2026"
         },
         {
           "claimId": "claim_nucaloric_9",
@@ -1939,7 +1939,7 @@
         },
         {
           "claimId": "claim_nucaloric_10",
-          "claimText": "Nightfall Refresh reset Runner, Cradle, and Faction levels as part of its release.",
+          "claimText": "Nightfall Refresh reset Runner, Cradle, and Faction levels as part of its release (Update 1.1.9.2, October 6, 2026).",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -1963,11 +1963,11 @@
               "quote": "The following have been reset:\nRunner, Cradle, and Faction levels"
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.1.9.2, October 6, 2026"
         },
         {
           "claimId": "claim_nucaloric_11",
-          "claimText": "A follow-up update fixed an issue where NuCal weapon styles' Stickers were not displaying correctly.",
+          "claimText": "A follow-up update fixed an issue where NuCal weapon styles' Stickers were not displaying correctly (Update 1.1.9.7, November 10, 2026).",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -1991,11 +1991,11 @@
               "quote": "Fixed an issue where Stickers were not properly displaying when applied with NuCal weapon styles."
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.1.9.7, November 10, 2026"
         },
         {
           "claimId": "claim_nucaloric_12",
-          "claimText": "An earlier update corrected the NuCaloric Armored Barter icon in the Armory.",
+          "claimText": "An earlier update corrected the NuCaloric Armored Barter icon in the Armory (Update 1.1.0.1, June 9, 2026).",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -2019,7 +2019,7 @@
               "quote": "Fixed an issue where the NuCaloric Armored Barter was showing the incorrect upgrade icon."
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.1.0.1, June 9, 2026"
         }
       ],
       "refreshReason": "new_page",
@@ -2044,7 +2044,7 @@
     "title": "Traxus",
     "summary": "Traxus is a powerful corporate faction that tasks Runners with salvaging valuables and offers weapons, chips, and armory items.",
     "category": "lore",
-    "bodyMarkdown": "## Who they are\n\nTraxus OffWorld Industries is described as the most powerful corporation in human history.{{cite:gamesradar-factions}} Its agent Vulcan tasks Runners with salvaging valuables to recoup Marathon mission losses.{{cite:gamesradar-factions}} Traxus is one of the five factions playable during the Server Slam preview.{{cite:bungie-server-slam}}\n\n## What Traxus offers Runners\n\nTraxus rank-up rewards include weapon chip mods, Traxus Salvage items, and weapons.{{cite:gamesradar-factions}} The Traxus armory offers weapons and mods of all kinds.{{cite:gamesradar-factions}} Players can gain Traxus reputation by completing Traxus contracts and exfiltrating with Traxus valuables.{{cite:gamesradar-factions}} Several Traxus contracts are listed in the priority contract sequence for the faction.{{cite:marathonwiki-com-priority-contracts}}\n\n## Traxus and Night Marsh\n\nTraxus has Night Marsh exclusive interest in investigating UESC secrets on Night Marsh.{{cite:bungie-welcome-season-2}} Night Marsh availability and contracts rotate with Dire Marsh during Season 2.{{cite:bungie-welcome-season-2}}\n\n## Recent changes to Traxus offerings\n\nUpdate 1.1.9.2 reduced Deluxe sponsored kit stock and decreased Traxus weapon rarity from Superior to Deluxe.{{cite:bungie-update-1-1-9-2}} Update 1.1.9.7 repeated those Armory reductions, again lowering Traxus weapon stock and rarities.{{cite:bungie-update-1-1-9-7}} Update 1.1.0.1 fixed an Armory tooltip error related to a Traxus Prestige mod cost display.{{cite:bungie-update-1-1-0-1}} Mid-Season 2 updates included faster faction progression and Armory sponsored kit adjustments.{{cite:bungie-press-mid-season-2}}\n\n## See also\n\n- [[factions|Factions]]\n- [[contracts|Contracts]]\n- [[armory|Armory]]",
+    "bodyMarkdown": "## Who they are\n\nTraxus OffWorld Industries is described as the most powerful corporation in human history.{{cite:gamesradar-factions}} Its agent Vulcan tasks Runners with salvaging valuables to recoup Marathon mission losses.{{cite:gamesradar-factions}} Traxus is one of the five factions playable during the Server Slam preview.{{cite:bungie-server-slam}}\n\n## What Traxus offers Runners\n\nTraxus rank-up rewards include weapon chip mods, Traxus Salvage items, and weapons.{{cite:gamesradar-factions}} The Traxus armory offers weapons and mods of all kinds.{{cite:gamesradar-factions}} Players can gain Traxus reputation by completing Traxus contracts and exfiltrating with Traxus valuables.{{cite:gamesradar-factions}} Several Traxus contracts are listed in the priority contract sequence for the faction.{{cite:marathonwiki-com-priority-contracts}}\n\n## Traxus and Night Marsh\n\nTraxus has Night Marsh exclusive interest in investigating UESC secrets on Night Marsh.{{cite:bungie-welcome-season-2}} Night Marsh availability and contracts rotate with Dire Marsh during Season 2.{{cite:bungie-welcome-season-2}}\n\n## Recent changes to Traxus offerings\n\nUpdate 1.1.9.2 (October 6, 2026) reduced Deluxe sponsored kit stock and decreased Traxus weapon rarity from Superior to Deluxe.{{cite:bungie-update-1-1-9-2}} Update 1.1.9.7 (November 10, 2026) repeated those Armory reductions, again lowering Traxus weapon stock and rarities.{{cite:bungie-update-1-1-9-7}} Update 1.1.0.1 (June 9, 2026) fixed an Armory tooltip error related to a Traxus Prestige mod cost display.{{cite:bungie-update-1-1-0-1}} Mid-Season 2 updates included faster faction progression and Armory sponsored kit adjustments.{{cite:bungie-press-mid-season-2}}\n\n## See also\n\n- [[factions|Factions]]\n- [[contracts|Contracts]]\n- [[armory|Armory]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -2391,7 +2391,7 @@
         },
         {
           "claimId": "claim_traxus_10",
-          "claimText": "Update 1.1.9.2 reduced Deluxe sponsored kit stock and decreased Traxus weapon rarity from Superior to Deluxe.",
+          "claimText": "Update 1.1.9.2 (October 6, 2026) reduced Deluxe sponsored kit stock and decreased Traxus weapon rarity from Superior to Deluxe.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -2415,11 +2415,11 @@
               "quote": "Traxus themed weapon: Stock decreased from 2/week to 1/week and rarity decreased from Superior to Deluxe."
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.1.9.2, October 6, 2026"
         },
         {
           "claimId": "claim_traxus_11",
-          "claimText": "Update 1.1.9.7 repeated those Armory reductions, again lowering Traxus weapon stock and rarities.",
+          "claimText": "Update 1.1.9.7 (November 10, 2026) repeated those Armory reductions, again lowering Traxus weapon stock and rarities.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -2443,11 +2443,11 @@
               "quote": "Traxus themed weapon: Stock decreased from 2/week to 1/week and rarity decreased from Superior to Deluxe."
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.1.9.7, November 10, 2026"
         },
         {
           "claimId": "claim_traxus_12",
-          "claimText": "Update 1.1.0.1 fixed an Armory tooltip error related to a Traxus Prestige mod cost display.",
+          "claimText": "Update 1.1.0.1 (June 9, 2026) fixed an Armory tooltip error related to a Traxus Prestige mod cost display.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -2471,7 +2471,7 @@
               "quote": "the Traxus Prestige mod “Triple Barrel” showed the wrong cost, requiring 3 Reflex Coils instead of 1 Synapse Cube."
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.1.0.1, June 9, 2026"
         },
         {
           "claimId": "claim_traxus_13",
@@ -2524,7 +2524,7 @@
     "title": "MIDA",
     "summary": "MIDA is a Marathon faction that offers mobility-focused gear, contracts, and faction-specific progression for Runners.",
     "category": "lore",
-    "bodyMarkdown": "## Overview\n\nMIDA is a faction in Marathon introduced during the Server Slam preview period.{{cite:bungie-server-slam}} GamesRadar describes MIDA as a political-party-turned-anarchist-terrorist group from Mars.{{cite:gamesradar-factions}} MIDA operates through an agent named Gantry.{{cite:gamesradar-factions}}\n\n## What MIDA offers\n\nMIDA provides contracts Runners can complete for reputation and rewards.{{cite:gamesradar-factions}} MIDA rank-up rewards include equipment, MIDA Salvage items, and Leg Implants.{{cite:gamesradar-factions}} The MIDA Armory offers grenades, gadgets, Cardio Kick, Anti-Virus Kit consumables, and Implants.{{cite:gamesradar-factions}} Bungie moved faction shell upgrades to the Cradle and added faction-specific implant families, with MIDA's focusing on mobility or disruption.{{cite:bungie-welcome-season-2}}\n\n## Night Marsh involvement\n\nMIDA has Night Marsh exclusive contracts introduced in Season 2.{{cite:bungie-welcome-season-2}} Bungie said MIDA is interested in learning what the UESC hides in Night Marsh's dark areas.{{cite:bungie-welcome-season-2}}\n\n## Recent changes and tuning\n\nUpdate 1.0.0.4 increased starting ammo in MIDA free Sponsored Kits.{{cite:bungie-update-1-0-0-4}} Update 1.1.0.1 fixed a MIDA Expose/Extinguish issue where the Gantry voice could fail to play.{{cite:bungie-update-1-1-0-1}} Update 1.1.9.2 reduced MIDA Armory Deluxe sponsored kit stock from 3/week to 2/week and removed Superior kits.{{cite:bungie-update-1-1-9-2}} Update 1.1.9.7 reiterated MIDA Armory stock reductions and decreased weekly themed weapon availability and rarities.{{cite:bungie-update-1-1-9-7}}\n\n## See also\n\n- [[factions|Factions]]\n- [[contracts|Contracts]]\n- [[armory|Armory]]",
+    "bodyMarkdown": "## Overview\n\nMIDA is a faction in Marathon introduced during the Server Slam preview period.{{cite:bungie-server-slam}} GamesRadar describes MIDA as a political-party-turned-anarchist-terrorist group from Mars.{{cite:gamesradar-factions}} MIDA operates through an agent named Gantry.{{cite:gamesradar-factions}}\n\n## What MIDA offers\n\nMIDA provides contracts Runners can complete for reputation and rewards.{{cite:gamesradar-factions}} MIDA rank-up rewards include equipment, MIDA Salvage items, and Leg Implants.{{cite:gamesradar-factions}} The MIDA Armory offers grenades, gadgets, Cardio Kick, Anti-Virus Kit consumables, and Implants.{{cite:gamesradar-factions}} Bungie moved faction shell upgrades to the Cradle and added faction-specific implant families, with MIDA's focusing on mobility or disruption.{{cite:bungie-welcome-season-2}}\n\n## Night Marsh involvement\n\nMIDA has Night Marsh exclusive contracts introduced in Season 2.{{cite:bungie-welcome-season-2}} Bungie said MIDA is interested in learning what the UESC hides in Night Marsh's dark areas.{{cite:bungie-welcome-season-2}}\n\n## Recent changes and tuning\n\nUpdate 1.0.0.4 (March 11, 2026) increased starting ammo in MIDA free Sponsored Kits.{{cite:bungie-update-1-0-0-4}} Update 1.1.0.1 (June 9, 2026) fixed a MIDA Expose/Extinguish issue where the Gantry voice could fail to play.{{cite:bungie-update-1-1-0-1}} Update 1.1.9.2 (October 6, 2026) reduced MIDA Armory Deluxe sponsored kit stock from 3/week to 2/week and removed Superior kits.{{cite:bungie-update-1-1-9-2}} Update 1.1.9.7 (November 10, 2026) reiterated MIDA Armory stock reductions and decreased weekly themed weapon availability and rarities.{{cite:bungie-update-1-1-9-7}}\n\n## See also\n\n- [[factions|Factions]]\n- [[contracts|Contracts]]\n- [[armory|Armory]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -2861,7 +2861,7 @@
         },
         {
           "claimId": "claim_mida_10",
-          "claimText": "Update 1.0.0.4 increased starting ammo in MIDA free Sponsored Kits.",
+          "claimText": "Update 1.0.0.4 (March 11, 2026) increased starting ammo in MIDA free Sponsored Kits.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -2885,11 +2885,11 @@
               "quote": "Increased the amount of starting ammo in MIDA, CyberAcme, and Arachne free Sponsored Kits"
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.0.0.4, March 11, 2026"
         },
         {
           "claimId": "claim_mida_11",
-          "claimText": "Update 1.1.0.1 fixed a MIDA Expose/Extinguish issue where the Gantry voice could fail to play.",
+          "claimText": "Update 1.1.0.1 (June 9, 2026) fixed a MIDA Expose/Extinguish issue where the Gantry voice could fail to play.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -2913,11 +2913,11 @@
               "quote": "Fixed an issue in Expose/Extinguish where the Gantry’s voice could fail to play after completing the terminal hacking step."
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.1.0.1, June 9, 2026"
         },
         {
           "claimId": "claim_mida_12",
-          "claimText": "Update 1.1.9.2 reduced MIDA Armory Deluxe sponsored kit stock from 3/week to 2/week and removed Superior kits.",
+          "claimText": "Update 1.1.9.2 (October 6, 2026) reduced MIDA Armory Deluxe sponsored kit stock from 3/week to 2/week and removed Superior kits.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -2941,11 +2941,11 @@
               "quote": "Deluxe sponsored kit: Stock decreased from 3/week to 2/week."
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.1.9.2, October 6, 2026"
         },
         {
           "claimId": "claim_mida_13",
-          "claimText": "Update 1.1.9.7 reiterated MIDA Armory stock reductions and decreased weekly themed weapon availability and rarities.",
+          "claimText": "Update 1.1.9.7 (November 10, 2026) reiterated MIDA Armory stock reductions and decreased weekly themed weapon availability and rarities.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -2969,7 +2969,7 @@
               "quote": "Deluxe sponsored kit: Stock decreased from 3/week to 2/week."
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.1.9.7, November 10, 2026"
         }
       ],
       "refreshReason": "new_page",
@@ -2994,7 +2994,7 @@
     "title": "Arachne",
     "summary": "Arachne is a Marathon faction centered on PvP-oriented contracts and rewards for Runners.",
     "category": "lore",
-    "bodyMarkdown": "## Overview\n\nArachne is one of Marathon’s six playable factions.{{cite:techradar-launch}} GamesRadar describes Arachne as a mysterious death cult focused on the thermodynamics of violence.{{cite:gamesradar-factions}} GamesRadar states Arachne manifests as a PvP-focused faction in-game.{{cite:gamesradar-factions}} Arachne’s agent is named Charter and is said to encourage killing other Runners.{{cite:gamesradar-factions}}\n\n## What Arachne offers Runners\n\nPlayers can gain Arachne reputation by completing Arachne contracts.{{cite:gamesradar-factions}} GamesRadar lists rank-up rewards including non-chip weapon mods and Arachne salvage items and weapons.{{cite:gamesradar-factions}} GamesRadar lists the Armory offerings from Arachne as weapons, mods, and implants.{{cite:gamesradar-factions}} Bungie’s Server Slam allowed players to progress through early Arachne faction levels and progression trees.{{cite:bungie-server-slam}} Players can also earn Arachne reputation by exfiling with a Tag Chip.{{cite:bungie-welcome-season-2}}\n\n## Recent changes and tuning\n\nUpdate 1.0.0.4 increased starting ammo in Arachne free Sponsored Kits.{{cite:bungie-update-1-0-0-4}} Season 2 reworked Priority Contracts to focus on loot and removed faction-reputation gating for them.{{cite:bungie-welcome-season-2}} Bungie added new Season 2 implant and chip content and other tuning coming with the season.{{cite:bungie-welcome-season-2}} Ranked matches include Tag Chips as loot that auto-sell on exfil and contribute score.{{cite:bungie-ranked}}\n\n## See also\n\n- [[factions|Factions]]\n- [[contracts|Contracts]]\n- [[armory|Armory]]",
+    "bodyMarkdown": "## Overview\n\nArachne is one of Marathon’s six playable factions.{{cite:techradar-launch}} GamesRadar describes Arachne as a mysterious death cult focused on the thermodynamics of violence.{{cite:gamesradar-factions}} GamesRadar states Arachne manifests as a PvP-focused faction in-game.{{cite:gamesradar-factions}} Arachne’s agent is named Charter and is said to encourage killing other Runners.{{cite:gamesradar-factions}}\n\n## What Arachne offers Runners\n\nPlayers can gain Arachne reputation by completing Arachne contracts.{{cite:gamesradar-factions}} GamesRadar lists rank-up rewards including non-chip weapon mods and Arachne salvage items and weapons.{{cite:gamesradar-factions}} GamesRadar lists the Armory offerings from Arachne as weapons, mods, and implants.{{cite:gamesradar-factions}} Bungie’s Server Slam allowed players to progress through early Arachne faction levels and progression trees.{{cite:bungie-server-slam}} Players can also earn Arachne reputation by exfiling with a Tag Chip.{{cite:bungie-welcome-season-2}}\n\n## Recent changes and tuning\n\nUpdate 1.0.0.4 (March 11, 2026) increased starting ammo in Arachne free Sponsored Kits.{{cite:bungie-update-1-0-0-4}} Season 2 reworked Priority Contracts to focus on loot and removed faction-reputation gating for them.{{cite:bungie-welcome-season-2}} Bungie added new Season 2 implant and chip content and other tuning coming with the season.{{cite:bungie-welcome-season-2}} Ranked matches include Tag Chips as loot that auto-sell on exfil and contribute score.{{cite:bungie-ranked}}\n\n## See also\n\n- [[factions|Factions]]\n- [[contracts|Contracts]]\n- [[armory|Armory]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -3324,7 +3324,7 @@
         },
         {
           "claimId": "claim_arachne_10",
-          "claimText": "Update 1.0.0.4 increased starting ammo in Arachne free Sponsored Kits.",
+          "claimText": "Update 1.0.0.4 (March 11, 2026) increased starting ammo in Arachne free Sponsored Kits.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -3348,7 +3348,7 @@
               "quote": "Increased the amount of starting ammo in MIDA, CyberAcme, and Arachne free Sponsored Kits"
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.0.0.4, March 11, 2026"
         },
         {
           "claimId": "claim_arachne_11",
@@ -4192,7 +4192,7 @@
     "title": "Destroyer",
     "summary": "Runner shell focused on frontline combat, featuring barricade defenses, missiles, and movement thrusters.",
     "category": "gameplay",
-    "bodyMarkdown": "## Archetype\n\nDestroyer is described as a combat specialist archetype.{{cite:bungie-runner-shells}}\n\n## Abilities\n\nDestroyer shells are armed with a personal defense barricade.{{cite:bungie-runner-shells}} Destroyer shells include missile systems as part of their kit.{{cite:bungie-runner-shells}} Destroyer shells are equipped with movement thrusters.{{cite:bungie-runner-shells}}\n\n## Notable changes\n\nThe Riot Barricade ability received double-tap protection to prevent accidental deactivation.{{cite:bungie-update-1-1-9-2}}\n\n## Cosmetics and media\n\nA Destroyer skin named Arata Vectus is listed among Symbiosis launch cosmetics.{{cite:bungie-symbiosis-open-play}} Bungie published a Destroyer Shell cinematic as part of Season 2 shell cinematics.{{cite:bungie-press-mid-season-2}} A Destroyer Runner Shell Style was included in Season 1 Ranked rewards listing.{{cite:bungie-ranked}}\n\n## See also\n\n- [[runner-shells|Runner shells]]\n- [[cores|Cores]]\n- [[implants|Implants]]",
+    "bodyMarkdown": "## Archetype\n\nDestroyer is described as a combat specialist archetype.{{cite:bungie-runner-shells}}\n\n## Abilities\n\nDestroyer shells are armed with a personal defense barricade.{{cite:bungie-runner-shells}} Destroyer shells include missile systems as part of their kit.{{cite:bungie-runner-shells}} Destroyer shells are equipped with movement thrusters.{{cite:bungie-runner-shells}}\n\n## Notable changes\n\nThe Riot Barricade ability received double-tap protection to prevent accidental deactivation (Update 1.1.9.2, October 6, 2026).{{cite:bungie-update-1-1-9-2}}\n\n## Cosmetics and media\n\nA Destroyer skin named Arata Vectus is listed among Symbiosis launch cosmetics.{{cite:bungie-symbiosis-open-play}} Bungie published a Destroyer Shell cinematic as part of Season 2 shell cinematics.{{cite:bungie-press-mid-season-2}} A Destroyer Runner Shell Style was included in Season 1 Ranked rewards listing.{{cite:bungie-ranked}}\n\n## See also\n\n- [[runner-shells|Runner shells]]\n- [[cores|Cores]]\n- [[implants|Implants]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -4369,7 +4369,7 @@
         },
         {
           "claimId": "claim_destroyer_5",
-          "claimText": "The Riot Barricade ability received double-tap protection to prevent accidental deactivation.",
+          "claimText": "The Riot Barricade ability received double-tap protection to prevent accidental deactivation (Update 1.1.9.2, October 6, 2026).",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -4393,7 +4393,7 @@
               "quote": "Added double-tap protection to prevent the ability from being accidentally deactivated before the shield is deployed."
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.1.9.2, October 6, 2026"
         },
         {
           "claimId": "claim_destroyer_6",
@@ -4896,7 +4896,7 @@
     "title": "Recon",
     "summary": "Page covering the Recon Runner shell’s archetype, abilities, and notable recent changes.",
     "category": "gameplay",
-    "bodyMarkdown": "## Archetype\n\nRecon is described as an intel specialist Runner shell.{{cite:bungie-runner-shells}} Recon is designed to identify threats and track movement.{{cite:bungie-runner-shells}}\n\n## Abilities\n\nRecon’s Prime ability is Echo Pulse.{{cite:pcgamer-guide}} Recon’s Tactical ability is Tracker Drone.{{cite:pcgamer-guide}} Recon uses holographic footstep trails as part of its kit.{{cite:bungie-runner-shells}} Recon has the Interrogation trait.{{cite:pcgamer-guide}} Recon has the Stalker Protocol trait.{{cite:pcgamer-guide}}\n\n## Notable changes\n\nBungie reduced Echo Pulse’s omnidirectional ease to require three-dimensional prediction from Recon players.{{cite:bungie-update-1-1-9-2}} Bungie stated Echo Pulse changes make the ability less oppressive and mandatory in team fights.{{cite:bungie-nightfall-refresh}}\n\n## See also\n\n- [[runner-shells|Runner shells]]\n- [[cores|Cores]]\n- [[implants|Implants]]",
+    "bodyMarkdown": "## Archetype\n\nRecon is described as an intel specialist Runner shell.{{cite:bungie-runner-shells}} Recon is designed to identify threats and track movement.{{cite:bungie-runner-shells}}\n\n## Abilities\n\nRecon’s Prime ability is Echo Pulse.{{cite:pcgamer-guide}} Recon’s Tactical ability is Tracker Drone.{{cite:pcgamer-guide}} Recon uses holographic footstep trails as part of its kit.{{cite:bungie-runner-shells}} Recon has the Interrogation trait.{{cite:pcgamer-guide}} Recon has the Stalker Protocol trait.{{cite:pcgamer-guide}}\n\n## Notable changes\n\nBungie reduced Echo Pulse’s omnidirectional ease to require three-dimensional prediction from Recon players (Update 1.1.9.2, October 6, 2026).{{cite:bungie-update-1-1-9-2}} Bungie stated Echo Pulse changes make the ability less oppressive and mandatory in team fights.{{cite:bungie-nightfall-refresh}}\n\n## See also\n\n- [[runner-shells|Runner shells]]\n- [[cores|Cores]]\n- [[implants|Implants]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -5148,7 +5148,7 @@
         },
         {
           "claimId": "claim_recon_8",
-          "claimText": "Bungie reduced Echo Pulse’s omnidirectional ease to require three-dimensional prediction from Recon players.",
+          "claimText": "Bungie reduced Echo Pulse’s omnidirectional ease to require three-dimensional prediction from Recon players (Update 1.1.9.2, October 6, 2026).",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -5172,7 +5172,7 @@
               "quote": "limiting the scan area to a cone, players need to predict in 3D space"
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.1.9.2, October 6, 2026"
         },
         {
           "claimId": "claim_recon_9",
@@ -5582,7 +5582,7 @@
     "title": "Thief",
     "summary": "Runner shell focused on covert acquisition, loot recovery, and mobility.",
     "category": "gameplay",
-    "bodyMarkdown": "## Archetype\n\nThief's archetype is described as covert acquisitions.{{cite:bungie-runner-shells}} Thief is the sixth Runner shell.{{cite:bungie-server-slam}} Bungie lists Thief among the six launch Runner shells.{{cite:bungie-introducing-seasons}}\n\n## Abilities and Design\n\nThief shells use enhanced visors and a piloted butterfly drone to locate and acquire loot.{{cite:bungie-runner-shells}} Thief shells have a grapple device to push an advantage or make an escape.{{cite:bungie-runner-shells}} One Thief core can grant a second charge of the Grapple Device.{{cite:bungie-runner-shells}} Another Thief core makes the Pickpocket Drone periodically ping nearby enemies when not piloted.{{cite:bungie-runner-shells}}\n\n## Notable changes and rollout\n\nThief did not participate in the Server Slam playtest but was planned to be available at launch.{{cite:pcgamer-guide}} A Thief Shell cinematic is listed among other shell cinematics in Bungie's Season 2 materials.{{cite:bungie-press-mid-season-2}} An update fixed duplicated Thief voice over lines in the Russian language.{{cite:bungie-update-1-1-0-1}}\n\n## See also\n\n- [[runner-shells|Runner shells]]\n- [[cores|Cores]]\n- [[implants|Implants]]",
+    "bodyMarkdown": "## Archetype\n\nThief's archetype is described as covert acquisitions.{{cite:bungie-runner-shells}} Thief is the sixth Runner shell.{{cite:bungie-server-slam}} Bungie lists Thief among the six launch Runner shells.{{cite:bungie-introducing-seasons}}\n\n## Abilities and Design\n\nThief shells use enhanced visors and a piloted butterfly drone to locate and acquire loot.{{cite:bungie-runner-shells}} Thief shells have a grapple device to push an advantage or make an escape.{{cite:bungie-runner-shells}} One Thief core can grant a second charge of the Grapple Device.{{cite:bungie-runner-shells}} Another Thief core makes the Pickpocket Drone periodically ping nearby enemies when not piloted.{{cite:bungie-runner-shells}}\n\n## Notable changes and rollout\n\nThief did not participate in the Server Slam playtest but was planned to be available at launch.{{cite:pcgamer-guide}} A Thief Shell cinematic is listed among other shell cinematics in Bungie's Season 2 materials.{{cite:bungie-press-mid-season-2}} An update fixed duplicated Thief voice over lines in the Russian language (Update 1.1.0.1, June 9, 2026).{{cite:bungie-update-1-1-0-1}}\n\n## See also\n\n- [[runner-shells|Runner shells]]\n- [[cores|Cores]]\n- [[implants|Implants]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -5910,7 +5910,7 @@
         },
         {
           "claimId": "claim_thief_10",
-          "claimText": "An update fixed duplicated Thief voice over lines in the Russian language.",
+          "claimText": "An update fixed duplicated Thief voice over lines in the Russian language (Update 1.1.0.1, June 9, 2026).",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -5934,7 +5934,7 @@
               "quote": "Thief’s voice over lines could duplicate while using the Russian language"
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.1.0.1, June 9, 2026"
         }
       ],
       "refreshReason": "new_page",
@@ -6335,7 +6335,7 @@
     "title": "Sentinel",
     "summary": "Sentinel is a Season 2 Runner shell focused on defensive area control, traps, and team support.",
     "category": "gameplay",
-    "bodyMarkdown": "## Overview\n\nSentinel is a defensive specialist shell built for carving out and securing pockets of space on the battlefield.{{cite:bungie-s2-combat-tuning}} Season 2 introduced Sentinel as a new Runner shell available with the season's launch.{{cite:bungie-season-2-live}}\n\n## Abilities and Trait\n\nDefender System is Sentinel’s Prime ability and deploys a defensive platform that neutralizes incoming explosives and boosts nearby allies' weapon handling.{{cite:bungie-s2-combat-tuning}} Bungie also described Defender System as an automated laser platform that shoots incoming grenades and missiles and boosts nearby weapon handling.{{cite:bungie-welcome-season-2}} Snare Mine is Sentinel’s Tactical ability and throws a proximity-triggered mine that detonates into multiple immobilizing submunitions.{{cite:bungie-s2-combat-tuning}} Prey Tracker is a Trait ability that activates HUD motion tracking to show moving enemies on radar within a conical forward zone.{{cite:bungie-s2-combat-tuning}} Castle Doctrine is Sentinel’s passive, granting faster ready and reload for SMGs, Pistols, and Shotguns based on nearby hostiles and increased resistances after splash damage.{{cite:bungie-s2-combat-tuning}}\n\n## Runner Cores and Perks\n\nSeason 2 adds a suite of ten Sentinel-specific Runner cores spanning rarity tiers.{{cite:bungie-s2-combat-tuning}} Reversal (Enhanced) heals the player over time after defeating an immobilized target.{{cite:bungie-s2-combat-tuning}} Wellness Beacon (Deluxe) increases medical item use speed for players standing near a deployed Defender System.{{cite:bungie-s2-combat-tuning}} Eminent Domain (Prestige) makes Runner grenades neutralized by a Defender System fall to the floor as lootable items.{{cite:bungie-s2-combat-tuning}}\n\n## Notable Changes and Fixes\n\nA July mid-season update reiterated Sentinel as a Season 2 shell while detailing wider sandbox and balance updates.{{cite:bungie-press-mid-season-2}} Update 1.1.9.2 fixed an issue where certain grenades could get stuck when they impacted surfaces inside an ally's Defender System radius.{{cite:bungie-update-1-1-9-2}} Update 1.1.0.1 fixed a Sentinel-related challenge issue where “Information Economy” could not be completed after meeting its requirements.{{cite:bungie-update-1-1-0-1}}\n\n## See also\n\n- [[runner-shells|Runner shells]]\n- [[cores|Cores]]\n- [[implants|Implants]]",
+    "bodyMarkdown": "## Overview\n\nSentinel is a defensive specialist shell built for carving out and securing pockets of space on the battlefield.{{cite:bungie-s2-combat-tuning}} Season 2 introduced Sentinel as a new Runner shell available with the season's launch.{{cite:bungie-season-2-live}}\n\n## Abilities and Trait\n\nDefender System is Sentinel’s Prime ability and deploys a defensive platform that neutralizes incoming explosives and boosts nearby allies' weapon handling.{{cite:bungie-s2-combat-tuning}} Bungie also described Defender System as an automated laser platform that shoots incoming grenades and missiles and boosts nearby weapon handling.{{cite:bungie-welcome-season-2}} Snare Mine is Sentinel’s Tactical ability and throws a proximity-triggered mine that detonates into multiple immobilizing submunitions.{{cite:bungie-s2-combat-tuning}} Prey Tracker is a Trait ability that activates HUD motion tracking to show moving enemies on radar within a conical forward zone.{{cite:bungie-s2-combat-tuning}} Castle Doctrine is Sentinel’s passive, granting faster ready and reload for SMGs, Pistols, and Shotguns based on nearby hostiles and increased resistances after splash damage.{{cite:bungie-s2-combat-tuning}}\n\n## Runner Cores and Perks\n\nSeason 2 adds a suite of ten Sentinel-specific Runner cores spanning rarity tiers.{{cite:bungie-s2-combat-tuning}} Reversal (Enhanced) heals the player over time after defeating an immobilized target.{{cite:bungie-s2-combat-tuning}} Wellness Beacon (Deluxe) increases medical item use speed for players standing near a deployed Defender System.{{cite:bungie-s2-combat-tuning}} Eminent Domain (Prestige) makes Runner grenades neutralized by a Defender System fall to the floor as lootable items.{{cite:bungie-s2-combat-tuning}}\n\n## Notable Changes and Fixes\n\nA July mid-season update reiterated Sentinel as a Season 2 shell while detailing wider sandbox and balance updates.{{cite:bungie-press-mid-season-2}} Update 1.1.9.2 (October 6, 2026) fixed an issue where certain grenades could get stuck when they impacted surfaces inside an ally's Defender System radius.{{cite:bungie-update-1-1-9-2}} Update 1.1.0.1 (June 9, 2026) fixed a Sentinel-related challenge issue where “Information Economy” could not be completed after meeting its requirements.{{cite:bungie-update-1-1-0-1}}\n\n## See also\n\n- [[runner-shells|Runner shells]]\n- [[cores|Cores]]\n- [[implants|Implants]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -6746,7 +6746,7 @@
         },
         {
           "claimId": "claim_sentinel_13",
-          "claimText": "Update 1.1.9.2 fixed an issue where certain grenades could get stuck when they impacted surfaces inside an ally's Defender System radius.",
+          "claimText": "Update 1.1.9.2 (October 6, 2026) fixed an issue where certain grenades could get stuck when they impacted surfaces inside an ally's Defender System radius.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -6770,11 +6770,11 @@
               "quote": "Fixed an issue where certain grenades would get stuck when they impacted surfaces inside an ally's Defender System radius"
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.1.9.2, October 6, 2026"
         },
         {
           "claimId": "claim_sentinel_14",
-          "claimText": "Update 1.1.0.1 fixed a Sentinel-related challenge issue where “Information Economy” could not be completed after meeting its requirements.",
+          "claimText": "Update 1.1.0.1 (June 9, 2026) fixed a Sentinel-related challenge issue where “Information Economy” could not be completed after meeting its requirements.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -6798,7 +6798,7 @@
               "quote": "Fixed an issue where “Information Economy” could not be completed after meeting the requirements"
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.1.0.1, June 9, 2026"
         }
       ],
       "refreshReason": "new_page",
@@ -6823,7 +6823,7 @@
     "title": "Rook",
     "summary": "The Rook Runner shell is a scavenger-style frame for joining in-progress matches without a loadout.",
     "category": "gameplay",
-    "bodyMarkdown": "## Archetype\n\nRook's archetype is Scavenger.{{cite:bungie-runner-shells}} Rook is designed for a scavenger playstyle that lets players drop into matches already in progress.{{cite:bungie-runner-shells}} Rook enables solo players to join in-progress matches without bringing a loadout.{{cite:bungie-runner-shells}}\n\n## Abilities and role\n\nRook functions as a limited-loadout option focused on scavenging rather than risking prior progression.{{cite:pcgamer-guide}} Rook is presented as a solo-focused option for players who prefer to scavenge scraps left by others.{{cite:pcgamer-guide}} During Sponsored Survival, solo Rook players backfill onto maps after a period of time.{{cite:bungie-season-2-live}} In Sponsored Survival, Rooks enter matches without gear, making them a low-stakes way to try the map.{{cite:bungie-season-2-live}}\n\n## Notable changes and history\n\nRook was included among the scavenger experience playable during the Server Slam playtest.{{cite:bungie-server-slam}} A cinematic for Rook was released as part of Bungie's shell cinematics lineup.{{cite:bungie-press-mid-season-2}} An update fixed deleted backpacks when exfiling with Rook and map-display issues for Rook's position.{{cite:bungie-update-1-0-0-4}} Rook began receiving the same faction reputation bonuses solo players receive, increasing CyAc gain from exfilling.{{cite:bungie-update-1-0-0-4}} Update 1.1.9.2 removed flares from Rook's kit while retaining other Nightfall inventory buffs.{{cite:bungie-update-1-1-9-2}}\n\n## See also\n\n- [[runner-shells|Runner shells]]\n- [[cores|Cores]]\n- [[implants|Implants]]",
+    "bodyMarkdown": "## Archetype\n\nRook's archetype is Scavenger.{{cite:bungie-runner-shells}} Rook is designed for a scavenger playstyle that lets players drop into matches already in progress.{{cite:bungie-runner-shells}} Rook enables solo players to join in-progress matches without bringing a loadout.{{cite:bungie-runner-shells}}\n\n## Abilities and role\n\nRook functions as a limited-loadout option focused on scavenging rather than risking prior progression.{{cite:pcgamer-guide}} Rook is presented as a solo-focused option for players who prefer to scavenge scraps left by others.{{cite:pcgamer-guide}} During Sponsored Survival, solo Rook players backfill onto maps after a period of time.{{cite:bungie-season-2-live}} In Sponsored Survival, Rooks enter matches without gear, making them a low-stakes way to try the map.{{cite:bungie-season-2-live}}\n\n## Notable changes and history\n\nRook was included among the scavenger experience playable during the Server Slam playtest.{{cite:bungie-server-slam}} A cinematic for Rook was released as part of Bungie's shell cinematics lineup.{{cite:bungie-press-mid-season-2}} An update fixed deleted backpacks when exfiling with Rook and map-display issues for Rook's position (Update 1.0.0.4, March 11, 2026).{{cite:bungie-update-1-0-0-4}} Rook began receiving the same faction reputation bonuses solo players receive, increasing CyAc gain from exfilling (Update 1.0.0.4, March 11, 2026).{{cite:bungie-update-1-0-0-4}} Update 1.1.9.2 (October 6, 2026) removed flares from Rook's kit while retaining other Nightfall inventory buffs.{{cite:bungie-update-1-1-9-2}}\n\n## See also\n\n- [[runner-shells|Runner shells]]\n- [[cores|Cores]]\n- [[implants|Implants]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -7164,7 +7164,7 @@
         },
         {
           "claimId": "claim_rook_10",
-          "claimText": "An update fixed deleted backpacks when exfiling with Rook and map-display issues for Rook's position.",
+          "claimText": "An update fixed deleted backpacks when exfiling with Rook and map-display issues for Rook's position (Update 1.0.0.4, March 11, 2026).",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -7188,11 +7188,11 @@
               "quote": "Fixed an issue where backpacks could be deleted when exfiling with Rook"
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.0.0.4, March 11, 2026"
         },
         {
           "claimId": "claim_rook_11",
-          "claimText": "Rook began receiving the same faction reputation bonuses solo players receive, increasing CyAc gain from exfilling.",
+          "claimText": "Rook began receiving the same faction reputation bonuses solo players receive, increasing CyAc gain from exfilling (Update 1.0.0.4, March 11, 2026).",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -7216,11 +7216,11 @@
               "quote": "Increased CyAc reputation gain from exfilling with Rook"
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.0.0.4, March 11, 2026"
         },
         {
           "claimId": "claim_rook_12",
-          "claimText": "Update 1.1.9.2 removed flares from Rook's kit while retaining other Nightfall inventory buffs.",
+          "claimText": "Update 1.1.9.2 (October 6, 2026) removed flares from Rook's kit while retaining other Nightfall inventory buffs.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -7244,7 +7244,7 @@
               "quote": "Removed flares from Rook’s kit. Dev Note: All other inventory buffs previously added during the end of Nightfall will be retained"
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.1.9.2, October 6, 2026"
         }
       ],
       "refreshReason": "new_page",
@@ -7269,7 +7269,7 @@
     "title": "Weapons",
     "summary": "This page covers Marathon's launch weapons by class and ammo type, general weapon systems, ammo economy, and post-launch weapon additions and balance changes.",
     "category": "equipment",
-    "bodyMarkdown": "## Overview\n\nMarathon launched with 28 weapons and a full complement of mods, implants, and cores.{{cite:bungie-introducing-seasons}} Launch weapons span standard categories including assault rifles, shotguns, SMGs, precision rifles, machine guns, railguns, sniper rifles, and pistols.{{cite:gamesradar-weapons}}\n\n## How weapons, loot, and ammo work\n\nFactions and Armory offerings can grant weapons, weapon chip mods, and other rank-up rewards.{{cite:gamesradar-factions}} Some high-power ammo categories are rarer and have smaller stack sizes, making them more costly to use.{{cite:pcgamer-review}}\n\n## Post-launch weapons and tuning\n\nThe KKV-9SD is a very fast-fire pistol-frame SMG with an integrated suppressor and folding stock mod compatibility.{{cite:bungie-welcome-season-2}} The D54 Battle Pistol is a full-auto, three-round-burst handgun designed to bridge pistol and magnum archetypes and uses folding stock mods.{{cite:bungie-s2-combat-tuning}} Season 2 reworked ammo economy, range identities, and weapon roles to make choices clearer and archetypes distinct.{{cite:bungie-s2-combat-tuning}} Mid‑Season 2 balance updates included WSTR Combat Shotgun buffs and balance changes to the D54 Battle Pistol and Misriah-2442 shotgun.{{cite:bungie-press-mid-season-2}} Update 1.1.0.1 fixed issues including an interaction with the D54 Battle Pistol's Daredevil Stock Prestige mod.{{cite:bungie-update-1-1-0-1}} A later content update announced new weapons: the V17 Flamethrower and the Maverick revolver-style weapon.{{cite:bungie-press-symbiosis}}\n\n## Launch weapons\n\nMarathon launched with 28 weapons, listed below by class and ammo type as published by GamesRadar+ on February 26, 2026.{{cite:bungie-introducing-seasons}}{{cite:gamesradar-weapons}}\n\n| Weapon | Class | Ammo |\n| --- | --- | --- |\n| Impact | Assault rifle | Heavy Rounds |\n| M77 | Assault rifle | Light Rounds |\n| Overrun | Assault rifle | Light Rounds |\n| V75 SCAR | Assault rifle | Volt Battery |\n| Misriah-2442 | Shotgun | MIPS |\n| V85 Circuit Breaker | Shotgun | Volt Cell |\n| WSTR Combat Shotgun | Shotgun | MIPS |\n| BRRT | SMG | Light Rounds |\n| Bully | SMG | Heavy Rounds |\n| Copperhead | SMG | Light Rounds |\n| V22 Volt Thrower | SMG | Volt Battery |\n| BR33 Volley Rifle | Precision rifle | Light Rounds |\n| Hardline | Precision rifle | Light Rounds |\n| Repeater | Precision rifle | Heavy Rounds |\n| Stryder M1T | Precision rifle | Light Rounds |\n| Twin Tap | Precision rifle | Heavy Rounds |\n| V66 Lookout | Precision rifle | Volt Battery |\n| Conquest | Machine gun | Light Rounds |\n| Demolition | Machine gun | Heavy Rounds |\n| Retaliator | Machine gun | Light Rounds |\n| Ares | Railgun | Heavy Rounds |\n| V00 Zeus | Railgun | Volt Cell |\n| Longshot | Sniper rifle | MIPS |\n| Outland | Sniper rifle | MIPS |\n| V99 Channel Rifle | Sniper rifle | Volt Cell |\n| CE Tactical Sidearm | Pistol | Light Rounds |\n| Magnum MC | Pistol | Heavy Rounds |\n| V11 Punch | Pistol | Volt Battery |\n\n## Pages in this section\n\n- [[ammo-types|Ammo types]]\n- [[weapon-mods-and-chips|Weapon mods and chips]]",
+    "bodyMarkdown": "## Overview\n\nMarathon launched with 28 weapons and a full complement of mods, implants, and cores.{{cite:bungie-introducing-seasons}} Launch weapons span standard categories including assault rifles, shotguns, SMGs, precision rifles, machine guns, railguns, sniper rifles, and pistols.{{cite:gamesradar-weapons}}\n\n## How weapons, loot, and ammo work\n\nFactions and Armory offerings can grant weapons, weapon chip mods, and other rank-up rewards.{{cite:gamesradar-factions}} Some high-power ammo categories are rarer and have smaller stack sizes, making them more costly to use.{{cite:pcgamer-review}}\n\n## Post-launch weapons and tuning\n\nThe KKV-9SD is a very fast-fire pistol-frame SMG with an integrated suppressor and folding stock mod compatibility.{{cite:bungie-welcome-season-2}} The D54 Battle Pistol is a full-auto, three-round-burst handgun designed to bridge pistol and magnum archetypes and uses folding stock mods.{{cite:bungie-s2-combat-tuning}} Season 2 reworked ammo economy, range identities, and weapon roles to make choices clearer and archetypes distinct.{{cite:bungie-s2-combat-tuning}} Mid‑Season 2 balance updates included WSTR Combat Shotgun buffs and balance changes to the D54 Battle Pistol and Misriah-2442 shotgun.{{cite:bungie-press-mid-season-2}} Update 1.1.0.1 (June 9, 2026) fixed issues including an interaction with the D54 Battle Pistol's Daredevil Stock Prestige mod.{{cite:bungie-update-1-1-0-1}} A later content update announced new weapons: the V17 Flamethrower and the Maverick revolver-style weapon.{{cite:bungie-press-symbiosis}}\n\n## Launch weapons\n\nMarathon launched with 28 weapons, listed below by class and ammo type as published by GamesRadar+ on February 26, 2026.{{cite:bungie-introducing-seasons}}{{cite:gamesradar-weapons}}\n\n| Weapon | Class | Ammo |\n| --- | --- | --- |\n| Impact | Assault rifle | Heavy Rounds |\n| M77 | Assault rifle | Light Rounds |\n| Overrun | Assault rifle | Light Rounds |\n| V75 SCAR | Assault rifle | Volt Battery |\n| Misriah-2442 | Shotgun | MIPS |\n| V85 Circuit Breaker | Shotgun | Volt Cell |\n| WSTR Combat Shotgun | Shotgun | MIPS |\n| BRRT | SMG | Light Rounds |\n| Bully | SMG | Heavy Rounds |\n| Copperhead | SMG | Light Rounds |\n| V22 Volt Thrower | SMG | Volt Battery |\n| BR33 Volley Rifle | Precision rifle | Light Rounds |\n| Hardline | Precision rifle | Light Rounds |\n| Repeater | Precision rifle | Heavy Rounds |\n| Stryder M1T | Precision rifle | Light Rounds |\n| Twin Tap | Precision rifle | Heavy Rounds |\n| V66 Lookout | Precision rifle | Volt Battery |\n| Conquest | Machine gun | Light Rounds |\n| Demolition | Machine gun | Heavy Rounds |\n| Retaliator | Machine gun | Light Rounds |\n| Ares | Railgun | Heavy Rounds |\n| V00 Zeus | Railgun | Volt Cell |\n| Longshot | Sniper rifle | MIPS |\n| Outland | Sniper rifle | MIPS |\n| V99 Channel Rifle | Sniper rifle | Volt Cell |\n| CE Tactical Sidearm | Pistol | Light Rounds |\n| Magnum MC | Pistol | Heavy Rounds |\n| V11 Punch | Pistol | Volt Battery |\n\n## Pages in this section\n\n- [[ammo-types|Ammo types]]\n- [[weapon-mods-and-chips|Weapon mods and chips]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -7603,7 +7603,7 @@
         },
         {
           "claimId": "claim_weapons_13",
-          "claimText": "Update 1.1.0.1 fixed issues including an interaction with the D54 Battle Pistol's Daredevil Stock Prestige mod.",
+          "claimText": "Update 1.1.0.1 (June 9, 2026) fixed issues including an interaction with the D54 Battle Pistol's Daredevil Stock Prestige mod.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -7627,7 +7627,7 @@
               "quote": "Fixed an issue with the D54 Battle Pistol Prestige mod perk “Daredevil Stock” where spam clicking could extend the super burst"
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.1.0.1, June 9, 2026"
         },
         {
           "claimId": "claim_weapons_14",
@@ -7951,7 +7951,7 @@
     "title": "Weapon mods and chips",
     "summary": "Overview of weapon mod slots, weapon chips, Prestige mods, and the folding stock introduced in Season 2.",
     "category": "equipment",
-    "bodyMarkdown": "## Mod slots and chips\n\nWeapons have three or four mod slots for attachments like optics, magazines, barrels, and grips.{{cite:gamesradar-weapons}} Every weapon has a single chip slot reserved for a chip that grants an extra weapon perk.{{cite:gamesradar-weapons}}\n\n## Chips and new chip families\n\nSeason 2 adds eight new chips to the game.{{cite:bungie-welcome-season-2}} Examples of Season 2 chips include Brain Freeze, Alarmist, and Scrapyard chips.{{cite:bungie-welcome-season-2}} Bungie described chips as the software upgrades that enable notable weapon behavior changes.{{cite:bungie-s2-combat-tuning}}\n\n## Folding stock\n\nFolding Stocks are a new Season 2 mod family that alter weapon gameplay via a unique action.{{cite:bungie-s2-combat-tuning}} The KKV-9SD and the D54 Battle Pistol are the first weapons to gain Folding Stocks.{{cite:bungie-s2-combat-tuning}} Using the Folding Stock lets players keep it closed for hip-fire benefits or unfold it for ADS benefits.{{cite:bungie-welcome-season-2}}\n\n## Prestige mods and tuning\n\nPrestige weapon mods exist and their drop chances were slightly reduced in Update 1.1.0.1.{{cite:bungie-update-1-1-0-1}} Season 2 adjusted existing Prestige mods such as reducing Full-Auto Selector's rate of fire bonus.{{cite:bungie-s2-combat-tuning}} The KKV-9SD's Prestige mod Flechette Drum heals the player when breaking a hostile's shield.{{cite:bungie-s2-combat-tuning}} Patch notes fixed issues related to specific Prestige mods, including the D54 Battle Pistol's Daredevil Stock.{{cite:bungie-update-1-1-0-1}}\n\n## See also\n\n- [[weapons|Weapons]]\n- [[rarity-tiers|Rarity tiers]]",
+    "bodyMarkdown": "## Mod slots and chips\n\nWeapons have three or four mod slots for attachments like optics, magazines, barrels, and grips.{{cite:gamesradar-weapons}} Every weapon has a single chip slot reserved for a chip that grants an extra weapon perk.{{cite:gamesradar-weapons}}\n\n## Chips and new chip families\n\nSeason 2 adds eight new chips to the game.{{cite:bungie-welcome-season-2}} Examples of Season 2 chips include Brain Freeze, Alarmist, and Scrapyard chips.{{cite:bungie-welcome-season-2}} Bungie described chips as the software upgrades that enable notable weapon behavior changes.{{cite:bungie-s2-combat-tuning}}\n\n## Folding stock\n\nFolding Stocks are a new Season 2 mod family that alter weapon gameplay via a unique action.{{cite:bungie-s2-combat-tuning}} The KKV-9SD and the D54 Battle Pistol are the first weapons to gain Folding Stocks.{{cite:bungie-s2-combat-tuning}} Using the Folding Stock lets players keep it closed for hip-fire benefits or unfold it for ADS benefits.{{cite:bungie-welcome-season-2}}\n\n## Prestige mods and tuning\n\nPrestige weapon mods exist and their drop chances were slightly reduced in Update 1.1.0.1 (June 9, 2026).{{cite:bungie-update-1-1-0-1}} Season 2 adjusted existing Prestige mods such as reducing Full-Auto Selector's rate of fire bonus.{{cite:bungie-s2-combat-tuning}} The KKV-9SD's Prestige mod Flechette Drum heals the player when breaking a hostile's shield.{{cite:bungie-s2-combat-tuning}} Patch notes fixed issues related to specific Prestige mods, including the D54 Battle Pistol's Daredevil Stock (Update 1.1.0.1, June 9, 2026).{{cite:bungie-update-1-1-0-1}}\n\n## See also\n\n- [[weapons|Weapons]]\n- [[rarity-tiers|Rarity tiers]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -8233,7 +8233,7 @@
         },
         {
           "claimId": "claim_weapon-mods-and-chips_10",
-          "claimText": "Prestige weapon mods exist and their drop chances were slightly reduced in Update 1.1.0.1.",
+          "claimText": "Prestige weapon mods exist and their drop chances were slightly reduced in Update 1.1.0.1 (June 9, 2026).",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -8257,7 +8257,7 @@
               "quote": "Slightly reduced the chance for Prestige Weapon Mods to appear in all sources."
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.1.0.1, June 9, 2026"
         },
         {
           "claimId": "claim_weapon-mods-and-chips_11",
@@ -8317,7 +8317,7 @@
         },
         {
           "claimId": "claim_weapon-mods-and-chips_13",
-          "claimText": "Patch notes fixed issues related to specific Prestige mods, including the D54 Battle Pistol's Daredevil Stock.",
+          "claimText": "Patch notes fixed issues related to specific Prestige mods, including the D54 Battle Pistol's Daredevil Stock (Update 1.1.0.1, June 9, 2026).",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -8341,7 +8341,7 @@
               "quote": "Fixed an issue with the D54 Battle Pistol Prestige mod perk “Daredevil Stock” where spam clicking could extend the super burst for the full duration of the magazine."
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.1.0.1, June 9, 2026"
         }
       ],
       "refreshReason": "new_page",
@@ -8812,7 +8812,7 @@
     "title": "Perimeter",
     "summary": "Perimeter is Marathon’s outskirts zone; this page covers its setting, layout highlights, access rules, and notable changes.",
     "category": "locations",
-    "bodyMarkdown": "## Setting\n\nPerimeter is an edge-site expansion on the colony's outskirts.{{cite:bungie-server-slam}} Bungie describes Perimeter as a beginner-friendly map set on the colony's edges.{{cite:gamesradar-maps}} Perimeter is one of Marathon's three surface zones alongside Dire Marsh and Outpost.{{cite:bungie-vidoc}} Perimeter originally supported five-crew matches at launch.{{cite:pcgamer-guide}}\n\n## Layout highlights\n\nThe Symbiosis update adds two major playable spaces: the underground Burrows and the submerged Reservoir.{{cite:bungie-press-symbiosis}} Symbiosis-era Perimeter features a fungal ecosystem that opens new paths through the map.{{cite:bungie-expedition-phase-1}} Perimeter contains unique high-difficulty activity territory where the Tick Queen can be encountered.{{cite:bungie-expedition-phase-1}}\n\n## Access and rules\n\nPerimeter was playable during the Server Slam preview event before launch.{{cite:bungie-server-slam}} Sponsored Perimeter rotations have been scheduled on weekends during live events and updates.{{cite:bungie-nightfall-refresh}} Perimeter is included in Expedition runs as a selectable zone with scaling difficulty.{{cite:bungie-expedition-phase-1}}\n\n## Notable changes\n\nNightfall Refresh announced a future expansion of Perimeter in December under the Symbiosis roadmap.{{cite:bungie-nightfall-refresh}} Bungie revealed Symbiosis will launch on December 8, 2026, and includes the updated Perimeter.{{cite:bungie-press-symbiosis}} Update 1.1.9.7 listed Sponsored Survival: Perimeter available through November 17, 2026.{{cite:bungie-update-1-1-9-7}} Update 1.0.0.4 increased med cabinet and munitions crate spawns on Perimeter.{{cite:bungie-update-1-0-0-4}}\n\n## See also\n\n- [[locations|Zones of Tau Ceti IV]]",
+    "bodyMarkdown": "## Setting\n\nPerimeter is an edge-site expansion on the colony's outskirts.{{cite:bungie-server-slam}} Bungie describes Perimeter as a beginner-friendly map set on the colony's edges.{{cite:gamesradar-maps}} Perimeter is one of Marathon's three surface zones alongside Dire Marsh and Outpost.{{cite:bungie-vidoc}} Perimeter originally supported five-crew matches at launch.{{cite:pcgamer-guide}}\n\n## Layout highlights\n\nThe Symbiosis update adds two major playable spaces: the underground Burrows and the submerged Reservoir.{{cite:bungie-press-symbiosis}} Symbiosis-era Perimeter features a fungal ecosystem that opens new paths through the map.{{cite:bungie-expedition-phase-1}} Perimeter contains unique high-difficulty activity territory where the Tick Queen can be encountered.{{cite:bungie-expedition-phase-1}}\n\n## Access and rules\n\nPerimeter was playable during the Server Slam preview event before launch.{{cite:bungie-server-slam}} Sponsored Perimeter rotations have been scheduled on weekends during live events and updates.{{cite:bungie-nightfall-refresh}} Perimeter is included in Expedition runs as a selectable zone with scaling difficulty.{{cite:bungie-expedition-phase-1}}\n\n## Notable changes\n\nNightfall Refresh announced a future expansion of Perimeter in December under the Symbiosis roadmap.{{cite:bungie-nightfall-refresh}} Bungie revealed Symbiosis will launch on December 8, 2026, and includes the updated Perimeter.{{cite:bungie-press-symbiosis}} Update 1.1.9.7 listed Sponsored Survival: Perimeter available through November 17, 2026.{{cite:bungie-update-1-1-9-7}} Update 1.0.0.4 (March 11, 2026) increased med cabinet and munitions crate spawns on Perimeter.{{cite:bungie-update-1-0-0-4}}\n\n## See also\n\n- [[locations|Zones of Tau Ceti IV]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -9288,7 +9288,7 @@
         },
         {
           "claimId": "claim_perimeter_16",
-          "claimText": "Update 1.0.0.4 increased med cabinet and munitions crate spawns on Perimeter.",
+          "claimText": "Update 1.0.0.4 (March 11, 2026) increased med cabinet and munitions crate spawns on Perimeter.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -9312,7 +9312,7 @@
               "quote": "Increased the number of Med Cabinets and Munitions Crates that can spawn on Perimeter"
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.0.0.4, March 11, 2026"
         }
       ],
       "refreshReason": "new_page",
@@ -9337,7 +9337,7 @@
     "title": "Dire Marsh",
     "summary": "Dire Marsh is Marathon's agricultural research hub zone centered on a central complex and the Anomaly, with day and night variants and rotating availability.",
     "category": "locations",
-    "bodyMarkdown": "## Overview\n\nDire Marsh is described as the colony’s agricultural research hub centered on a central complex and the Anomaly.{{cite:bungie-server-slam}} Dire Marsh is one of Marathon’s surface zones available at launch alongside Perimeter and Outpost.{{cite:bungie-vidoc}}\n\n## Layout and gameplay highlights\n\nThe zone focuses on straightforward action with a central complex and serves as an epicentre for the colony’s disaster.{{cite:gamesradar-maps}} Dire Marsh has a Night variant called Night Marsh that plays slower and leans into survival horror mechanics.{{cite:bungie-welcome-season-2}} Night Marsh reduces long sight lines and introduces darkness-based hazards that warp familiar landmarks and paths.{{cite:bungie-welcome-season-2}}\n\n## Access rules and rotation\n\nDire Marsh was playable in the Server Slam playtest prior to launch.{{cite:pcgamer-guide}} Both Dire Marsh (Day) and Night Marsh are available at all times for the first week of Season 2, then rotate every 90 minutes thereafter.{{cite:bungie-welcome-season-2}} Players who unlocked and completed Dire Marsh last season have immediate access to both variants at Season 2 start; otherwise both unlock at Runner Level 3.{{cite:bungie-welcome-season-2}} Ranked weekends rotate planetside zones and can feature Dire Marsh as the zone for that weekend.{{cite:bungie-ranked}}\n\n## Notable changes and seasonal updates\n\nSeason 2 introduced Night Marsh alongside the Sentinel shell and the Cradle progression system.{{cite:bungie-season-2-live}} Patch 1.1.0.1 fixed Night Marsh landmark mini-map issues and certain Cert container exploits in Maintenance.{{cite:bungie-update-1-1-0-1}} Expedition mode allows choosing Dire Marsh or Night Marsh for runs with similar scaling to Extraction.{{cite:bungie-expedition-phase-1}} Dev guidance recommended spending initial reset time exploring Perimeter and Dire Marsh in a new season.{{cite:bungie-nightfall-refresh}}\n\n## See also\n\n- [[locations|Zones of Tau Ceti IV]]",
+    "bodyMarkdown": "## Overview\n\nDire Marsh is described as the colony’s agricultural research hub centered on a central complex and the Anomaly.{{cite:bungie-server-slam}} Dire Marsh is one of Marathon’s surface zones available at launch alongside Perimeter and Outpost.{{cite:bungie-vidoc}}\n\n## Layout and gameplay highlights\n\nThe zone focuses on straightforward action with a central complex and serves as an epicentre for the colony’s disaster.{{cite:gamesradar-maps}} Dire Marsh has a Night variant called Night Marsh that plays slower and leans into survival horror mechanics.{{cite:bungie-welcome-season-2}} Night Marsh reduces long sight lines and introduces darkness-based hazards that warp familiar landmarks and paths.{{cite:bungie-welcome-season-2}}\n\n## Access rules and rotation\n\nDire Marsh was playable in the Server Slam playtest prior to launch.{{cite:pcgamer-guide}} Both Dire Marsh (Day) and Night Marsh are available at all times for the first week of Season 2, then rotate every 90 minutes thereafter.{{cite:bungie-welcome-season-2}} Players who unlocked and completed Dire Marsh last season have immediate access to both variants at Season 2 start; otherwise both unlock at Runner Level 3.{{cite:bungie-welcome-season-2}} Ranked weekends rotate planetside zones and can feature Dire Marsh as the zone for that weekend.{{cite:bungie-ranked}}\n\n## Notable changes and seasonal updates\n\nSeason 2 introduced Night Marsh alongside the Sentinel shell and the Cradle progression system.{{cite:bungie-season-2-live}} Patch 1.1.0.1 (June 9, 2026) fixed Night Marsh landmark mini-map issues and certain Cert container exploits in Maintenance.{{cite:bungie-update-1-1-0-1}} Expedition mode allows choosing Dire Marsh or Night Marsh for runs with similar scaling to Extraction.{{cite:bungie-expedition-phase-1}} Dev guidance recommended spending initial reset time exploring Perimeter and Dire Marsh in a new season.{{cite:bungie-nightfall-refresh}}\n\n## See also\n\n- [[locations|Zones of Tau Ceti IV]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -9737,7 +9737,7 @@
         },
         {
           "claimId": "claim_dire-marsh_13",
-          "claimText": "Patch 1.1.0.1 fixed Night Marsh landmark mini-map issues and certain Cert container exploits in Maintenance.",
+          "claimText": "Patch 1.1.0.1 (June 9, 2026) fixed Night Marsh landmark mini-map issues and certain Cert container exploits in Maintenance.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -9761,7 +9761,7 @@
               "quote": "Fixed an issue that prevented some landmarks from showing up on the mini-map"
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.1.0.1, June 9, 2026"
         },
         {
           "claimId": "claim_dire-marsh_14",
@@ -10440,7 +10440,7 @@
     "title": "Outpost",
     "summary": "Outpost is a compact, vertical UESC military base zone centered on the Pinwheel structure on Tau Ceti IV.",
     "category": "locations",
-    "bodyMarkdown": "## Setting\n\nOutpost is set in the middle of a functioning UESC military installation on Tau Ceti IV.{{cite:bungie-server-slam}} The zone is part of Tau Ceti IV, a derelict colony surveyed from fragmented transmissions and field data.{{cite:marathon-official-site}} Outpost is described as a smaller map with greater verticality built around the Pinwheel megastructure.{{cite:gamesradar-maps}}\n\n## Layout highlights\n\nThe Pinwheel is an imposing three‑pronged megastructure at Outpost's center.{{cite:pcgamer-review}} Outpost combines factories, dormitories, and air hangars into a large compound-like environment.{{cite:pcgamer-review}} The contained layout makes concealment harder, increasing encounters with robots and other players.{{cite:gamesradar-maps}} Outpost includes multiple entry routes into the Pinwheel, with five or six different approaches noted.{{cite:pcgamer-review}}\n\n## Access rules\n\nOutpost unlocks for players at Runner Level 12 the day after launch.{{cite:bungie-introducing-seasons}} Ranked weekends rotate planet-side zones and include Outpost as a possible weekend map.{{cite:bungie-ranked}} Duos Queue rotates daily and explicitly includes Outpost in its Season 2 rotation.{{cite:bungie-welcome-season-2}}\n\n## Notable changes and fixes\n\nDevelopers temporarily disabled the Broken Wing switch entrance to the Pinwheel to adjust its risk/reward balance.{{cite:bungie-update-1-0-0-4}}\n\n## See also\n\n- [[locations|Zones of Tau Ceti IV]]",
+    "bodyMarkdown": "## Setting\n\nOutpost is set in the middle of a functioning UESC military installation on Tau Ceti IV.{{cite:bungie-server-slam}} The zone is part of Tau Ceti IV, a derelict colony surveyed from fragmented transmissions and field data.{{cite:marathon-official-site}} Outpost is described as a smaller map with greater verticality built around the Pinwheel megastructure.{{cite:gamesradar-maps}}\n\n## Layout highlights\n\nThe Pinwheel is an imposing three‑pronged megastructure at Outpost's center.{{cite:pcgamer-review}} Outpost combines factories, dormitories, and air hangars into a large compound-like environment.{{cite:pcgamer-review}} The contained layout makes concealment harder, increasing encounters with robots and other players.{{cite:gamesradar-maps}} Outpost includes multiple entry routes into the Pinwheel, with five or six different approaches noted.{{cite:pcgamer-review}}\n\n## Access rules\n\nOutpost unlocks for players at Runner Level 12 the day after launch.{{cite:bungie-introducing-seasons}} Ranked weekends rotate planet-side zones and include Outpost as a possible weekend map.{{cite:bungie-ranked}} Duos Queue rotates daily and explicitly includes Outpost in its Season 2 rotation.{{cite:bungie-welcome-season-2}}\n\n## Notable changes and fixes\n\nDevelopers temporarily disabled the Broken Wing switch entrance to the Pinwheel to adjust its risk/reward balance (Update 1.0.0.4, March 11, 2026).{{cite:bungie-update-1-0-0-4}}\n\n## See also\n\n- [[locations|Zones of Tau Ceti IV]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -10815,7 +10815,7 @@
         },
         {
           "claimId": "claim_outpost_12",
-          "claimText": "Developers temporarily disabled the Broken Wing switch entrance to the Pinwheel to adjust its risk/reward balance.",
+          "claimText": "Developers temporarily disabled the Broken Wing switch entrance to the Pinwheel to adjust its risk/reward balance (Update 1.0.0.4, March 11, 2026).",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -10839,7 +10839,7 @@
               "quote": "Temporarily disabled switches access route to the Broken Wing on Outpost"
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.0.0.4, March 11, 2026"
         }
       ],
       "refreshReason": "new_page",
@@ -10864,7 +10864,7 @@
     "title": "Cryo Archive",
     "summary": "Cryo Archive is the Marathon ship's first end‑game zone centered on cryopods, Vaults, and high‑intensity extraction gameplay.",
     "category": "locations",
-    "bodyMarkdown": "## Setting\n\nCryo Archive is the first deck of the UESC Marathon, an abandoned ship hanging in orbit with cryopods, medical bays, and storage wings.{{cite:bungie-cryo-archive}} The deck is described as a frozen snapshot of the past promising valuable resources and information.{{cite:bungie-cryo-archive}}\n\n## Layout and features\n\nCryo Archive consists of six interconnected wings arranged around a central hub.{{cite:bungie-cryo-archive}} The zone contains seven heavily secured Vaults that require specific Vault Keys and entry challenges.{{cite:bungie-cryo-archive}} Tight corridors open into large spaces designed to pit enemy crews against each other to unseal Vaults.{{cite:bungie-cryo-archive}}\n\n## Access rules and progression\n\nPlayers must meet Runner Level 25, have all six factions unlocked, and a 5,000 credit Loadout Value to queue.{{cite:bungie-cryo-archive}} Security Clearance is built during a run and gates systems like doors, supply rooms, and exfils by level.{{cite:bungie-cryo-archive}} Vault Keys can be found planet‑side, on the ship, and from downed enemy Runner crews.{{cite:bungie-cryo-archive}} When available, a pool of seven Cryo contracts appears in CyberAcme and completing a contract removes it from the weekly pool.{{cite:bungie-cryo-archive}} Each completed Cryo contract gives a random high‑rarity item, and Codex progression for Cryo Archive persists between weeks.{{cite:bungie-cryo-archive}}\n\n## Notable changes and schedule\n\nCryo Archive originally opened on weekends starting Friday, March 20.{{cite:bungie-cryo-archive}} Season 2 reworked Cryo contracts to allow progress over multiple runs and kept the seventh contract tied to the Compiler.{{cite:bungie-welcome-season-2}} During the Nightfall Refresh, Cryo Archive ran weekly from Thursday through Monday starting October 15 under an improved schedule.{{cite:bungie-nightfall-refresh}} Vault Breaker is an experimental roguelite PvE mode set inside Cryo Archive introduced in mid‑Season 2.{{cite:bungie-press-mid-season-2}} A bug in Vault 4 that could trap players was fixed in Update 1.1.9.7.{{cite:bungie-update-1-1-9-7}} Update 1.1.9.2 changed Cryo Archive Armory offerings and Vault Key availability during the Vault Breaker event window.{{cite:bungie-update-1-1-9-2}}\n\n## See also\n\n- [[locations|Zones of Tau Ceti IV]]",
+    "bodyMarkdown": "## Setting\n\nCryo Archive is the first deck of the UESC Marathon, an abandoned ship hanging in orbit with cryopods, medical bays, and storage wings.{{cite:bungie-cryo-archive}} The deck is described as a frozen snapshot of the past promising valuable resources and information.{{cite:bungie-cryo-archive}}\n\n## Layout and features\n\nCryo Archive consists of six interconnected wings arranged around a central hub.{{cite:bungie-cryo-archive}} The zone contains seven heavily secured Vaults that require specific Vault Keys and entry challenges.{{cite:bungie-cryo-archive}} Tight corridors open into large spaces designed to pit enemy crews against each other to unseal Vaults.{{cite:bungie-cryo-archive}}\n\n## Access rules and progression\n\nPlayers must meet Runner Level 25, have all six factions unlocked, and a 5,000 credit Loadout Value to queue.{{cite:bungie-cryo-archive}} Security Clearance is built during a run and gates systems like doors, supply rooms, and exfils by level.{{cite:bungie-cryo-archive}} Vault Keys can be found planet‑side, on the ship, and from downed enemy Runner crews.{{cite:bungie-cryo-archive}} When available, a pool of seven Cryo contracts appears in CyberAcme and completing a contract removes it from the weekly pool.{{cite:bungie-cryo-archive}} Each completed Cryo contract gives a random high‑rarity item, and Codex progression for Cryo Archive persists between weeks.{{cite:bungie-cryo-archive}}\n\n## Notable changes and schedule\n\nCryo Archive originally opened on weekends starting Friday, March 20.{{cite:bungie-cryo-archive}} Season 2 reworked Cryo contracts to allow progress over multiple runs and kept the seventh contract tied to the Compiler.{{cite:bungie-welcome-season-2}} During the Nightfall Refresh, Cryo Archive ran weekly from Thursday through Monday starting October 15 under an improved schedule.{{cite:bungie-nightfall-refresh}} Vault Breaker is an experimental roguelite PvE mode set inside Cryo Archive introduced in mid‑Season 2.{{cite:bungie-press-mid-season-2}} A bug in Vault 4 that could trap players was fixed in Update 1.1.9.7 (November 10, 2026).{{cite:bungie-update-1-1-9-7}} Update 1.1.9.2 (October 6, 2026) changed Cryo Archive Armory offerings and Vault Key availability during the Vault Breaker event window.{{cite:bungie-update-1-1-9-2}}\n\n## See also\n\n- [[locations|Zones of Tau Ceti IV]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -11333,7 +11333,7 @@
         },
         {
           "claimId": "claim_cryo-archive_17",
-          "claimText": "A bug in Vault 4 that could trap players was fixed in Update 1.1.9.7.",
+          "claimText": "A bug in Vault 4 that could trap players was fixed in Update 1.1.9.7 (November 10, 2026).",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -11357,11 +11357,11 @@
               "quote": "Fixed an issue in Vault 4 of Cryo Archive where players could fall into a particular spot and get stuck."
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.1.9.7, November 10, 2026"
         },
         {
           "claimId": "claim_cryo-archive_18",
-          "claimText": "Update 1.1.9.2 changed Cryo Archive Armory offerings and Vault Key availability during the Vault Breaker event window.",
+          "claimText": "Update 1.1.9.2 (October 6, 2026) changed Cryo Archive Armory offerings and Vault Key availability during the Vault Breaker event window.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -11385,7 +11385,7 @@
               "quote": "Vault Key 4, 5, and 6: Only available for purchase during the 2nd and 3rd weeks of Vault Breaker being active."
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.1.9.2, October 6, 2026"
         }
       ],
       "refreshReason": "new_page",
@@ -13593,7 +13593,7 @@
     "title": "Armory",
     "summary": "Overview of the Armory faction: its wares, barter interactions, sponsored kits, and recent stock tuning across updates.",
     "category": "gameplay",
-    "bodyMarkdown": "## Offerings\n\nThe Armory sells Holotags that can be purchased with credits for Ranked queues.{{cite:bungie-ranked}} Weapon schemas and materials were moved to cost Credits in the Armory during Season 2 economy changes.{{cite:bungie-update-1-1-9-2}}\n\n## Barters and Schemas\n\nSeason 2 adjusted schemas so specific Schemas can now unlock Barter offers in the Armory.{{cite:bungie-welcome-season-2}} Faction progression changes expanded Armory options and added faction-specific implant families.{{cite:bungie-welcome-season-2}}\n\n## Sponsored Kits\n\nPlayers meeting Cryo Archive requirements are eligible for a one-time Cryo Archive Sponsored Kit from the Armory.{{cite:bungie-cryo-archive}} A new daily Ranked Sponsored Kit grants a loadout scaled to a player’s rank.{{cite:bungie-welcome-season-2}}\n\n## See also\n\n- [[factions|Factions]]",
+    "bodyMarkdown": "## Offerings\n\nThe Armory sells Holotags that can be purchased with credits for Ranked queues.{{cite:bungie-ranked}} Weapon schemas and materials were moved to cost Credits in the Armory during Season 2 economy changes (Update 1.1.9.2, October 6, 2026).{{cite:bungie-update-1-1-9-2}}\n\n## Barters and Schemas\n\nSeason 2 adjusted schemas so specific Schemas can now unlock Barter offers in the Armory.{{cite:bungie-welcome-season-2}} Faction progression changes expanded Armory options and added faction-specific implant families.{{cite:bungie-welcome-season-2}}\n\n## Sponsored Kits\n\nPlayers meeting Cryo Archive requirements are eligible for a one-time Cryo Archive Sponsored Kit from the Armory.{{cite:bungie-cryo-archive}} A new daily Ranked Sponsored Kit grants a loadout scaled to a player’s rank.{{cite:bungie-welcome-season-2}}\n\n## See also\n\n- [[factions|Factions]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -13677,7 +13677,7 @@
         },
         {
           "claimId": "claim_armory_3",
-          "claimText": "Weapon schemas and materials were moved to cost Credits in the Armory during Season 2 economy changes.",
+          "claimText": "Weapon schemas and materials were moved to cost Credits in the Armory during Season 2 economy changes (Update 1.1.9.2, October 6, 2026).",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -13701,7 +13701,7 @@
               "quote": "Weapon and Backpack Schema wares in the Armory now cost Credits"
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.1.9.2, October 6, 2026"
         },
         {
           "claimId": "claim_armory_4",
@@ -15369,7 +15369,7 @@
     "title": "Rarity tiers",
     "summary": "List of Marathon's gear rarity tiers and the colours associated with some tiers.",
     "category": "equipment",
-    "bodyMarkdown": "## Overview\n\nImplant power scales with rarity tiers that run from gray up to gold.{{cite:bungie-welcome-season-2}} Some implants will only exist at higher rarity tiers after the Season 2 change.{{cite:bungie-welcome-season-2}}\n\n## Named rarities and colours\n\nBungie names a Standard tier in Server Slam reward caches.{{cite:bungie-server-slam}} Bungie names an Enhanced tier and labels it Green in Server Slam rewards.{{cite:bungie-server-slam}} Bungie names a Deluxe tier and labels it Blue in Server Slam rewards.{{cite:bungie-server-slam}}\n\n## Additional notes\n\nSeason 2 made implants defined by their perk first and gave them fixed stats.{{cite:bungie-welcome-season-2}} Season 2 reduced some items' rarity from Superior to Deluxe in Armory updates.{{cite:bungie-update-1-1-9-2}}\n\n## See also\n\n- [[armory|Armory]]",
+    "bodyMarkdown": "## Overview\n\nImplant power scales with rarity tiers that run from gray up to gold.{{cite:bungie-welcome-season-2}} Some implants will only exist at higher rarity tiers after the Season 2 change.{{cite:bungie-welcome-season-2}}\n\n## Named rarities and colours\n\nBungie names a Standard tier in Server Slam reward caches.{{cite:bungie-server-slam}} Bungie names an Enhanced tier and labels it Green in Server Slam rewards.{{cite:bungie-server-slam}} Bungie names a Deluxe tier and labels it Blue in Server Slam rewards.{{cite:bungie-server-slam}}\n\n## Additional notes\n\nSeason 2 made implants defined by their perk first and gave them fixed stats.{{cite:bungie-welcome-season-2}} Season 2 reduced some items' rarity from Superior to Deluxe in Armory updates (Update 1.1.9.2, October 6, 2026).{{cite:bungie-update-1-1-9-2}}\n\n## See also\n\n- [[armory|Armory]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -15582,7 +15582,7 @@
         },
         {
           "claimId": "claim_rarity-tiers_8",
-          "claimText": "Season 2 reduced some items' rarity from Superior to Deluxe in Armory updates.",
+          "claimText": "Season 2 reduced some items' rarity from Superior to Deluxe in Armory updates (Update 1.1.9.2, October 6, 2026).",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -15607,7 +15607,7 @@
               "quote": "rarity decreased from Superior to Deluxe."
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.1.9.2, October 6, 2026"
         }
       ],
       "refreshReason": "new_page",
@@ -16543,7 +16543,7 @@
     "title": "UESC",
     "summary": "UESC security forces oppose Runners on Tau Ceti IV.",
     "category": "lore",
-    "bodyMarkdown": "## Overview\n\nThe UESC are security forces operating on Tau Ceti IV who oppose Runners.{{cite:marathon-official-site}} Bungie states the UESC have increased security measures on Tau Ceti IV in Season 2.{{cite:bungie-welcome-season-2}} The derelict UESC Marathon ship includes intense UESC security encounters in Cryo Archive.{{cite:bungie-cryo-archive}}\n\n## Role and Behavior\n\nUESC patrol Tau Ceti IV with humanoid combat robots and drones that attack intruders.{{cite:gamesradar-factions}} UESC units drop items that can grant encryption certificates used to access Night Marsh resources and exfils.{{cite:bungie-welcome-season-2}} Season 2 increased credits rewarded for killing UESC when using the Bounty Hunter chip.{{cite:bungie-s2-combat-tuning}}\n\n## Encounters and Tuning\n\nCryo Archive presents high-intensity encounters against UESC with labyrinthine cryopods and security puzzles.{{cite:bungie-cryo-archive}} Developers reduced most UESC enemy health by about 10–15% and UESC boss shield HP by 25% in Update 1.0.0.4.{{cite:bungie-update-1-0-0-4}} Update 1.1.9.2 reduced UESC aggression and UESC damage to runners in Solo playlists.{{cite:bungie-update-1-1-9-2}}\n\n## Community Interaction\n\nRunners and companies formed a non-aggression pact to counter increased UESC security measures.{{cite:bungie-expedition-phase-1}} The Outpost map is set in a UESC military installation with dedicated UESC security presence.{{cite:bungie-server-slam}}\n\n## See also\n\n- [[factions|Factions]]",
+    "bodyMarkdown": "## Overview\n\nThe UESC are security forces operating on Tau Ceti IV who oppose Runners.{{cite:marathon-official-site}} Bungie states the UESC have increased security measures on Tau Ceti IV in Season 2.{{cite:bungie-welcome-season-2}} The derelict UESC Marathon ship includes intense UESC security encounters in Cryo Archive.{{cite:bungie-cryo-archive}}\n\n## Role and Behavior\n\nUESC patrol Tau Ceti IV with humanoid combat robots and drones that attack intruders.{{cite:gamesradar-factions}} UESC units drop items that can grant encryption certificates used to access Night Marsh resources and exfils.{{cite:bungie-welcome-season-2}} Season 2 increased credits rewarded for killing UESC when using the Bounty Hunter chip.{{cite:bungie-s2-combat-tuning}}\n\n## Encounters and Tuning\n\nCryo Archive presents high-intensity encounters against UESC with labyrinthine cryopods and security puzzles.{{cite:bungie-cryo-archive}} Developers reduced most UESC enemy health by about 10–15% and UESC boss shield HP by 25% in Update 1.0.0.4 (March 11, 2026).{{cite:bungie-update-1-0-0-4}} Update 1.1.9.2 (October 6, 2026) reduced UESC aggression and UESC damage to runners in Solo playlists.{{cite:bungie-update-1-1-9-2}}\n\n## Community Interaction\n\nRunners and companies formed a non-aggression pact to counter increased UESC security measures.{{cite:bungie-expedition-phase-1}} The Outpost map is set in a UESC military installation with dedicated UESC security presence.{{cite:bungie-server-slam}}\n\n## See also\n\n- [[factions|Factions]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -16849,7 +16849,7 @@
         },
         {
           "claimId": "claim_uesc_8",
-          "claimText": "Developers reduced most UESC enemy health by about 10–15% and UESC boss shield HP by 25% in Update 1.0.0.4.",
+          "claimText": "Developers reduced most UESC enemy health by about 10–15% and UESC boss shield HP by 25% in Update 1.0.0.4 (March 11, 2026).",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -16873,11 +16873,11 @@
               "quote": "Reduced health of most UESC enemies by ~10-15% and shield hp of UESC bosses by 25%"
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.0.0.4, March 11, 2026"
         },
         {
           "claimId": "claim_uesc_9",
-          "claimText": "Update 1.1.9.2 reduced UESC aggression and UESC damage to runners in Solo playlists.",
+          "claimText": "Update 1.1.9.2 (October 6, 2026) reduced UESC aggression and UESC damage to runners in Solo playlists.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -16901,7 +16901,7 @@
               "quote": "Reduced UESC aggression against runners in Solo playlists. Reduced UESC damage dealt to runners by 20% in Solo playlists."
             }
           ],
-          "patchRef": null
+          "patchRef": "Update 1.1.9.2, October 6, 2026"
         },
         {
           "claimId": "claim_uesc_10",

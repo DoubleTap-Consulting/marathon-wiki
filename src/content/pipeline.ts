@@ -238,7 +238,16 @@ export function buildDraftPrompt(
   sources: Map<string, SourceRecord>,
   today: string,
   readerNotes: string[] = [],
+  previousSentences: string[] = [],
 ) {
+  const previous = previousSentences.length
+    ? [
+        "",
+        "This is a refresh. The current page says the following. Keep a sentence's wording when the extracts still support it,",
+        "drop it when they no longer do, and add what is new, so readers can see what actually changed:",
+        ...previousSentences.map((sentence) => `- ${sentence}`),
+      ]
+    : [];
   const notes = readerNotes.length
     ? [
         "",
@@ -256,6 +265,7 @@ export function buildDraftPrompt(
       ? ["A table of every launch weapon (name, class, ammo) is added below your text automatically. Do not list weapons by class in prose; cover what the table cannot: how weapons work, ammo types in general, and post-launch changes."]
       : []),
     ...notes,
+    ...previous,
     "",
     "Extracts:",
     renderExtracts(extracts, sources),
@@ -539,6 +549,39 @@ function tierLabel(checks: Array<{ extractId: string | null }>, tierOf: (id: str
 
 // ---------------------------------------------------------------------------
 // Assembly
+
+const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+/**
+ * Patch facts must name the patch and its date. When a claim rests only on patch notes and the
+ * sentence does not already say which update, prefix it from the patch notes' own title and date.
+ */
+export function datePatchClaims(claims: ResolvedClaim[], sources: Map<string, SourceRecord>): ResolvedClaim[] {
+  return claims.map((claim) => {
+    if (claim.status !== "supported") return claim;
+    const dated = datePatchText(claim.claimText, claim.sourceKeys, sources);
+    return dated ? { ...claim, claimText: dated.text, patchRef: dated.patchRef } : claim;
+  });
+}
+
+/** The dated sentence for a claim backed only by patch notes, or null when it needs no change. */
+export function datePatchText(text: string, sourceKeys: string[], sources: Map<string, SourceRecord>) {
+  if (PATCH_REFERENCE.test(text) && DATE_REFERENCE.test(text)) return null;
+  const patchSources = sourceKeys.map((key) => sources.get(key));
+  if (!patchSources.length || patchSources.some((source) => source?.sourceType !== "patch_notes")) return null;
+  const latest = [...patchSources].sort((a, b) => (b?.publishedDate ?? "").localeCompare(a?.publishedDate ?? ""))[0]!;
+  const match = latest.publishedDate?.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  const version = latest.title.match(/Update\s+\d+(?:\.\d+)+/i)?.[0];
+  if (!match || !version) return null;
+  const date = `${MONTHS[Number(match[2]) - 1]} ${Number(match[3])}, ${match[1]}`;
+  const patchRef = `${version}, ${date}`;
+  const number = version.replace(/^Update\s+/i, "");
+  const named = new RegExp(`\\b(?:Update|Patch|patch|update)\\s+${number.replace(/\./g, "\\.")}\\b`);
+  // Already names the update: add its date there. Otherwise cite update and date at the end.
+  if (named.test(text)) return { text: text.replace(named, (found) => `${found} (${date})`), patchRef };
+  const body = text.replace(/[.!?]$/, "");
+  return { text: `${body} (${patchRef}).`, patchRef };
+}
 
 export type TableSpec = { caption: ResolvedClaim | null; columns: string[]; rows: string[][] };
 

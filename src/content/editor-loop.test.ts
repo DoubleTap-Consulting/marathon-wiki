@@ -171,9 +171,25 @@ describe("publish gate and change notes", () => {
     expect(evaluatePublishGate(claims(6, 4)).decision).toBe("needs_review");
   });
 
+  it("counts a reworded statement as unchanged", () => {
+    expect(
+      describeChanges({
+        previous: [{ claimText: "Rook is a scavenger frame that joins matches already in progress.", status: "supported" }],
+        next: [{ claimText: "Rook is a scavenger frame that can join matches already in progress.", status: "supported" }],
+        refreshReason: "scheduled_weekly",
+      }),
+    ).toBe("Weekly re-check against the sources: no statements changed.");
+  });
+
   it("describes what changed between claim sets", () => {
-    const before = [{ claimText: "A is true.", status: "supported" }, { claimText: "B is true.", status: "supported" }];
-    const after = [{ claimText: "A is true.", status: "contradicted" }, { claimText: "C is true.", status: "supported" }];
+    const before = [
+      { claimText: "Ranked play opened on March 24, 2026 with two queues.", status: "supported" },
+      { claimText: "Low Stakes ranked requires a 3,000 credit ante.", status: "supported" },
+    ];
+    const after = [
+      { claimText: "Ranked play opened on March 24, 2026, with two queues.", status: "contradicted" },
+      { claimText: "Season 2 merged ranked into a single queue with a 5,000 minimum.", status: "supported" },
+    ];
     expect(describeChanges({ previous: before, next: after, refreshReason: "community_note" })).toBe(
       "A reader's note prompted a re-check: 1 statement added, 1 removed, 1 now marked as sources disagreeing.",
     );
