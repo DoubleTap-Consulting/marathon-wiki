@@ -1,55 +1,49 @@
 /**
  * SAMPLE DATA — PREVIEW / DEVELOPMENT DATABASES ONLY.
  *
- * Seeds AI revisions, provenance, sources and community notes on top of the
- * starter pages (prisma/seeds/marathon.sql) so the trust layer has something
- * realistic to render. Every row this script writes has an id starting with
- * `sample_`. Nothing here is a confirmed Marathon fact: bodies only restate what
- * the starter pages already say, and source titles are generic.
+ * Adds AI revisions, provenance, sources and approved community notes on top of the
+ * starter pages so the trust layer has something realistic to render. Nothing here is
+ * a confirmed Marathon fact: bodies only restate what the starter pages already say,
+ * and source titles are generic.
+ *
+ * Safe on a Neon preview branch, which starts as a full copy of production data:
+ *   - the tenant and pages are looked up by slug (a missing page is created with a
+ *     `sample_` id; a missing tenant is an error);
+ *   - every row this script inserts has an id starting with `sample_` and carries
+ *     sample=true in its metadata/provenance; re-runs delete and recreate only those;
+ *   - sample revision numbers continue after the page's highest non-sample revision;
+ *   - the only non-sample rows it modifies are the seeded pages' current-content
+ *     columns (summary, body_markdown, latest_revision_number, updated_by='sample-seed',
+ *     updated_at), because the article reads its current text from the page row.
  *
  * Refuses to run unless ALL of these hold:
- *   - ALLOW_SAMPLE_SEED=1
+ *   - ALLOW_SAMPLE_SEED=1 (scripts/vercel-build.mjs sets it only on the preview path)
  *   - VERCEL_ENV is not "production"
- *   - the target host is not WIKI_PRODUCTION_DB_HOST (when that is set)
- *   - the target database is marked as a preview database:
- *       COMMENT ON DATABASE <db> IS 'marathon-wiki:sample-preview';
- *     Production is never marked, so a mis-pointed DATABASE_URL fails closed.
+ *   - the production endpoint id is known and no database var points at it
+ *     (scripts/db-guard.mjs; pooled and unpooled hosts are matched by endpoint id)
  *
- * Usage: ALLOW_SAMPLE_SEED=1 DATABASE_URL=... node scripts/seed-preview.ts
+ * Usage: ALLOW_SAMPLE_SEED=1 DATABASE_URL_UNPOOLED=... node scripts/seed-preview.ts
  */
-import { Pool } from "@neondatabase/serverless";
+import { Pool, type PoolClient } from "@neondatabase/serverless";
 
-export const PREVIEW_DATABASE_MARKER = "marathon-wiki:sample-preview";
+import { checkNonProductionTarget, previewTargetUrl } from "./db-guard.mjs";
 
 const DAY = 24 * 60 * 60 * 1000;
+const TENANT_SLUG = "marathon";
 
 function fail(message: string): never {
   console.error(`seed-preview: refusing to run. ${message}`);
   process.exit(1);
 }
 
-const connectionString = process.env.DATABASE_URL_UNPOOLED || process.env.DATABASE_URL;
-
 if (process.env.ALLOW_SAMPLE_SEED !== "1") fail("Set ALLOW_SAMPLE_SEED=1.");
 if (process.env.VERCEL_ENV === "production") fail("VERCEL_ENV is production.");
-if (!connectionString) fail("DATABASE_URL is not set.");
 
-const targetHost = new URL(connectionString).hostname.replace("-pooler", "");
-const productionHost = process.env.WIKI_PRODUCTION_DB_HOST?.trim().replace("-pooler", "");
+const guard = checkNonProductionTarget();
+if (!guard.ok) fail(`Database guard: ${guard.reason}.`);
 
-if (productionHost && productionHost === targetHost) {
-  fail("The target database host matches WIKI_PRODUCTION_DB_HOST.");
-}
-
+const connectionString = previewTargetUrl() as string;
 const pool = new Pool({ connectionString });
-const marker = await pool.query(
-  "select shobj_description(oid, 'pg_database') as comment from pg_database where datname = current_database()",
-);
-
-if (marker.rows[0]?.comment !== PREVIEW_DATABASE_MARKER) {
-  await pool.end();
-  fail(`The target database is not marked '${PREVIEW_DATABASE_MARKER}'.`);
-}
 
 const now = Date.now();
 const at = (daysAgo: number) => new Date(now - daysAgo * DAY).toISOString();
@@ -132,7 +126,7 @@ type Claim = {
 };
 
 type Revision = {
-  number: number;
+  step: number;
   daysAgo: number;
   refreshReason: "scheduled_weekly" | "patch_notes" | "community_note";
   changeNote: string;
@@ -225,15 +219,14 @@ Balance changes are summarized here after each update, with a link to the patch 
 
 const UNSUPPORTED_REASON = "None of the sources used for this page mention this yet.";
 
-const PAGES: Array<{ pageId: string; slug: string; title: string; summary: string; revisions: Revision[] }> = [
+const PAGES: Array<{ slug: string; title: string; summary: string; revisions: Revision[] }> = [
   {
-    pageId: "page_marathon_factions",
     slug: "factions",
     title: "Factions",
     summary: "The factions and organizations in Marathon's setting, and what official sources confirm about them.",
     revisions: [
       {
-        number: 2,
+        step: 2,
         daysAgo: 26,
         refreshReason: "scheduled_weekly",
         changeNote: "Turned the starter text into an overview and explained how faction entries are recorded.",
@@ -244,7 +237,7 @@ const PAGES: Array<{ pageId: string; slug: string; title: string; summary: strin
         ],
       },
       {
-        number: 3,
+        step: 3,
         daysAgo: 12,
         refreshReason: "patch_notes",
         changeNote: "Added a Source status section after new update notes, and noted that faction entries cover gameplay implications.",
@@ -256,7 +249,7 @@ const PAGES: Array<{ pageId: string; slug: string; title: string; summary: strin
         ],
       },
       {
-        number: 4,
+        step: 4,
         daysAgo: 3,
         refreshReason: "community_note",
         changeNote: "A reader's note pointed out that names should follow official spelling, so a Naming section was added. One claim about faction names was held back because sources disagree.",
@@ -274,13 +267,12 @@ const PAGES: Array<{ pageId: string; slug: string; title: string; summary: strin
     ],
   },
   {
-    pageId: "page_marathon_weapons",
     slug: "weapons",
     title: "Weapons",
     summary: "How this wiki documents Marathon weapons, archetypes and patch-sensitive changes.",
     revisions: [
       {
-        number: 2,
+        step: 2,
         daysAgo: 20,
         refreshReason: "scheduled_weekly",
         changeNote: "Split the starter text into an overview and an Archetypes section.",
@@ -289,7 +281,7 @@ const PAGES: Array<{ pageId: string; slug: string; title: string; summary: strin
         claims: [],
       },
       {
-        number: 3,
+        step: 3,
         daysAgo: 9,
         refreshReason: "patch_notes",
         changeNote: "New update notes: added a Patch history section and explained when damage values are listed.",
@@ -300,7 +292,7 @@ const PAGES: Array<{ pageId: string; slug: string; title: string; summary: strin
         ],
       },
       {
-        number: 4,
+        step: 4,
         daysAgo: 1,
         refreshReason: "community_note",
         changeNote: "Added an Acquisition section after a reader's note about where acquisition details first appear.",
@@ -320,7 +312,7 @@ const PAGES: Array<{ pageId: string; slug: string; title: string; summary: strin
 const NOTES = [
   {
     id: "sample_note_factions_official_news",
-    pageId: "page_marathon_factions",
+    pageSlug: "factions",
     noteType: "source",
     targetQuote: "Official faction detail is still limited",
     body: "Faction announcements tend to land in Bungie's news posts first. Check there before trusting a name you saw elsewhere.",
@@ -329,7 +321,7 @@ const NOTES = [
   },
   {
     id: "sample_note_weapons_acquisition",
-    pageId: "page_marathon_weapons",
+    pageSlug: "weapons",
     noteType: "clarification",
     targetQuote: "How weapons are acquired has not been fully documented",
     body: "Acquisition details usually show up in update notes before anywhere else, so community lists can lag behind.",
@@ -338,7 +330,7 @@ const NOTES = [
   },
 ];
 
-function provenance(revision: Revision) {
+function provenance(revision: Revision, revisionNumber: number) {
   return {
     provider: "vercel-ai-gateway",
     modelId: "xai/grok-4-fast",
@@ -357,7 +349,7 @@ function provenance(revision: Revision) {
       authorityScore: source.authorityScore,
     })),
     claimSupport: revision.claims.map((claim, index) => ({
-      claimId: `claim_${revision.number}_${index + 1}`,
+      claimId: `claim_${revisionNumber}_${index + 1}`,
       claimText: claim.claimText,
       status: claim.status,
       supportScore: claim.status === "supported" ? 0.82 : claim.status === "unsupported" ? 0.2 : 0.1,
@@ -370,34 +362,80 @@ function provenance(revision: Revision) {
     })),
     refreshReason: revision.refreshReason,
     requestedBy: "sample-seed",
+    sample: true,
   };
+}
+
+async function counts(client: PoolClient) {
+  const result = await client.query(
+    `select
+       (select count(*) from tenants)::int as tenants,
+       (select count(*) from wiki_pages)::int as pages,
+       (select count(*) from wiki_page_revisions)::int as revisions,
+       (select count(*) from wiki_sources)::int as sources,
+       (select count(*) from wiki_community_notes)::int as notes`,
+  );
+  return result.rows[0] as Record<string, number>;
 }
 
 const client = await pool.connect();
 
 try {
   await client.query("begin");
-  await client.query("delete from wiki_sources where id like 'sample_%'");
-  await client.query("delete from wiki_community_notes where id like 'sample_%'");
-  await client.query("delete from wiki_page_revisions where id like 'sample_%'");
+
+  const tenant = await client.query("select id from tenants where slug = $1", [TENANT_SLUG]);
+  if (tenant.rows.length === 0) throw new Error(`Tenant '${TENANT_SLUG}' not found. Run the starter seed (pnpm db:seed) first.`);
+  const tenantId: string = tenant.rows[0].id;
+
+  // Re-runs: remove only rows this script created.
+  await client.query("delete from wiki_sources where id like 'sample\\_%'");
+  await client.query("delete from wiki_community_notes where id like 'sample\\_%'");
+  await client.query("delete from wiki_page_revisions where id like 'sample\\_%'");
+
+  const pageIds = new Map<string, string>();
 
   for (const page of PAGES) {
+    const existing = await client.query("select id from wiki_pages where tenant_id = $1 and slug = $2", [tenantId, page.slug]);
+    let pageId: string;
+
+    if (existing.rows.length > 0) {
+      pageId = existing.rows[0].id;
+    } else {
+      pageId = `sample_page_${page.slug}`;
+      await client.query(
+        `insert into wiki_pages (id, tenant_id, slug, title, summary, body_markdown, status, latest_revision_number, created_by, updated_by, published_at)
+         values ($1, $2, $3, $4, $5, '', 'published', 0, 'sample-seed', 'sample-seed', now())`,
+        [pageId, tenantId, page.slug, page.title, page.summary],
+      );
+    }
+    pageIds.set(page.slug, pageId);
+
+    const max = await client.query(
+      "select coalesce(max(revision_number), 0)::int as max from wiki_page_revisions where tenant_id = $1 and page_id = $2",
+      [tenantId, pageId],
+    );
+    const base: number = max.rows[0].max;
+    let latestNumber = base;
+    let latest: Revision | null = null;
+
     for (const revision of page.revisions) {
-      const revisionId = `sample_rev_${page.slug}_${revision.number}`;
+      const revisionNumber = base + revision.step - 1;
+      const revisionId = `sample_rev_${page.slug}_${revision.step}`;
 
       await client.query(
         `insert into wiki_page_revisions (id, tenant_id, page_id, revision_number, title, summary, body_markdown, change_note, ai_provenance, created_by, created_at)
-         values ($1, 'tenant_marathon', $2, $3, $4, $5, $6, $7, $8, 'ai-refresh', $9)`,
-        [revisionId, page.pageId, revision.number, page.title, page.summary, revision.body, revision.changeNote, JSON.stringify(provenance(revision)), at(revision.daysAgo)],
+         values ($1, $2, $3, $4, $5, $6, $7, $8, $9, 'sample-seed', $10)`,
+        [revisionId, tenantId, pageId, revisionNumber, page.title, page.summary, revision.body, revision.changeNote, JSON.stringify(provenance(revision, revisionNumber)), at(revision.daysAgo)],
       );
 
       for (const source of revision.sources) {
         await client.query(
           `insert into wiki_sources (id, tenant_id, page_id, revision_id, source_key, source_type, title, url, publisher, retrieved_at, metadata)
-           values ($1, 'tenant_marathon', $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+           values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
           [
-            `sample_src_${page.slug}_${revision.number}_${source.sourceKey}`,
-            page.pageId,
+            `sample_src_${page.slug}_${revision.step}_${source.sourceKey}`,
+            tenantId,
+            pageId,
             revisionId,
             source.sourceKey,
             source.sourceType,
@@ -415,28 +453,36 @@ try {
           ],
         );
       }
+
+      latestNumber = revisionNumber;
+      latest = revision;
     }
 
-    const latest = page.revisions[page.revisions.length - 1];
-    await client.query(
-      `update wiki_pages set summary = $2, body_markdown = $3, latest_revision_number = $4, updated_by = 'ai-refresh', updated_at = $5 where id = $1`,
-      [page.pageId, page.summary, latest.body, latest.number, at(latest.daysAgo)],
-    );
+    if (latest) {
+      // The one change to a non-sample row: point the page at its newest sample revision.
+      await client.query(
+        `update wiki_pages set summary = $3, body_markdown = $4, latest_revision_number = $5, updated_by = 'sample-seed', updated_at = $6
+         where tenant_id = $1 and id = $2`,
+        [tenantId, pageId, page.summary, latest.body, latestNumber, at(latest.daysAgo)],
+      );
+    }
   }
 
   for (const note of NOTES) {
     await client.query(
       `insert into wiki_community_notes (id, tenant_id, page_id, status, note_type, body_markdown, source_url, target_quote, created_by, reviewed_by, reviewed_at, created_at, metadata)
-       values ($1, 'tenant_marathon', $2, 'approved', $3, $4, $5, $6, 'sample-reader', 'sample-editor', $7, $7, '{"origin":"human","sample":true}')`,
-      [note.id, note.pageId, note.noteType, note.body, note.sourceUrl, note.targetQuote, at(note.daysAgo)],
+       values ($1, $2, $3, 'approved', $4, $5, $6, $7, 'sample-reader', 'sample-editor', $8, $8, '{"origin":"human","sample":true}')`,
+      [note.id, tenantId, pageIds.get(note.pageSlug), note.noteType, note.body, note.sourceUrl, note.targetQuote, at(note.daysAgo)],
     );
   }
 
+  const after = await counts(client);
   await client.query("commit");
-  console.log(`seed-preview: seeded ${PAGES.length} pages with sample revisions and ${NOTES.length} notes.`);
+  console.log(`seed-preview: seeded ${PAGES.length} pages with sample revisions and ${NOTES.length} notes. Row counts: ${JSON.stringify(after)}`);
 } catch (error) {
   await client.query("rollback");
-  throw error;
+  console.error(`seed-preview: failed, rolled back. ${error instanceof Error ? error.message : "unknown error"}`);
+  process.exitCode = 1;
 } finally {
   client.release();
   await pool.end();
