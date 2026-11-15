@@ -20,8 +20,8 @@ describe("checkNonProductionTarget", () => {
     expect(checkNonProductionTarget(base).ok).toBe(false);
   });
 
-  it("fails when the production endpoint is unknown", () => {
-    expect(checkNonProductionTarget({ DATABASE_URL: url("ep-branch-222222.neon.tech") }).ok).toBe(false);
+  it("uses the built-in production endpoint when no env override is set", () => {
+    expect(checkNonProductionTarget({ DATABASE_URL: url("ep-branch-222222.neon.tech") })).toEqual({ ok: true });
   });
 
   it("fails when any database var points at production, pooled or not", () => {
@@ -43,5 +43,27 @@ describe("checkNonProductionTarget", () => {
         PGHOST: "ep-branch-222222-pooler.neon.tech",
       }),
     ).toEqual({ ok: true });
+  });
+});
+
+describe("production endpoint constant", () => {
+  const pooled = "ep-dawn-unit-atl2b0aj-pooler.c-9.us-east-1.aws.neon.tech";
+  const unpooled = "ep-dawn-unit-atl2b0aj.c-9.us-east-1.aws.neon.tech";
+
+  it.each([
+    ["DATABASE_URL", url(pooled)],
+    ["DATABASE_URL", url(unpooled)],
+    ["DATABASE_URL_UNPOOLED", url(unpooled)],
+    ["DATABASE_URL_UNPOOLED", url(pooled)],
+    ["PGHOST", pooled],
+    ["PGHOST_UNPOOLED", unpooled],
+  ])("refuses %s = %s", (name, value) => {
+    const env: Record<string, string> = { DATABASE_URL_UNPOOLED: url("ep-branch-222222.neon.tech"), [name]: value };
+    expect(checkNonProductionTarget(env)).toEqual({ ok: false, reason: `${name} points at the production database endpoint` });
+  });
+
+  it("refuses the bare hosts as the target URL too", () => {
+    expect(endpointIdOf(pooled)).toBe("ep-dawn-unit-atl2b0aj");
+    expect(endpointIdOf(unpooled)).toBe("ep-dawn-unit-atl2b0aj");
   });
 });

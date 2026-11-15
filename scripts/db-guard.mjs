@@ -13,7 +13,7 @@
  * Additional ids can be supplied through WIKI_PRODUCTION_DB_ENDPOINTS (comma-separated).
  */
 /** @type {string[]} */
-export const PRODUCTION_DB_ENDPOINT_IDS = [];
+export const PRODUCTION_DB_ENDPOINT_IDS = ["ep-dawn-unit-atl2b0aj"];
 
 /** Every env var that can carry a database host for this app. */
 export const DATABASE_HOST_VARS = [
