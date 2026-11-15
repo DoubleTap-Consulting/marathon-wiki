@@ -375,7 +375,7 @@ const TRIGGER_LABELS: Record<string, string> = {
   weekly_refresh: "Weekly refresh",
   patch_notes: "New patch notes",
   upcoming_game_event: "Upcoming game event",
-  community_note: "Community note from a reader",
+  community_note: "Prompted by a reader's note",
   source_update: "New source found",
   new_page: "New page",
   manual_refresh: "Refreshed by an editor",

@@ -99,7 +99,12 @@ function TrustPopover({
   children,
   label,
 }: {
-  trigger: (props: { onMouseEnter: () => void; onMouseLeave: () => void; onFocus: () => void; onClick: () => void }) => React.ReactNode;
+  trigger: (props: {
+    onMouseEnter: () => void;
+    onMouseLeave: () => void;
+    onFocus: () => void;
+    onClick: (event: React.SyntheticEvent) => void;
+  }) => React.ReactNode;
   title: React.ReactNode;
   children: React.ReactNode;
   label: string;
@@ -148,7 +153,8 @@ function TrustPopover({
           onMouseEnter: hoverOpen,
           onMouseLeave: hoverClose,
           onFocus: hoverOpen,
-          onClick: () => {
+          onClick: (event) => {
+            event.preventDefault();
             openedByClick.current = true;
             setOpen(true);
           },
@@ -251,8 +257,7 @@ export function ClaimMark({
             className="cursor-help underline decoration-claim-unverified decoration-dotted decoration-2 underline-offset-4 outline-none focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring"
             onKeyDown={(event) => {
               if (event.key === "Enter" || event.key === " ") {
-                event.preventDefault();
-                handlers.onClick();
+                handlers.onClick(event);
               }
             }}
             {...handlers}

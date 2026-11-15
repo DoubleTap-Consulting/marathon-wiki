@@ -54,22 +54,19 @@ export function CommunityNoteForm({ action, onSubmitted }: CommunityNoteFormProp
         </div>
       ) : null}
 
-      <div className="grid gap-2 sm:grid-cols-[12rem_1fr]">
-        <label htmlFor="community-note-type" className="text-sm font-medium">
-          Note type
+      <div className="grid gap-2">
+        <label htmlFor="community-note-body" className="text-sm font-medium">
+          Community note
         </label>
-        <select
-          id="community-note-type"
-          name="noteType"
-          className="min-h-11 w-full rounded-md border border-input bg-background px-3 text-base text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          defaultValue="general"
-        >
-          <option value="general">General note</option>
-          <option value="correction">Correction</option>
-          <option value="source">Source link</option>
-          <option value="clarification">Clarification</option>
-          <option value="dispute">Dispute</option>
-        </select>
+        <textarea
+          id="community-note-body"
+          name="bodyMarkdown"
+          rows={5}
+          required
+          autoFocus
+          minLength={20}
+          className="min-h-36 w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-base leading-7 text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        />
       </div>
 
       <div className="grid gap-2">
@@ -81,20 +78,6 @@ export function CommunityNoteForm({ action, onSubmitted }: CommunityNoteFormProp
           name="targetQuote"
           rows={2}
           className="min-h-20 w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-base leading-7 text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        />
-      </div>
-
-      <div className="grid gap-2">
-        <label htmlFor="community-note-body" className="text-sm font-medium">
-          Community note
-        </label>
-        <textarea
-          id="community-note-body"
-          name="bodyMarkdown"
-          rows={5}
-          required
-          minLength={20}
-          className="min-h-36 w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-base leading-7 text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
       </div>
 
@@ -113,6 +96,24 @@ export function CommunityNoteForm({ action, onSubmitted }: CommunityNoteFormProp
         />
       </div>
 
+      <div className="grid gap-2 sm:grid-cols-[12rem_1fr]">
+        <label htmlFor="community-note-type" className="text-sm font-medium">
+          Note type
+        </label>
+        <select
+          id="community-note-type"
+          name="noteType"
+          className="min-h-11 w-full rounded-md border border-input bg-background px-3 text-base text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          defaultValue="general"
+        >
+          <option value="general">General note</option>
+          <option value="correction">Correction</option>
+          <option value="source">Source link</option>
+          <option value="clarification">Clarification</option>
+          <option value="dispute">Dispute</option>
+        </select>
+      </div>
+
       <SubmitButton />
     </form>
   );
@@ -127,7 +128,7 @@ function SubmitButton() {
       disabled={status.pending}
       className="inline-flex min-h-11 items-center rounded-md bg-primary px-4 text-base font-medium text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card disabled:cursor-not-allowed disabled:opacity-60"
     >
-      {status.pending ? "Submitting..." : "Submit community note"}
+      {status.pending ? "Sending..." : "Send note"}
     </button>
   );
 }

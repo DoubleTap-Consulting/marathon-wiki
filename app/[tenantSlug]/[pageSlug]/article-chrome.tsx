@@ -138,20 +138,6 @@ export function ContentsControl({ toc }: { toc: TocEntry[] }) {
   );
 }
 
-export function AtAGlanceMobile({ children }: { children: React.ReactNode }) {
-  return (
-    <Collapsible className="mt-5 border-y md:hidden">
-      <CollapsibleTrigger className="group flex min-h-11 w-full items-center gap-2 text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring">
-        <ChevronRight className="size-4 transition-transform duration-200 ease-out group-data-[state=open]:rotate-90" aria-hidden="true" />
-        At a glance
-      </CollapsibleTrigger>
-      <CollapsibleContent className="overflow-hidden data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
-        <div className="pb-3">{children}</div>
-      </CollapsibleContent>
-    </Collapsible>
-  );
-}
-
 function subscribeWide(callback: () => void) {
   const query = window.matchMedia("(min-width: 768px)");
   query.addEventListener("change", callback);
@@ -179,6 +165,7 @@ export function AddNoteButton({ className }: { className?: string }) {
 export function AddNoteSheet({ action }: { action: NoteAction }) {
   const [open, setOpen] = useState(false);
   const [formKey, setFormKey] = useState(0);
+  const returnFocus = useRef<HTMLElement | null>(null);
   const wide = useSyncExternalStore(
     subscribeWide,
     () => window.matchMedia("(min-width: 768px)").matches,
@@ -186,7 +173,10 @@ export function AddNoteSheet({ action }: { action: NoteAction }) {
   );
 
   useEffect(() => {
-    const show = () => setOpen(true);
+    const show = () => {
+      returnFocus.current = document.activeElement as HTMLElement | null;
+      setOpen(true);
+    };
     window.addEventListener(ADD_NOTE_EVENT, show);
     return () => window.removeEventListener(ADD_NOTE_EVENT, show);
   }, []);
@@ -196,6 +186,13 @@ export function AddNoteSheet({ action }: { action: NoteAction }) {
       <SheetContent
         side={wide ? "right" : "bottom"}
         className={cn("overflow-y-auto px-5 pb-8", wide ? "w-full sm:max-w-md" : "max-h-[90vh] rounded-t-xl")}
+        onCloseAutoFocus={(event) => {
+          event.preventDefault();
+          const target = returnFocus.current?.isConnected
+            ? returnFocus.current
+            : document.querySelector<HTMLElement>('[aria-label="More actions"]');
+          target?.focus();
+        }}
       >
         <SheetHeader className="px-0">
           <SheetTitle>Add a note</SheetTitle>

@@ -3,6 +3,8 @@
 import { Menu, Search } from "lucide-react";
 import { useState } from "react";
 
+import { canReviewAction } from "../review/actions";
+
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 
 const ICON_BUTTON =
@@ -29,12 +31,25 @@ export function SearchSheet({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function MenuSheet({ children }: { children: React.ReactNode }) {
+export function MenuSheet({
+  primary,
+  review,
+  children,
+}: {
+  primary: React.ReactNode;
+  review: React.ReactNode;
+  children: React.ReactNode;
+}) {
   const [open, setOpen] = useState(false);
+  const [canReview, setCanReview] = useState<boolean | null>(null);
 
   return (
     <>
-      <button type="button" aria-label="Menu" className={ICON_BUTTON} onClick={() => setOpen(true)}>
+      <button type="button" aria-label="Menu" className={ICON_BUTTON} onClick={() => {
+          setOpen(true);
+          if (canReview === null) canReviewAction().then(setCanReview, () => setCanReview(false));
+        }}
+      >
         <Menu className="size-5" aria-hidden="true" />
       </button>
       <Sheet open={open} onOpenChange={setOpen}>
@@ -43,7 +58,15 @@ export function MenuSheet({ children }: { children: React.ReactNode }) {
             <SheetTitle>Browse the wiki</SheetTitle>
             <SheetDescription className="sr-only">Sections and categories</SheetDescription>
           </SheetHeader>
-          <div onClick={(event) => (event.target as HTMLElement).closest("a") && setOpen(false)}>{children}</div>
+          <nav
+            className="grid gap-1"
+            aria-label="Wiki sections"
+            onClick={(event) => (event.target as HTMLElement).closest("a") && setOpen(false)}
+          >
+            {primary}
+            {canReview ? review : null}
+            {children}
+          </nav>
         </SheetContent>
       </Sheet>
     </>

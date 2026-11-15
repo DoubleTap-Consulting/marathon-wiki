@@ -50,7 +50,7 @@
   --radius: 0.5rem;
   /* Claim support. Unverified underline is non-text (3:1 on --background);
      conflict reuses destructive (3:1 border, label text uses foreground). */
-  --claim-unverified: oklch(0.64 0.15 70);
+  --claim-unverified: oklch(0.555 0.163 49);
   --claim-conflict: var(--destructive);
 }
 

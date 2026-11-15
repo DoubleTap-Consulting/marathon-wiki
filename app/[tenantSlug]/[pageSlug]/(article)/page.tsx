@@ -32,7 +32,6 @@ import { WikiChrome } from "../../_components/wiki-chrome";
 import {
   AddNoteButton,
   AddNoteSheet,
-  AtAGlanceMobile,
   ContentsControl,
   TocNav,
   TrustOverflow,
@@ -41,7 +40,6 @@ import { buildArticleSources, modelDisplayName, summarizeTrust, toIso, type Trus
 import { submitWikiCommunityNoteAction } from "../community-note-actions";
 
 export const revalidate = 300;
-export const dynamic = "force-static";
 
 const META = "text-xs font-medium uppercase tracking-wide text-muted-foreground";
 const STRIP_LINK = "text-foreground underline-offset-4 outline-none hover:underline focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring";
@@ -57,12 +55,10 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
   const { tenantSlug, pageSlug } = await params;
   const snapshot = await getCachedWikiPage(normalizeTenantSlug(tenantSlug), normalizeTenantSlug(pageSlug));
 
-  if (!snapshot) {
-    return { title: "Page not found" };
-  }
+  if (!snapshot) notFound();
 
   return buildWikiMetadata({
-    title: `${snapshot.page.title} | ${snapshot.tenant.name}`,
+    title: snapshot.page.title,
     description: snapshot.page.summary,
     path: `/${snapshot.tenant.slug}/${snapshot.page.slug}`,
     siteName: snapshot.tenant.name,
@@ -121,38 +117,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const unplacedNotes = notes.filter((note) => !plan.placedNoteIds.includes(note.id));
   const summary = summarizeTrust(page, revisions);
   const latestRevision = revisions?.[0] ?? null;
-  const glanceRows = page.categories.map((category) => ({
-    label: "Category",
-    value: (
-      <Link href={`/${tenant.slug}/categories/${category.slug}` as Route} className="text-foreground underline-offset-4 hover:underline">
-        {category.name}
-      </Link>
-    ),
-    key: category.id,
-  }));
-  const hasGlance = glanceRows.length > 0;
   const crumb = page.categories[0];
-
-  const glance = hasGlance ? (
-    <dl className="text-sm">
-      {glanceRows.map((row) => (
-        <div key={row.key} className="flex justify-between gap-4 border-t py-2.5 first:border-t-0 md:first:border-t">
-          <dt className={META}>{row.label}</dt>
-          <dd className="text-right">{row.value}</dd>
-        </div>
-      ))}
-    </dl>
-  ) : null;
 
   return (
     <WikiChrome tenant={tenant} categories={snapshot.categories} width="article" skipTarget="article">
-      <div
-        className={
-          hasGlance
-            ? "lg:grid lg:grid-cols-[200px_minmax(0,1fr)_280px] lg:gap-12"
-            : "lg:grid lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-12"
-        }
-      >
+      <div className="lg:grid lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-12">
         <div className="hidden lg:block">{toc.length > 0 ? <TocNav toc={toc} /> : null}</div>
 
         <article id="article" className="min-w-0 max-w-[68ch]" tabIndex={-1}>
@@ -178,15 +147,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           {page.summary ? <p className="mt-4 text-lg leading-relaxed text-muted-foreground">{page.summary}</p> : null}
 
           <ContentsControl toc={toc} />
-          {glance ? (
-            <>
-              <AtAGlanceMobile>{glance}</AtAGlanceMobile>
-              <aside aria-label="At a glance" className="mt-6 hidden md:block lg:hidden">
-                <p className={`${META} mb-2`}>At a glance</p>
-                {glance}
-              </aside>
-            </>
-          ) : null}
 
           <div className="mt-8">
             <MarkdownArticle
@@ -218,15 +178,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             <AddNoteButton />
           </div>
         </article>
-
-        {glance ? (
-          <aside aria-label="At a glance" className="hidden lg:block">
-            <div className="sticky top-20">
-              <p className={`${META} mb-2`}>At a glance</p>
-              <div className="border-t">{glance}</div>
-            </div>
-          </aside>
-        ) : null}
       </div>
 
       <AddNoteSheet action={submitWikiCommunityNoteAction.bind(null, tenant.slug, page.slug)} />
@@ -312,11 +263,11 @@ function TrustStrip({
   );
 
   return (
-    <p className="mt-3 flex flex-wrap items-center text-sm leading-7 text-muted-foreground">
+    <p className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 sm:gap-x-0 text-sm leading-7 text-muted-foreground">
       {segments.map((segment, index) => (
-        <span key={index} className="inline-flex items-center">
+        <span key={index} className="inline-flex items-center whitespace-nowrap">
           {index > 0 ? (
-            <span aria-hidden="true" className="mx-2">
+            <span aria-hidden="true" className="mx-2 max-sm:hidden">
               ·
             </span>
           ) : null}
@@ -387,7 +338,7 @@ function WhatChanged({
       </CollapsibleTrigger>
       <CollapsibleContent className="overflow-hidden data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
         <div className="space-y-3 pb-5 text-[15px] leading-relaxed">
-          <p className={META}>{triggerLabel(provenance?.refreshReason)}</p>
+          <p className="text-sm text-muted-foreground">{triggerLabel(provenance?.refreshReason)}</p>
           {revision.changeNote ? <p>{revision.changeNote}</p> : null}
           {delta.added.length > 0 ? (
             <p className="text-muted-foreground">Sources added: {delta.added.map(titleFor).join(", ")}</p>

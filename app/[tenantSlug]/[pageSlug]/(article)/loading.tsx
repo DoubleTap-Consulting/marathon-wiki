@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function ArticleLoading() {
   return (
-    <div className="mx-auto w-full max-w-[1240px] px-5 pt-20 md:px-8 lg:grid lg:grid-cols-[200px_minmax(0,1fr)_280px] lg:gap-12 lg:pt-24">
+    <div className="mx-auto w-full max-w-[1240px] px-5 pt-20 md:px-8 lg:grid lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-12 lg:pt-24">
       <div className="hidden space-y-3 lg:block">
         <Skeleton className="h-3 w-24" />
         <Skeleton className="h-4 w-32" />
@@ -22,10 +22,6 @@ export default function ArticleLoading() {
             <Skeleton key={width} className="h-4" style={{ width: `${width}%` }} />
           ))}
         </div>
-      </div>
-      <div className="hidden lg:block">
-        <Skeleton className="h-3 w-20" />
-        <Skeleton className="mt-3 h-24 w-full" />
       </div>
     </div>
   );

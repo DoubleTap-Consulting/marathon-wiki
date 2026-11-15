@@ -64,9 +64,8 @@ export default async function TenantHome({ params }: TenantHomeProps) {
               {snapshot.tenant.gameTitle}
             </h1>
             <p className="max-w-3xl text-base leading-8 text-muted-foreground sm:text-lg">
-              Browse published pages for {snapshot.tenant.gameTitle}. Content is
-              organized by tenant, category, and page so future game wikis can
-              use the same public reader path.
+              Source-backed pages on {snapshot.tenant.gameTitle}&apos;s weapons, maps,
+              factions and systems, kept current by AI and checked by readers.
             </p>
           </div>
 

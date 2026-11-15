@@ -7,6 +7,7 @@ import type {
 } from "@/src/db/wiki";
 
 import { MenuSheet, SearchSheet } from "./header-sheets";
+import { RelativeTime } from "./trust-ui";
 
 export function WikiChrome({
   tenant,
@@ -76,19 +77,16 @@ export function WikiChrome({
           <div className="ml-auto hidden w-full max-w-xs md:block">{searchForm("header")}</div>
           <div className="ml-auto flex items-center gap-1 md:ml-0">
             <SearchSheet>{searchForm("sheet")}</SearchSheet>
-            <MenuSheet>
-              <nav className="grid gap-1" aria-label="Wiki sections">
-                <NavPill href={`/${tenant.slug}`}>Home</NavPill>
-                <NavPill href={`/${tenant.slug}/pages`}>All pages</NavPill>
-                <NavPill
-                  href={`/${tenant.slug}/suggest`}
-                  eventName="suggestion_cta"
-                  eventLabel="header"
-                  tenantSlug={tenant.slug}
-                >
-                  Suggest page
-                </NavPill>
-                <NavPill href={`/${tenant.slug}/review`}>Review</NavPill>
+            <MenuSheet
+              primary={
+                <>
+                  <NavPill href={`/${tenant.slug}`}>Home</NavPill>
+                  <NavPill href={`/${tenant.slug}/pages`}>All pages</NavPill>
+                </>
+              }
+              review={<NavPill href={`/${tenant.slug}/review`}>Review</NavPill>}
+            >
+              <>
                 {categories.length > 0 ? (
                   <p className="mt-4 mb-1 px-3 text-xs font-medium uppercase tracking-wide text-muted-foreground">
                     Categories
@@ -99,7 +97,7 @@ export function WikiChrome({
                     {category.name}
                   </NavPill>
                 ))}
-              </nav>
+              </>
             </MenuSheet>
           </div>
         </div>
@@ -152,7 +150,7 @@ export function PageGrid({
               </p>
             </div>
             <p className="text-xs leading-5 text-muted-foreground">
-              Updated {formatDate(page.updatedAt)}
+              Updated {page.updatedAt ? <RelativeTime iso={new Date(page.updatedAt).toISOString()} /> : "Unknown"}
             </p>
           </div>
         </a>
@@ -202,18 +200,4 @@ function NavPill({
       {children}
     </a>
   );
-}
-
-function formatDate(value: Date | string | null) {
-  const date = value ? new Date(value) : null;
-
-  if (!date || Number.isNaN(date.getTime())) {
-    return "Unknown";
-  }
-
-  return new Intl.DateTimeFormat("en", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  }).format(date);
 }

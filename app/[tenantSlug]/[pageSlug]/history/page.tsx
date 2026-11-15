@@ -39,7 +39,10 @@ export default async function HistoryPage({ params }: HistoryPageProps) {
                 previous?.aiProvenance?.sourceReferences,
                 revision.aiProvenance?.sourceReferences,
               );
-              const changed = delta.added.length + delta.removed.length > 0;
+              const sourceChange = [
+                delta.added.length > 0 ? `+${delta.added.length}` : null,
+                delta.removed.length > 0 ? `−${delta.removed.length}` : null,
+              ].filter(Boolean);
               const hasDiff = revision.revisionNumber > 1 && Boolean(previous);
 
               const row = (
@@ -52,11 +55,11 @@ export default async function HistoryPage({ params }: HistoryPageProps) {
                       {revision.aiProvenance ? "AI refresh" : "Editor"}
                       <span aria-hidden="true" className="mx-2">·</span>
                       {revision.aiProvenance ? triggerLabel(revision.aiProvenance.refreshReason) : "Manual edit"}
-                      {changed ? (
+                      {sourceChange.length > 0 ? (
                         <>
                           <span aria-hidden="true" className="mx-2">·</span>
                           <span className="tabular-nums">
-                            +{delta.added.length} −{delta.removed.length} sources
+                            {sourceChange.join(" ")} {delta.added.length + delta.removed.length === 1 ? "source" : "sources"}
                           </span>
                         </>
                       ) : null}

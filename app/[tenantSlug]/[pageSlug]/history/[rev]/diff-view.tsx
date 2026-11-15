@@ -47,7 +47,7 @@ export function DiffView({ full, changes }: { full: DiffRow[]; changes: DiffRow[
             }
             if (row.kind === "changed") {
               return (
-                <p key={index} className="border-l-2 border-transparent pl-3">
+                <p key={index} className="border-l-2 border-emerald-600/40 pl-3">
                   {row.parts.map((part, partIndex) =>
                     part.added ? (
                       <ins key={partIndex} className="bg-emerald-500/15 no-underline">

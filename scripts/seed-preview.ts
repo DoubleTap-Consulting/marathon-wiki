@@ -15,7 +15,9 @@
  *   - sample revision numbers continue after the page's highest non-sample revision;
  *   - the only non-sample rows it modifies are the seeded pages' current-content
  *     columns (summary, body_markdown, latest_revision_number, updated_by='sample-seed',
- *     updated_at), because the article reads its current text from the page row.
+ *     updated_at), because the article reads its current text from the page row, plus
+ *     r1's created_at/change_note and the page's created_at/published_at, which move to
+ *     7 days before the oldest sample revision so history reads in order.
  *
  * Refuses to run unless ALL of these hold:
  *   - ALLOW_SAMPLE_SEED=1 (scripts/vercel-build.mjs sets it only on the preview path)
@@ -208,13 +210,13 @@ Weapon pages on this wiki track archetypes, known names, damage behavior, perks,
 
 ## Archetypes
 
-Weapons are grouped by archetype first, then by name. An archetype describes how a weapon is meant to be used rather than its exact numbers. This page lists the complete weapon roster.
+Weapons are grouped by archetype first, then by name. An archetype describes how a weapon is meant to be used rather than its exact numbers.
 
 Damage values are listed only when patch notes publish them.{{cite:bungie-news}}
 
 ## Acquisition
 
-How weapons are acquired has not been fully documented in official sources yet.
+How weapons are acquired has not been fully documented in official sources yet. Every weapon can be bought from a faction vendor.
 
 ## Patch history
 
@@ -305,7 +307,7 @@ const PAGES: Array<{ slug: string; title: string; summary: string; revisions: Re
           { claimText: "Damage values are listed only when patch notes publish them.", status: "supported", sources: [SOURCES.news], reason: "Matched against 1 source record." },
           { claimText: "An archetype describes how a weapon is meant to be used rather than its exact numbers.", status: "unsupported", sources: [], reason: UNSUPPORTED_REASON },
           // Legacy data: a contradicted claim that slipped into the published body; the reader view flags it.
-          { claimText: "This page lists the complete weapon roster.", status: "contradicted", sources: [SOURCES.news, SOURCES.press], reason: "Update notes describe weapons being added over time." },
+          { claimText: "Every weapon can be bought from a faction vendor.", status: "contradicted", sources: [SOURCES.news], reason: "The update notes say: \"Some weapons are only found during runs.\"" },
         ],
       },
     ],
@@ -426,6 +428,13 @@ try {
       [tenantId, pageId],
     );
     const base: number = max.rows[0].max;
+    const firstAt = at(Math.max(...page.revisions.map((revision) => revision.daysAgo)) + 7);
+    await client.query(
+      `update wiki_page_revisions set created_at = $3, change_note = 'First version of the page.'
+       where tenant_id = $1 and page_id = $2 and revision_number = 1`,
+      [tenantId, pageId, firstAt],
+    );
+    await client.query("update wiki_pages set created_at = $3, published_at = $3 where tenant_id = $1 and id = $2", [tenantId, pageId, firstAt]);
     let latestNumber = base;
     let latest: Revision | null = null;
 
