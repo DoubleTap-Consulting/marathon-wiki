@@ -6,8 +6,8 @@ try {
   // CI can provide DATABASE_URL directly.
 }
 
-import { DEFAULT_PUBLISH_POLICY, evaluatePublishGate, describeChanges, type Snapshot } from "./editor";
-import { countReadableWords, isHubSpec } from "./pipeline";
+import { DEFAULT_PUBLISH_POLICY, evaluatePublishGate, describeChanges, type Snapshot, type StructuredCall } from "./editor";
+import { countProseWords, isHubSpec } from "./pipeline";
 import { loadRenderedSnapshots, upsertRenderedSnapshots } from "./editor-store";
 import { enqueueReaderNoteRefresh, enqueueSourceChangeRefreshes } from "./editor-triggers";
 import { BudgetExceeded, MemoryLedger, createGatewayCaller } from "./model-gateway";
@@ -100,7 +100,9 @@ describe.sequential("AI editor loop", () => {
     expect(page?.latestRevisionNumber).toBe(2);
     expect(page?.latestRevision?.aiProvenance?.refreshReason).toBe("source_update");
     expect(page?.latestRevision?.changeNote).toBe("A cited source changed (bungie-runner-shells): 1 statement added.");
+    expect(page?.latestRevision?.aiProvenance).toMatchObject({ editMode: "patch", sourceHashes: { "bungie-runner-shells": "sha-v2" } });
     expect(page?.bodyMarkdown).toContain("Rook");
+    for (const line of V1) expect(page?.bodyMarkdown).toContain(line);
   });
 
   it("re-checks the page when a reader note is approved and labels the trigger", async () => {
@@ -112,48 +114,130 @@ describe.sequential("AI editor loop", () => {
     expect(again.id).toBe(item.id);
 
     const call = createScriptedCall();
-    await processDueAiRefreshQueueItems({ now: tick(4), tenantId }, { db, call });
-    const draftPrompt = call.calls.find((entry) => entry.step === "draft")?.prompt ?? "";
-    expect(draftPrompt).toContain("Reader notes (NOT sources)");
-    expect(draftPrompt).toContain("missing its prime ability");
-    const refreshed = await getPublishedWikiPageBySlug(tenantId, SLUG, db);
-    expect(refreshed?.latestRevisionNumber).toBe(3);
-    expect(refreshed?.latestRevision?.aiProvenance?.refreshReason).toBe("community_note");
+    const result = await processDueAiRefreshQueueItems({ now: tick(4), tenantId }, { db, call });
+    const patchPrompt = call.calls.find((entry) => entry.step === "patch")?.prompt ?? "";
+    expect(patchPrompt).toContain("reader notes (NOT sources)");
+    expect(patchPrompt).toContain("missing its prime ability");
+    expect(patchPrompt).toMatch(/^\[s1\] \(Overview\) /m);
+    // The sources already say everything the page says, so the edit changes nothing and no revision is written.
+    expect(result.processed.map((entry) => entry.outcome)).toEqual(["unchanged"]);
+    expect((await getPublishedWikiPageBySlug(tenantId, SLUG, db))?.latestRevisionNumber).toBe(2);
   });
 
-  it("files a revision under the gate threshold for review instead of publishing it", async () => {
-    await enqueueAiRefreshQueueItem({ tenantId, targetSlug: SLUG, pageTitle: "Runner Shell Drill", reason: "scheduled_weekly", source: "weekly_cron", scheduledFor: tick(5), dedupeKey: `${runId}:weekly` }, db);
+  /** The scripted model, except that the patch step returns the given edits (sentence ids looked up by text). */
+  function editingCall(edits: (ids: Map<string, string>) => unknown[]): StructuredCall {
+    const scripted = createScriptedCall();
+    return (async (request) => {
+      if (request.step !== "patch") return scripted(request);
+      const ids = new Map([...request.prompt.matchAll(/^\[(s\d+)\] \([^)]+\) (.*?)(?: \(changed source\))?$/gm)].map(([, id, text]) => [text, id]));
+      return { output: request.schema.parse({ edits: edits(ids) }), modelId: "scripted/edits", responseId: null };
+    }) as StructuredCall;
+  }
+
+  it("revises one sentence and republishes every other sentence word for word", async () => {
+    const renamed = "The runner shell Recon was called Blackbird during development.";
+    const changes = await upsertRenderedSnapshots({ tenantId, snapshots: [shellsSnapshot([...V1, "Bungie added the runner shell Rook as a new runner shell option.", renamed], "sha-v3")] }, db);
+    await enqueueSourceChangeRefreshes({ tenantId, changes, now: tick(5), specs: [] }, db);
+    const before = await getPublishedWikiPageBySlug(tenantId, SLUG, db);
+    const call = editingCall((ids) => [
+      { op: "keep", sentenceId: ids.get(V1[0]), section: null, text: null, extractIds: [], patchRef: null, reason: "still right" },
+      { op: "replace", sentenceId: ids.get(V1[2]), section: null, text: renamed, extractIds: ["bungie-runner-shells#1"], patchRef: null, reason: "source adds the codename" },
+    ]);
+    const result = await processDueAiRefreshQueueItems({ now: tick(6), tenantId }, { db, call });
+    expect(result.failed.map((entry) => entry.error)).toEqual([]);
+    expect(result.processed.map((entry) => entry.outcome)).toEqual(["published"]);
+    const after = await getPublishedWikiPageBySlug(tenantId, SLUG, db);
+    expect(after?.latestRevisionNumber).toBe(3);
+    expect(after?.latestRevision?.changeNote).toBe("A cited source changed (bungie-runner-shells): 1 statement revised.");
+    expect(after?.bodyMarkdown).toBe(before?.bodyMarkdown.replace(V1[2], renamed));
+  });
+
+  it("sends a revision that drops a supported statement with an unchanged source to Review", async () => {
+    await enqueueAiRefreshQueueItem({ tenantId, targetSlug: SLUG, pageTitle: "Runner Shell Drill", reason: "manual_refresh", source: "manual", scheduledFor: tick(7), dedupeKey: `${runId}:drop` }, db);
+    const call = editingCall((ids) => [{ op: "remove", sentenceId: ids.get(V1[1]), section: null, text: null, extractIds: [], patchRef: null, reason: "shorter" }]);
+    const result = await processDueAiRefreshQueueItems({ now: tick(8), tenantId }, { db, call });
+    expect(result.processed.map((entry) => entry.outcome)).toEqual(["needs_review"]);
+    const item = await db.selectFrom("ai_refresh_queue_items").select(["metadata"]).where("dedupe_key", "=", `${runId}:drop`).executeTakeFirstOrThrow();
+    expect((item.metadata as { gateReasons: string[] }).gateReasons).toEqual([`drops 1 supported statement whose sources did not change: "${V1[1]}"`]);
+    expect((await getPublishedWikiPageBySlug(tenantId, SLUG, db))?.latestRevisionNumber).toBe(3);
+  });
+
+  it("publishes a removal an editor asked for, since the drop is intended", async () => {
+    await enqueueAiRefreshQueueItem(
+      { tenantId, targetSlug: SLUG, pageTitle: "Runner Shell Drill", reason: "manual_refresh", source: "manual", scheduledFor: tick(8), dedupeKey: `${runId}:trim`, metadata: { editorNote: "Remove the off-topic sentence." } },
+      db,
+    );
+    const call = editingCall((ids) => [{ op: "remove", sentenceId: ids.get(V1[1]), section: null, text: null, extractIds: [], patchRef: null, reason: "off topic" }]);
+    const result = await processDueAiRefreshQueueItems({ now: tick(8), tenantId }, { db, call });
+    expect(result.processed.map((entry) => entry.outcome)).toEqual(["published"]);
+    const after = await getPublishedWikiPageBySlug(tenantId, SLUG, db);
+    expect(after?.latestRevisionNumber).toBe(4);
+    expect(after?.bodyMarkdown).not.toContain(V1[1]);
+    expect(after?.latestRevision?.changeNote).toBe("An editor asked for a re-check: 1 statement removed.");
+  });
+
+  it("files a revision under the gate threshold for review, and approving it keeps the provenance", async () => {
+    const changes = await upsertRenderedSnapshots(
+      { tenantId, snapshots: [shellsSnapshot([...V1, "Bungie added the runner shell Rook as a new runner shell option.", "The runner shell Recon was called Blackbird during development.", "Bungie lists the runner shell Thief as a covert acquisitions specialist."], "sha-v4")] },
+      db,
+    );
+    await enqueueSourceChangeRefreshes({ tenantId, changes, now: tick(9), specs: [] }, db);
     const result = await processDueAiRefreshQueueItems(
-      { now: tick(6), tenantId },
+      { now: tick(10), tenantId },
       { db, call: createScriptedCall(), policy: { ...DEFAULT_PUBLISH_POLICY, minSupportedClaims: 99 } },
     );
     expect(result.processed.map((entry) => entry.outcome)).toEqual(["needs_review"]);
-    expect((await getPublishedWikiPageBySlug(tenantId, SLUG, db))?.latestRevisionNumber).toBe(3);
+    expect((await getPublishedWikiPageBySlug(tenantId, SLUG, db))?.latestRevisionNumber).toBe(4);
+    const pending = await db.selectFrom("wiki_suggestions").select(["id", "status"]).where("tenant_id", "=", tenantId).where("status", "=", "pending").execute();
+    expect(pending.map((row) => row.id)).toEqual([result.processed[0].suggestionId]);
 
     await approveWikiSuggestion({ tenantId, suggestionId: result.processed[0].suggestionId!, actorId: "editor-1" }, db);
     const approved = await getPublishedWikiPageBySlug(tenantId, SLUG, db);
-    expect(approved?.latestRevisionNumber).toBe(4);
-    expect(approved?.latestRevision?.aiProvenance?.refreshReason).toBe("scheduled_weekly");
-    expect(approved?.latestRevision?.changeNote).toMatch(/^Weekly re-check against the sources/);
+    expect(approved?.latestRevisionNumber).toBe(5);
+    expect(approved?.latestRevision?.aiProvenance?.refreshReason).toBe("source_update");
+    // Thief, plus the sentence the editor trimmed above: the scripted model writes every line its source states.
+    expect(approved?.latestRevision?.changeNote).toBe("A cited source changed (bungie-runner-shells): 2 statements added.");
+  });
+
+  it("publishes a held new page once it clears the gate, even when the editor changes nothing", async () => {
+    const slug = `${SLUG}-held`;
+    const enqueue = (key: string, minutes: number) =>
+      enqueueAiRefreshQueueItem({ tenantId, targetSlug: slug, pageTitle: "Runner Shell Drill Held", reason: "manual_refresh", source: "manual", scheduledFor: tick(minutes), dedupeKey: `${runId}:${key}` }, db);
+    await enqueue("held", 10.5);
+    const held = await processDueAiRefreshQueueItems(
+      { now: tick(10.6), tenantId },
+      { db, call: createScriptedCall(), policy: { ...DEFAULT_PUBLISH_POLICY, minSupportedClaims: 99 } },
+    );
+    expect(held.processed.map((entry) => entry.outcome)).toEqual(["needs_review"]);
+    expect(await getPublishedWikiPageBySlug(tenantId, slug, db)).toBeNull();
+
+    await enqueue("release", 10.7);
+    const released = await processDueAiRefreshQueueItems({ now: tick(10.8), tenantId }, { db, call: editingCall(() => []) });
+    expect(released.processed.map((entry) => entry.outcome)).toEqual(["published"]);
+    const page = await getPublishedWikiPageBySlug(tenantId, slug, db);
+    expect(page?.latestRevisionNumber).toBe(1);
+    expect(page?.latestRevision?.changeNote).toBe("Published the version held for review: it now clears the publish gate.");
+    const pending = await db.selectFrom("wiki_suggestions").select(["id"]).where("tenant_id", "=", tenantId).where("target_slug", "=", slug).where("status", "=", "pending").execute();
+    expect(pending).toEqual([]);
   });
 
   it("stops at the spend cap and returns claimed items to the queue untouched", async () => {
-    await enqueueAiRefreshQueueItem({ tenantId, targetSlug: SLUG, pageTitle: "Runner Shell Drill", reason: "manual_refresh", source: "manual", scheduledFor: tick(7), dedupeKey: `${runId}:capped` }, db);
+    await enqueueAiRefreshQueueItem({ tenantId, targetSlug: SLUG, pageTitle: "Runner Shell Drill", reason: "manual_refresh", source: "manual", scheduledFor: tick(11), dedupeKey: `${runId}:capped` }, db);
     const call = createGatewayCaller({
       ledger: new MemoryLedger(),
-      capUsd: 0.1,
+      capUsd: 0.01,
       generate: (() => {
         throw new Error("must not be called");
       }) as never,
     });
-    const result = await processDueAiRefreshQueueItems({ now: tick(8), tenantId }, { db, call });
+    const result = await processDueAiRefreshQueueItems({ now: tick(12), tenantId }, { db, call });
     expect(result.skipped).toMatch(/Spend cap/);
     const item = await db.selectFrom("ai_refresh_queue_items").select(["status", "attempts"]).where("dedupe_key", "=", `${runId}:capped`).executeTakeFirstOrThrow();
     expect(item).toEqual({ status: "queued", attempts: 0 });
   });
 
   it("claims nothing when there is no model credential", async () => {
-    const result = await processDueAiRefreshQueueItems({ now: tick(9), tenantId }, { db, env: {} });
+    const result = await processDueAiRefreshQueueItems({ now: tick(13), tenantId }, { db, env: {} });
     expect(result.skipped).toMatch(/no AI Gateway credential/);
     const item = await db.selectFrom("ai_refresh_queue_items").select(["status"]).where("dedupe_key", "=", `${runId}:capped`).executeTakeFirstOrThrow();
     expect(item.status).toBe("queued");
@@ -176,17 +260,18 @@ describe("publish gate and change notes", () => {
     const solid = Array.from({ length: 10 }, () => ({ status: "supported" as const }));
     const thinHub = evaluatePublishGate(solid, DEFAULT_PUBLISH_POLICY, { hub: true, words: 106 });
     expect(thinHub.decision).toBe("needs_review");
-    expect(thinHub.reasons).toEqual(["hub page has 106 words (need 250)"]);
-    expect(evaluatePublishGate(solid, DEFAULT_PUBLISH_POLICY, { hub: true, words: 250 }).decision).toBe("publish");
+    expect(thinHub.reasons).toEqual(["hub page has 106 words of prose (need 150)"]);
+    expect(evaluatePublishGate(solid, DEFAULT_PUBLISH_POLICY, { hub: true, words: 150 }).decision).toBe("publish");
     expect(evaluatePublishGate(solid, DEFAULT_PUBLISH_POLICY, { hub: false, words: 106 }).decision).toBe("publish");
   });
 
-  it("treats child-page hubs and flagged topic hubs as hubs, and counts only readable words", () => {
+  it("treats child-page hubs and flagged topic hubs as hubs, and counts prose words only", () => {
     expect(isHubSpec({ hubChildren: ["recon"] })).toBe(true);
     expect(isHubSpec({ hubChildren: [], hub: true })).toBe(true);
     expect(isHubSpec({ hubChildren: [] })).toBe(false);
-    const body = "## Overview\n\nThe Armory sells kits.{{cite:a}} It barters too.\n\n| Weapon | Ammo |\n| --- | --- |\n| KKV | Light |\n\n## See also\n\n- [Factions](/marathon/factions)";
-    expect(countReadableWords(body)).toBe(11);
+    const body =
+      "## Overview\n\nThe Armory sells kits.{{cite:a}} It barters too.\n\n| Weapon | Ammo |\n| --- | --- |\n| KKV | Light |\n\n## Pages in this section\n\n- [[cyberacme|CyberAcme (CyAc)]]\n- [[mida|MIDA]]\n\n## See also\n\n- [Factions](/marathon/factions)";
+    expect(countProseWords(body)).toBe(7);
   });
 
   it("counts a reworded statement as unchanged", () => {
@@ -194,9 +279,9 @@ describe("publish gate and change notes", () => {
       describeChanges({
         previous: [{ claimText: "Rook is a scavenger frame that joins matches already in progress.", status: "supported" }],
         next: [{ claimText: "Rook is a scavenger frame that can join matches already in progress.", status: "supported" }],
-        refreshReason: "scheduled_weekly",
+        refreshReason: "manual_refresh",
       }),
-    ).toBe("Weekly re-check against the sources: no statements changed.");
+    ).toBe("An editor asked for a re-check: no statements changed.");
   });
 
   it("describes what changed between claim sets", () => {

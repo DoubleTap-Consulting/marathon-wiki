@@ -34,7 +34,7 @@ export async function generateMetadata({
   }
 
   return buildWikiMetadata({
-    title: `${snapshot.category.name} | ${snapshot.tenant.name}`,
+    title: snapshot.category.name,
     description: snapshot.category.description,
     path: `/${snapshot.tenant.slug}/categories/${snapshot.category.slug}`,
     siteName: snapshot.tenant.name,

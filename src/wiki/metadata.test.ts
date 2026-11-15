@@ -20,7 +20,7 @@ describe("wiki metadata", () => {
     });
 
     expect(metadata).toMatchObject({
-      title: "Overrun AR | Marathon Wiki",
+      title: { absolute: "Overrun AR | Marathon Wiki" },
       description: "Automatic rifle details for Marathon.",
       alternates: {
         canonical: "https://wiki.example.com/marathon/overrun-ar",
@@ -38,6 +38,14 @@ describe("wiki metadata", () => {
         description: "Automatic rifle details for Marathon.",
       },
     });
+  });
+
+  it("names the site once on its home page and on every other page", () => {
+    process.env.NEXT_PUBLIC_SITE_URL = "https://wiki.example.com";
+
+    expect(buildWikiMetadata({ title: "Marathon Wiki", path: "/marathon", siteName: "Marathon Wiki" }).title).toEqual({ absolute: "Marathon Wiki" });
+    expect(buildWikiMetadata({ title: "All pages", path: "/marathon/pages", siteName: "Marathon Wiki" }).title).toEqual({ absolute: "All pages | Marathon Wiki" });
+    expect(buildWikiMetadata({ title: "Weapons", path: "/marathon/weapons", siteName: "Marathon Wiki" }).title).toEqual({ absolute: "Weapons | Marathon Wiki" });
   });
 
   it("uses launch-safe fallback descriptions for pages without summaries", () => {

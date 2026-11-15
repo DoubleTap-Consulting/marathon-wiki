@@ -165,7 +165,7 @@ Each faction entry records its official name, its motives, its relationships wit
 
 ## Source status
 
-Official faction detail is still limited, so this page stays short on purpose. Patch notes and official news posts are checked weekly for new faction information.{{cite:bungie-news}}`;
+Official faction detail is still limited, so this page stays short on purpose. Patch notes and official news posts are checked daily for new faction information.{{cite:bungie-news}}`;
 
 const FACTIONS_V4 = `## Overview
 
@@ -183,7 +183,7 @@ Names on this page follow the spelling used in official Bungie material. Communi
 
 ## Source status
 
-Official faction detail is still limited, so this page stays short on purpose. Patch notes and official news posts are checked weekly for new faction information.{{cite:bungie-news}}
+Official faction detail is still limited, so this page stays short on purpose. Patch notes and official news posts are checked daily for new faction information.{{cite:bungie-news}}
 
 ## What remains unconfirmed
 
@@ -257,7 +257,7 @@ const PAGES: Array<{ slug: string; title: string; summary: string; revisions: Re
         sources: [SOURCES.site, SOURCES.bungie, SOURCES.news],
         claims: [
           { claimText: "Marathon is a sci-fi extraction shooter from Bungie.", status: "supported", sources: [SOURCES.site], reason: "Matched against 1 source record." },
-          { claimText: "Patch notes and official news posts are checked weekly for new faction information.", status: "supported", sources: [SOURCES.news], reason: "Matched against 1 source record." },
+          { claimText: "Patch notes and official news posts are checked daily for new faction information.", status: "supported", sources: [SOURCES.news], reason: "Matched against 1 source record." },
         ],
       },
       {
@@ -270,7 +270,7 @@ const PAGES: Array<{ slug: string; title: string; summary: string; revisions: Re
         claims: [
           { claimText: "Marathon is a sci-fi extraction shooter from Bungie.", status: "supported", sources: [SOURCES.site], reason: "Matched against 1 source record." },
           { claimText: "Names on this page follow the spelling used in official Bungie material.", status: "supported", sources: [SOURCES.bungie], reason: "Matched against 1 source record." },
-          { claimText: "Patch notes and official news posts are checked weekly for new faction information.", status: "supported", sources: [SOURCES.news], reason: "Matched against 1 source record." },
+          { claimText: "Patch notes and official news posts are checked daily for new faction information.", status: "supported", sources: [SOURCES.news], reason: "Matched against 1 source record." },
           { claimText: "Faction relationships are expected to shift as more of the setting is revealed.", status: "unsupported", sources: [], reason: UNSUPPORTED_REASON },
           // Withheld: contradicted claims are never published, so this text is not in the body.
           { claimText: "Faction names are final for launch.", status: "contradicted", sources: [SOURCES.press, SOURCES.community], reason: "Sources disagree about whether names are final." },

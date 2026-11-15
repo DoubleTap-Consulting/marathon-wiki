@@ -6,6 +6,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Toaster } from "@/components/ui/sonner";
 import {
   listPublicWikiCommunityNotesForPage,
+  listSourceCheckTimes,
   type WikiCommunityNoteSummary,
   type WikiPageRevisionDetail,
 } from "@/src/db/wiki";
@@ -19,6 +20,7 @@ import {
 } from "@/src/wiki/article";
 import { getCachedWikiPage, getCachedWikiPageRevisions, getCachedWikiPages } from "@/src/wiki/cache";
 import { buildWikiMetadata } from "@/src/wiki/metadata";
+import { summarizeSourceCheck, type SourceCheck } from "@/src/wiki/source-check";
 import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
 
 import { MarkdownArticle, planArticle } from "../../_components/markdown";
@@ -113,6 +115,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         ?.claimText ?? null;
   }
 
+  const citedKeys = [...new Set(references.flatMap((source) => (source.sourceKey ? [source.sourceKey] : [])))];
+  const snapshotChecks = await listSourceCheckTimes(tenant.id, citedKeys).catch(() => [] as Date[]);
+  const sourceCheck = summarizeSourceCheck([...references.map((source) => source.retrievedAt), ...snapshotChecks]);
+
   const notesById = new Map(notes.map((note) => [note.id, note]));
   const unplacedNotes = notes.filter((note) => !plan.placedNoteIds.includes(note.id));
   const summary = summarizeTrust(page, revisions);
@@ -141,6 +147,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             summary={summary}
             base={base}
             sourceCount={references.length}
+            sourceCheck={sourceCheck}
             notes={notes}
             suggestHref={`/${tenant.slug}/suggest/${page.slug}`}
           />
@@ -197,12 +204,14 @@ function TrustStrip({
   summary,
   base,
   sourceCount,
+  sourceCheck,
   notes,
   suggestHref,
 }: {
   summary: TrustSummary;
   base: string;
   sourceCount: number;
+  sourceCheck: SourceCheck;
   notes: WikiCommunityNoteSummary[];
   suggestHref: string;
 }) {
@@ -225,10 +234,7 @@ function TrustStrip({
       <span key="when">
         <ProvenanceTrigger
           label={summary.kind === "ai-checked" ? "Checked by AI" : "Updated by AI"}
-          lines={[
-            `Written by ${model} from ${total} ${total === 1 ? "source" : "sources"}.`,
-            "Refreshed weekly and when patch notes drop.",
-          ]}
+          lines={[`Written by ${model} from ${total} ${total === 1 ? "source" : "sources"}.`]}
           footnote={`Model ${summary.provenance.modelId}, prompt ${summary.provenance.promptVersion}.`}
         />{" "}
         <Link href={diffHref as Route} className={STRIP_LINK}>
@@ -244,6 +250,19 @@ function TrustStrip({
       <a key="sources" href="#references" className={STRIP_LINK}>
         {sourceCount} {sourceCount === 1 ? "source" : "sources"}
       </a>,
+    );
+    segments.push(
+      <span key="checked">
+        {sourceCheck.kind === "checked" ? (
+          <>
+            Sources checked <RetrievedDate iso={sourceCheck.at} />
+          </>
+        ) : sourceCheck.dailyRefetch ? (
+          "Source check date unknown; re-checked daily"
+        ) : (
+          "Source check date unknown"
+        )}
+      </span>,
     );
   }
 

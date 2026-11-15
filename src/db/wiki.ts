@@ -690,6 +690,42 @@ export async function getWikiPageSnapshot(
   };
 }
 
+/**
+ * When each of these sources was last read for this wiki: the stored snapshot's fetch time and,
+ * once the daily re-fetch runs, its last check. Empty when no snapshot rows exist (previews).
+ */
+export async function listSourceCheckTimes(tenantId: string, sourceKeys: string[], db: WikiDatabase = getDb()): Promise<Date[]> {
+  if (sourceKeys.length === 0) return [];
+  const rows = await db
+    .selectFrom("wiki_sources")
+    .select([sql<Date | null>`retrieved_at at time zone 'UTC'`.as("retrievedAt"), sql<string | null>`metadata->>'httpCheckedAt'`.as("httpCheckedAt")])
+    .where("tenant_id", "=", tenantId)
+    .where("source_key", "in", sourceKeys)
+    .where(sql<boolean>`metadata->>'origin' = 'rendered_snapshot'`)
+    .execute();
+  return rows.flatMap((row) => [row.retrievedAt, row.httpCheckedAt].flatMap((value) => (value ? [new Date(value)] : [])));
+}
+
+/** When each source was last ingested: its latest stored snapshot, else the latest row citing it. */
+export async function listSourceIngestTimes(tenantId: string, sourceKeys: string[], db: WikiDatabase = getDb()): Promise<Map<string, Date>> {
+  if (sourceKeys.length === 0) return new Map();
+  const rows = await db
+    .selectFrom("wiki_sources")
+    .select([
+      "source_key as sourceKey",
+      sql<Date | null>`max(retrieved_at) filter (where metadata->>'origin' = 'rendered_snapshot') at time zone 'UTC'`.as("snapshotAt"),
+      sql<Date | null>`max(retrieved_at) at time zone 'UTC'`.as("anyAt"),
+    ])
+    .where("tenant_id", "=", tenantId)
+    .where("source_key", "in", sourceKeys)
+    .groupBy("source_key")
+    .execute();
+  return new Map(rows.flatMap((row) => {
+    const at = row.snapshotAt ?? row.anyAt;
+    return at ? [[row.sourceKey, new Date(at)] as [string, Date]] : [];
+  }));
+}
+
 export async function listWikiSourceContextForTopic(
   input: {
     tenantId: string;

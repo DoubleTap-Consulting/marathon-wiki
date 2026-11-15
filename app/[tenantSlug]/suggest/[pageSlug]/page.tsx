@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { composeWikiTitle } from "@/src/wiki/metadata";
 import { getAuthMode, getCurrentWikiActor } from "@/src/auth/wiki-auth";
 import { getWikiPageSnapshot } from "@/src/db/wiki";
 import {
@@ -36,7 +37,7 @@ export async function generateMetadata({
 
   return {
     title: snapshot
-      ? `Suggest edit: ${snapshot.page.title} | ${snapshot.tenant.name}`
+      ? { absolute: composeWikiTitle(`Suggest edit: ${snapshot.page.title}`, snapshot.tenant.name) }
       : "Page not found",
     robots: {
       index: false,

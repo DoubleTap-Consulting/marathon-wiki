@@ -5,10 +5,12 @@
  *   node --import ./scripts/content/register-ts-paths.mjs scripts/content/export-from-db.ts <slug ...> [--tenant marathon]
  *
  * For each slug it takes the newest outcome of the queue for that page:
- * - a published revision: the cached version moves to runs/<slug>.history.json and the revision
- *   becomes the current version (the preview then shows both, with the diff);
+ * - a published revision: the cached version moves to runs/<slug>.history.json (unless it was a
+ *   version held for review, which was never published) and the revision becomes the current
+ *   version (the preview then shows both, with the diff);
  * - a pending AI suggestion (the gate said needs_review): it becomes the current version and the
  *   page's history is cleared, so the committed file files it for Review instead of publishing.
+ * Exporting the same version twice changes nothing.
  * Refuses on Vercel and on any database the db-guard cannot prove is non-production. Read-only.
  */
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
@@ -102,9 +104,15 @@ try {
       citedExtracts: [],
     };
 
+    const decision = (version: { aiProvenance?: object } | null) => (version?.aiProvenance as { publishGate?: { decision?: string } } | undefined)?.publishGate?.decision ?? "publish";
+    if (cached && cached.bodyMarkdown === current.bodyMarkdown && decision(cached) === decision(current)) {
+      console.log(`${slug}: already exported; nothing to do.`);
+      continue;
+    }
     if (suggestionIsNewer) {
       if (existsSync(historyFile)) writeFileSync(historyFile, "[]\n");
-    } else if (cached) {
+    } else if (cached && decision(cached) !== "needs_review") {
+      // Only published versions belong in the history; a version held for review never was one.
       const history = existsSync(historyFile) ? JSON.parse(readFileSync(historyFile, "utf8")) : [];
       writeFileSync(historyFile, `${JSON.stringify([...history, cached], null, 2)}\n`);
     }

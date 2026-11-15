@@ -38,15 +38,15 @@ The model is `openai/gpt-5-mini`, with `openai/gpt-5-nano` as the fallback. Clai
 
 Generation runs through one path: `composePage` in `src/content/editor.ts`. Both the local generator and the refresh-queue worker call it.
 
-1. **Snapshots in the database.** `editor.ts ingest` stores each render as a `wiki_sources` row with `origin: rendered_snapshot`, in the private database. When a stored sha256 changes, every page that lists or cites that source is queued with reason `source_update`.
-2. **Triggers.** A changed source hash, an approved reader note (`community_note`, shown as "Prompted by a reader's note"), a weekly schedule, or a manual run each create an `AiRefreshQueueItem`. The dedupe key makes each trigger idempotent.
-3. **Worker.** `processDueAiRefreshQueueItems` claims due items atomically and regenerates each page from the stored snapshots. Approved reader notes are passed to the model as hints, never as sources. The worker writes a "What changed" note that compares the old and new claims.
-4. **Publish gate.** A revision is published automatically only when at least 80% of its statements are supported, at least 3 are supported, and at most 3 are backed only by community sources. Anything else becomes a pending AI suggestion in Review. Approving it keeps its provenance.
+1. **Snapshots in the database.** `editor.ts ingest` stores each render as a `wiki_sources` row with `origin: rendered_snapshot`, in the private database. When a stored sha256 changes, every page that lists or cites that source is queued with reason `source_update`. The daily re-fetch (`src/content/source-refetch.ts`, `/api/cron/source-refetch`) re-reads every static source over plain HTTP: the first fetch of a rendered snapshot only records a baseline hash, and a later change stores the fetched text and queues the pages. bungie.net articles stay manual (they render in the browser); the Bungie news RSS feed is checked to list official posts no source covers yet.
+2. **Triggers.** A changed source hash, an approved reader note (`community_note`, shown as "Prompted by a reader's note"), or a manual run each create an `AiRefreshQueueItem`. The dedupe key makes each trigger idempotent.
+3. **Worker.** `processDueAiRefreshQueueItems` claims due items atomically. A page that already exists is edited, not regenerated: the model gets its current sentences and returns sentence edits (keep, replace, add, remove), which `src/content/patch.ts` applies in code, so every sentence it does not touch is republished word for word. Only replaced and added sentences go through the claim check; kept sentences are re-verified against the current snapshots. Approved reader notes and editor notes (`enqueue <slug> --note "..."`) are passed to the model as hints, never as sources. The worker writes a "What changed" note ("1 statement revised, 6 added").
+4. **Publish gate.** A revision is published automatically only when at least 80% of its statements are supported, at least 3 are supported, at most 3 are backed only by community sources, a hub page has at least 150 words of prose (headings, citations, tables and the child-page link list do not count), and it drops no supported statement whose sources did not change. Anything else becomes a pending AI suggestion in Review (one per page; a newer one supersedes it). Approving it keeps its provenance.
 5. **Cost and safety.**
-   - A per-run spend cap (`WIKI_AI_RUN_CAP_USD`, default $1) applies. When the cap is reached, the run stops and claimed items go back to the queue.
+   - A per-run spend cap (`WIKI_AI_RUN_CAP_USD`, default $0.25) applies. When the cap is reached, the run stops and claimed items go back to the queue.
    - Calls are spaced at least `WIKI_AI_MIN_CALL_INTERVAL_MS` (default 1s) apart, and a run processes at most 20 items.
    - Without a credential, the worker claims nothing.
-   - The scheduled cron runs only on Production, and only when `WIKI_AI_EDITOR_CRON=1`.
+   - Both crons run daily and only on Production: the re-fetch at 08:00 UTC when `WIKI_SOURCE_REFETCH_CRON=1`, the editor at 09:00 UTC (at most 3 pages) when `WIKI_AI_EDITOR_CRON=1`.
 
 ### Manual trigger (preview and local)
 

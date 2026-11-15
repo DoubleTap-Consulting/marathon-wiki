@@ -65,17 +65,17 @@ export function isHubSpec(spec: Pick<PageSpec, "hubChildren" | "hub">) {
 }
 
 /**
- * Words a reader actually reads: prose and table cells. Headings, citation markers and the
- * link-only "See also" / child-page lists are not counted.
+ * Words of prose a reader actually reads. Headings, citation markers, tables and the link-only
+ * "See also" / child-page lists are not counted.
  */
-export function countReadableWords(markdown: string) {
+export function countProseWords(markdown: string) {
   return markdown
     .replace(/\{\{cite:[^}]+\}\}/g, " ")
     .split("\n")
-    .filter((line) => !/^\s*#/.test(line) && !/^\s*\|?\s*:?-{3,}/.test(line) && !/^\s*[-*]\s+\[[^\]]+\]\([^)]+\)\s*$/.test(line))
+    .filter((line) => !/^\s*#/.test(line) && !/^\s*\|/.test(line) && !/^\s*[-*]\s+\[\[?[^\]]+\]\]?(\([^)]+\))?\s*$/.test(line))
     .join(" ")
     .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
-    .split(/[\s|]+/)
+    .split(/\s+/)
     .filter((word) => /[\p{L}\p{N}]/u.test(word)).length;
 }
 
@@ -104,11 +104,24 @@ export function chunkSnapshot(sourceKey: string, text: string, target = 800): Ex
     size = 0;
   };
 
+  // A line ending in ":" introduces what follows ("You'll also get ... depending on your rank:"), so
+  // a chunk never ends on one: it opens the next chunk instead, with the list it introduces.
+  const flushKeepingLeadIn = () => {
+    const last = buffer[buffer.length - 1];
+    if (buffer.length > 1 && last.endsWith(":")) {
+      buffer.pop();
+      flush();
+      buffer = [last];
+      size = last.length + 1;
+      return;
+    }
+    flush();
+  };
   for (const line of lines) {
-    if (size > 0 && size + line.length > target * 1.4) flush();
+    if (size > 0 && size + line.length > target * 1.4) flushKeepingLeadIn();
     buffer.push(line);
     size += line.length + 1;
-    if (size >= target) flush();
+    if (size >= target) flushKeepingLeadIn();
   }
   flush();
 
@@ -347,7 +360,27 @@ export function buildCheckPrompt(claims: CheckableClaim[], extractsById: Map<str
 
 const FORBIDDEN_IN_SENTENCE = /[\[\]{}<>|*_`#\n]/;
 const PATCH_REFERENCE = /\b(update|patch|hotfix)\s+\d+(\.\d+)+/i;
-const DATE_REFERENCE = /\b(january|february|march|april|may|june|july|august|september|october|november|december)\s+\d{1,2},\s+\d{4}\b/i;
+const DATE_REFERENCE = /\b(jan(uary)?|feb(ruary)?|mar(ch)?|apr(il)?|may|june?|july?|aug(ust)?|sep(t|tember)?|oct(ober)?|nov(ember)?|dec(ember)?)\.?\s+\d{1,2},\s+\d{4}\b/i;
+const EXTRACT_ID = /[a-z0-9][a-z0-9-]*#\d+/gi;
+
+/**
+ * Models sometimes copy a sentence's citations into its text ("... outside (pcgamer-review#16)." or
+ * "... extractIds:["a#1"]"). Those are moved to extractIds; any other markup still fails validation.
+ */
+export function liftInlineCitations(sentence: ValidSentence): ValidSentence {
+  const ids = [...sentence.extractIds];
+  const lift = (inner: string) => {
+    ids.push(...(inner.match(EXTRACT_ID) ?? []));
+    return "";
+  };
+  const text = sentence.text
+    .trim()
+    .replace(/\s*extractIds\s*:\s*\[([^\]]*)\]\s*$/i, (_, inner: string) => lift(inner))
+    .replace(/\s*\(\s*((?:[a-z0-9][a-z0-9-]*#\d+[\s,;]*)+)\)/gi, (_, inner: string) => lift(inner))
+    .replace(/\s+([.!?])$/, "$1")
+    .trim();
+  return { ...sentence, text, extractIds: [...new Set(ids)] };
+}
 
 export type Rejection = { text: string; reason: string };
 
@@ -381,7 +414,7 @@ export function validateDraft(draft: Draft, knownExtractIds: ReadonlySet<string>
       heading: section.heading.trim().replace(/^#+\s*/, ""),
       paragraphs: section.paragraphs
         .map((paragraph) =>
-          paragraph.sentences.filter((sentence) => {
+          paragraph.sentences.map(liftInlineCitations).filter((sentence) => {
             const problem = validateSentence(sentence, knownExtractIds);
             if (problem) rejected.push({ text: sentence.text, reason: problem });
             return !problem;
@@ -450,6 +483,52 @@ export type ResolvedClaim = {
 export type Resolution = { claims: ResolvedClaim[]; dropped: Rejection[] };
 
 /**
+ * One sentence's verdict, checked deterministically: a "supported" verdict counts only when its
+ * quote really occurs in an extract the sentence cites, and only official/reputable_editorial
+ * extracts make a claim supported. Returns the claim, or why the sentence was dropped.
+ */
+export function groundSentence(input: {
+  sentence: ValidSentence;
+  claimId: string;
+  checks: ClaimCheck["checks"];
+  extractsById: Map<string, Extract>;
+  sources: Map<string, SourceRecord>;
+  heading: string;
+  paragraph: number;
+}): ResolvedClaim | Rejection {
+  const { sentence, claimId } = input;
+  const tierOf = (extractId: string) => input.sources.get(extractId.split("#")[0])?.authorityTier;
+  const verified = input.checks
+    .filter((check) => check.claimId === claimId && check.verdict === "supported" && check.extractId)
+    .filter((check) => sentence.extractIds.includes(check.extractId as string))
+    .filter((check) => {
+      const extract = input.extractsById.get(check.extractId as string);
+      return extract ? quoteOccursIn(check.quote, extract.text) : false;
+    });
+  const trusted = verified.filter((check) => isTrustedTier(tierOf(check.extractId as string) as AuthorityTier));
+  const base = { claimId, claimText: sentence.text, extractIds: sentence.extractIds, patchRef: sentence.patchRef, heading: input.heading, paragraph: input.paragraph };
+  if (trusted.length > 0) {
+    return {
+      ...base,
+      status: "supported",
+      sourceKeys: unique(trusted.map((check) => (check.extractId as string).split("#")[0])),
+      quotes: trusted.map((check) => ({ extractId: check.extractId as string, quote: check.quote as string })),
+      reason: `Verified against ${trusted.length} quoted passage${trusted.length === 1 ? "" : "s"} from ${tierLabel(trusted, tierOf)} sources.`,
+    };
+  }
+  if (verified.length > 0) {
+    return {
+      ...base,
+      status: "unsupported",
+      sourceKeys: unique(verified.map((check) => (check.extractId as string).split("#")[0])),
+      quotes: verified.map((check) => ({ extractId: check.extractId as string, quote: check.quote as string })),
+      reason: "community-only: only community sources state this so far.",
+    };
+  }
+  return { text: sentence.text, reason: "no cited source verifiably states this" };
+}
+
+/**
  * Turns model verdicts into publishable statuses with deterministic checks:
  * quotes must really occur in the cited extract, and only official/reputable_editorial
  * extracts can make a claim "supported".
@@ -467,50 +546,13 @@ export function resolveClaims(
   const dropped: Rejection[] = [];
   let index = 0;
 
-  const tierOf = (extractId: string) => sources.get(extractId.split("#")[0])?.authorityTier;
-
   draft.sections.forEach((section) => {
     section.paragraphs.forEach((paragraph, paragraphIndex) => {
       for (const sentence of paragraph) {
         index += 1;
-        const claimId = `claim_${slug}_${index}`;
-        const verified = checks
-          .filter((check) => check.claimId === claimId && check.verdict === "supported" && check.extractId)
-          .filter((check) => sentence.extractIds.includes(check.extractId as string))
-          .filter((check) => {
-            const extract = extractsById.get(check.extractId as string);
-            return extract ? quoteOccursIn(check.quote, extract.text) : false;
-          });
-
-        const trusted = verified.filter((check) => isTrustedTier(tierOf(check.extractId as string) as AuthorityTier));
-        const base = {
-          claimId,
-          claimText: sentence.text,
-          extractIds: sentence.extractIds,
-          patchRef: sentence.patchRef,
-          heading: section.heading,
-          paragraph: paragraphIndex,
-        };
-
-        if (trusted.length > 0) {
-          claims.push({
-            ...base,
-            status: "supported",
-            sourceKeys: unique(trusted.map((check) => (check.extractId as string).split("#")[0])),
-            quotes: trusted.map((check) => ({ extractId: check.extractId as string, quote: check.quote as string })),
-            reason: `Verified against ${trusted.length} quoted passage${trusted.length === 1 ? "" : "s"} from ${tierLabel(trusted, tierOf)} sources.`,
-          });
-        } else if (verified.length > 0) {
-          claims.push({
-            ...base,
-            status: "unsupported",
-            sourceKeys: unique(verified.map((check) => (check.extractId as string).split("#")[0])),
-            quotes: verified.map((check) => ({ extractId: check.extractId as string, quote: check.quote as string })),
-            reason: "community-only: only community sources state this so far.",
-          });
-        } else {
-          dropped.push({ text: sentence.text, reason: "no cited source verifiably states this" });
-        }
+        const grounded = groundSentence({ sentence, claimId: `claim_${slug}_${index}`, checks, extractsById, sources, heading: section.heading, paragraph: paragraphIndex });
+        if ("status" in grounded) claims.push(grounded);
+        else dropped.push(grounded);
       }
     });
   });

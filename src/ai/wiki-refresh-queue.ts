@@ -94,6 +94,9 @@ const SYSTEM_REFRESH_ACTOR: WikiActor = {
 
 const MS_PER_DAY = 24 * 60 * 60 * 1_000;
 
+/** Per-run AI spend cap when WIKI_AI_RUN_CAP_USD is unset. A daily run of 3 pages costs about $0.05. */
+export const DEFAULT_RUN_CAP_USD = 0.25;
+
 export async function enqueueAiRefreshQueueItem(
   input: {
     tenantId: string;
@@ -176,83 +179,6 @@ export async function getAiRefreshQueueItemByDedupeKey(
     .executeTakeFirst();
 
   return row ? normalizeQueueItem(row) : null;
-}
-
-export async function enqueueWeeklyAiRefreshes(
-  input: {
-    tenantId?: string;
-    now?: Date;
-    staleAfterDays?: number;
-    limit?: number;
-  } = {},
-  options: { db?: Kysely<DB> } = {},
-): Promise<{
-  eligibleCount: number;
-  enqueued: AiRefreshQueueItem[];
-}> {
-  const db = options.db ?? getDb();
-  const now = input.now ?? new Date();
-  const staleAfterDays = input.staleAfterDays ?? 7;
-  const limit = input.limit ?? 10;
-  const staleBefore = new Date(now.getTime() - staleAfterDays * MS_PER_DAY);
-  let query = db
-    .selectFrom("wiki_pages as page")
-    .innerJoin("wiki_page_revisions as revision", (join) =>
-      join
-        .onRef("revision.tenant_id", "=", "page.tenant_id")
-        .onRef("revision.page_id", "=", "page.id")
-        .onRef("revision.revision_number", "=", "page.latest_revision_number"),
-    )
-    .select([
-      "page.id as pageId",
-      "page.tenant_id as tenantId",
-      "page.slug as targetSlug",
-      "page.title as pageTitle",
-      "page.latest_revision_number as latestRevisionNumber",
-      "revision.created_at as latestAiRevisionAt",
-    ])
-    .where("page.status", "=", "published")
-    .where("revision.ai_provenance", "is not", null)
-    .where("revision.created_at", "<=", staleBefore)
-    .orderBy("revision.created_at", "asc")
-    .orderBy("page.slug", "asc")
-    .limit(limit);
-
-  if (input.tenantId) {
-    query = query.where("page.tenant_id", "=", input.tenantId);
-  }
-
-  const eligiblePages = await query.execute();
-  const weekKey = getUtcWeekKey(now);
-  const enqueued: AiRefreshQueueItem[] = [];
-
-  for (const page of eligiblePages) {
-    enqueued.push(
-      await enqueueAiRefreshQueueItem(
-        {
-          tenantId: page.tenantId,
-          pageId: page.pageId,
-          targetSlug: page.targetSlug,
-          pageTitle: page.pageTitle,
-          reason: "weekly_refresh",
-          source: "weekly_cron",
-          scheduledFor: now,
-          dedupeKey: `weekly:${page.tenantId}:${page.targetSlug}:${weekKey}`,
-          metadata: {
-            latestRevisionNumber: page.latestRevisionNumber,
-            latestAiRevisionAt: page.latestAiRevisionAt.toISOString(),
-            staleAfterDays,
-          },
-        },
-        db,
-      ),
-    );
-  }
-
-  return {
-    eligibleCount: eligiblePages.length,
-    enqueued,
-  };
 }
 
 export async function enqueueUpcomingEventRefreshes(
@@ -345,7 +271,7 @@ export type ProcessedRefresh = {
   item: AiRefreshQueueItem;
   tenantSlug: string;
   pageSlug: string;
-  outcome: "published" | "needs_review";
+  outcome: "published" | "needs_review" | "unchanged";
   suggestionId?: string;
 };
 
@@ -388,7 +314,7 @@ export async function processDueAiRefreshQueueItems(
     options.call ??
     createGatewayCaller({
       ledger: new MemoryLedger(),
-      capUsd: Number(env.WIKI_AI_RUN_CAP_USD ?? 1),
+      capUsd: Number(env.WIKI_AI_RUN_CAP_USD ?? DEFAULT_RUN_CAP_USD),
       minIntervalMs: Number(env.WIKI_AI_MIN_CALL_INTERVAL_MS ?? 1_000),
     });
 
@@ -409,7 +335,7 @@ export async function processDueAiRefreshQueueItems(
         throw new Error(`Tenant ${item.tenantId} no longer exists.`);
       }
 
-      const metadata = (item.metadata ?? {}) as { sourceKey?: string };
+      const metadata = (item.metadata ?? {}) as { sourceKey?: string; editorNote?: string };
       const outcome = await runEditor(
         {
           tenant,
@@ -419,41 +345,35 @@ export async function processDueAiRefreshQueueItems(
           call,
           actorId: actor.id,
           changedSources: metadata.sourceKey ? [metadata.sourceKey] : undefined,
+          instructions: metadata.editorNote ? [metadata.editorNote] : undefined,
           policy: options.policy,
           now,
         },
         db,
       );
 
-      if (outcome.kind === "published") {
-        const updatedItem = await markAiRefreshQueueItemSucceeded(
-          item.id,
-          {
-            processedAt: new Date(),
-            pageId: outcome.page.id,
-            pageSlug: outcome.page.slug,
-            latestRevisionNumber: outcome.page.latestRevisionNumber,
-            outcome: "published",
-          },
-          db,
-        );
-        processed.push({ item: updatedItem, tenantSlug: tenant.slug, pageSlug: outcome.page.slug, outcome: "published" });
-      } else {
-        const updatedItem = await markAiRefreshQueueItemSucceeded(
-          item.id,
-          {
-            processedAt: new Date(),
-            pageId: item.pageId,
-            pageSlug: item.targetSlug,
-            latestRevisionNumber: null,
-            outcome: "needs_review",
-            suggestionId: outcome.suggestionId,
-            gateReasons: outcome.reasons,
-          },
-          db,
-        );
-        processed.push({ item: updatedItem, tenantSlug: tenant.slug, pageSlug: item.targetSlug, outcome: "needs_review", suggestionId: outcome.suggestionId });
-      }
+      const updatedItem = await markAiRefreshQueueItemSucceeded(
+        item.id,
+        {
+          processedAt: new Date(),
+          pageId: outcome.kind === "published" ? outcome.page.id : item.pageId,
+          pageSlug: outcome.kind === "published" ? outcome.page.slug : item.targetSlug,
+          latestRevisionNumber: outcome.kind === "published" ? outcome.page.latestRevisionNumber : null,
+          outcome: outcome.kind,
+          suggestionId: outcome.kind === "needs_review" ? outcome.suggestionId : undefined,
+          gateReasons: outcome.kind === "needs_review" ? outcome.reasons : undefined,
+          changeNote: outcome.changeNote,
+          rejected: outcome.rejected,
+        },
+        db,
+      );
+      processed.push({
+        item: updatedItem,
+        tenantSlug: tenant.slug,
+        pageSlug: outcome.kind === "published" ? outcome.page.slug : item.targetSlug,
+        outcome: outcome.kind,
+        ...(outcome.kind === "needs_review" ? { suggestionId: outcome.suggestionId } : {}),
+      });
     } catch (error) {
       if (error instanceof BudgetExceeded) {
         // Stop spending and return the claimed items, untouched, to the queue.
@@ -593,9 +513,11 @@ async function markAiRefreshQueueItemSucceeded(
     pageId: string | null;
     pageSlug: string;
     latestRevisionNumber: number | null;
-    outcome: "published" | "needs_review";
+    outcome: "published" | "needs_review" | "unchanged";
     suggestionId?: string;
     gateReasons?: string[];
+    changeNote?: string;
+    rejected?: Array<{ text: string; reason: string }>;
   },
   db: Kysely<DB>,
 ) {
@@ -615,6 +537,8 @@ async function markAiRefreshQueueItemSucceeded(
           outcome: metadata.outcome,
           suggestionId: metadata.suggestionId ?? null,
           gateReasons: metadata.gateReasons ?? [],
+          changeNote: metadata.changeNote ?? null,
+          rejected: metadata.rejected ?? [],
         },
       )}::jsonb`,
     })
@@ -832,17 +756,6 @@ function normalizeQueueStatus(status: string): AiRefreshQueueStatus {
 
 function createQueueId() {
   return `refresh_${randomUUID()}`;
-}
-
-function getUtcWeekKey(date: Date) {
-  const weekStart = new Date(
-    Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()),
-  );
-  const utcDay = weekStart.getUTCDay();
-  const daysSinceMonday = (utcDay + 6) % 7;
-  weekStart.setUTCDate(weekStart.getUTCDate() - daysSinceMonday);
-
-  return formatUtcDate(weekStart);
 }
 
 function formatUtcDate(date: Date) {

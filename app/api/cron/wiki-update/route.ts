@@ -3,7 +3,6 @@ import { revalidatePath } from "next/cache";
 
 import {
   enqueueUpcomingEventRefreshes,
-  enqueueWeeklyAiRefreshes,
   parseEventRefreshTargets,
   processDueAiRefreshQueueItems,
   type UpcomingGameEvent,
@@ -20,14 +19,14 @@ import {
 } from "@/src/sources/wiki-source-ingestion";
 import { revalidateWikiPage } from "@/src/wiki/cache";
 
-const WEEKLY_SCHEDULE = "0 8 * * 1";
-const EVENT_SCHEDULE = "0 9 * * *";
-const DEFAULT_WEEKLY_LIMIT = 3;
-const DEFAULT_PROCESS_LIMIT = 1;
+// vercel.json runs this daily at 09:00 UTC, an hour after /api/cron/source-refetch has queued the
+// pages whose sources changed.
+/** At most 3 pages per run; each run also stops at DEFAULT_RUN_CAP_USD ($0.25) of AI spend. */
+const DEFAULT_PROCESS_LIMIT = 3;
 const DEFAULT_EVENT_WINDOW_DAYS = 7;
 const DEFAULT_SOURCE_DISCOVERY_LIMIT = 3;
 
-type ScheduledUpdateMode = "weekly" | "events" | "maintenance";
+type ScheduledUpdateMode = "daily" | "maintenance";
 
 type ScheduledSourceDiscoveryInput = {
   tenantId?: string;
@@ -57,13 +56,11 @@ async function handleWikiUpdateCron(request: Request, body?: unknown) {
   const payload = normalizePayload(body);
   const schedule = request.headers.get("x-vercel-cron-schedule");
   const mode =
-    readMode(payload.mode) ??
-    readMode(url.searchParams.get("mode")) ??
-    inferModeFromSchedule(schedule) ??
-    "weekly";
+    readMode(payload.mode) ?? readMode(url.searchParams.get("mode")) ?? "daily";
   const now = readDate(payload.now) ?? readDate(url.searchParams.get("now"));
   const tenantId =
-    readString(payload.tenantId) ?? readString(url.searchParams.get("tenantId"));
+    readString(payload.tenantId) ??
+    readString(url.searchParams.get("tenantId"));
   const tenantSlug =
     readString(payload.tenantSlug) ??
     readString(url.searchParams.get("tenantSlug"));
@@ -73,7 +70,7 @@ async function handleWikiUpdateCron(request: Request, body?: unknown) {
   const sourceIngestionEnabled =
     readBoolean(payload.sourceIngestion) ??
     readBoolean(url.searchParams.get("sourceIngestion")) ??
-    mode !== "events";
+    mode === "maintenance";
   const sourceIngestion = sourceIngestionEnabled
     ? await runCuratedWikiSourceIngestion({
         tenantId,
@@ -91,48 +88,27 @@ async function handleWikiUpdateCron(request: Request, body?: unknown) {
       topicSlug,
     }),
   );
-  const weeklyLimit =
-    readNonNegativeInteger(payload.weeklyLimit) ??
-    readNonNegativeInteger(url.searchParams.get("weeklyLimit")) ??
-    readNonNegativeInteger(process.env.WIKI_WEEKLY_REFRESH_LIMIT) ??
-    DEFAULT_WEEKLY_LIMIT;
-  const staleAfterDays =
-    readNonNegativeNumber(payload.staleAfterDays) ??
-    readNonNegativeNumber(url.searchParams.get("staleAfterDays")) ??
-    readNonNegativeNumber(process.env.WIKI_REFRESH_STALE_AFTER_DAYS);
-  const weekly =
-    mode === "weekly" || mode === "maintenance"
-      ? await enqueueWeeklyAiRefreshes({
-          tenantId,
-          now,
-          staleAfterDays,
-          limit: weeklyLimit,
-        })
-      : null;
   const eventWindowDays =
     readPositiveNumber(payload.windowDays) ??
     readPositiveNumber(url.searchParams.get("windowDays")) ??
     DEFAULT_EVENT_WINDOW_DAYS;
-  const events =
-    mode === "events" || mode === "maintenance"
-      ? await enqueueUpcomingEventRefreshes(
-          {
-            tenantId,
-            now,
-            windowDays: eventWindowDays,
-            defaultTargets: parseEventRefreshTargets(
-              readString(payload.defaultTargets) ??
-                readString(url.searchParams.get("defaultTargets")) ??
-                process.env.WIKI_EVENT_REFRESH_TARGETS,
-            ),
-          },
-          readEventPayload(payload)
-            ? {
-                discoverUpcomingEvents: async () => readEventPayload(payload) ?? [],
-              }
-            : undefined,
-        )
-      : null;
+  const events = await enqueueUpcomingEventRefreshes(
+    {
+      tenantId,
+      now,
+      windowDays: eventWindowDays,
+      defaultTargets: parseEventRefreshTargets(
+        readString(payload.defaultTargets) ??
+          readString(url.searchParams.get("defaultTargets")) ??
+          process.env.WIKI_EVENT_REFRESH_TARGETS,
+      ),
+    },
+    readEventPayload(payload)
+      ? {
+          discoverUpcomingEvents: async () => readEventPayload(payload) ?? [],
+        }
+      : undefined,
+  );
   const processLimit =
     readNonNegativeInteger(payload.processLimit) ??
     readNonNegativeInteger(url.searchParams.get("processLimit")) ??
@@ -153,37 +129,26 @@ async function handleWikiUpdateCron(request: Request, body?: unknown) {
     schedule,
     now: now?.toISOString() ?? null,
     limits: {
-      weeklyLimit,
       processLimit,
       sourceDiscoveryLimit: DEFAULT_SOURCE_DISCOVERY_LIMIT,
       eventWindowDays,
     },
     costGuardrails: {
-      weeklyDefaultLimit: DEFAULT_WEEKLY_LIMIT,
       processDefaultLimit: DEFAULT_PROCESS_LIMIT,
       eventWindowDays: DEFAULT_EVENT_WINDOW_DAYS,
       sourceDiscoveryDefaultLimit: DEFAULT_SOURCE_DISCOVERY_LIMIT,
-      dedupeKeys: "weekly and event queue items use stable dedupe keys",
-      freshPages: "weekly queueing skips pages newer than staleAfterDays",
+      dedupeKeys: "event and source-change queue items use stable dedupe keys",
+      runCap: "each processing run stops at the AI editor's per-run spend cap",
     },
     sourceIngestion: sourceIngestion
       ? summarizeSourceIngestion(sourceIngestion)
       : null,
     sourceDiscovery: sourceDiscoveries,
-    weekly: weekly
-      ? {
-          eligibleCount: weekly.eligibleCount,
-          enqueuedCount: weekly.enqueued.length,
-          items: weekly.enqueued.map(summaryQueueItem),
-        }
-      : null,
-    events: events
-      ? {
-          discoveredCount: events.discoveredCount,
-          enqueuedCount: events.enqueued.length,
-          items: events.enqueued.map(summaryQueueItem),
-        }
-      : null,
+    events: {
+      discoveredCount: events.discoveredCount,
+      enqueuedCount: events.enqueued.length,
+      items: events.enqueued.map(summaryQueueItem),
+    },
     process: {
       processedCount: processing.processed.length,
       failedCount: processing.failed.length,
@@ -399,22 +364,8 @@ function summaryQueueItem(item: {
   };
 }
 
-function inferModeFromSchedule(
-  schedule: string | null,
-): ScheduledUpdateMode | null {
-  if (schedule === WEEKLY_SCHEDULE) {
-    return "weekly";
-  }
-
-  if (schedule === EVENT_SCHEDULE) {
-    return "events";
-  }
-
-  return null;
-}
-
 function readMode(value: unknown): ScheduledUpdateMode | null {
-  if (value === "weekly" || value === "events" || value === "maintenance") {
+  if (value === "daily" || value === "maintenance") {
     return value;
   }
 
