@@ -1,4 +1,5 @@
 import type { Route } from "next";
+import { ChevronsUpDown } from "lucide-react";
 import Link from "next/link";
 import Markdown, { type Components } from "react-markdown";
 import rehypeSanitize, { defaultSchema } from "rehype-sanitize";
@@ -55,12 +56,22 @@ const BASE_COMPONENTS: Components = {
   ol: ({ children }) => <ol className="my-5 list-decimal space-y-2 pl-6">{children}</ol>,
   blockquote: ({ children }) => <blockquote className="my-5 border-l-2 pl-4 text-muted-foreground">{children}</blockquote>,
   table: ({ children }) => (
-    <div className="my-6 overflow-x-auto">
-      <table className="w-full border-collapse text-left text-[15px]">{children}</table>
+    <div className="my-6 overflow-x-auto rounded-md border">
+      <table className="w-full border-collapse text-left text-[15px] tabular-nums">{children}</table>
     </div>
   ),
-  th: ({ children }) => <th className="border-b px-3 py-2 font-semibold">{children}</th>,
-  td: ({ children }) => <td className="border-b px-3 py-2 align-top">{children}</td>,
+  // Static table styled like a sortable data grid (no sorting behaviour; the glyph is decorative).
+  thead: ({ children }) => <thead className="bg-muted/60 text-[13px] uppercase tracking-wide text-muted-foreground">{children}</thead>,
+  th: ({ children }) => (
+    <th scope="col" className="whitespace-nowrap border-b px-3 py-2 font-medium">
+      <span className="inline-flex items-center gap-1">
+        {children}
+        <ChevronsUpDown aria-hidden="true" className="size-3.5 opacity-50" />
+      </span>
+    </th>
+  ),
+  tr: ({ children }) => <tr className="even:bg-muted/25">{children}</tr>,
+  td: ({ children }) => <td className="border-b px-3 py-2 align-top last:border-b-0">{children}</td>,
 };
 
 type RenderInput = {
@@ -129,7 +140,13 @@ export function MarkdownArticle({ markdown, ctx, cited, renderNote }: RenderInpu
       return (
         <ClaimMark
           status={claim.status}
-          reason={claim.status === "unsupported" ? "None of the sources used for this page mention this yet." : plainContradiction(claim.reason)}
+          reason={
+            claim.status === "unsupported"
+              ? claim.reason.startsWith("community-only")
+                ? "Only community sources say this so far. No official or press source confirms it yet."
+                : "None of the sources used for this page mention this yet."
+              : plainContradiction(claim.reason)
+          }
           sources={sources}
           whole={props["data-whole"] === "true"}
         >

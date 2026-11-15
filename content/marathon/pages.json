@@ -1,0 +1,1219 @@
+[
+  {
+    "slug": "overview",
+    "title": "Marathon (2026)",
+    "category": "overview",
+    "group": "overview",
+    "scope": "What Marathon is: Bungie's sci-fi extraction FPS on Tau Ceti IV, its release, platforms, price and core loop.",
+    "keywords": [
+      "extraction",
+      "Tau Ceti",
+      "release",
+      "March 5",
+      "PlayStation",
+      "Steam",
+      "Xbox",
+      "cross",
+      "$40",
+      "Bungie",
+      "Runner",
+      "exfil"
+    ],
+    "preferredSources": [
+      "marathon-official-site",
+      "bungie-introducing-seasons",
+      "pcgamer-review",
+      "bungie-press-symbiosis"
+    ],
+    "hubChildren": [
+      "gameplay",
+      "factions",
+      "runner-shells",
+      "weapons",
+      "locations",
+      "seasons"
+    ],
+    "related": [],
+    "table": null
+  },
+  {
+    "slug": "seasons",
+    "title": "Seasons and roadmap",
+    "category": "overview",
+    "group": "overview",
+    "scope": "How seasons work, Season 1 and Season 2, the Nightfall Refresh, the announced Symbiosis update and experimental queues.",
+    "keywords": [
+      "season",
+      "FIRST STEP",
+      "NIGHTFALL",
+      "Nightfall Refresh",
+      "Symbiosis",
+      "December 8",
+      "March",
+      "Sponsored Survival",
+      "Vault Breaker",
+      "Duos",
+      "Open Play"
+    ],
+    "preferredSources": [
+      "bungie-introducing-seasons",
+      "bungie-nightfall-refresh",
+      "bungie-season-2-live",
+      "bungie-press-symbiosis",
+      "bungie-press-mid-season-2"
+    ],
+    "hubChildren": [],
+    "related": [
+      "seasonal-resets",
+      "expedition"
+    ],
+    "table": null
+  },
+  {
+    "slug": "factions",
+    "title": "Factions",
+    "category": "lore",
+    "group": "factions",
+    "scope": "The six contract factions, how they are unlocked, reputation and upgrades, and the UESC as the antagonist.",
+    "keywords": [
+      "faction",
+      "liaison",
+      "reputation",
+      "CyberAcme",
+      "NuCaloric",
+      "Traxus",
+      "MIDA",
+      "Arachne",
+      "Sekiguchi",
+      "UESC",
+      "contract",
+      "upgrade"
+    ],
+    "preferredSources": [
+      "gamesradar-factions",
+      "bungie-server-slam",
+      "bungie-introducing-seasons",
+      "marathon-official-site"
+    ],
+    "hubChildren": [
+      "cyberacme",
+      "nucaloric",
+      "traxus",
+      "mida",
+      "arachne",
+      "sekiguchi-genetics",
+      "uesc"
+    ],
+    "related": [],
+    "table": null
+  },
+  {
+    "slug": "cyberacme",
+    "title": "CyberAcme",
+    "category": "lore",
+    "group": "factions",
+    "scope": "The CyberAcme faction: who they are, what they offer Runners and recent changes.",
+    "keywords": [
+      "CyberAcme",
+      "CyAc",
+      "ONI",
+      "Onboard Navigation",
+      "Welcome to Tau Ceti",
+      "Introducing"
+    ],
+    "preferredSources": [
+      "gamesradar-factions",
+      "bungie-welcome-season-2",
+      "bungie-update-1-1-9-7",
+      "bungie-server-slam",
+      "bungie-nightfall-refresh",
+      "marathonwiki-com-priority-contracts"
+    ],
+    "hubChildren": [],
+    "related": [
+      "factions",
+      "contracts",
+      "armory"
+    ],
+    "table": null
+  },
+  {
+    "slug": "nucaloric",
+    "title": "NuCaloric",
+    "category": "lore",
+    "group": "factions",
+    "scope": "The NuCaloric faction: who they are, what they offer Runners and recent changes.",
+    "keywords": [
+      "NuCaloric",
+      "NuCal",
+      "Gaius",
+      "Reward Pass",
+      "healing",
+      "food"
+    ],
+    "preferredSources": [
+      "gamesradar-factions",
+      "bungie-welcome-season-2",
+      "bungie-update-1-1-9-7",
+      "bungie-server-slam",
+      "bungie-nightfall-refresh",
+      "marathonwiki-com-priority-contracts"
+    ],
+    "hubChildren": [],
+    "related": [
+      "factions",
+      "contracts",
+      "armory"
+    ],
+    "table": null
+  },
+  {
+    "slug": "traxus",
+    "title": "Traxus",
+    "category": "lore",
+    "group": "factions",
+    "scope": "The Traxus faction: who they are, what they offer Runners and recent changes.",
+    "keywords": [
+      "Traxus",
+      "Vulcan",
+      "Armory",
+      "weapon",
+      "mods",
+      "Night Marsh"
+    ],
+    "preferredSources": [
+      "gamesradar-factions",
+      "bungie-welcome-season-2",
+      "bungie-update-1-1-9-7",
+      "bungie-server-slam",
+      "bungie-nightfall-refresh",
+      "marathonwiki-com-priority-contracts"
+    ],
+    "hubChildren": [],
+    "related": [
+      "factions",
+      "contracts",
+      "armory"
+    ],
+    "table": null
+  },
+  {
+    "slug": "mida",
+    "title": "MIDA",
+    "category": "lore",
+    "group": "factions",
+    "scope": "The MIDA faction: who they are, what they offer Runners and recent changes.",
+    "keywords": [
+      "MIDA",
+      "Gantry",
+      "anarchist",
+      "Mars",
+      "Armory",
+      "grenade"
+    ],
+    "preferredSources": [
+      "gamesradar-factions",
+      "bungie-welcome-season-2",
+      "bungie-update-1-1-9-7",
+      "bungie-server-slam",
+      "bungie-nightfall-refresh",
+      "marathonwiki-com-priority-contracts"
+    ],
+    "hubChildren": [],
+    "related": [
+      "factions",
+      "contracts",
+      "armory"
+    ],
+    "table": null
+  },
+  {
+    "slug": "arachne",
+    "title": "Arachne",
+    "category": "lore",
+    "group": "factions",
+    "scope": "The Arachne faction: who they are, what they offer Runners and recent changes.",
+    "keywords": [
+      "Arachne",
+      "Charter",
+      "cult",
+      "Tag Chip",
+      "Runners",
+      "precision"
+    ],
+    "preferredSources": [
+      "gamesradar-factions",
+      "bungie-welcome-season-2",
+      "bungie-update-1-1-9-7",
+      "bungie-server-slam",
+      "bungie-nightfall-refresh",
+      "marathonwiki-com-priority-contracts"
+    ],
+    "hubChildren": [],
+    "related": [
+      "factions",
+      "contracts",
+      "armory"
+    ],
+    "table": null
+  },
+  {
+    "slug": "sekiguchi-genetics",
+    "title": "Sekiguchi Genetics",
+    "category": "lore",
+    "group": "factions",
+    "scope": "The Sekiguchi Genetics faction: who they are, what they offer Runners and recent changes.",
+    "keywords": [
+      "Sekiguchi",
+      "SekGen",
+      "Nona",
+      "WEAVEworm",
+      "Cores",
+      "biomata",
+      "sixth faction"
+    ],
+    "preferredSources": [
+      "gamesradar-factions",
+      "bungie-welcome-season-2",
+      "bungie-update-1-1-9-7",
+      "bungie-server-slam",
+      "bungie-nightfall-refresh",
+      "marathonwiki-com-priority-contracts"
+    ],
+    "hubChildren": [],
+    "related": [
+      "factions",
+      "contracts",
+      "armory"
+    ],
+    "table": null
+  },
+  {
+    "slug": "runner-shells",
+    "title": "Runner shells",
+    "category": "gameplay",
+    "group": "runners",
+    "scope": "What Runner shells are, cores vs implants, the roster by season and former codenames.",
+    "keywords": [
+      "Runner shell",
+      "shell",
+      "biosynthetic",
+      "archetype",
+      "cores",
+      "implants",
+      "Locus",
+      "Void",
+      "Glitch",
+      "Blackbird",
+      "Sentinel",
+      "Rook",
+      "Bishop"
+    ],
+    "preferredSources": [
+      "bungie-runner-shells",
+      "pcgamer-guide",
+      "bungie-welcome-season-2",
+      "bungie-nightfall-refresh"
+    ],
+    "hubChildren": [
+      "destroyer",
+      "assassin",
+      "recon",
+      "vandal",
+      "thief",
+      "triage",
+      "sentinel",
+      "rook"
+    ],
+    "related": [],
+    "table": null
+  },
+  {
+    "slug": "destroyer",
+    "title": "Destroyer",
+    "category": "gameplay",
+    "group": "runners",
+    "scope": "The Destroyer Runner shell: archetype, abilities and notable changes.",
+    "keywords": [
+      "Destroyer",
+      "Locus",
+      "barricade",
+      "missile",
+      "thruster",
+      "Combat specialist"
+    ],
+    "preferredSources": [
+      "bungie-runner-shells",
+      "pcgamer-guide",
+      "bungie-welcome-season-2",
+      "bungie-s2-combat-tuning",
+      "bungie-update-1-1-9-2",
+      "bungie-update-1-0-0-4",
+      "marathonwiki-org-runners"
+    ],
+    "hubChildren": [],
+    "related": [
+      "runner-shells",
+      "cores",
+      "implants"
+    ],
+    "table": null
+  },
+  {
+    "slug": "assassin",
+    "title": "Assassin",
+    "category": "gameplay",
+    "group": "runners",
+    "scope": "The Assassin Runner shell: archetype, abilities and notable changes.",
+    "keywords": [
+      "Assassin",
+      "Void",
+      "smoke",
+      "camo",
+      "Shadow agent",
+      "invisib"
+    ],
+    "preferredSources": [
+      "bungie-runner-shells",
+      "pcgamer-guide",
+      "bungie-welcome-season-2",
+      "bungie-s2-combat-tuning",
+      "bungie-update-1-1-9-2",
+      "bungie-update-1-0-0-4",
+      "marathonwiki-org-runners"
+    ],
+    "hubChildren": [],
+    "related": [
+      "runner-shells",
+      "cores",
+      "implants"
+    ],
+    "table": null
+  },
+  {
+    "slug": "recon",
+    "title": "Recon",
+    "category": "gameplay",
+    "group": "runners",
+    "scope": "The Recon Runner shell: archetype, abilities and notable changes.",
+    "keywords": [
+      "Recon",
+      "Blackbird",
+      "Echo Pulse",
+      "tracker drone",
+      "footstep",
+      "Intel specialist"
+    ],
+    "preferredSources": [
+      "bungie-runner-shells",
+      "pcgamer-guide",
+      "bungie-welcome-season-2",
+      "bungie-s2-combat-tuning",
+      "bungie-update-1-1-9-2",
+      "bungie-update-1-0-0-4",
+      "marathonwiki-org-runners"
+    ],
+    "hubChildren": [],
+    "related": [
+      "runner-shells",
+      "cores",
+      "implants"
+    ],
+    "table": null
+  },
+  {
+    "slug": "vandal",
+    "title": "Vandal",
+    "category": "gameplay",
+    "group": "runners",
+    "scope": "The Vandal Runner shell: archetype, abilities and notable changes.",
+    "keywords": [
+      "Vandal",
+      "Glitch",
+      "Amplify",
+      "Disruptor",
+      "Microjets",
+      "Combat anarchist",
+      "cannon"
+    ],
+    "preferredSources": [
+      "bungie-runner-shells",
+      "pcgamer-guide",
+      "bungie-welcome-season-2",
+      "bungie-s2-combat-tuning",
+      "bungie-update-1-1-9-2",
+      "bungie-update-1-0-0-4",
+      "marathonwiki-org-runners"
+    ],
+    "hubChildren": [],
+    "related": [
+      "runner-shells",
+      "cores",
+      "implants"
+    ],
+    "table": null
+  },
+  {
+    "slug": "thief",
+    "title": "Thief",
+    "category": "gameplay",
+    "group": "runners",
+    "scope": "The Thief Runner shell: archetype, abilities and notable changes.",
+    "keywords": [
+      "Thief",
+      "grapple",
+      "Pickpocket",
+      "butterfly",
+      "visor",
+      "Covert acquisitions"
+    ],
+    "preferredSources": [
+      "bungie-runner-shells",
+      "pcgamer-guide",
+      "bungie-welcome-season-2",
+      "bungie-s2-combat-tuning",
+      "bungie-update-1-1-9-2",
+      "bungie-update-1-0-0-4",
+      "marathonwiki-org-runners"
+    ],
+    "hubChildren": [],
+    "related": [
+      "runner-shells",
+      "cores",
+      "implants"
+    ],
+    "table": null
+  },
+  {
+    "slug": "triage",
+    "title": "Triage",
+    "category": "gameplay",
+    "group": "runners",
+    "scope": "The Triage Runner shell: archetype, abilities and notable changes.",
+    "keywords": [
+      "Triage",
+      "Field medic",
+      "healing drone",
+      "reboot",
+      "medic"
+    ],
+    "preferredSources": [
+      "bungie-runner-shells",
+      "pcgamer-guide",
+      "bungie-welcome-season-2",
+      "bungie-s2-combat-tuning",
+      "bungie-update-1-1-9-2",
+      "bungie-update-1-0-0-4",
+      "marathonwiki-org-runners"
+    ],
+    "hubChildren": [],
+    "related": [
+      "runner-shells",
+      "cores",
+      "implants"
+    ],
+    "table": null
+  },
+  {
+    "slug": "sentinel",
+    "title": "Sentinel",
+    "category": "gameplay",
+    "group": "runners",
+    "scope": "The Sentinel Runner shell: archetype, abilities and notable changes.",
+    "keywords": [
+      "Sentinel",
+      "Defender System",
+      "Snare Mine",
+      "Prey Tracker",
+      "Castle Doctrine"
+    ],
+    "preferredSources": [
+      "bungie-runner-shells",
+      "pcgamer-guide",
+      "bungie-welcome-season-2",
+      "bungie-s2-combat-tuning",
+      "bungie-update-1-1-9-2",
+      "bungie-update-1-0-0-4",
+      "marathonwiki-org-runners"
+    ],
+    "hubChildren": [],
+    "related": [
+      "runner-shells",
+      "cores",
+      "implants"
+    ],
+    "table": null
+  },
+  {
+    "slug": "rook",
+    "title": "Rook",
+    "category": "gameplay",
+    "group": "runners",
+    "scope": "The Rook Runner shell: archetype, abilities and notable changes.",
+    "keywords": [
+      "Rook",
+      "scavenger",
+      "Scavenger mode",
+      "solo",
+      "in progress"
+    ],
+    "preferredSources": [
+      "bungie-runner-shells",
+      "pcgamer-guide",
+      "bungie-welcome-season-2",
+      "bungie-s2-combat-tuning",
+      "bungie-update-1-1-9-2",
+      "bungie-update-1-0-0-4",
+      "marathonwiki-org-runners"
+    ],
+    "hubChildren": [],
+    "related": [
+      "runner-shells",
+      "cores",
+      "implants"
+    ],
+    "table": null
+  },
+  {
+    "slug": "weapons",
+    "title": "Weapons",
+    "category": "equipment",
+    "group": "weapons",
+    "scope": "All launch weapons by class and ammo type, plus weapons added since launch.",
+    "keywords": [
+      "weapon",
+      "Assault Rifles",
+      "Shotguns",
+      "SMGs",
+      "Precision",
+      "Machine Guns",
+      "Railguns",
+      "Sniper",
+      "Pistols",
+      "Rounds",
+      "Volt",
+      "MIPS",
+      "KKV",
+      "D54",
+      "28 weapons"
+    ],
+    "preferredSources": [
+      "gamesradar-weapons",
+      "bungie-introducing-seasons",
+      "bungie-welcome-season-2",
+      "pcgamer-review"
+    ],
+    "hubChildren": [
+      "ammo-types",
+      "weapon-mods-and-chips"
+    ],
+    "related": [],
+    "table": "weapons"
+  },
+  {
+    "slug": "ammo-types",
+    "title": "Ammo types",
+    "category": "equipment",
+    "group": "weapons",
+    "scope": "Light Rounds, Heavy Rounds, Volt Battery, Volt Cell and MIPS, and how they behave.",
+    "keywords": [
+      "Light Rounds",
+      "Heavy Rounds",
+      "Volt Battery",
+      "Volt Cell",
+      "MIPS",
+      "ammo",
+      "shields",
+      "recharge"
+    ],
+    "preferredSources": [
+      "gamesradar-weapons",
+      "pcgamer-review"
+    ],
+    "hubChildren": [],
+    "related": [
+      "weapons"
+    ],
+    "table": null
+  },
+  {
+    "slug": "weapon-mods-and-chips",
+    "title": "Weapon mods and chips",
+    "category": "equipment",
+    "group": "weapons",
+    "scope": "Weapon mod slots, chips, Prestige mods and the folding stock.",
+    "keywords": [
+      "mod",
+      "chip",
+      "optic",
+      "magazine",
+      "barrel",
+      "grip",
+      "Prestige",
+      "folding stock",
+      "Chip"
+    ],
+    "preferredSources": [
+      "gamesradar-weapons",
+      "bungie-welcome-season-2",
+      "bungie-s2-combat-tuning",
+      "bungie-update-1-1-0-1"
+    ],
+    "hubChildren": [],
+    "related": [
+      "weapons",
+      "rarity-tiers"
+    ],
+    "table": null
+  },
+  {
+    "slug": "locations",
+    "title": "Zones of Tau Ceti IV",
+    "category": "locations",
+    "group": "zones",
+    "scope": "The zones Runners play: three surface zones and Cryo Archive on the UESC Marathon, with unlock rules.",
+    "keywords": [
+      "zone",
+      "Perimeter",
+      "Dire Marsh",
+      "Outpost",
+      "Cryo Archive",
+      "Night Marsh",
+      "Runner Level",
+      "map"
+    ],
+    "preferredSources": [
+      "bungie-server-slam",
+      "gamesradar-maps",
+      "bungie-introducing-seasons",
+      "bungie-welcome-season-2"
+    ],
+    "hubChildren": [
+      "perimeter",
+      "dire-marsh",
+      "night-marsh",
+      "outpost",
+      "cryo-archive"
+    ],
+    "related": [],
+    "table": null
+  },
+  {
+    "slug": "perimeter",
+    "title": "Perimeter",
+    "category": "locations",
+    "group": "zones",
+    "scope": "The Perimeter zone: setting, layout highlights, access rules and notable changes.",
+    "keywords": [
+      "Perimeter",
+      "outskirts",
+      "edge-site",
+      "beginner",
+      "Reservoir",
+      "Burrows",
+      "Tick Queen",
+      "fung"
+    ],
+    "preferredSources": [
+      "bungie-server-slam",
+      "gamesradar-maps",
+      "bungie-expedition-phase-1",
+      "bungie-press-symbiosis",
+      "bungie-update-1-0-0-4"
+    ],
+    "hubChildren": [],
+    "related": [
+      "locations"
+    ],
+    "table": null
+  },
+  {
+    "slug": "dire-marsh",
+    "title": "Dire Marsh",
+    "category": "locations",
+    "group": "zones",
+    "scope": "The Dire Marsh zone: setting, layout highlights, access rules and notable changes.",
+    "keywords": [
+      "Dire Marsh",
+      "Marsh",
+      "agricultural",
+      "Complex",
+      "Anomaly",
+      "90 minutes"
+    ],
+    "preferredSources": [
+      "bungie-server-slam",
+      "gamesradar-maps",
+      "bungie-welcome-season-2"
+    ],
+    "hubChildren": [],
+    "related": [
+      "locations"
+    ],
+    "table": null
+  },
+  {
+    "slug": "night-marsh",
+    "title": "Night Marsh",
+    "category": "locations",
+    "group": "zones",
+    "scope": "The Night Marsh zone: setting, layout highlights, access rules and notable changes.",
+    "keywords": [
+      "Night Marsh",
+      "Dire Marsh (Night)",
+      "flashlight",
+      "Vector",
+      "Darksight",
+      "Signal Flare",
+      "Certs",
+      "Complex Control",
+      "Upper Complex"
+    ],
+    "preferredSources": [
+      "bungie-welcome-season-2",
+      "bungie-season-2-live",
+      "bungie-expedition-phase-1",
+      "bungie-update-1-1-9-7"
+    ],
+    "hubChildren": [],
+    "related": [
+      "locations"
+    ],
+    "table": null
+  },
+  {
+    "slug": "outpost",
+    "title": "Outpost",
+    "category": "locations",
+    "group": "zones",
+    "scope": "The Outpost zone: setting, layout highlights, access rules and notable changes.",
+    "keywords": [
+      "Outpost",
+      "Pinwheel",
+      "UESC military",
+      "Level 12",
+      "Heat Cascade",
+      "vertical"
+    ],
+    "preferredSources": [
+      "bungie-introducing-seasons",
+      "bungie-server-slam",
+      "gamesradar-maps",
+      "pcgamer-review",
+      "bungie-update-1-1-9-7"
+    ],
+    "hubChildren": [],
+    "related": [
+      "locations"
+    ],
+    "table": null
+  },
+  {
+    "slug": "cryo-archive",
+    "title": "Cryo Archive",
+    "category": "locations",
+    "group": "zones",
+    "scope": "The Cryo Archive zone: setting, layout highlights, access rules and notable changes.",
+    "keywords": [
+      "Cryo Archive",
+      "Vault",
+      "Security Clearance",
+      "Compiler",
+      "Runner Level: 25",
+      "wings",
+      "weekends",
+      "Vault Key"
+    ],
+    "preferredSources": [
+      "bungie-cryo-archive",
+      "pcgamer-review",
+      "bungie-welcome-season-2",
+      "bungie-nightfall-refresh"
+    ],
+    "hubChildren": [],
+    "related": [
+      "locations"
+    ],
+    "table": null
+  },
+  {
+    "slug": "gameplay",
+    "title": "How a run works",
+    "category": "gameplay",
+    "group": "mechanics",
+    "scope": "The extraction loop: infil, loot, PvPvE, exfil, losing gear on death, crews and solo play, and the vault.",
+    "keywords": [
+      "infil",
+      "exfil",
+      "loot",
+      "crew",
+      "solo",
+      "proximity",
+      "Vault",
+      "die",
+      "UESC",
+      "25-minute",
+      "extraction"
+    ],
+    "preferredSources": [
+      "marathon-official-site",
+      "pcgamer-guide",
+      "pcgamer-review",
+      "bungie-welcome-season-2",
+      "bungie-vidoc"
+    ],
+    "hubChildren": [
+      "contracts",
+      "ranked",
+      "the-cradle",
+      "armory",
+      "expedition",
+      "seasonal-resets",
+      "cores",
+      "implants",
+      "rarity-tiers"
+    ],
+    "related": [],
+    "table": null
+  },
+  {
+    "slug": "contracts",
+    "title": "Contracts",
+    "category": "gameplay",
+    "group": "mechanics",
+    "scope": "Priority, standard, liaison and Cryo contracts and how they changed in Season 2.",
+    "keywords": [
+      "contract",
+      "Priority",
+      "Standard",
+      "liaison",
+      "reputation",
+      "re-roll",
+      "single run"
+    ],
+    "preferredSources": [
+      "gamesradar-factions",
+      "bungie-welcome-season-2",
+      "marathonwiki-com-priority-contracts",
+      "bungie-expedition-phase-1"
+    ],
+    "hubChildren": [],
+    "related": [
+      "factions"
+    ],
+    "table": null
+  },
+  {
+    "slug": "ranked",
+    "title": "Ranked mode",
+    "category": "gameplay",
+    "group": "mechanics",
+    "scope": "How Ranked works: entry rules, Holotags, scoring, ranks and the Season 2 changes.",
+    "keywords": [
+      "Ranked",
+      "Holotag",
+      "score target",
+      "Loss Penalty",
+      "Overperformance",
+      "Tag Chip",
+      "Bronze",
+      "Pinnacle",
+      "gear ante",
+      "Loadout value"
+    ],
+    "preferredSources": [
+      "bungie-ranked",
+      "bungie-welcome-season-2"
+    ],
+    "hubChildren": [],
+    "related": [
+      "rarity-tiers"
+    ],
+    "table": null
+  },
+  {
+    "slug": "the-cradle",
+    "title": "The Cradle",
+    "category": "gameplay",
+    "group": "mechanics",
+    "scope": "The Season 2 system for raising Runner shell stats, and what Bungie has said about its future.",
+    "keywords": [
+      "Cradle",
+      "Matter Converter",
+      "Energy",
+      "WEAVEworm",
+      "stat",
+      "perks",
+      "refactored"
+    ],
+    "preferredSources": [
+      "bungie-welcome-season-2",
+      "bungie-season-2-live",
+      "bungie-nightfall-refresh",
+      "kotaku-season-2"
+    ],
+    "hubChildren": [],
+    "related": [
+      "seasonal-resets"
+    ],
+    "table": null
+  },
+  {
+    "slug": "armory",
+    "title": "Armory",
+    "category": "gameplay",
+    "group": "mechanics",
+    "scope": "The faction Armory: what it sells, barters, sponsored kits, and recent stock changes.",
+    "keywords": [
+      "Armory",
+      "Sponsored Kit",
+      "sponsored kit",
+      "Barter",
+      "stock",
+      "Synapse Cube",
+      "Holotag"
+    ],
+    "preferredSources": [
+      "bungie-update-1-1-9-7",
+      "gamesradar-factions",
+      "bungie-welcome-season-2",
+      "bungie-update-1-1-0-1",
+      "bungie-update-1-0-0-4"
+    ],
+    "hubChildren": [],
+    "related": [
+      "factions"
+    ],
+    "table": null
+  },
+  {
+    "slug": "expedition",
+    "title": "Expedition",
+    "category": "gameplay",
+    "group": "mechanics",
+    "scope": "The permanent PvE co-op mode announced for the December 8, 2026 Symbiosis update.",
+    "keywords": [
+      "Expedition",
+      "Run Series",
+      "Critical Incident",
+      "Flash Boost",
+      "Run Kits",
+      "PvE",
+      "December 8"
+    ],
+    "preferredSources": [
+      "bungie-expedition-phase-1",
+      "bungie-press-symbiosis",
+      "bungie-symbiosis-open-play",
+      "bungie-nightfall-refresh"
+    ],
+    "hubChildren": [],
+    "related": [
+      "seasons"
+    ],
+    "table": null
+  },
+  {
+    "slug": "seasonal-resets",
+    "title": "Seasonal resets",
+    "category": "gameplay",
+    "group": "mechanics",
+    "scope": "What a seasonal reset wipes, what carries over, and the October 2026 Nightfall Refresh.",
+    "keywords": [
+      "reset",
+      "wipe",
+      "carry over",
+      "carries over",
+      "clean slate",
+      "Codex",
+      "cosmetics",
+      "Nightfall Refresh",
+      "Subroutines"
+    ],
+    "preferredSources": [
+      "bungie-introducing-seasons",
+      "bungie-welcome-season-2",
+      "bungie-nightfall-refresh",
+      "bungie-season-2-live"
+    ],
+    "hubChildren": [],
+    "related": [
+      "seasons"
+    ],
+    "table": null
+  },
+  {
+    "slug": "cores",
+    "title": "Cores",
+    "category": "equipment",
+    "group": "items",
+    "scope": "Cores: shell-specific upgrades that change how abilities work.",
+    "keywords": [
+      "Cores",
+      "core",
+      "Runner cores",
+      "Sentinel-specific",
+      "abilities"
+    ],
+    "preferredSources": [
+      "bungie-runner-shells",
+      "bungie-s2-combat-tuning",
+      "gamesradar-factions"
+    ],
+    "hubChildren": [],
+    "related": [
+      "implants",
+      "runner-shells"
+    ],
+    "table": null
+  },
+  {
+    "slug": "implants",
+    "title": "Implants",
+    "category": "equipment",
+    "group": "items",
+    "scope": "Implants: head, torso and leg upgrades usable by any shell, and the Season 2 rework.",
+    "keywords": [
+      "Implant",
+      "implant",
+      "head",
+      "torso",
+      "leg",
+      "perk",
+      "stats"
+    ],
+    "preferredSources": [
+      "bungie-runner-shells",
+      "bungie-welcome-season-2",
+      "gamesradar-factions"
+    ],
+    "hubChildren": [],
+    "related": [
+      "cores"
+    ],
+    "table": null
+  },
+  {
+    "slug": "rarity-tiers",
+    "title": "Rarity tiers",
+    "category": "equipment",
+    "group": "items",
+    "scope": "The gear rarity tiers and their colours.",
+    "keywords": [
+      "Standard",
+      "Enhanced",
+      "Deluxe",
+      "Superior",
+      "Prestige",
+      "green",
+      "blue",
+      "purple",
+      "gold",
+      "gray",
+      "rarity"
+    ],
+    "preferredSources": [
+      "bungie-ranked",
+      "bungie-welcome-season-2",
+      "bungie-update-1-1-9-7",
+      "bungie-update-1-1-0-1"
+    ],
+    "hubChildren": [],
+    "related": [
+      "armory"
+    ],
+    "table": null
+  },
+  {
+    "slug": "tau-ceti-iv",
+    "title": "Tau Ceti IV and New Cascadia",
+    "category": "lore",
+    "group": "lore",
+    "scope": "The lost colony world, the vanished colonists and the Runners who scavenge it, including where sources disagree on dates.",
+    "keywords": [
+      "Tau Ceti",
+      "New Cascadia",
+      "30,000",
+      "colon",
+      "century",
+      "decades",
+      "2893",
+      "2472",
+      "Runner",
+      "vanished",
+      "Anomaly"
+    ],
+    "preferredSources": [
+      "marathon-official-site",
+      "bungie-introducing-seasons",
+      "bungie-cryo-archive",
+      "pcgamer-guide",
+      "pcgamer-review"
+    ],
+    "hubChildren": [],
+    "related": [
+      "uesc-marathon",
+      "uesc"
+    ],
+    "table": null
+  },
+  {
+    "slug": "uesc-marathon",
+    "title": "UESC Marathon",
+    "category": "lore",
+    "group": "lore",
+    "scope": "The colony ship UESC Marathon: its journey, its silence and what Runners find aboard.",
+    "keywords": [
+      "UESC Marathon",
+      "Mars",
+      "2472",
+      "300 years",
+      "century",
+      "decades",
+      "orbit",
+      "Cryo Archive",
+      "ship"
+    ],
+    "preferredSources": [
+      "bungie-cryo-archive",
+      "marathon-official-site",
+      "bungie-introducing-seasons",
+      "pcgamer-guide"
+    ],
+    "hubChildren": [],
+    "related": [
+      "cryo-archive",
+      "tau-ceti-iv"
+    ],
+    "table": null
+  },
+  {
+    "slug": "uesc",
+    "title": "UESC",
+    "category": "lore",
+    "group": "lore",
+    "scope": "The UESC security forces that oppose Runners on Tau Ceti IV.",
+    "keywords": [
+      "UESC",
+      "security",
+      "drones",
+      "robots",
+      "Commander",
+      "Warden",
+      "Grenadier",
+      "escalat",
+      "lockdown"
+    ],
+    "preferredSources": [
+      "marathon-official-site",
+      "bungie-welcome-season-2",
+      "gamesradar-factions",
+      "bungie-update-1-0-0-4"
+    ],
+    "hubChildren": [],
+    "related": [
+      "factions"
+    ],
+    "table": null
+  }
+]
