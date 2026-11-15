@@ -118,7 +118,7 @@ export function ContentsControl({ toc }: { toc: TocEntry[] }) {
       </Collapsible>
 
       <div className="sticky top-14 z-20 -mx-5 mt-5 bg-background/95 px-5 py-2 backdrop-blur md:hidden">
-        <Button variant="outline" size="sm" className="min-h-11 gap-2" onClick={() => setSheetOpen(true)}>
+        <Button variant="secondary" size="sm" className="min-h-11 gap-2" onClick={() => setSheetOpen(true)}>
           <List className="size-4" aria-hidden="true" />
           Contents
         </Button>
@@ -152,7 +152,7 @@ const ADD_NOTE_EVENT = "wiki:add-note";
 export function AddNoteButton({ className }: { className?: string }) {
   return (
     <Button
-      variant="outline"
+      variant="secondary"
       size="sm"
       className={cn("min-h-11 md:min-h-8", className)}
       onClick={() => window.dispatchEvent(new Event(ADD_NOTE_EVENT))}
