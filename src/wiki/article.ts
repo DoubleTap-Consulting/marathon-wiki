@@ -194,7 +194,13 @@ function applyClaim(ctx: ArticleContext, paragraph: Parent, claim: Claim) {
       replacement.push({
         type: "emphasis",
         children: [inside],
-        data: { hName: "claim-mark", hProperties: { dataClaimId: claim.claimId } },
+        data: {
+          hName: "claim-mark",
+          hProperties: {
+            dataClaimId: claim.claimId,
+            dataWhole: paragraph.children.length === 1 && !before.value.trim() && !after.value.trim() ? "true" : undefined,
+          },
+        },
       } as RootContent);
     }
 

@@ -244,11 +244,13 @@ export function ClaimMark({
   status,
   reason,
   sources,
+  whole,
   children,
 }: {
   status: "unsupported" | "contradicted";
   reason: string;
   sources: Array<{ title: string; url: string | null }>;
+  whole?: boolean;
   children: React.ReactNode;
 }) {
   const descriptionId = useId();
@@ -284,7 +286,13 @@ export function ClaimMark({
   }
 
   return (
-    <span className="box-decoration-clone border-l-2 border-claim-conflict bg-destructive/5 py-0.5 pl-1.5">
+    <span
+      className={
+        whole
+          ? "box-decoration-clone border-l-2 border-claim-conflict bg-destructive/5 py-0.5 pl-1.5"
+          : "box-decoration-clone rounded-[2px] bg-destructive/5 px-0.5 underline decoration-destructive decoration-2 underline-offset-4"
+      }
+    >
       {children}{" "}
       <TrustPopover
         title="Sources disagree"

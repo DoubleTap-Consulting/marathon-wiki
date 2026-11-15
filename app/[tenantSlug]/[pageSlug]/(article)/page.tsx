@@ -210,10 +210,9 @@ function TrustStrip({
   const diffHref = `${base}/history/${summary.revisionNumber}`;
 
   if (summary.kind === "edited") {
-    if (!summary.hasAiHistory) segments.push(<span key="by">Written by the editors</span>);
     segments.push(
       <span key="when">
-        Edited{" "}
+        {summary.hasAiHistory ? "Edited" : "Edited by the editors"}{" "}
         <Link href={diffHref as Route} className={STRIP_LINK}>
           <RelativeTime iso={summary.at} />
         </Link>
@@ -263,7 +262,7 @@ function TrustStrip({
   );
 
   return (
-    <p className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 sm:gap-x-0 text-sm leading-7 text-muted-foreground">
+    <p className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 sm:gap-x-0 text-sm leading-6 text-muted-foreground">
       {segments.map((segment, index) => (
         <span key={index} className="inline-flex items-center whitespace-nowrap">
           {index > 0 ? (
@@ -272,11 +271,13 @@ function TrustStrip({
             </span>
           ) : null}
           {segment}
+          {index === segments.length - 1 ? (
+            <span className="ml-2 inline-flex">
+              <TrustOverflow suggestHref={suggestHref} />
+            </span>
+          ) : null}
         </span>
       ))}
-      <span className="ml-2 inline-flex">
-        <TrustOverflow suggestHref={suggestHref} />
-      </span>
     </p>
   );
 }

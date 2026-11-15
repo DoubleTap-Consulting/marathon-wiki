@@ -25,7 +25,7 @@ const schema = {
   attributes: {
     ...defaultSchema.attributes,
     "cite-ref": ["dataSourceId", "dataN"],
-    "claim-mark": ["dataClaimId"],
+    "claim-mark": ["dataClaimId", "dataWhole"],
     "community-note": ["dataNoteId"],
   },
 };
@@ -131,6 +131,7 @@ export function MarkdownArticle({ markdown, ctx, cited, renderNote }: RenderInpu
           status={claim.status}
           reason={claim.status === "unsupported" ? "None of the sources used for this page mention this yet." : plainContradiction(claim.reason)}
           sources={sources}
+          whole={props["data-whole"] === "true"}
         >
           {props.children}
         </ClaimMark>

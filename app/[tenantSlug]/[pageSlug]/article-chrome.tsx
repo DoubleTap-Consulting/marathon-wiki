@@ -221,7 +221,7 @@ export function TrustOverflow({ suggestHref }: { suggestHref: string }) {
         <button
           type="button"
           aria-label="More actions"
-          className="inline-flex size-6 items-center justify-center rounded-sm align-middle text-muted-foreground outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring pointer-coarse:size-11"
+          className="relative inline-flex size-6 items-center justify-center rounded-sm align-middle text-muted-foreground outline-none after:absolute after:-inset-2.5 after:content-[''] hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
         >
           <MoreHorizontal className="size-4" aria-hidden="true" />
         </button>
