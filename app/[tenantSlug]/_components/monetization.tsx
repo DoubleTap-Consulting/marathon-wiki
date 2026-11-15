@@ -34,7 +34,7 @@ export function WikiAdSlot({
       data-wiki-tenant={tenantSlug}
       data-wiki-page={pageSlug}
     >
-      <p className="mb-3 text-xs font-medium uppercase tracking-normal text-muted-foreground">
+      <p className="mb-3 text-label font-medium uppercase tracking-normal text-muted-foreground">
         Advertisement
       </p>
       <ins
@@ -75,13 +75,13 @@ export function WikiPremiumHook({
 
   return (
     <section className="rounded-lg border bg-card p-5 text-card-foreground">
-      <h2 className="text-lg font-semibold leading-7">{premium.label}</h2>
-      <p className="mt-2 text-sm leading-6 text-muted-foreground">
+      <h2 className="text-h3 font-semibold">{premium.label}</h2>
+      <p className="mt-2 text-small text-muted-foreground">
         {premium.description}
       </p>
       <a
         href={premium.url}
-        className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+        className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-md bg-primary px-4 text-ui font-medium text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
         data-wiki-event="premium_cta"
         data-wiki-event-label="sidebar"
         data-wiki-tenant={tenantSlug}

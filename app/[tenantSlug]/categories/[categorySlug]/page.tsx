@@ -63,13 +63,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     <WikiChrome tenant={snapshot.tenant} categories={snapshot.categories}>
       <section className="space-y-6">
         <div className="space-y-3">
-          <p className="text-sm font-medium uppercase tracking-normal text-muted-foreground">
+          <p className="text-label font-medium uppercase tracking-normal text-muted-foreground">
             Category
           </p>
-          <h1 className="text-4xl font-semibold leading-tight text-foreground">
+          <h1 className="text-title font-semibold text-foreground">
             {snapshot.category.name}
           </h1>
-          <p className="max-w-3xl text-base leading-8 text-muted-foreground">
+          <p className="max-w-3xl text-body text-muted-foreground">
             {snapshot.category.description ??
               "Published pages grouped under this wiki category."}
           </p>

@@ -42,7 +42,7 @@ export function CommunityNoteForm({ action, onSubmitted }: CommunityNoteFormProp
     >
       {state.message ? (
         <div
-          className={`rounded-md border p-3 text-sm leading-6 ${
+          className={`rounded-md border p-3 text-ui ${
             state.ok
               ? "border-primary/40 bg-primary/10 text-foreground"
               : "border-destructive/40 bg-destructive/10 text-foreground"
@@ -55,7 +55,7 @@ export function CommunityNoteForm({ action, onSubmitted }: CommunityNoteFormProp
       ) : null}
 
       <div className="grid gap-2">
-        <label htmlFor="community-note-body" className="text-sm font-medium">
+        <label htmlFor="community-note-body" className="text-ui font-medium">
           Community note
         </label>
         <textarea
@@ -65,24 +65,24 @@ export function CommunityNoteForm({ action, onSubmitted }: CommunityNoteFormProp
           required
           autoFocus
           minLength={20}
-          className="min-h-36 w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-base leading-7 text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="min-h-36 w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
       </div>
 
       <div className="grid gap-2">
-        <label htmlFor="community-note-target" className="text-sm font-medium">
+        <label htmlFor="community-note-target" className="text-ui font-medium">
           Relevant quote
         </label>
         <textarea
           id="community-note-target"
           name="targetQuote"
           rows={2}
-          className="min-h-20 w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-base leading-7 text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="min-h-20 w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
       </div>
 
       <div className="grid gap-2">
-        <label htmlFor="community-note-source" className="text-sm font-medium">
+        <label htmlFor="community-note-source" className="text-ui font-medium">
           Source URL
         </label>
         <input
@@ -92,18 +92,18 @@ export function CommunityNoteForm({ action, onSubmitted }: CommunityNoteFormProp
           inputMode="url"
           autoComplete="url"
           placeholder="https://"
-          className="min-h-11 w-full rounded-md border border-input bg-background px-3 text-base text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="min-h-11 w-full rounded-md border border-input bg-background px-3 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
       </div>
 
       <div className="grid gap-2 sm:grid-cols-[12rem_1fr]">
-        <label htmlFor="community-note-type" className="text-sm font-medium">
+        <label htmlFor="community-note-type" className="text-ui font-medium">
           Note type
         </label>
         <select
           id="community-note-type"
           name="noteType"
-          className="min-h-11 w-full rounded-md border border-input bg-background px-3 text-base text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="min-h-11 w-full rounded-md border border-input bg-background px-3 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
           defaultValue="general"
         >
           <option value="general">General note</option>
@@ -126,7 +126,7 @@ function SubmitButton() {
     <button
       type="submit"
       disabled={status.pending}
-      className="inline-flex min-h-11 items-center rounded-md bg-primary px-4 text-base font-medium text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card disabled:cursor-not-allowed disabled:opacity-60"
+      className="inline-flex min-h-11 items-center rounded-md bg-primary px-4 text-ui font-medium text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card disabled:cursor-not-allowed disabled:opacity-60"
     >
       {status.pending ? "Sending..." : "Send note"}
     </button>

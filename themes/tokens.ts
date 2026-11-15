@@ -17,7 +17,8 @@ export type ThemeToken =
   | "accent-foreground"
   | "border"
   | "input"
-  | "ring";
+  | "ring"
+  | "link";
 
 type Rule = { seed: "neutral" | "accent"; l: number; c: number; dh?: number } | "accent-seed" | ThemeToken;
 
@@ -42,9 +43,10 @@ const LIGHT: Record<ThemeToken, Rule> = {
   border: { seed: "neutral", l: 0.89, c: 0.5 },
   input: "border",
   ring: { seed: "accent", l: 0.55, c: 1 },
+  link: "primary",
 };
 
-type CoreToken = "destructive" | "claim-unverified" | "claim-conflict";
+type CoreToken = "destructive" | "claim-unverified" | "claim-conflict" | "diff-added" | "diff-added-surface";
 type Token = ThemeToken | CoreToken;
 export type CoreTokens = Record<CoreToken, Oklch>;
 
@@ -69,7 +71,7 @@ export function renderCss(theme: ThemeManifest): string {
 }
 
 export function parseCoreTokens(css: string): CoreTokens {
-  const root = css.match(/:root\s*{([^}]*)}/)?.[1] ?? "";
+  const root = css.match(/^:root\s*{([^}]*)}/m)?.[1] ?? "";
   const raw = new Map([...root.matchAll(/--([\w-]+):\s*([^;]+);/g)].map((m) => [m[1], m[2].trim()]));
   const read = (name: string): Oklch => {
     const value = raw.get(name);
@@ -79,7 +81,8 @@ export function parseCoreTokens(css: string): CoreTokens {
     if (!parts) throw new Error(`app/globals.css :root is missing an oklch value for --${name}`);
     return { l: Number(parts[1]), c: Number(parts[2]), h: Number(parts[3]) };
   };
-  return { destructive: read("destructive"), "claim-unverified": read("claim-unverified"), "claim-conflict": read("claim-conflict") };
+  const names: CoreToken[] = ["destructive", "claim-unverified", "claim-conflict", "diff-added", "diff-added-surface"];
+  return Object.fromEntries(names.map((name) => [name, read(name)])) as CoreTokens;
 }
 
 function linearRgb({ l: L, c, h }: Oklch): [number, number, number] {
@@ -142,8 +145,8 @@ const PAIRS: [fg: Token, bg: Token, floor: keyof typeof FLOORS, warn?: "error in
   ["secondary-foreground", "secondary", "text"],
   ["accent-foreground", "accent", "text"],
   ["primary-foreground", "primary", "text"],
-  ["primary", "background", "text"],
-  ["primary", "card", "text"],
+  ["link", "background", "text"],
+  ["link", "card", "text"],
   ["destructive", "background", "text"],
   ["destructive", "card", "text"],
   ["ring", "background", "ui"],
@@ -152,11 +155,19 @@ const PAIRS: [fg: Token, bg: Token, floor: keyof typeof FLOORS, warn?: "error in
   ["claim-unverified", "card", "ui"],
   ["claim-conflict", "background", "ui"],
   ["claim-conflict", "card", "ui"],
+  ["diff-added", "background", "ui"],
+  ["foreground", "diff-added-surface", "body"],
   // TODO(PR 4): drop the marker so this fails the build; PR 4's input (L 0.60) is 3.67:1.
   ["input", "background", "ui", "error in PR 4"],
 ];
 
 const MIN_TRUST_HUE_DISTANCE = 30;
+const TRUST_HUES: CoreToken[] = ["destructive", "claim-unverified", "claim-conflict", "diff-added"];
+// TODO(PR 4): delete. Today's green accent (160) sits 5° from diff-added (165); PR 4's acid (125.5)
+// clears it, and tokens.test.ts fails while this exemption outlives its reason.
+export const HUE_EXEMPT_UNTIL_PR4: ReadonlySet<CoreToken> = new Set(["diff-added"]);
+
+export const hueDistance = (a: number, b: number) => Math.min(Math.abs(a - b), 360 - Math.abs(a - b));
 
 export type CheckResult = { errors: string[]; warnings: string[]; lines: string[] };
 
@@ -175,12 +186,13 @@ export function checkTheme(theme: ThemeManifest, core: CoreTokens): CheckResult 
   }
 
   const accentHue = theme.color.accent.h;
-  for (const [token, value] of Object.entries(core)) {
-    const distance = Math.min(Math.abs(accentHue - value.h), 360 - Math.abs(accentHue - value.h));
-    const line = `${theme.slug} accent hue ${accentHue} is ${round(distance, 1)}° from ${token} hue ${value.h} (needs ≥ ${MIN_TRUST_HUE_DISTANCE}°)`;
+  for (const token of TRUST_HUES) {
+    const distance = hueDistance(accentHue, core[token].h);
+    const line = `${theme.slug} accent hue ${accentHue} is ${round(distance, 1)}° from ${token} hue ${core[token].h} (needs ≥ ${MIN_TRUST_HUE_DISTANCE}°)`;
     const pass = distance >= MIN_TRUST_HUE_DISTANCE;
-    result.lines.push(`${pass ? "PASS" : "FAIL"} ${line}`);
-    if (!pass) result.errors.push(line);
+    const exempt = !pass && HUE_EXEMPT_UNTIL_PR4.has(token);
+    result.lines.push(`${pass ? "PASS" : exempt ? "EXEMPT (until PR 4)" : "FAIL"} ${line}`);
+    if (!pass && !exempt) result.errors.push(line);
   }
 
   return result;
