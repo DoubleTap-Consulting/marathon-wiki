@@ -62,6 +62,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-theme="marathon"
       className={`${geistSans.variable} ${geistMono.variable}`}
     >
       {isClerkConfigured() ? <ClerkProvider>{body}</ClerkProvider> : body}
