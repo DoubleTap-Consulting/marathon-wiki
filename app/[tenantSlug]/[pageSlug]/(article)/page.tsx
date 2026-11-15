@@ -378,7 +378,7 @@ function References({ references }: { references: CitedSource[] }) {
               {source.url ? (
                 <a
                   href={source.url}
-                  className="py-1 text-link underline decoration-link/40 underline-offset-4 hover:decoration-link"
+                  className="py-1.5 text-link underline decoration-link/40 underline-offset-4 hover:decoration-link"
                 >
                   {source.title}
                 </a>
