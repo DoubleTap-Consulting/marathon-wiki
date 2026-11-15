@@ -81,13 +81,13 @@ export default async function ReviewPage({ params }: ReviewPageProps) {
       <section className="min-w-0 space-y-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="min-w-0 space-y-3">
-            <p className="text-sm font-medium uppercase tracking-normal text-muted-foreground">
+            <p className="text-label font-medium uppercase tracking-normal text-muted-foreground">
               Editorial workflow
             </p>
-            <h1 className="break-words text-4xl font-semibold leading-tight text-foreground">
+            <h1 className="break-words text-title font-semibold text-foreground">
               Review and generate
             </h1>
-            <p className="max-w-full text-base leading-8 text-muted-foreground sm:max-w-3xl">
+            <p className="max-w-full text-body text-muted-foreground sm:max-w-3xl">
               Generate canonical AI revisions or approve suggestions into the
               durable page history. Failed generation attempts leave public wiki
               content untouched.
@@ -100,10 +100,10 @@ export default async function ReviewPage({ params }: ReviewPageProps) {
           <ReviewAccessPanel authMode={authMode} />
         ) : !canReview ? (
           <section className="rounded-lg border bg-card p-6 text-card-foreground">
-            <h2 className="text-xl font-semibold leading-8">
+            <h2 className="text-h3 font-semibold">
               Editor access required
             </h2>
-            <p className="mt-2 max-w-2xl text-base leading-7 text-muted-foreground">
+            <p className="mt-2 max-w-2xl text-ui text-muted-foreground">
               Your account is signed in, but it is not included in the wiki
               editor allowlist for this environment.
             </p>
@@ -174,8 +174,8 @@ function ReviewSection({
   return (
     <section className="space-y-4">
       <div>
-        <h2 className="text-2xl font-semibold leading-8">{title}</h2>
-        <p className="mt-1 text-sm leading-6 text-muted-foreground">
+        <h2 className="text-h2 font-semibold">{title}</h2>
+        <p className="mt-1 text-small text-muted-foreground">
           {description}
         </p>
       </div>
@@ -195,15 +195,15 @@ function ReviewAccessPanel({
 }) {
   return (
     <section className="rounded-lg border bg-card p-6 text-card-foreground">
-      <h2 className="text-xl font-semibold leading-8">Sign in required</h2>
-      <p className="mt-2 max-w-2xl text-base leading-7 text-muted-foreground">
+      <h2 className="text-h3 font-semibold">Sign in required</h2>
+      <p className="mt-2 max-w-2xl text-ui text-muted-foreground">
         Editorial actions require a signed-in user on the editor allowlist.
       </p>
       <div className="mt-5">
         {authMode === "clerk" ? (
           <ClerkSignInControl>Sign in to review</ClerkSignInControl>
         ) : (
-          <p className="text-sm leading-6 text-muted-foreground">
+          <p className="text-small text-muted-foreground">
             Auth is not configured for this environment. Set Clerk keys and an
             editor allowlist for deployed preview.
           </p>
@@ -229,29 +229,29 @@ function SuggestionReviewCard({
         <div className="min-w-0 space-y-2">
           <div className="flex flex-wrap gap-2">
             <StatusPill status={suggestion.status} />
-            <span className="inline-flex min-h-8 items-center rounded-md border bg-background px-2.5 text-xs font-medium">
+            <span className="inline-flex min-h-8 items-center rounded-md border bg-background px-2.5 text-label font-medium">
               {suggestion.suggestionType === "new_page" ? "New page" : "Edit page"}
             </span>
             {ai ? (
-              <span className="inline-flex min-h-8 items-center rounded-md border border-primary/30 bg-primary/10 px-2.5 text-xs font-medium">
+              <span className="inline-flex min-h-8 items-center rounded-md border border-primary/30 bg-primary/10 px-2.5 text-label font-medium">
                 AI-assisted
               </span>
             ) : null}
           </div>
-          <h2 className="text-2xl font-semibold leading-8">{suggestion.title}</h2>
-          <p className="text-sm leading-6 text-muted-foreground">
+          <h2 className="text-h2 font-semibold">{suggestion.title}</h2>
+          <p className="text-small text-muted-foreground">
             Target:{" "}
             <span className="font-medium text-card-foreground">
               /{tenantSlug}/{suggestion.targetSlug}
             </span>
           </p>
           {suggestion.summary ? (
-            <p className="max-w-3xl text-base leading-7 text-muted-foreground">
+            <p className="max-w-3xl text-ui text-muted-foreground">
               {suggestion.summary}
             </p>
           ) : null}
         </div>
-        <div className="text-sm leading-6 text-muted-foreground lg:text-right">
+        <div className="text-small text-muted-foreground lg:text-right">
           <p>Submitted {formatDate(suggestion.createdAt)}</p>
           <p className="break-all">By {suggestion.createdBy ?? "Unknown user"}</p>
         </div>
@@ -259,8 +259,8 @@ function SuggestionReviewCard({
 
       <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,1fr)_18rem]">
         <div className="min-w-0 rounded-md border bg-background p-4">
-          <h3 className="text-sm font-semibold leading-6">Proposed markdown</h3>
-          <pre className="mt-3 max-h-96 overflow-auto whitespace-pre-wrap break-words rounded-md bg-secondary p-3 font-mono text-sm leading-6 text-secondary-foreground">
+          <h3 className="text-ui font-semibold">Proposed markdown</h3>
+          <pre className="mt-3 max-h-96 overflow-auto whitespace-pre-wrap break-words rounded-md bg-secondary p-3 font-mono text-ui text-secondary-foreground">
             {suggestion.bodyMarkdown}
           </pre>
         </div>
@@ -268,8 +268,8 @@ function SuggestionReviewCard({
         <aside className="space-y-4">
           {ai ? (
             <div className="rounded-md border bg-background p-3">
-              <h3 className="text-sm font-semibold leading-6">AI provenance</h3>
-              <dl className="mt-1 space-y-1 text-sm leading-6 text-muted-foreground">
+              <h3 className="text-ui font-semibold">AI provenance</h3>
+              <dl className="mt-1 space-y-1 text-small text-muted-foreground">
                 <div>
                   <dt className="inline font-medium text-card-foreground">
                     Model:
@@ -290,15 +290,15 @@ function SuggestionReviewCard({
           {suggestion.sourceUrl ? (
             <a
               href={suggestion.sourceUrl}
-              className="block min-h-11 rounded-md border bg-background p-3 text-sm font-medium leading-6 underline decoration-border underline-offset-4 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+              className="block min-h-11 rounded-md border bg-background p-3 text-ui font-medium underline decoration-border underline-offset-4 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
             >
               Review source
             </a>
           ) : null}
           {suggestion.reviewNote ? (
             <div className="rounded-md border bg-background p-3">
-              <h3 className="text-sm font-semibold leading-6">Review note</h3>
-              <p className="mt-1 text-sm leading-6 text-muted-foreground">
+              <h3 className="text-ui font-semibold">Review note</h3>
+              <p className="mt-1 text-small text-muted-foreground">
                 {suggestion.reviewNote}
               </p>
             </div>
@@ -315,7 +315,7 @@ function SuggestionReviewCard({
           <div className="grid gap-2">
             <label
               htmlFor={`review-note-${suggestion.id}`}
-              className="text-sm font-medium"
+              className="text-ui font-medium"
             >
               Review note
             </label>
@@ -323,7 +323,7 @@ function SuggestionReviewCard({
               id={`review-note-${suggestion.id}`}
               name="reviewNote"
               rows={3}
-              className="min-h-24 w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-base leading-7 text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="min-h-24 w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
           </div>
           <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
@@ -331,7 +331,7 @@ function SuggestionReviewCard({
               type="submit"
               name="reviewAction"
               value="approve"
-              className="inline-flex min-h-11 items-center justify-center rounded-md bg-primary px-4 text-base font-medium text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+              className="inline-flex min-h-11 items-center justify-center rounded-md bg-primary px-4 text-ui font-medium text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
             >
               Approve
             </button>
@@ -339,7 +339,7 @@ function SuggestionReviewCard({
               type="submit"
               name="reviewAction"
               value="changes_requested"
-              className="inline-flex min-h-11 items-center justify-center rounded-md border bg-background px-4 text-base font-medium text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+              className="inline-flex min-h-11 items-center justify-center rounded-md border bg-background px-4 text-ui font-medium text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
             >
               Request changes
             </button>
@@ -347,7 +347,7 @@ function SuggestionReviewCard({
               type="submit"
               name="reviewAction"
               value="rejected"
-              className="inline-flex min-h-11 items-center justify-center rounded-md border border-destructive/40 bg-background px-4 text-base font-medium text-destructive outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+              className="inline-flex min-h-11 items-center justify-center rounded-md border border-destructive/40 bg-background px-4 text-ui font-medium text-destructive outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
             >
               Reject
             </button>
@@ -373,14 +373,14 @@ function CommunityNoteReviewCard({
         <div className="min-w-0 space-y-2">
           <div className="flex flex-wrap gap-2">
             <StatusPill status={note.status} />
-            <span className="inline-flex min-h-8 items-center rounded-md border bg-background px-2.5 text-xs font-medium">
+            <span className="inline-flex min-h-8 items-center rounded-md border bg-background px-2.5 text-label font-medium">
               {formatLabel(note.noteType)}
             </span>
           </div>
-          <h3 className="text-2xl font-semibold leading-8">
+          <h3 className="text-h2 font-semibold">
             Community note for {note.pageTitle}
           </h3>
-          <p className="text-sm leading-6 text-muted-foreground">
+          <p className="text-small text-muted-foreground">
             Target:{" "}
             <a
               href={`/${tenantSlug}/${note.pageSlug}`}
@@ -390,7 +390,7 @@ function CommunityNoteReviewCard({
             </a>
           </p>
         </div>
-        <div className="text-sm leading-6 text-muted-foreground lg:text-right">
+        <div className="text-small text-muted-foreground lg:text-right">
           <p>Submitted {formatDate(note.createdAt)}</p>
           <p className="break-all">By {note.createdBy ?? "Unknown user"}</p>
         </div>
@@ -399,7 +399,7 @@ function CommunityNoteReviewCard({
       <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,1fr)_18rem]">
         <div className="min-w-0 rounded-md border bg-background p-4">
           {note.targetQuote ? (
-            <blockquote className="mb-4 border-l-2 border-border pl-3 text-sm leading-6 text-muted-foreground">
+            <blockquote className="mb-4 border-l-2 border-border pl-3 text-small text-muted-foreground">
               {note.targetQuote}
             </blockquote>
           ) : null}
@@ -410,15 +410,15 @@ function CommunityNoteReviewCard({
           {note.sourceUrl ? (
             <a
               href={note.sourceUrl}
-              className="block min-h-11 rounded-md border bg-background p-3 text-sm font-medium leading-6 underline decoration-border underline-offset-4 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+              className="block min-h-11 rounded-md border bg-background p-3 text-ui font-medium underline decoration-border underline-offset-4 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
             >
               Review source
             </a>
           ) : null}
           {note.reviewNote ? (
             <div className="rounded-md border bg-background p-3">
-              <h4 className="text-sm font-semibold leading-6">Review note</h4>
-              <p className="mt-1 text-sm leading-6 text-muted-foreground">
+              <h4 className="text-ui font-semibold">Review note</h4>
+              <p className="mt-1 text-small text-muted-foreground">
                 {note.reviewNote}
               </p>
             </div>
@@ -435,7 +435,7 @@ function CommunityNoteReviewCard({
           <div className="grid gap-2">
             <label
               htmlFor={`community-note-review-${note.id}`}
-              className="text-sm font-medium"
+              className="text-ui font-medium"
             >
               Review note
             </label>
@@ -443,7 +443,7 @@ function CommunityNoteReviewCard({
               id={`community-note-review-${note.id}`}
               name="reviewNote"
               rows={3}
-              className="min-h-24 w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-base leading-7 text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="min-h-24 w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
           </div>
           <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
@@ -451,7 +451,7 @@ function CommunityNoteReviewCard({
               type="submit"
               name="reviewAction"
               value="approved"
-              className="inline-flex min-h-11 items-center justify-center rounded-md bg-primary px-4 text-base font-medium text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+              className="inline-flex min-h-11 items-center justify-center rounded-md bg-primary px-4 text-ui font-medium text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
             >
               Approve note
             </button>
@@ -459,7 +459,7 @@ function CommunityNoteReviewCard({
               type="submit"
               name="reviewAction"
               value="incorporated"
-              className="inline-flex min-h-11 items-center justify-center rounded-md border bg-background px-4 text-base font-medium text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+              className="inline-flex min-h-11 items-center justify-center rounded-md border bg-background px-4 text-ui font-medium text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
             >
               Mark incorporated
             </button>
@@ -468,7 +468,7 @@ function CommunityNoteReviewCard({
                 type="submit"
                 name="reviewAction"
                 value="rejected"
-                className="inline-flex min-h-11 items-center justify-center rounded-md border border-destructive/40 bg-background px-4 text-base font-medium text-destructive outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+                className="inline-flex min-h-11 items-center justify-center rounded-md border border-destructive/40 bg-background px-4 text-ui font-medium text-destructive outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
               >
                 Reject note
               </button>
@@ -487,12 +487,12 @@ function StatusPill({ status }: { status: string }) {
       : status === "rejected"
         ? "border-destructive/30 bg-destructive/10 text-foreground"
         : status === "changes_requested"
-          ? "border-amber-500/40 bg-amber-500/10 text-foreground"
+          ? "border-claim-unverified/40 bg-claim-unverified/10 text-foreground"
           : "border-input bg-background text-foreground";
 
   return (
     <span
-      className={`inline-flex min-h-8 items-center rounded-md border px-2.5 text-xs font-medium ${className}`}
+      className={`inline-flex min-h-8 items-center rounded-md border px-2.5 text-label font-medium ${className}`}
     >
       {status.replaceAll("_", " ")}
     </span>

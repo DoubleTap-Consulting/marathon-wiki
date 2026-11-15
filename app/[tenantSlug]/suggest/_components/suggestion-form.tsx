@@ -58,7 +58,7 @@ export function SuggestionForm({
 
       {state.message ? (
         <div
-          className={`rounded-md border p-4 text-sm leading-6 ${
+          className={`rounded-md border p-4 text-ui ${
             state.ok
               ? "border-primary/40 bg-primary/10 text-foreground"
               : "border-destructive/40 bg-destructive/10 text-foreground"
@@ -71,7 +71,7 @@ export function SuggestionForm({
       ) : null}
 
       <div className="grid gap-2">
-        <label htmlFor="suggestion-title" className="text-sm font-medium">
+        <label htmlFor="suggestion-title" className="text-ui font-medium">
           Page title
         </label>
         <input
@@ -82,12 +82,12 @@ export function SuggestionForm({
           minLength={3}
           defaultValue={initialTitle}
           spellCheck="true"
-          className="min-h-11 w-full rounded-md border border-input bg-background px-3 text-base text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="min-h-11 w-full rounded-md border border-input bg-background px-3 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
       </div>
 
       <div className="grid gap-2">
-        <label htmlFor="suggestion-slug" className="text-sm font-medium">
+        <label htmlFor="suggestion-slug" className="text-ui font-medium">
           Page slug
         </label>
         <input
@@ -99,12 +99,12 @@ export function SuggestionForm({
           defaultValue={initialSlug}
           autoComplete="off"
           spellCheck="false"
-          className="min-h-11 w-full rounded-md border border-input bg-background px-3 text-base text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring read-only:bg-secondary"
+          className="min-h-11 w-full rounded-md border border-input bg-background px-3 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring read-only:bg-secondary"
         />
       </div>
 
       <div className="grid gap-2">
-        <label htmlFor="suggestion-summary" className="text-sm font-medium">
+        <label htmlFor="suggestion-summary" className="text-ui font-medium">
           Summary
         </label>
         <textarea
@@ -112,12 +112,12 @@ export function SuggestionForm({
           name="summary"
           rows={3}
           defaultValue={initialSummary ?? ""}
-          className="min-h-24 w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-base leading-7 text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="min-h-24 w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
       </div>
 
       <div className="grid gap-2">
-        <label htmlFor="suggestion-body" className="text-sm font-medium">
+        <label htmlFor="suggestion-body" className="text-ui font-medium">
           Proposed page body
         </label>
         <textarea
@@ -127,12 +127,12 @@ export function SuggestionForm({
           required
           minLength={20}
           defaultValue={initialBodyMarkdown}
-          className="min-h-80 w-full resize-y rounded-md border border-input bg-background px-3 py-2 font-mono text-base leading-7 text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="min-h-80 w-full resize-y rounded-md border border-input bg-background px-3 py-2 font-mono text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
       </div>
 
       <div className="grid gap-2">
-        <label htmlFor="suggestion-source" className="text-sm font-medium">
+        <label htmlFor="suggestion-source" className="text-ui font-medium">
           Source URL
         </label>
         <input
@@ -142,7 +142,7 @@ export function SuggestionForm({
           inputMode="url"
           autoComplete="url"
           placeholder="https://"
-          className="min-h-11 w-full rounded-md border border-input bg-background px-3 text-base text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="min-h-11 w-full rounded-md border border-input bg-background px-3 text-body text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
       </div>
 
@@ -158,7 +158,7 @@ function SubmitButton({ label }: { label: string }) {
     <button
       type="submit"
       disabled={status.pending}
-      className="inline-flex min-h-11 items-center rounded-md bg-primary px-4 text-base font-medium text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card disabled:cursor-not-allowed disabled:opacity-60"
+      className="inline-flex min-h-11 items-center rounded-md bg-primary px-4 text-ui font-medium text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card disabled:cursor-not-allowed disabled:opacity-60"
     >
       {status.pending ? "Submitting..." : label}
     </button>

@@ -32,22 +32,22 @@ const schema = {
 };
 
 const LINK_CLASS =
-  "text-primary underline decoration-primary/40 underline-offset-4 hover:decoration-primary focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+  "text-link underline decoration-link/40 underline-offset-4 hover:decoration-link focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
 const BASE_COMPONENTS: Components = {
   h2: ({ children, id }) => (
-    <h2 id={id} className="mt-12 mb-3 scroll-mt-20 text-2xl font-semibold tracking-tight text-foreground first:mt-0">
+    <h2 id={id} className="mt-12 mb-3 scroll-mt-20 text-h2 font-semibold tracking-tight text-foreground first:mt-0">
       {children}
     </h2>
   ),
   h3: ({ children, id }) => (
-    <h3 id={id} className="mt-8 mb-2 scroll-mt-20 text-lg font-semibold text-foreground">
+    <h3 id={id} className="mt-8 mb-2 scroll-mt-20 text-h3 font-semibold text-foreground">
       {children}
     </h3>
   ),
   // The page owns the only h1; body headings never compete with it.
   h1: ({ children, id }) => (
-    <h2 id={id} className="mt-12 mb-3 scroll-mt-20 text-2xl font-semibold tracking-tight text-foreground first:mt-0">
+    <h2 id={id} className="mt-12 mb-3 scroll-mt-20 text-h2 font-semibold tracking-tight text-foreground first:mt-0">
       {children}
     </h2>
   ),
@@ -57,11 +57,11 @@ const BASE_COMPONENTS: Components = {
   blockquote: ({ children }) => <blockquote className="my-5 border-l-2 pl-4 text-muted-foreground">{children}</blockquote>,
   table: ({ children }) => (
     <div className="my-6 overflow-x-auto rounded-md border">
-      <table className="w-full border-collapse text-left text-[15px] tabular-nums">{children}</table>
+      <table className="w-full border-collapse text-left text-ui tabular-nums">{children}</table>
     </div>
   ),
   // Static table styled like a sortable data grid (no sorting behaviour; the glyph is decorative).
-  thead: ({ children }) => <thead className="bg-muted/60 text-[13px] uppercase tracking-wide text-muted-foreground">{children}</thead>,
+  thead: ({ children }) => <thead className="bg-muted/60 text-label uppercase tracking-wide text-muted-foreground">{children}</thead>,
   th: ({ children }) => (
     <th scope="col" className="whitespace-nowrap border-b px-3 py-2 font-medium">
       <span className="inline-flex items-center gap-1">
@@ -158,7 +158,7 @@ export function MarkdownArticle({ markdown, ctx, cited, renderNote }: RenderInpu
   };
 
   return (
-    <div className="text-[17px] leading-[1.65] text-foreground">
+    <div className="text-body text-foreground">
       <Markdown
         remarkPlugins={[remarkGfm, ...(ctx ? [[remarkArticle, { ctx }] as [typeof remarkArticle, { ctx: ArticleContext }]] : [])]}
         rehypePlugins={[[rehypeSanitize, schema], rehypeSlug]}

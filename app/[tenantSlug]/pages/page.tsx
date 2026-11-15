@@ -54,13 +54,13 @@ export default async function TenantPages({
     <WikiChrome tenant={snapshot.tenant} categories={snapshot.categories}>
       <section className="space-y-6">
         <div className="space-y-3">
-          <p className="text-sm font-medium uppercase tracking-normal text-muted-foreground">
+          <p className="text-label font-medium uppercase tracking-normal text-muted-foreground">
             Page index
           </p>
-          <h1 className="text-4xl font-semibold leading-tight text-foreground">
+          <h1 className="text-title font-semibold text-foreground">
             All pages
           </h1>
-          <p className="max-w-3xl text-base leading-8 text-muted-foreground">
+          <p className="max-w-3xl text-body text-muted-foreground">
             Browse every published page for this tenant. The search box filters
             the current page index by title, slug, and summary.
           </p>

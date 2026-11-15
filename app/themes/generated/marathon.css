@@ -17,4 +17,26 @@
   --border: oklch(0.89 0.01 250);
   --input: oklch(0.89 0.01 250);
   --ring: oklch(0.55 0.13 160);
+  --link: oklch(0.44 0.13 160);
+
+  @variant dark {
+    --background: oklch(0.16 0.01 250);
+    --foreground: oklch(0.95 0.005 250);
+    --card: oklch(0.2 0.01 250);
+    --card-foreground: oklch(0.95 0.005 250);
+    --popover: oklch(0.2 0.01 250);
+    --popover-foreground: oklch(0.95 0.005 250);
+    --primary: oklch(0.78 0.13 160);
+    --primary-foreground: oklch(0.18 0.039 160);
+    --secondary: oklch(0.25 0.01 250);
+    --secondary-foreground: oklch(0.95 0.005 250);
+    --muted: oklch(0.25 0.01 250);
+    --muted-foreground: oklch(0.79 0.01 250);
+    --accent: oklch(0.3 0.04 183);
+    --accent-foreground: oklch(0.95 0.04 183);
+    --border: oklch(0.32 0.01 250);
+    --input: oklch(0.32 0.01 250);
+    --ring: oklch(0.72 0.13 160);
+    --link: oklch(0.78 0.13 160);
+  }
 }

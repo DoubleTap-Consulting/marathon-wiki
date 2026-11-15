@@ -134,7 +134,7 @@ function TrustPopover({
               <SheetTitle>{title}</SheetTitle>
               <SheetDescription className="sr-only">{label}</SheetDescription>
             </SheetHeader>
-            <div className="text-sm leading-6">{children}</div>
+            <div className="text-ui">{children}</div>
           </SheetContent>
         </Sheet>
       </>
@@ -164,7 +164,7 @@ function TrustPopover({
         })}
       </PopoverTrigger>
       <PopoverContent
-        className="w-80 text-sm leading-6"
+        className="w-80 text-small"
         onOpenAutoFocus={(event) => {
           if (!openedByClick.current) event.preventDefault();
         }}
@@ -211,7 +211,7 @@ export function CitationMarker({ source }: { source: CitedSource }) {
   const heading = (
     <>
       {source.url ? (
-        <a href={source.url} target="_blank" rel="noreferrer" className="text-primary underline decoration-primary/40 underline-offset-4 hover:decoration-primary">
+        <a href={source.url} target="_blank" rel="noreferrer" className="text-link underline decoration-link/40 underline-offset-4 hover:decoration-link">
           {source.title}
         </a>
       ) : (
@@ -228,7 +228,7 @@ export function CitationMarker({ source }: { source: CitedSource }) {
         <button
           type="button"
           aria-label={`Source ${source.number}: ${source.title}`}
-          className="relative inline-flex min-h-6 min-w-6 items-center justify-center px-0.5 align-super text-xs leading-none font-medium tabular-nums text-primary outline-none after:absolute after:-inset-2.5 after:content-[''] hover:underline focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring"
+          className="relative inline-flex min-h-6 min-w-6 items-center justify-center px-0.5 align-super text-label leading-none font-medium tabular-nums text-link outline-none after:absolute after:-inset-2.5 after:content-[''] hover:underline focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring"
           {...handlers}
         >
           [{source.number}]
@@ -301,7 +301,7 @@ export function ClaimMark({
           <button
             type="button"
             aria-describedby={descriptionId}
-            className="inline-flex min-h-6 items-center rounded-sm px-1 align-baseline text-xs font-medium uppercase tracking-wide text-foreground underline decoration-claim-conflict underline-offset-4 outline-none focus-visible:ring-2 focus-visible:ring-ring pointer-coarse:min-h-11"
+            className="inline-flex min-h-6 items-center rounded-sm px-1 align-baseline text-label font-medium uppercase tracking-wide text-foreground underline decoration-claim-conflict underline-offset-4 outline-none focus-visible:ring-2 focus-visible:ring-ring pointer-coarse:min-h-11"
             {...handlers}
           >
             Sources disagree
@@ -318,7 +318,7 @@ export function ClaimMark({
             {sources.map((source) => (
               <li key={source.title}>
                 {source.url ? (
-                  <a href={source.url} target="_blank" rel="noreferrer" className="text-primary underline decoration-primary/40 underline-offset-4 hover:decoration-primary">
+                  <a href={source.url} target="_blank" rel="noreferrer" className="text-link underline decoration-link/40 underline-offset-4 hover:decoration-link">
                     {source.title}
                   </a>
                 ) : (
@@ -337,10 +337,12 @@ export function ProvenanceTrigger({
   label,
   lines,
   footnote,
+  className,
 }: {
   label: string;
   lines: string[];
   footnote: string | null;
+  className: string;
 }) {
   return (
     <TrustPopover
@@ -349,7 +351,7 @@ export function ProvenanceTrigger({
       trigger={(handlers) => (
         <button
           type="button"
-          className="text-foreground underline-offset-4 outline-none hover:underline focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring"
+          className={className}
           {...handlers}
         >
           {label}
@@ -359,7 +361,7 @@ export function ProvenanceTrigger({
       {lines.map((line) => (
         <p key={line}>{line}</p>
       ))}
-      {footnote ? <p className="mt-2 text-xs text-muted-foreground">{footnote}</p> : null}
+      {footnote ? <p className="mt-2 text-label text-muted-foreground">{footnote}</p> : null}
     </TrustPopover>
   );
 }

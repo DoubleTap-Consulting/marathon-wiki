@@ -57,13 +57,13 @@ export default async function TenantHome({ params }: TenantHomeProps) {
       <section className="grid gap-8 lg:grid-cols-[1fr_18rem] lg:items-start">
         <div className="space-y-8">
           <div className="space-y-3">
-            <p className="text-sm font-medium uppercase tracking-normal text-muted-foreground">
+            <p className="text-label font-medium uppercase tracking-normal text-muted-foreground">
               Public wiki
             </p>
-            <h1 className="max-w-3xl text-4xl font-semibold leading-tight text-foreground sm:text-5xl">
+            <h1 className="max-w-3xl text-display font-semibold text-foreground">
               {snapshot.tenant.gameTitle}
             </h1>
-            <p className="max-w-3xl text-base leading-8 text-muted-foreground sm:text-lg">
+            <p className="max-w-3xl text-body text-muted-foreground">
               Source-backed pages on {snapshot.tenant.gameTitle}&apos;s weapons, maps,
               factions and systems, kept current by AI and checked by readers.
             </p>
@@ -73,13 +73,13 @@ export default async function TenantHome({ params }: TenantHomeProps) {
             <div className="flex items-center justify-between gap-4">
               <h2
                 id="featured-pages"
-                className="text-2xl font-semibold leading-8 text-foreground"
+                className="text-h2 font-semibold text-foreground"
               >
                 Published pages
               </h2>
               <a
                 href={`/${snapshot.tenant.slug}/pages`}
-                className="inline-flex min-h-11 items-center rounded-md border bg-card px-3 text-sm font-medium text-card-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                className="inline-flex min-h-11 items-center rounded-md border bg-card px-3 text-ui font-medium text-card-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 View all
               </a>
@@ -95,7 +95,7 @@ export default async function TenantHome({ params }: TenantHomeProps) {
 
         <aside className="space-y-4">
           <section className="rounded-lg border bg-card p-5 text-card-foreground">
-            <h2 className="text-lg font-semibold leading-7">Categories</h2>
+            <h2 className="text-h3 font-semibold">Categories</h2>
             {snapshot.categories.length > 0 ? (
               <div className="mt-4 space-y-3">
                 {snapshot.categories.map((category) => (
@@ -104,10 +104,10 @@ export default async function TenantHome({ params }: TenantHomeProps) {
                     href={`/${snapshot.tenant.slug}/categories/${category.slug}`}
                     className="block min-h-16 rounded-md border bg-background p-3 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
                   >
-                    <span className="block text-sm font-medium text-foreground">
+                    <span className="block text-ui font-medium text-foreground">
                       {category.name}
                     </span>
-                    <span className="mt-1 block text-sm leading-5 text-muted-foreground">
+                    <span className="mt-1 block text-small text-muted-foreground">
                       {category.pageCount} published{" "}
                       {category.pageCount === 1 ? "page" : "pages"}
                     </span>
@@ -115,7 +115,7 @@ export default async function TenantHome({ params }: TenantHomeProps) {
                 ))}
               </div>
             ) : (
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">
+              <p className="mt-3 text-small text-muted-foreground">
                 Categories will appear here once seeded for this tenant.
               </p>
             )}

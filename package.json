@@ -16,7 +16,8 @@
     "db:seed": "prisma db execute --file prisma/seeds/marathon.sql",
     "vercel-build": "node scripts/vercel-build.mjs",
     "vercel:build": "pnpm vercel-build",
-    "db:seed:sample": "node scripts/seed-preview.ts"
+    "db:seed:sample": "node scripts/seed-preview.ts",
+    "e2e:targets": "node scripts/e2e/target-size.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.5.11",
@@ -51,6 +52,7 @@
     "@types/node": "^24.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "playwright-core": "1.65.1",
     "prisma": "^7.8.0",
     "prisma-kysely": "^3.1.1",
     "tailwindcss": "^4.3.2",
