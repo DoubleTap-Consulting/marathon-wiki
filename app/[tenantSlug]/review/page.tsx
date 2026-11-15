@@ -18,10 +18,10 @@ import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
 import { ClerkSignInControl, ClerkUserControl } from "../_components/auth-controls";
 import { MarkdownArticle } from "../_components/markdown";
 import { EmptyState, WikiChrome } from "../_components/wiki-chrome";
-import { AiCanonicalForm } from "./_components/ai-canonical-form";
+import { AiRewriteForm } from "./_components/ai-rewrite-form";
 import { AiDraftForm } from "./_components/ai-draft-form";
 import {
-  generateAiCanonicalPageAction,
+  queueAiRewriteAction,
   generateAiWikiSuggestionAction,
 } from "./ai-actions";
 import {
@@ -106,8 +106,8 @@ export default async function ReviewPage({ params }: ReviewPageProps) {
           </section>
         ) : (
           <div className="space-y-6">
-            <AiCanonicalForm
-              action={generateAiCanonicalPageAction.bind(
+            <AiRewriteForm
+              action={queueAiRewriteAction.bind(
                 null,
                 snapshot.tenant.slug,
               )}

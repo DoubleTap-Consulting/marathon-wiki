@@ -6,8 +6,8 @@ try {
   // CI can provide DATABASE_URL directly.
 }
 
-import { AI_GATEWAY_CANONICAL_PROMPT_VERSION } from "./gateway";
 import { upsertRenderedSnapshots } from "@/src/content/editor-store";
+import { CONTENT_PROMPT_VERSION } from "@/src/content/pipeline";
 import { createScriptedCall } from "@/src/content/scripted-call";
 import {
   AI_REFRESH_QUEUE_STATUS,
@@ -449,7 +449,7 @@ function buildAiProvenance(
   return {
     provider: "vercel-ai-gateway",
     modelId: "openai/gpt-5-nano",
-    promptVersion: AI_GATEWAY_CANONICAL_PROMPT_VERSION,
+    promptVersion: CONTENT_PROMPT_VERSION,
     generatedAt: new Date("2026-06-20T12:00:00.000Z").toISOString(),
     responseId: null,
     sourceContextSummary: "Seeded test provenance.",
