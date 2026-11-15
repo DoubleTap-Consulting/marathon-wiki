@@ -8,7 +8,8 @@
  *
  * Safe on a Neon preview branch, which starts as a full copy of production data:
  *   - the tenant and pages are looked up by slug (a missing page is created with a
- *     `sample_` id; a missing tenant is an error);
+ *     `sample_` id; if the tenant is missing, the starter seed prisma/seeds/marathon.sql
+ *     is applied first);
  *   - every row this script inserts has an id starting with `sample_` and carries
  *     sample=true in its metadata/provenance; re-runs delete and recreate only those;
  *   - sample revision numbers continue after the page's highest non-sample revision;
@@ -24,6 +25,8 @@
  *
  * Usage: ALLOW_SAMPLE_SEED=1 DATABASE_URL_UNPOOLED=... node scripts/seed-preview.ts
  */
+import { readFileSync } from "node:fs";
+
 import { Pool, type PoolClient } from "@neondatabase/serverless";
 
 import { checkNonProductionTarget, previewTargetUrl } from "./db-guard.mjs";
@@ -383,8 +386,16 @@ const client = await pool.connect();
 try {
   await client.query("begin");
 
-  const tenant = await client.query("select id from tenants where slug = $1", [TENANT_SLUG]);
-  if (tenant.rows.length === 0) throw new Error(`Tenant '${TENANT_SLUG}' not found. Run the starter seed (pnpm db:seed) first.`);
+  let tenant = await client.query("select id from tenants where slug = $1", [TENANT_SLUG]);
+  if (tenant.rows.length === 0) {
+    // A branch of a production database with no wiki content yet: apply the repo's
+    // starter seed (idempotent upserts) first. Only runs when the tenant is absent,
+    // so existing pages are never reset.
+    console.log(`seed-preview: tenant '${TENANT_SLUG}' not found; applying the starter seed first.`);
+    await client.query(readFileSync(new URL("../prisma/seeds/marathon.sql", import.meta.url), "utf8"));
+    tenant = await client.query("select id from tenants where slug = $1", [TENANT_SLUG]);
+    if (tenant.rows.length === 0) throw new Error(`Tenant '${TENANT_SLUG}' is still missing after the starter seed.`);
+  }
   const tenantId: string = tenant.rows[0].id;
 
   // Re-runs: remove only rows this script created.
