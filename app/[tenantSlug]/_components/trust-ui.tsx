@@ -337,10 +337,12 @@ export function ProvenanceTrigger({
   label,
   lines,
   footnote,
+  className,
 }: {
   label: string;
   lines: string[];
   footnote: string | null;
+  className: string;
 }) {
   return (
     <TrustPopover
@@ -349,7 +351,7 @@ export function ProvenanceTrigger({
       trigger={(handlers) => (
         <button
           type="button"
-          className="text-foreground underline-offset-4 outline-none hover:underline focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring"
+          className={className}
           {...handlers}
         >
           {label}
