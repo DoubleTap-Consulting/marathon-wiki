@@ -3,10 +3,10 @@
 import { CircleHelp, Sparkles, TriangleAlert, type LucideIcon } from "lucide-react";
 import { useCallback, useId, useRef, useState, useSyncExternalStore } from "react";
 
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
+import { PopoverPanel, SheetPanel, popoverTriggerProps, usePopoverContentId, usePreloadArticleOverlays } from "./lazy-ui";
+import type { Placement } from "./popover-panel";
 import { SiteDate } from "./site-date";
 import { authorityLabel, sourceTypeLabel, type ArticleSource } from "@/src/wiki/article";
 
@@ -25,9 +25,17 @@ export function useIsTouch() {
   );
 }
 
+type TriggerProps = {
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+  onFocus: () => void;
+  onClick: (event: React.SyntheticEvent) => void;
+} & Partial<ReturnType<typeof popoverTriggerProps>> & { ref?: (node: HTMLElement | null) => void };
+
 /**
  * Popover on hover/focus for mouse and keyboard; a bottom Sheet on touch.
- * Radix handles Esc and returns focus to the trigger.
+ * Radix handles Esc and returns focus to the trigger. The Radix code loads lazily (lazy-ui); until then the
+ * trigger already carries the attributes Radix's PopoverTrigger gives it.
  */
 function TrustPopover({
   trigger,
@@ -35,21 +43,25 @@ function TrustPopover({
   children,
   label,
 }: {
-  trigger: (props: {
-    onMouseEnter: () => void;
-    onMouseLeave: () => void;
-    onFocus: () => void;
-    onClick: (event: React.SyntheticEvent) => void;
-  }) => React.ReactNode;
+  trigger: (props: TriggerProps) => React.ReactNode;
   title: React.ReactNode;
   children: React.ReactNode;
   label: string;
 }) {
   const isTouch = useIsTouch();
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  if (open && !mounted) setMounted(true);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const openedByClick = useRef(false);
   const returningFocus = useRef(false);
+  const triggerRef = useRef<HTMLElement | null>(null);
+  const setTrigger = useCallback((node: HTMLElement | null) => {
+    triggerRef.current = node;
+  }, []);
+  const contentId = usePopoverContentId();
+  const [placement, setPlacement] = useState<Placement>(null);
+  usePreloadArticleOverlays();
 
   const hoverOpen = useCallback(() => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -64,60 +76,70 @@ function TrustPopover({
     return (
       <>
         {trigger({ onMouseEnter: () => {}, onMouseLeave: () => {}, onFocus: () => {}, onClick: () => setOpen(true) })}
-        <Sheet open={open} onOpenChange={setOpen}>
-          <SheetContent side="bottom" className="max-h-[80vh] overflow-y-auto px-5 pb-8">
-            <SheetHeader className="px-0">
-              <SheetTitle>{title}</SheetTitle>
-              <SheetDescription className="sr-only">{label}</SheetDescription>
-            </SheetHeader>
+        {mounted ? (
+          <SheetPanel
+            open={open}
+            onOpenChange={setOpen}
+            side="bottom"
+            className="max-h-[80vh] overflow-y-auto px-5 pb-8"
+            title={title}
+            titleClassName=""
+            description={label}
+          >
             <div className="text-ui">{children}</div>
-          </SheetContent>
-        </Sheet>
+          </SheetPanel>
+        ) : null}
       </>
     );
   }
 
   return (
-    <Popover
-      open={open}
-      onOpenChange={(next) => {
-        if (!next) openedByClick.current = false;
-        setOpen(next);
-      }}
-    >
-      <PopoverTrigger asChild>
-        {trigger({
-          onMouseEnter: hoverOpen,
-          onMouseLeave: hoverClose,
-          onFocus: () => {
-            if (!returningFocus.current) hoverOpen();
-          },
-          onClick: (event) => {
-            event.preventDefault();
-            openedByClick.current = true;
-            setOpen(true);
-          },
-        })}
-      </PopoverTrigger>
-      <PopoverContent
-        className="w-80 text-small"
-        onOpenAutoFocus={(event) => {
-          if (!openedByClick.current) event.preventDefault();
-        }}
-        onCloseAutoFocus={() => {
-          returningFocus.current = true;
-          setTimeout(() => {
-            returningFocus.current = false;
-          });
-        }}
-        onMouseEnter={hoverOpen}
-        onMouseLeave={hoverClose}
-        aria-label={label}
-      >
-        <p className="font-medium text-foreground">{title}</p>
-        <div className="mt-1">{children}</div>
-      </PopoverContent>
-    </Popover>
+    <>
+      {trigger({
+        ref: setTrigger,
+        ...popoverTriggerProps(open, contentId, placement),
+        onMouseEnter: hoverOpen,
+        onMouseLeave: hoverClose,
+        onFocus: () => {
+          if (!returningFocus.current) hoverOpen();
+        },
+        onClick: (event) => {
+          event.preventDefault();
+          openedByClick.current = true;
+          setOpen(true);
+        },
+      })}
+      {mounted ? (
+        <PopoverPanel
+          open={open}
+          onOpenChange={(next) => {
+            if (!next) openedByClick.current = false;
+            setOpen(next);
+          }}
+          triggerRef={triggerRef}
+          contentId={contentId}
+          onPlacement={setPlacement}
+          contentProps={{
+            className: "w-80 text-small",
+            onOpenAutoFocus: (event) => {
+              if (!openedByClick.current) event.preventDefault();
+            },
+            onCloseAutoFocus: () => {
+              returningFocus.current = true;
+              setTimeout(() => {
+                returningFocus.current = false;
+              });
+            },
+            onMouseEnter: hoverOpen,
+            onMouseLeave: hoverClose,
+            "aria-label": label,
+          }}
+        >
+          <p className="font-medium text-foreground">{title}</p>
+          <div className="mt-1">{children}</div>
+        </PopoverPanel>
+      ) : null}
+    </>
   );
 }
 

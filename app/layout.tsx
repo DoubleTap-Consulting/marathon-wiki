@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 
 import { applyScheme } from "@/app/_components/scheme";
@@ -12,9 +11,18 @@ import { themeFor } from "@/themes/registry";
 
 import "./globals.css";
 
-const geistSans = Geist({
+// Geist and Geist Mono: Google Fonts' latin files (as next/font/google served them) with the light half of
+// the weight axis (100–399) dropped by fontTools' varLib.instancer; the site renders 400 and up only
+// (sans 400–700, mono 400–500). Dropping the light master leaves every outline at 400–900 bit-for-bit the
+// same (cutting the heavy side too would rescale its deltas and move pixels); 29 KB → 22 KB, 23 KB → 17 KB.
+// OFL: app/_fonts/GEIST-OFL.txt, app/_fonts/GEIST-MONO-OFL.txt.
+const geistSans = localFont({
+  src: "./_fonts/geist-wght400-900-latin.woff2",
   variable: "--font-geist-sans",
-  subsets: ["latin"],
+  weight: "400 900",
+  style: "normal",
+  display: "swap",
+  adjustFontFallback: "Arial",
 });
 
 // The Marathon manifest's display face (themes/marathon/theme.ts: Archivo, wdth 125, weights 700 and 800).
@@ -31,9 +39,13 @@ const displayFace = localFont({
   adjustFontFallback: "Arial",
 });
 
-const geistMono = Geist_Mono({
+const geistMono = localFont({
+  src: "./_fonts/geist-mono-wght400-900-latin.woff2",
   variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: "400 900",
+  style: "normal",
+  display: "swap",
+  adjustFontFallback: "Arial",
 });
 
 const THEME = "marathon";
