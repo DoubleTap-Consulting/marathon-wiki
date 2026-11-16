@@ -125,7 +125,7 @@ for (const { name } of triggers) {
   check(await page.getByRole("dialog", { name: "Add a note" }).isVisible(), "Add a note sheet opens from More actions");
   // Submitting writes a pending note, so only against a preview or local database, never production.
   if (process.env.E2E_SUBMIT_NOTE === "1" && !baseUrl.includes("marathon-wiki.vercel.app")) {
-    await page.getByLabel("Community note").fill("E2E check of the review toast; safe to reject.");
+    await page.getByRole("textbox", { name: "Community note", exact: true }).fill("E2E check of the review toast; safe to reject.");
     await page.getByRole("button", { name: "Send note" }).click();
     const toast = page.locator("[data-sonner-toast]", { hasText: "Note sent for review" });
     await toast.waitFor({ timeout: 15000 }).catch(() => {});

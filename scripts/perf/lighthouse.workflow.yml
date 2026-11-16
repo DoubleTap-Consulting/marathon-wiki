@@ -1,0 +1,38 @@
+# Simulated Lighthouse mobile LCP budget (median of 3 runs <= 2.5 s) on every successful Vercel preview.
+#
+# Vercel previews are behind Deployment Protection. This workflow uses Vercel's "Protection Bypass for
+# Automation": enable it in the Vercel project (Settings > Deployment Protection) and store its value as
+# the repository secret VERCEL_AUTOMATION_BYPASS_SECRET. Without that secret the job fails and says so.
+name: Lighthouse LCP
+
+on:
+  deployment_status:
+
+permissions:
+  contents: read
+
+jobs:
+  lcp:
+    if: github.event.deployment_status.state == 'success' && github.event.deployment.environment == 'Preview'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.deployment.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Check bypass secret
+        env:
+          LCP_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+        run: |
+          if [ -z "$LCP_BYPASS_SECRET" ]; then
+            echo "::error::Repository secret VERCEL_AUTOMATION_BYPASS_SECRET is not set (Vercel Protection Bypass for Automation)."
+            exit 1
+          fi
+      - name: Lighthouse x3 per page
+        env:
+          LCP_BASE_URL: ${{ github.event.deployment_status.environment_url || github.event.deployment_status.target_url }}
+          LCP_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+        run: node scripts/perf/lcp-budget.ts | tee -a "$GITHUB_STEP_SUMMARY"
