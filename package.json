@@ -18,7 +18,8 @@
     "vercel:build": "pnpm vercel-build",
     "db:seed:sample": "node scripts/seed-preview.ts",
     "e2e:targets": "node scripts/e2e/target-size.ts",
-    "e2e:stable": "node scripts/e2e/stable-text.ts"
+    "e2e:stable": "node scripts/e2e/stable-text.ts",
+    "e2e:search": "node scripts/e2e/search.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.5.11",

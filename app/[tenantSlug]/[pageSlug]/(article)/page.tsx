@@ -24,6 +24,7 @@ import { summarizeSourceCheck, type SourceCheck } from "@/src/wiki/source-check"
 import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
 
 import { MarkdownArticle, planArticle } from "../../_components/markdown";
+import { RememberVisit } from "../../_components/site-search";
 import {
   ProvenanceTrigger,
   type CitedSource,
@@ -134,6 +135,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         <div className="hidden lg:block">{toc.length > 0 ? <TocNav toc={toc} /> : null}</div>
 
         <article id="article" className="min-w-0 max-w-[68ch]" tabIndex={-1}>
+          <RememberVisit tenantSlug={tenant.slug} page={{ slug: page.slug, title: page.title, category: crumb?.name ?? null }} />
           <p className={META}>
             {crumb ? (
               <Link href={`/${tenant.slug}/categories/${crumb.slug}` as Route} className="hover:text-foreground">

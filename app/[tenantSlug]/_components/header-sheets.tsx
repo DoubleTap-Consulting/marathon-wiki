@@ -1,9 +1,10 @@
 "use client";
 
 import { Menu, Monitor, Moon, Search, Sun } from "lucide-react";
-import { useState, useSyncExternalStore } from "react";
+import { useCallback, useRef, useState, useSyncExternalStore } from "react";
 
 import { canReviewAction } from "../review/actions";
+import { SiteSearch, useSearchShortcut } from "./site-search";
 
 import { applyScheme } from "@/app/_components/scheme";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
@@ -40,21 +41,24 @@ export function SchemeToggle() {
   );
 }
 
-export function SearchSheet({ children }: { children: React.ReactNode }) {
+export function SearchSheet({ tenantSlug }: { tenantSlug: string }) {
   const [open, setOpen] = useState(false);
+  const button = useRef<HTMLButtonElement>(null);
+  const show = useCallback(() => setOpen(true), []);
+  useSearchShortcut(button, show);
 
   return (
     <>
-      <button type="button" aria-label="Search" className={`${ICON_BUTTON} md:hidden`} onClick={() => setOpen(true)}>
+      <button ref={button} type="button" aria-label="Search" className={`${ICON_BUTTON} md:hidden`} onClick={show}>
         <Search className="size-5" aria-hidden="true" />
       </button>
       <Sheet open={open} onOpenChange={setOpen}>
-        <SheetContent side="top" className="px-5 pb-6">
+        <SheetContent side="top" className="h-dvh gap-2 px-5 pb-0">
           <SheetHeader className="px-0">
             <SheetTitle className="label-strong">Search</SheetTitle>
             <SheetDescription className="sr-only">Search wiki pages</SheetDescription>
           </SheetHeader>
-          {children}
+          <SiteSearch tenantSlug={tenantSlug} mode="inline" onNavigate={() => setOpen(false)} />
         </SheetContent>
       </Sheet>
     </>

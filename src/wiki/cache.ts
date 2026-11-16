@@ -6,7 +6,10 @@ import {
   getWikiPageSnapshot,
   listPublishedWikiPagesByTenant,
   listWikiPageRevisions,
+  listWikiSearchSources,
 } from "@/src/db/wiki";
+
+import { buildSearchEntry } from "./search-index";
 
 export const WIKI_REVALIDATE_SECONDS = Number(
   process.env.WIKI_REVALIDATE_SECONDS ?? 300,
@@ -132,6 +135,18 @@ export async function getCachedWikiPageRevisions(
     {
       revalidate: WIKI_REVALIDATE_SECONDS,
       tags: [wikiTenantTag(tenantSlug), wikiPageTag(tenantSlug, pageSlug)],
+    },
+  )();
+}
+
+/** The tenant's search index; a page publish revalidates it through the tenant's pages tag. */
+export async function getCachedWikiSearchIndex(tenantSlug: string, tenantId: string) {
+  return unstable_cache(
+    async () => (await listWikiSearchSources(tenantId)).map(buildSearchEntry),
+    ["wiki-search-index", wikiCacheScope(), tenantSlug],
+    {
+      revalidate: WIKI_REVALIDATE_SECONDS,
+      tags: [wikiTenantTag(tenantSlug), wikiTenantPagesTag(tenantSlug)],
     },
   )();
 }

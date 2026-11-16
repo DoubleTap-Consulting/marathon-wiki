@@ -358,6 +358,40 @@ export async function listPublishedWikiPagesByTenant(
   return pages;
 }
 
+/** Everything the search index needs for each published page: body for headings, first category, tags. */
+export async function listWikiSearchSources(tenantId: string, db: WikiDatabase = getDb()) {
+  const [pages, categories, tags] = await Promise.all([
+    db
+      .selectFrom("wiki_pages")
+      .select(["id", "slug", "title", "summary", "body_markdown as bodyMarkdown"])
+      .where("tenant_id", "=", tenantId)
+      .where("status", "=", "published")
+      .orderBy("title", "asc")
+      .execute(),
+    db
+      .selectFrom("wiki_page_categories as page_category")
+      .innerJoin("wiki_categories as category", (join) =>
+        join.onRef("category.id", "=", "page_category.category_id").onRef("category.tenant_id", "=", "page_category.tenant_id"),
+      )
+      .select(["page_category.page_id as pageId", "category.name as name"])
+      .where("page_category.tenant_id", "=", tenantId)
+      .orderBy("category.sort_order", "asc")
+      .execute(),
+    db
+      .selectFrom("wiki_page_tags as page_tag")
+      .innerJoin("wiki_tags as tag", (join) => join.onRef("tag.id", "=", "page_tag.tag_id").onRef("tag.tenant_id", "=", "page_tag.tenant_id"))
+      .select(["page_tag.page_id as pageId", "tag.name as name"])
+      .where("page_tag.tenant_id", "=", tenantId)
+      .execute(),
+  ]);
+
+  return pages.map(({ id, ...page }) => ({
+    ...page,
+    category: categories.find((category) => category.pageId === id)?.name ?? null,
+    tags: tags.filter((tag) => tag.pageId === id).map((tag) => tag.name),
+  }));
+}
+
 export async function getWikiCategoryBySlug(
   tenantId: string,
   slug: string,

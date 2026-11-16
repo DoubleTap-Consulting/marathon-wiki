@@ -1,4 +1,4 @@
-import { BookOpen, Search } from "lucide-react";
+import { BookOpen } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { networkBrand, type NetworkBrand } from "@/src/wiki/network";
@@ -12,7 +12,7 @@ import type {
 
 import { MenuSheet, SchemeToggle, SearchSheet } from "./header-sheets";
 import { SiteDate } from "./site-date";
-import { Input } from "@/components/ui/input";
+import { SiteSearch } from "./site-search";
 
 export function WikiChrome({
   tenant,
@@ -31,34 +31,6 @@ export function WikiChrome({
   const theme = themeFor(tenant.slug);
   const brand = networkBrand();
   const chrome = chromeProps(theme.slug, theme.chrome);
-  const searchForm = (idSuffix: string) => (
-    <form
-      action={`/${tenant.slug}/pages`}
-      className="flex w-full min-w-0 gap-2"
-      role="search"
-      data-wiki-event="search_submit"
-      data-wiki-event-label="site-header"
-      data-wiki-tenant={tenant.slug}
-    >
-      <label htmlFor={`wiki-search-${idSuffix}`} className="sr-only">
-        Search wiki pages
-      </label>
-      <div className="relative min-w-0 flex-1">
-        <Search
-          className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
-          aria-hidden="true"
-        />
-        <Input
-          id={`wiki-search-${idSuffix}`}
-          name="q"
-          type="search"
-          placeholder="Search pages"
-          className="px-9"
-        />
-      </div>
-    </form>
-  );
-
   return (
     <div className="min-h-screen bg-background">
       <a
@@ -99,9 +71,11 @@ export function WikiChrome({
               <span className="text-ui font-semibold">{tenant.name}</span>
             </a>
           )}
-          <div className="ml-auto hidden w-full max-w-xs md:block">{searchForm("header")}</div>
+          <div className="ml-auto hidden w-full max-w-xs md:block">
+            <SiteSearch tenantSlug={tenant.slug} mode="popover" />
+          </div>
           <div className="ml-auto flex items-center gap-1 md:ml-0">
-            <SearchSheet>{searchForm("sheet")}</SearchSheet>
+            <SearchSheet tenantSlug={tenant.slug} />
             <SchemeToggle />
             <MenuSheet
               primary={
