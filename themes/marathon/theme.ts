@@ -34,4 +34,10 @@ export default {
   shape: { corners: "square" },
   texture: { kind: "dither", regions: ["masthead", "empty-state", "not-found"], opacity: { light: 0.12, dark: 0.18 } },
   motion: { character: "crisp" },
+  imagery: {
+    tiers: ["B", "C"],
+    homeBand: "cosmic-cliffs-mono",
+    hubBands: { lore: "proxima-b-surface", locations: "lhs-3844b-surface" },
+    atmosphere: "mono",
+  },
 } satisfies ThemeManifest;

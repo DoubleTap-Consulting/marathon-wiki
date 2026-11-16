@@ -1,0 +1,190 @@
+{
+  "version": 1,
+  "images": [
+    {
+      "id": "cosmic-cliffs-mono",
+      "tier": "C",
+      "file": "public/img/marathon/weic2205a-mono.jpg",
+      "width": 2560,
+      "height": 853,
+      "sha256": "d2e64b6299473bea2a4b603ff1a971888f17dc5417bc5108c45cc4ef26fc86ad",
+      "sourceUrl": "https://esawebb.org/images/weic2205a/",
+      "fileUrl": "https://cdn.esawebb.org/archives/images/large/weic2205a.jpg",
+      "license": "CC-BY-4.0",
+      "licenseUrl": "https://esawebb.org/copyright/",
+      "licenseSnapshot": "content/marathon/licenses/esawebb-copyright-2026-11-15.txt",
+      "author": "NASA, ESA, CSA, and STScI",
+      "credit": "NASA, ESA, CSA, and STScI",
+      "title": "NIRCam Image of the “Cosmic Cliffs” in Carina",
+      "modifications": "Cropped to 3:1; resized; greyscaled",
+      "retrievedAt": "2026-11-15",
+      "depicts": "atmosphere",
+      "illustrative": true,
+      "caption": "",
+      "alt": "",
+      "captionAuthor": "pending-human",
+      "focal": {
+        "x": 0.5,
+        "y": 0.45
+      },
+      "approvedBy": "pending",
+      "approvedAt": null,
+      "usedOn": [
+        {
+          "page": "home",
+          "slot": "home-band"
+        }
+      ],
+      "attributionText": "NIRCam Image of the “Cosmic Cliffs” in Carina · NASA, ESA, CSA, and STScI · CC BY 4.0 · Cropped to 3:1; resized; greyscaled"
+    },
+    {
+      "id": "proxima-b-surface",
+      "tier": "C",
+      "file": "public/img/marathon/eso1629a.jpg",
+      "width": 2560,
+      "height": 640,
+      "sha256": "001c4c64c44708532cb21bba3b6ba96adfffb97b1956a2b4064cc66251118a04",
+      "sourceUrl": "https://www.eso.org/public/images/eso1629a/",
+      "fileUrl": "https://cdn.eso.org/images/large/eso1629a.jpg",
+      "license": "CC-BY-4.0",
+      "licenseUrl": "https://www.eso.org/public/outreach/copyright/",
+      "licenseSnapshot": "content/marathon/licenses/eso-copyright-2026-11-15.txt",
+      "author": "ESO/M. Kornmesser",
+      "credit": "ESO/M. Kornmesser",
+      "title": "Artist's impression of the planet orbiting Proxima Centauri",
+      "modifications": "Cropped to 4:1; resized",
+      "retrievedAt": "2026-11-15",
+      "depicts": "real-world",
+      "illustrative": true,
+      "caption": "Artist's impression of the real exoplanet Proxima b. Not Tau Ceti IV and not from the game.",
+      "alt": "",
+      "captionAuthor": "pending-human",
+      "focal": {
+        "x": 0.3,
+        "y": 0.5
+      },
+      "approvedBy": "pending",
+      "approvedAt": null,
+      "usedOn": [
+        {
+          "page": "categories/lore",
+          "slot": "hub-band"
+        }
+      ],
+      "attributionText": "Artist's impression of the planet orbiting Proxima Centauri · ESO/M. Kornmesser · CC BY 4.0 · Cropped to 4:1; resized"
+    },
+    {
+      "id": "lhs-3844b-surface",
+      "tier": "C",
+      "file": "public/img/marathon/pia23130.jpg",
+      "width": 2560,
+      "height": 640,
+      "sha256": "436e81bc7e7c1e56f82e6745f85c1390609a9925eda9ed6bd846511b5d501546",
+      "sourceUrl": "https://photojournal.jpl.nasa.gov/catalog/PIA23130",
+      "fileUrl": "https://assets.science.nasa.gov/content/dam/science/psd/photojournal/pia/pia23/pia23130/PIA23130.jpg",
+      "license": "PD-US-GOV",
+      "licenseUrl": "https://www.jpl.nasa.gov/jpl-image-use-policy/",
+      "licenseSnapshot": "content/marathon/licenses/jpl-image-use-policy-2026-11-15.txt",
+      "author": "NASA/JPL-Caltech/R. Hurt (IPAC)",
+      "credit": "NASA/JPL-Caltech/R. Hurt (IPAC)",
+      "title": "Rare Glimpse of the Surface of a Rocky World (Illustration)",
+      "modifications": "Cropped to 4:1; resized",
+      "retrievedAt": "2026-11-15",
+      "depicts": "real-world",
+      "illustrative": true,
+      "caption": "Artist's illustration of the real exoplanet LHS 3844b. Not a Marathon zone.",
+      "alt": "",
+      "captionAuthor": "pending-human",
+      "focal": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "approvedBy": "pending",
+      "approvedAt": null,
+      "usedOn": [
+        {
+          "page": "categories/locations",
+          "slot": "hub-band"
+        }
+      ],
+      "attributionText": "Rare Glimpse of the Surface of a Rocky World (Illustration) · NASA/JPL-Caltech/R. Hurt (IPAC) · Public domain (US Gov.) · Cropped to 4:1; resized"
+    },
+    {
+      "id": "ranked-run-flow",
+      "tier": "B",
+      "file": null,
+      "generator": {
+        "kind": "ranked-run-flow",
+        "page": "ranked",
+        "claimIds": [
+          "claim_ranked_9",
+          "claim_ranked_11",
+          "claim_ranked_13"
+        ]
+      },
+      "width": 720,
+      "height": 200,
+      "sourceUrl": "https://marathon-wiki.vercel.app/marathon/ranked",
+      "license": "Own",
+      "licenseUrl": "https://marathon-wiki.vercel.app/marathon/credits",
+      "author": "Marathon Wiki",
+      "credit": "Marathon Wiki",
+      "title": "How a ranked run is scored",
+      "modifications": null,
+      "retrievedAt": "2026-11-15",
+      "depicts": "game-data",
+      "illustrative": false,
+      "caption": "How a ranked run is scored.",
+      "alt": "Ranked flow: exfil at or above the Holotag score target earns RP; below it, no change; no exfil costs the penalty",
+      "captionAuthor": "pending-human",
+      "approvedBy": "pending",
+      "approvedAt": null,
+      "usedOn": [
+        {
+          "page": "ranked",
+          "slot": "plate"
+        }
+      ],
+      "attributionText": "Diagram by Marathon Wiki from the sources cited on this page"
+    },
+    {
+      "id": "rarity-named-tiers",
+      "tier": "B",
+      "file": null,
+      "generator": {
+        "kind": "rarity-named-tiers",
+        "page": "rarity-tiers",
+        "claimIds": [
+          "claim_rarity-tiers_3",
+          "claim_rarity-tiers_4",
+          "claim_rarity-tiers_5",
+          "claim_rarity-tiers_8"
+        ]
+      },
+      "width": 720,
+      "height": 220,
+      "sourceUrl": "https://marathon-wiki.vercel.app/marathon/rarity-tiers",
+      "license": "Own",
+      "licenseUrl": "https://marathon-wiki.vercel.app/marathon/credits",
+      "author": "Marathon Wiki",
+      "credit": "Marathon Wiki",
+      "title": "Named rarity tiers",
+      "modifications": null,
+      "retrievedAt": "2026-11-15",
+      "depicts": "game-data",
+      "illustrative": false,
+      "caption": "Rarity tiers named in Bungie's posts, with colours only where a source names them.",
+      "alt": "Four named rarity tiers: Standard, Enhanced (green), Deluxe (blue), Superior; Superior ranks above Deluxe",
+      "captionAuthor": "pending-human",
+      "approvedBy": "pending",
+      "approvedAt": null,
+      "usedOn": [
+        {
+          "page": "rarity-tiers",
+          "slot": "plate"
+        }
+      ],
+      "attributionText": "Diagram by Marathon Wiki from the sources cited on this page"
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import { FigureBand } from "@/components/figure";
+import { homeBandFor } from "@/src/wiki/imagery";
 import { getCachedWikiHome } from "@/src/wiki/cache";
 import { buildWikiMetadata } from "@/src/wiki/metadata";
 import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
@@ -56,6 +58,7 @@ export default async function TenantHome({ params }: TenantHomeProps) {
   }
 
   const theme = themeFor(snapshot.tenant.slug);
+  const homeBand = homeBandFor(snapshot.tenant.slug);
   const { tenant, categories, pages, recentChanges, sourcesCheckedAt } = snapshot;
   const meta = [
     theme.identity.kicker,
@@ -83,7 +86,11 @@ export default async function TenantHome({ params }: TenantHomeProps) {
               `Source-backed pages on ${tenant.gameTitle}'s weapons, maps, factions and systems, kept current by AI and checked by readers.`}
           </p>
         </div>
-        <DitherBand themeSlug={theme.slug} region="masthead" className="mt-6" />
+        {homeBand ? (
+          <FigureBand image={homeBand} slot="home-band" className="mt-6" />
+        ) : (
+          <DitherBand themeSlug={theme.slug} region="masthead" className="mt-6" />
+        )}
       </section>
 
       {pages.length === 0 ? (

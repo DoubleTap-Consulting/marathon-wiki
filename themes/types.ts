@@ -49,6 +49,16 @@ export const themeManifest = z.strictObject({
     })
     .optional(),
   motion: z.object({ character: z.enum(["crisp", "silk"]) }),
+  /** Which images fill the chrome slots and which image tiers the game allows (content/<slug>/images.json holds the files). */
+  imagery: z
+    .object({
+      tiers: z.array(z.enum(["A", "B", "C", "D"])),
+      homeBand: z.string().nullable(),
+      hubBands: z.record(z.string(), z.string()),
+      atmosphere: z.enum(["mono", "color"]),
+      fairUse: z.object({ approvedRef: z.string() }).optional(),
+    })
+    .optional(),
   glyphs: z.record(z.string(), svgPath).optional(),
 });
 

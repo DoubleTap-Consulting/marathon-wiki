@@ -1,3 +1,5 @@
+import { FigureBand } from "@/components/figure";
+import { hubBandFor } from "@/src/wiki/imagery";
 import type { Metadata } from "next";
 
 import { getCachedWikiCategory } from "@/src/wiki/cache";
@@ -64,6 +66,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   const { tenant, category, pages, sourcesCheckedAt } = snapshot;
   const theme = themeFor(tenant.slug);
+  const hubBand = hubBandFor(tenant.slug, category.slug);
 
   return (
     <WikiChrome tenant={tenant} categories={snapshot.categories}>
@@ -84,6 +87,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           {category.name}
         </h1>
         {category.description ? <p className="mt-3 max-w-[68ch] text-body text-muted-foreground">{category.description}</p> : null}
+
+        {hubBand ? <FigureBand image={hubBand} slot="hub-band" className="mt-6" /> : null}
 
         <div className="mt-6">
           {pages.length > 0 ? (

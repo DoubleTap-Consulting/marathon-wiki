@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/theme/build.ts",
+    "prebuild": "node scripts/theme/build.ts && node scripts/images/check.ts",
     "build": "prisma generate && next build",
     "start": "next start",
     "test": "vitest run",

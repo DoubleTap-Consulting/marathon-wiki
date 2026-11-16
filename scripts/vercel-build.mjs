@@ -1,5 +1,6 @@
 // Vercel build entry.
-//   - every environment: the theme checks run first (scripts/theme/build.ts); a failing theme fails the build.
+//   - every environment: the theme checks run first (scripts/theme/build.ts), then the image license gate
+//     (scripts/images/check.ts); a failing theme or image fails the build.
 //   - production: prisma migrate deploy, then next build (unchanged behaviour).
 //   - preview: the database must be proven non-production first (see scripts/db-guard.mjs).
 //     With Neon branch-per-preview, Neon injects the branch's connection vars at deploy time.
@@ -21,6 +22,7 @@ function failBuild(message) {
 }
 
 run("node scripts/theme/build.ts");
+run("node scripts/images/check.ts");
 
 const vercelEnv = process.env.VERCEL_ENV;
 
