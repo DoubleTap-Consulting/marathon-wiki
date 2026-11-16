@@ -227,3 +227,6 @@ export const primaryAction =
 export const secondaryAction =
   "inline-flex h-9 items-center border border-input bg-card px-4 text-ui font-medium text-foreground hover:bg-muted pointer-coarse:h-11";
 export const textAction = "inline-flex min-h-6 items-center text-ui text-link underline underline-offset-4 pointer-coarse:min-h-11";
+
+/** Marks a page's h1 for the Element Timing API, so e2e can check it paints in the first frame (scripts/e2e/first-paint.ts). */
+export const PAGE_TITLE_TIMING = { elementtiming: "page-title" } as Record<string, string>;

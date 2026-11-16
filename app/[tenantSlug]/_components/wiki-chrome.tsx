@@ -136,6 +136,7 @@ export function SiteFooter({
     { href: `/${tenant.slug}/pages`, label: "All pages" },
     ...categories.map((category) => ({ href: `/${tenant.slug}/categories/${category.slug}`, label: category.name })),
     { href: `/${tenant.slug}/review`, label: "Review" },
+    ...(theme.imagery ? [{ href: `/${tenant.slug}/credits`, label: "Image credits" }] : []),
   ];
 
   return (

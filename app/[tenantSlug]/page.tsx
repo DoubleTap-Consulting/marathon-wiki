@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import { FigureBand } from "@/components/figure";
+import { homeBandFor } from "@/src/wiki/imagery";
 import { getCachedWikiHome } from "@/src/wiki/cache";
 import { buildWikiMetadata } from "@/src/wiki/metadata";
 import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
@@ -7,7 +9,7 @@ import { themeFor } from "@/themes/registry";
 
 import { MissingWikiPage } from "./_components/missing-page";
 import { WikiAdSlot, WikiPremiumHook } from "./_components/monetization";
-import { CategoryGlyph, CropMarks, DitherBand, EmptyState, IndexTable, revisionCode } from "./_components/index-ui";
+import { PAGE_TITLE_TIMING, CategoryGlyph, CropMarks, DitherBand, EmptyState, IndexTable, revisionCode } from "./_components/index-ui";
 import { SiteDate } from "./_components/site-date";
 import { WikiChrome } from "./_components/wiki-chrome";
 
@@ -56,6 +58,7 @@ export default async function TenantHome({ params }: TenantHomeProps) {
   }
 
   const theme = themeFor(snapshot.tenant.slug);
+  const homeBand = homeBandFor(snapshot.tenant.slug);
   const { tenant, categories, pages, recentChanges, sourcesCheckedAt } = snapshot;
   const meta = [
     theme.identity.kicker,
@@ -75,7 +78,7 @@ export default async function TenantHome({ params }: TenantHomeProps) {
               </>
             ) : null}
           </p>
-          <h1 id="wiki-home-title" className="max-w-3xl text-title font-display text-foreground">
+          <h1 id="wiki-home-title" {...PAGE_TITLE_TIMING} className="max-w-3xl text-title font-display text-foreground">
             {theme.identity.descriptor}
           </h1>
           <p className="max-w-[56ch] text-body text-muted-foreground">
@@ -83,7 +86,11 @@ export default async function TenantHome({ params }: TenantHomeProps) {
               `Source-backed pages on ${tenant.gameTitle}'s weapons, maps, factions and systems, kept current by AI and checked by readers.`}
           </p>
         </div>
-        <DitherBand themeSlug={theme.slug} region="masthead" className="mt-6" />
+        {homeBand ? (
+          <FigureBand image={homeBand} slot="home-band" className="mt-6" />
+        ) : (
+          <DitherBand themeSlug={theme.slug} region="masthead" className="mt-6" />
+        )}
       </section>
 
       {pages.length === 0 ? (

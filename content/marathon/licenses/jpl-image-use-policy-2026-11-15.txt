@@ -1,0 +1,20 @@
+Retrieved 2026-11-15 from https://www.jpl.nasa.gov/jpl-image-use-policy/ (excerpt, verbatim)
+
+JPL Image Use Policy
+
+Unless otherwise noted, images and video on JPL public web sites (public sites ending with a jpl.nasa.gov address) may be used for any purpose without prior permission, subject to the special cases noted below. Publishers who wish to have authorization may print this page and retain it for their records; JPL does not issue image permissions on an image by image basis.
+
+By electing to download the material from this web site the user agrees:
+
+1. that Caltech makes no representations or warranties with respect to ownership of copyrights in the images, and does not represent others who may claim to be authors or owners of copyright of any of the images, and makes no warranties as to the quality of the images. Caltech shall not be responsible for any loss or expenses resulting from the use of the images, and you release and hold Caltech harmless from all liability arising from such use.
+2. to use a credit line in connection with images. Unless otherwise noted in the caption information for an image, the credit line should be "Courtesy NASA/JPL-Caltech."
+3. that the endorsement of any product or service by Caltech, JPL or NASA must not be claimed or implied.
+
+Special Cases:
+- Prior written approval must be obtained to use the NASA insignia logo (the blue "meatball" insignia), the NASA logotype (the red "worm" logo) and the NASA seal. [...]
+- Prior written approval must be obtained to use the JPL logo [...]
+- If an image includes an identifiable person, using the image for commercial purposes may infringe that person's right of privacy or publicity [...]
+- Some image and video materials on JPL public web sites are owned by organizations other than JPL or NASA. [...] Ownership of images and video by parties other than JPL and NASA is noted in the caption material with each image.
+
+Image page checked: https://photojournal.jpl.nasa.gov/catalog/PIA23130 (redirects to science.nasa.gov) gives
+"Credits: NASA/JPL-Caltech/R. Hurt (IPAC)" and notes no third-party owner.

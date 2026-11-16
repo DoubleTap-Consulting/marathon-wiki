@@ -2,6 +2,7 @@ import type { Metadata, Route } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { TierBPlate } from "@/components/figures";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Toaster } from "@/components/ui/sonner";
 import {
@@ -19,6 +20,7 @@ import {
   type ArticleSource,
 } from "@/src/wiki/article";
 import { getCachedWikiPage, getCachedWikiPageRevisions, getCachedWikiPages } from "@/src/wiki/cache";
+import { figuresForPage, showsImageGaps } from "@/src/wiki/imagery";
 import { buildWikiMetadata } from "@/src/wiki/metadata";
 import { summarizeSourceCheck, type SourceCheck } from "@/src/wiki/source-check";
 import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
@@ -128,6 +130,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const summary = summarizeTrust(page, revisions);
   const latestRevision = revisions?.[0] ?? null;
   const crumb = page.categories[0];
+  const plates = figuresForPage(tenant.slug, page.slug, "plate");
 
   return (
     <WikiChrome tenant={tenant} categories={snapshot.categories} width="article" skipTarget="article">
@@ -157,6 +160,20 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             suggestHref={`/${tenant.slug}/suggest/${page.slug}`}
           />
           {page.summary ? <p className="mt-4 text-body text-muted-foreground">{page.summary}</p> : null}
+
+          {plates.map((image, index) => (
+            <TierBPlate
+              key={image.id}
+              image={image}
+              number={index + 1}
+              claims={ctx.claims}
+              citation={(sourceId) => {
+                const source = cited.get(sourceId);
+                return source ? { number: source.number, title: source.title, url: source.url } : null;
+              }}
+              showGaps={showsImageGaps()}
+            />
+          ))}
 
           <ContentsControl toc={toc} />
 

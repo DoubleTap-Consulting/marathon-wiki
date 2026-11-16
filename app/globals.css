@@ -203,3 +203,20 @@ html {
     display: none;
   }
 }
+
+/* Atmosphere isn't content: hide bands (including captions) in print and forced-colors. */
+@media print, (forced-colors: active) {
+  .figure-band {
+    display: none;
+  }
+}
+
+/* Original data visuals remain content in print and forced-colors. */
+@media (forced-colors: active) {
+  .figure-svg svg {
+    color: CanvasText;
+  }
+  .figure-svg text {
+    fill: CanvasText;
+  }
+}

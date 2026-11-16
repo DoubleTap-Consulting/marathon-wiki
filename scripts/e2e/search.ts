@@ -53,7 +53,7 @@ await open(page, articlePath);
 await page.keyboard.press("/");
 check(await field(page).evaluate((el) => el === document.activeElement), '"/" focuses the header search');
 await page.keyboard.type("c");
-await options(page).first().waitFor();
+await page.waitForFunction(() => document.querySelectorAll('[role="option"]').length > 1);
 check((await options(page).count()) > 1, `"c" already suggests (${(await options(page).count()) - 1} pages)`);
 await page.keyboard.type("ryo");
 await page.waitForFunction(() => document.querySelector("[role=option]")?.textContent?.startsWith("Cryo Archive"));
