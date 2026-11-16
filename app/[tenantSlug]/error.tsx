@@ -3,7 +3,7 @@
 import { useParams } from "next/navigation";
 
 import { StatusBlock, primaryAction, secondaryAction } from "./_components/index-ui";
-import { SiteFooter } from "./_components/wiki-chrome";
+import { SiteFooter } from "./_components/site-footer";
 
 /**
  * A route that failed to render: the 404 composition with a retry. It renders on the client, so the footer
