@@ -3,12 +3,13 @@
 import type { Route } from "next";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useId, useRef, useState } from "react";
 
 import { Input } from "@/components/ui/input";
-import { Popover, PopoverAnchor, PopoverContent } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { hitHref, searchPages, type SearchEntry, type SearchHit } from "@/src/wiki/search";
+
+import { SearchPopover, usePreloadOverlays } from "./lazy-ui";
 
 type IndexState = { status: "idle" | "loading" | "error" } | { status: "ready"; entries: SearchEntry[] };
 const indexes = new Map<string, Promise<SearchEntry[]>>();
@@ -116,6 +117,7 @@ export function SiteSearch({ tenantSlug, mode, onNavigate }: { tenantSlug: strin
   const router = useRouter();
   const id = useId();
   const inputRef = useRef<HTMLInputElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
   const [query, setQuery] = useState("");
   const [expanded, setExpanded] = useState(mode === "inline");
   const [active, setActive] = useState(-1);
@@ -137,6 +139,10 @@ export function SiteSearch({ tenantSlug, mode, onNavigate }: { tenantSlug: strin
       ]
     : recent.map((page) => ({ href: hitHref(tenantSlug, { slug: page.slug, heading: null }), hit: page }));
   const open = expanded && (trimmed !== "" || recent.length > 0);
+  // The popover mounts on first open and stays mounted, so later closes keep their exit animation.
+  const [popoverMounted, setPopoverMounted] = useState(false);
+  if (open && mode === "popover" && !popoverMounted) setPopoverMounted(true);
+  usePreloadOverlays();
   const optionId = (row: number) => `${id}-option-${row}`;
 
   const announcement = !trimmed
@@ -174,6 +180,8 @@ export function SiteSearch({ tenantSlug, mode, onNavigate }: { tenantSlug: strin
 
   const field = (
     <form
+      ref={formRef}
+      data-slot={mode === "popover" ? "popover-anchor" : undefined}
       action={`/${tenantSlug}/search`}
       className="relative w-full min-w-0"
       role="search"
@@ -270,24 +278,16 @@ export function SiteSearch({ tenantSlug, mode, onNavigate }: { tenantSlug: strin
   }
 
   return (
-    <Popover open={open} onOpenChange={(next) => !next && setExpanded(false)}>
-      <PopoverAnchor asChild>{field}</PopoverAnchor>
+    <>
+      {field}
       {liveRegion}
-      {/* Portaled to <body>, so it is labelled as a non-modal dialog rather than left outside every landmark. */}
-      <PopoverContent
-        role="dialog"
-        aria-label="Search suggestions"
-        align="end"
-        sideOffset={6}
-        className="max-h-[min(70vh,30rem)] w-[max(var(--radix-popover-trigger-width),420px)] overflow-y-auto p-0 data-[side=bottom]:slide-in-from-top-0 data-[state=open]:zoom-in-[0.98] data-[state=open]:duration-150 data-[state=open]:ease-[linear(0,0.051,0.169,0.312,0.458,0.594,0.711,0.81,0.89,0.952,1)] data-[state=closed]:zoom-out-100 data-[state=closed]:duration-100"
-        onOpenAutoFocus={(event) => event.preventDefault()}
-        onEscapeKeyDown={(event) => event.preventDefault()}
-        onCloseAutoFocus={(event) => event.preventDefault()}
-        onInteractOutside={(event) => event.target instanceof Node && inputRef.current?.form?.contains(event.target) && event.preventDefault()}
-        onMouseDown={(event) => event.preventDefault()}
-      >
-        {results}
-      </PopoverContent>
-    </Popover>
+      {popoverMounted ? (
+        <Suspense fallback={null}>
+          <SearchPopover open={open} onClose={() => setExpanded(false)} anchorRef={formRef} inputRef={inputRef}>
+            {results}
+          </SearchPopover>
+        </Suspense>
+      ) : null}
+    </>
   );
 }
