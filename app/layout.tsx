@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
-import { ClerkProvider } from "@clerk/nextjs";
 import { Archivo, Geist, Geist_Mono } from "next/font/google";
 
 import { applyScheme } from "@/app/_components/scheme";
 import { SchemeSync } from "@/app/_components/scheme-sync";
 import { WikiAnalytics } from "@/app/_components/wiki-analytics";
 import { isWikiAnalyticsEnabled } from "@/src/analytics/wiki-events";
-import { isClerkConfigured } from "@/src/auth/wiki-auth";
 import { getWikiSiteBaseUrl } from "@/src/wiki/launch-config";
 import { networkBrand } from "@/src/wiki/network";
 import { themeFor } from "@/themes/registry";
@@ -76,14 +74,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const body = (
-    <body>
-      {children}
-      <WikiAnalytics enabled={isWikiAnalyticsEnabled()} />
-      <SchemeSync theme={THEME} />
-    </body>
-  );
-
   return (
     <html
       lang="en"
@@ -94,7 +84,11 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: SCHEME_SCRIPT }} />
       </head>
-      {isClerkConfigured() ? <ClerkProvider>{body}</ClerkProvider> : body}
+      <body>
+        {children}
+        <WikiAnalytics enabled={isWikiAnalyticsEnabled()} />
+        <SchemeSync theme={THEME} />
+      </body>
     </html>
   );
 }
