@@ -238,7 +238,7 @@ export async function runEditor(
         summary: composed.summary,
         bodyMarkdown: composed.bodyMarkdown,
         actorId: input.actorId,
-        metadata: { origin: "ai_generated", aiProvenance: provenance, publishGate: composed.gate, changeNote },
+        metadata: { origin: "ai_generated", aiProvenance: provenance, publishGate: composed.gate, changeNote, categorySlug: spec.category },
       },
       db,
     );
@@ -258,6 +258,7 @@ export async function runEditor(
       actorId: input.actorId,
       changeNote,
       aiProvenance: provenance,
+      categorySlug: spec.category,
       sourceReferences: composed.aiProvenance.sourceReferences.map((reference) => ({
         id: reference.sourceId,
         sourceKey: reference.sourceKey,

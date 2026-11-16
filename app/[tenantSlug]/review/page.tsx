@@ -10,6 +10,8 @@ import {
   getWikiHomeSnapshot,
   listWikiCommunityNotesForReview,
   listWikiSuggestionsForReview,
+  suggestionCategorySlug,
+  type WikiCategorySummary,
   type WikiCommunityNoteSummary,
   type WikiSuggestionSummary,
 } from "@/src/db/wiki";
@@ -149,6 +151,7 @@ export default async function ReviewPage({ params }: ReviewPageProps) {
                   key={suggestion.id}
                   tenantSlug={snapshot.tenant.slug}
                   suggestion={suggestion}
+                  categories={snapshot.categories}
                 />
               ))}
             </ReviewSection>
@@ -217,9 +220,11 @@ function ReviewAccessPanel({
 function SuggestionReviewCard({
   tenantSlug,
   suggestion,
+  categories,
 }: {
   tenantSlug: string;
   suggestion: WikiSuggestionSummary;
+  categories: WikiCategorySummary[];
 }) {
   const canAct = suggestion.status === "pending" || suggestion.status === "changes_requested";
   const ai = getAiProvenance(suggestion);
@@ -326,6 +331,27 @@ function SuggestionReviewCard({
               rows={3}
             />
           </div>
+          {suggestion.suggestionType === "new_page" ? (
+            <div className="grid gap-2">
+              <label htmlFor={`review-category-${suggestion.id}`} className="text-ui font-medium">
+                Category
+              </label>
+              <select
+                id={`review-category-${suggestion.id}`}
+                name="categorySlug"
+                defaultValue={suggestionCategorySlug(suggestion.metadata) ?? ""}
+                className="h-9 max-w-xs border border-input bg-card px-3 text-ui pointer-coarse:h-11"
+              >
+                <option value="">Choose a category</option>
+                {categories.map((category) => (
+                  <option key={category.id} value={category.slug}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+              <p className="text-small text-muted-foreground">A new page needs a category before it can be approved.</p>
+            </div>
+          ) : null}
           <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
             <button
               type="submit"

@@ -981,7 +981,7 @@
   {
     "slug": "armory",
     "title": "Armory",
-    "category": "gameplay",
+    "category": "equipment",
     "group": "mechanics",
     "scope": "The faction Armory: what it sells, barters, sponsored kits, and recent stock changes. Keep separate changes in separate sentences: in Update 1.1.9.2, Weapon and Backpack Schema wares in the Armory began costing Credits, and, as a different change, schemas and materials in the Season 2 Rewards Pass were replaced with Credits.",
     "keywords": [

@@ -4,14 +4,9 @@ import { cn } from "@/lib/utils";
 import { networkBrand, type NetworkBrand } from "@/src/wiki/network";
 import { themeFor } from "@/themes/registry";
 
-import type {
-  WikiCategorySummary,
-  WikiPageSummary,
-  WikiTenant,
-} from "@/src/db/wiki";
+import type { WikiCategorySummary, WikiTenant } from "@/src/db/wiki";
 
 import { MenuSheet, SchemeToggle, SearchSheet } from "./header-sheets";
-import { SiteDate } from "./site-date";
 import { SiteSearch } from "./site-search";
 
 export function WikiChrome({
@@ -180,48 +175,6 @@ function NetworkSlot({ brand }: { brand: NetworkBrand }) {
     </a>
   ) : (
     <p className="label shrink-0">{text}</p>
-  );
-}
-
-export function PageGrid({
-  tenant,
-  pages,
-  emptyTitle,
-  emptyDescription,
-}: {
-  tenant: WikiTenant;
-  pages: WikiPageSummary[];
-  emptyTitle: string;
-  emptyDescription: string;
-}) {
-  if (pages.length === 0) {
-    return (
-      <EmptyState title={emptyTitle} description={emptyDescription} />
-    );
-  }
-
-  return (
-    <div className="grid gap-4 md:grid-cols-2">
-      {pages.map((page) => (
-        <a
-          key={page.id}
-          href={`/${tenant.slug}/${page.slug}`}
-          className="block min-h-36 border bg-card p-5 text-card-foreground"
-        >
-          <div className="flex min-h-full flex-col justify-between gap-4">
-            <div className="space-y-2">
-              <h3 className="text-h3 font-semibold">{page.title}</h3>
-              <p className="line-clamp-3 text-ui text-muted-foreground">
-                {page.summary ?? "No summary has been published for this page yet."}
-              </p>
-            </div>
-            <p className="text-label text-muted-foreground">
-              Updated {page.updatedAt ? <SiteDate iso={new Date(page.updatedAt).toISOString()} /> : "Unknown"}
-            </p>
-          </div>
-        </a>
-      ))}
-    </div>
   );
 }
 

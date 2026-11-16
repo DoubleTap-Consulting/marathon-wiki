@@ -53,6 +53,7 @@ export async function reviewWikiSuggestionAction(
       suggestionId,
       actorId: actor.id,
       reviewNote,
+      categorySlug: getString(formData, "categorySlug") || null,
     });
 
     await revalidateWikiPage(tenant.slug, approved.pageSlug);

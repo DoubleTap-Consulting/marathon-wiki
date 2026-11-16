@@ -58,6 +58,11 @@ describe.sequential("wiki suggestion review lifecycle", () => {
         primary_locale: "en",
       })
       .execute();
+
+    await db
+      .insertInto("wiki_categories")
+      .values({ id: `${runId}_cat_equipment`, tenant_id: tenantId, slug: "equipment", name: "Equipment", sort_order: 40 })
+      .execute();
   });
 
   afterAll(async () => {
@@ -85,14 +90,22 @@ describe.sequential("wiki suggestion review lifecycle", () => {
       getPublishedWikiPageBySlug(tenantId, "overrun-ar"),
     ).resolves.toBeNull();
 
+    // A new page never publishes uncategorized.
+    await expect(
+      approveWikiSuggestion({ tenantId, suggestionId: suggestion.id, actorId: "editor-1" }),
+    ).rejects.toThrow("Pick a category");
+    await expect(getPublishedWikiPageBySlug(tenantId, "overrun-ar")).resolves.toBeNull();
+
     await approveWikiSuggestion({
       tenantId,
       suggestionId: suggestion.id,
       actorId: "editor-1",
       reviewNote: "Looks good",
+      categorySlug: "equipment",
     });
 
     const page = await getPublishedWikiPageBySlug(tenantId, "overrun-ar");
+    expect(page?.categories.map((category) => category.slug)).toEqual(["equipment"]);
     const reviewedSuggestion = await getWikiSuggestionById(tenantId, suggestion.id);
 
     expect(page).toMatchObject({
