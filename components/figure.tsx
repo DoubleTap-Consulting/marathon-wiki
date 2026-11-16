@@ -68,6 +68,7 @@ export function FigureBand({
           fill
           sizes="(min-width: 1280px) 1216px, 100vw"
           quality={60}
+          preload={priority}
           loading={priority ? "eager" : "lazy"}
           fetchPriority={priority ? "high" : "auto"}
           decoding="async"

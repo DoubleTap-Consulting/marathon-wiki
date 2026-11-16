@@ -9,14 +9,11 @@ const FRAME_MS = 50;
 
 const browser = await chromium.launch({ channel: "chrome" });
 const failures: string[] = [];
-if (shareQuery) {
-  const page = await browser.newPage();
-  await page.goto(`${baseUrl}${paths[0]}${shareQuery}`);
-  await page.close();
-}
 for (const path of paths) {
   const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
   const page = await context.newPage();
+  // Protected previews: take the share cookie on a tiny route first, so the measured load is the page itself.
+  if (shareQuery) await page.goto(`${baseUrl}/robots.txt${shareQuery}`);
   const cdp = await context.newCDPSession(page);
   await cdp.send("Network.emulateNetworkConditions", { offline: false, latency: 150, downloadThroughput: (1.6 * 1024 * 1024) / 8, uploadThroughput: (750 * 1024) / 8 });
   await cdp.send("Emulation.setCPUThrottlingRate", { rate: 4 });
