@@ -123,7 +123,7 @@ export function FigurePlate({
     <figure data-slot="figure" data-variant="plate" data-image={image.id} className="figure-plate my-8 max-w-[68ch]">
       <div className="figure-svg border px-4 py-4 text-foreground">{children(dataId)}</div>
       <figcaption className="mt-2 text-small text-muted-foreground">
-        <span className="mr-1 font-medium text-foreground">{title}</span>
+        <span className="font-medium text-foreground">{title}</span>{" "}
         <span data-slot="sources">
           Source:{" "}
           {cites.map((cite, index) => (
