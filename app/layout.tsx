@@ -8,6 +8,8 @@ import { WikiAnalytics } from "@/app/_components/wiki-analytics";
 import { isWikiAnalyticsEnabled } from "@/src/analytics/wiki-events";
 import { isClerkConfigured } from "@/src/auth/wiki-auth";
 import { getWikiSiteBaseUrl } from "@/src/wiki/launch-config";
+import { networkBrand } from "@/src/wiki/network";
+import { themeFor } from "@/themes/registry";
 
 import "./globals.css";
 
@@ -32,25 +34,29 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const THEME = "marathon";
+const brand = networkBrand();
+const siteTitle = brand ? `${themeFor(THEME).identity.descriptor} · ${brand.name}` : "Marathon Wiki";
+
 export const metadata: Metadata = {
   metadataBase: getWikiSiteBaseUrl(),
   title: {
-    default: "Marathon Wiki",
-    template: "%s | Marathon Wiki",
+    default: siteTitle,
+    template: brand ? `%s · ${brand.name}` : "%s | Marathon Wiki",
   },
   description:
     "Fast, source-backed Marathon wiki pages built for clean reading, ISR performance, and community suggestions.",
-  applicationName: "Marathon Wiki",
+  applicationName: brand?.name ?? "Marathon Wiki",
   openGraph: {
     type: "website",
-    siteName: "Marathon Wiki",
-    title: "Marathon Wiki",
+    siteName: brand?.name ?? "Marathon Wiki",
+    title: siteTitle,
     description:
       "Fast, source-backed Marathon wiki pages built for clean reading and community suggestions.",
   },
   twitter: {
     card: "summary",
-    title: "Marathon Wiki",
+    title: siteTitle,
     description:
       "Fast, source-backed Marathon wiki pages built for clean reading and community suggestions.",
   },
@@ -60,7 +66,6 @@ export const metadata: Metadata = {
   },
 };
 
-const THEME = "marathon";
 
 // Runs before first paint so a saved scheme never flashes the system one. Pages stay static (ISR),
 // which reading the cookie on the server would break.

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getCachedWikiHome } from "@/src/wiki/cache";
 import { buildWikiMetadata } from "@/src/wiki/metadata";
 import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
+import { themeFor } from "@/themes/registry";
 
 import { MissingWikiPage } from "./_components/missing-page";
 import { WikiAdSlot, WikiPremiumHook } from "./_components/monetization";
@@ -52,20 +53,20 @@ export default async function TenantHome({ params }: TenantHomeProps) {
     );
   }
 
+  const theme = themeFor(snapshot.tenant.slug);
+
   return (
     <WikiChrome tenant={snapshot.tenant} categories={snapshot.categories}>
       <section className="grid gap-8 lg:grid-cols-[1fr_18rem] lg:items-start">
         <div className="space-y-8">
           <div className="space-y-3">
-            <p className="text-label font-medium uppercase tracking-normal text-muted-foreground">
-              Public wiki
-            </p>
+            <p className="label">{theme.identity.kicker ?? "Public wiki"}</p>
             <h1 className="max-w-3xl text-display font-display font-extrabold text-foreground">
               {snapshot.tenant.gameTitle}
             </h1>
-            <p className="max-w-3xl text-body text-muted-foreground">
-              Source-backed pages on {snapshot.tenant.gameTitle}&apos;s weapons, maps,
-              factions and systems, kept current by AI and checked by readers.
+            <p className="max-w-[56ch] text-body text-muted-foreground">
+              {theme.identity.tagline ??
+                `Source-backed pages on ${snapshot.tenant.gameTitle}'s weapons, maps, factions and systems, kept current by AI and checked by readers.`}
             </p>
           </div>
 

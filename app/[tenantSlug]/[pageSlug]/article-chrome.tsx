@@ -126,7 +126,7 @@ export function ContentsControl({ toc }: { toc: TocEntry[] }) {
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
         <SheetContent side="bottom" className="max-h-[75vh] overflow-y-auto px-5 pb-8">
           <SheetHeader className="px-0">
-            <SheetTitle>Contents</SheetTitle>
+            <SheetTitle className="label-strong">Contents</SheetTitle>
             <SheetDescription className="sr-only">Jump to a section of this page</SheetDescription>
           </SheetHeader>
           <nav aria-label="On this page">
@@ -195,7 +195,7 @@ export function AddNoteSheet({ action }: { action: NoteAction }) {
         }}
       >
         <SheetHeader className="px-0">
-          <SheetTitle>Add a note</SheetTitle>
+          <SheetTitle className="label-strong">Add a note</SheetTitle>
           <SheetDescription>
             Notes go to an editor first. Approved notes appear next to the text they mention and can shape the next refresh.
           </SheetDescription>

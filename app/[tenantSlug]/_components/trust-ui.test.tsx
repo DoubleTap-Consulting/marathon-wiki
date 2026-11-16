@@ -6,9 +6,12 @@ import type { DiffRow } from "@/src/wiki/article";
 import { DiffView } from "../[pageSlug]/history/[rev]/diff-view";
 import { ClaimMark, ProvenanceTrigger } from "./trust-ui";
 
-/** Each trust-state label: its icon and its words, read from the server render. */
+/** Each trust-state label: its icon and its words, read from the server render. Trust copy is never set in caps. */
 function labels(html: string) {
-  return [...html.matchAll(/<(?:span(?=[^>]*data-trust-label)|button)[^>]*>\s*<svg[^>]*aria-hidden="true"[^>]*>.*?<\/svg>([^<]+)</g)].map((match) => match[1].trim());
+  return [...html.matchAll(/<(?:span(?=[^>]*data-trust-label)|button)([^>]*)>\s*<svg[^>]*aria-hidden="true"[^>]*>.*?<\/svg>([^<]+)</g)].map((match) => {
+    expect(/class="([^"]*)"/.exec(match[1])?.[1] ?? "").not.toMatch(/(?:^|\s)(?:uppercase|label|label-strong)(?:\s|$)/);
+    return match[2].trim();
+  });
 }
 
 describe("trust states show an icon and a label, never color alone", () => {

@@ -312,7 +312,7 @@ function InlineNote({ note }: { note: WikiCommunityNoteSummary }) {
       aria-label="Community note"
       className="my-6 scroll-mt-20 border-l-2 border-input py-2 pl-4 text-ui"
     >
-      <p className={META}>Community note</p>
+      <p className="text-small font-medium text-muted-foreground">Community note</p>
       <p className="mt-1 text-foreground">{note.bodyMarkdown}</p>
       <p className="mt-1 text-small text-muted-foreground">
         {note.sourceUrl ? (
