@@ -32,7 +32,8 @@ describe("site chrome naming", () => {
   it("shows the placeholder network wordmark, the game descriptor and the network slot on previews", () => {
     for (const env of ["preview", "development", undefined]) {
       const html = render(env);
-      expect(html).toContain(`aria-label="${NETWORK_PLACEHOLDER}, An unofficial guide to Marathon, home"`);
+      expect(html).toContain(`>${NETWORK_PLACEHOLDER}</span>`);
+      expect(html).toContain('>An unofficial guide to Marathon<span class="sr-only">, home</span>');
       expect(html).toContain(`>Part of ${NETWORK_PLACEHOLDER}<`);
     }
   });

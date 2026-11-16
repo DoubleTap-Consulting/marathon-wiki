@@ -76,7 +76,6 @@ export function WikiChrome({
           {brand ? (
             <a
               href={`/${tenant.slug}`}
-              aria-label={`${brand.name}, ${theme.identity.descriptor}, home`}
               className="flex min-h-11 min-w-0 flex-col justify-center gap-1.5 text-foreground"
             >
               <span
@@ -87,7 +86,10 @@ export function WikiChrome({
               >
                 {brand.name}
               </span>
-              <span className="truncate text-small leading-none text-muted-foreground">{theme.identity.descriptor}</span>
+              <span className="truncate text-small leading-none text-muted-foreground">
+                {theme.identity.descriptor}
+                <span className="sr-only">, home</span>
+              </span>
             </a>
           ) : (
             <a href={`/${tenant.slug}`} className="flex min-h-11 shrink-0 items-center gap-2.5 text-foreground">
