@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
   typedRoutes: true,
   // Self-hosted images only (public/img/<slug>/): no remotePatterns, no hotlinks.
   images: { formats: ["image/avif", "image/webp"], qualities: [60, 75] },
-  experimental: { inlineCss: true },
 };
 
 export default nextConfig;
