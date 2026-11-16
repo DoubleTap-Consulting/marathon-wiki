@@ -1,3 +1,4 @@
+# To enable: move this file to .github/workflows/lighthouse.yml (pushing workflow files needs a token with the `workflow` scope).
 # Simulated Lighthouse mobile LCP budget (median of 3 runs <= 2.5 s) on every successful Vercel preview.
 #
 # Vercel previews are behind Deployment Protection. This workflow uses Vercel's "Protection Bypass for
