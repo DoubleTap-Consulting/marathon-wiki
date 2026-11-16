@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 
 import { TierBPlate } from "@/components/figures";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Toaster } from "@/components/ui/sonner";
 import {
   listPublicWikiCommunityNotesForPage,
   listSourceCheckTimes,
@@ -31,6 +30,7 @@ import {
   ProvenanceTrigger,
   type CitedSource,
 } from "../../_components/trust-ui";
+import { LazyToaster } from "../../_components/lazy-ui";
 import { SiteDate } from "../../_components/site-date";
 import { WikiChrome } from "../../_components/wiki-chrome";
 import {
@@ -210,7 +210,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       </div>
 
       <AddNoteSheet action={submitWikiCommunityNoteAction.bind(null, tenant.slug, page.slug)} />
-      <Toaster position="bottom-center" />
+      <LazyToaster position="bottom-center" />
     </WikiChrome>
   );
 }

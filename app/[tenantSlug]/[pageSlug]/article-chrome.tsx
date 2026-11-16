@@ -3,15 +3,22 @@
 import type { Route } from "next";
 import { ChevronRight, List, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { toast } from "sonner";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import type { TocEntry } from "@/src/wiki/article";
+
+import {
+  PopoverPanel,
+  SheetPanel,
+  popoverTriggerProps,
+  showToast,
+  usePopoverContentId,
+  usePreloadArticleOverlays,
+} from "../_components/lazy-ui";
+import type { Placement } from "../_components/popover-panel";
 
 import type { CommunityNoteFormState } from "./community-note-actions";
 import { CommunityNoteForm } from "./community-note-form";
@@ -100,6 +107,8 @@ export function TocNav({ toc }: { toc: TocEntry[] }) {
 export function ContentsControl({ toc }: { toc: TocEntry[] }) {
   const active = useActiveHeading(toc.map((entry) => entry.id));
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [sheetMounted, setSheetMounted] = useState(false);
+  usePreloadArticleOverlays();
 
   if (toc.length === 0) return null;
 
@@ -118,22 +127,29 @@ export function ContentsControl({ toc }: { toc: TocEntry[] }) {
       </Collapsible>
 
       <div className="sticky top-14 z-20 -mx-5 mt-5 bg-background/95 px-5 py-2 backdrop-blur md:hidden">
-        <Button variant="secondary" size="sm" className="min-h-11 gap-2" onClick={() => setSheetOpen(true)}>
+        <Button variant="secondary" size="sm" className="min-h-11 gap-2" onClick={() => {
+            setSheetMounted(true);
+            setSheetOpen(true);
+          }}
+        >
           <List className="size-4" aria-hidden="true" />
           Contents
         </Button>
       </div>
-      <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-        <SheetContent side="bottom" className="max-h-[75vh] overflow-y-auto px-5 pb-8">
-          <SheetHeader className="px-0">
-            <SheetTitle className="label-strong">Contents</SheetTitle>
-            <SheetDescription className="sr-only">Jump to a section of this page</SheetDescription>
-          </SheetHeader>
+      {sheetMounted ? (
+        <SheetPanel
+          open={sheetOpen}
+          onOpenChange={setSheetOpen}
+          side="bottom"
+          className="max-h-[75vh] overflow-y-auto px-5 pb-8"
+          title="Contents"
+          description="Jump to a section of this page"
+        >
           <nav aria-label="On this page">
             <TocList toc={toc} active={active} onNavigate={() => setSheetOpen(false)} />
           </nav>
-        </SheetContent>
-      </Sheet>
+        </SheetPanel>
+      ) : null}
     </>
   );
 }
@@ -164,6 +180,7 @@ export function AddNoteButton({ className }: { className?: string }) {
 
 export function AddNoteSheet({ action }: { action: NoteAction }) {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [formKey, setFormKey] = useState(0);
   const returnFocus = useRef<HTMLElement | null>(null);
   const wide = useSyncExternalStore(
@@ -175,74 +192,84 @@ export function AddNoteSheet({ action }: { action: NoteAction }) {
   useEffect(() => {
     const show = () => {
       returnFocus.current = document.activeElement as HTMLElement | null;
+      setMounted(true);
       setOpen(true);
     };
     window.addEventListener(ADD_NOTE_EVENT, show);
     return () => window.removeEventListener(ADD_NOTE_EVENT, show);
   }, []);
 
+  if (!mounted) return null;
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      <SheetContent
-        side={wide ? "right" : "bottom"}
-        className={cn("overflow-y-auto px-5 pb-8", wide ? "w-full sm:max-w-md" : "max-h-[90vh]")}
-        onCloseAutoFocus={(event) => {
-          event.preventDefault();
-          const target = returnFocus.current?.isConnected
-            ? returnFocus.current
-            : document.querySelector<HTMLElement>('[aria-label="More actions"]');
-          target?.focus();
+    <SheetPanel
+      open={open}
+      onOpenChange={setOpen}
+      side={wide ? "right" : "bottom"}
+      className={cn("overflow-y-auto px-5 pb-8", wide ? "w-full sm:max-w-md" : "max-h-[90vh]")}
+      onCloseAutoFocus={(event) => {
+        event.preventDefault();
+        const target = returnFocus.current?.isConnected
+          ? returnFocus.current
+          : document.querySelector<HTMLElement>('[aria-label="More actions"]');
+        target?.focus();
+      }}
+      title="Add a note"
+      description="Notes go to an editor first. Approved notes appear next to the text they mention and can shape the next refresh."
+      descriptionClassName=""
+    >
+      <CommunityNoteForm
+        key={formKey}
+        action={action}
+        onSubmitted={() => {
+          setOpen(false);
+          setFormKey((key) => key + 1);
+          void showToast("Note sent for review");
         }}
-      >
-        <SheetHeader className="px-0">
-          <SheetTitle className="label-strong">Add a note</SheetTitle>
-          <SheetDescription>
-            Notes go to an editor first. Approved notes appear next to the text they mention and can shape the next refresh.
-          </SheetDescription>
-        </SheetHeader>
-        <CommunityNoteForm
-          key={formKey}
-          action={action}
-          onSubmitted={() => {
-            setOpen(false);
-            setFormKey((key) => key + 1);
-            toast("Note sent for review");
-          }}
-        />
-      </SheetContent>
-    </Sheet>
+      />
+    </SheetPanel>
   );
 }
 
 export function TrustOverflow({ suggestHref }: { suggestHref: string }) {
+  const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  if (open && !mounted) setMounted(true);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
+  const contentId = usePopoverContentId();
+  const [placement, setPlacement] = useState<Placement>(null);
+  const toggle = useCallback(() => setOpen((value) => !value), []);
+  usePreloadArticleOverlays();
+
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <button
-          type="button"
-          aria-label="More actions"
-          className="relative inline-flex size-6 items-center justify-center align-middle text-muted-foreground after:absolute after:-inset-2.5 after:content-[''] hover:text-foreground"
-        >
-          <MoreHorizontal className="size-4" aria-hidden="true" />
-        </button>
-      </PopoverTrigger>
-      <PopoverContent align="start" className="w-56 p-1">
-        <button
-          type="button"
-          className="flex min-h-10 w-full items-center px-3 text-left text-ui hover:bg-muted focus-visible:bg-muted"
-          onClick={() => window.dispatchEvent(new Event(ADD_NOTE_EVENT))}
-        >
-          Add a note
-        </button>
-        <Link
-          href={suggestHref as Route}
-          className="flex min-h-10 w-full items-center px-3 text-ui hover:bg-muted focus-visible:bg-muted"
-          data-wiki-event="suggestion_cta"
-          data-wiki-event-label="trust-strip"
-        >
-          Suggest an edit
-        </Link>
-      </PopoverContent>
-    </Popover>
+    <>
+      <button
+        ref={triggerRef}
+        aria-label="More actions"
+        className="relative inline-flex size-6 items-center justify-center align-middle text-muted-foreground after:absolute after:-inset-2.5 after:content-[''] hover:text-foreground"
+        {...popoverTriggerProps(open, contentId, placement)}
+        onClick={toggle}
+      >
+        <MoreHorizontal className="size-4" aria-hidden="true" />
+      </button>
+      {mounted ? (
+        <PopoverPanel open={open} onOpenChange={setOpen} triggerRef={triggerRef} contentId={contentId} onPlacement={setPlacement} contentProps={{ align: "start", className: "w-56 p-1" }}>
+          <button
+            type="button"
+            className="flex min-h-10 w-full items-center px-3 text-left text-ui hover:bg-muted focus-visible:bg-muted"
+            onClick={() => window.dispatchEvent(new Event(ADD_NOTE_EVENT))}
+          >
+            Add a note
+          </button>
+          <Link
+            href={suggestHref as Route}
+            className="flex min-h-10 w-full items-center px-3 text-ui hover:bg-muted focus-visible:bg-muted"
+            data-wiki-event="suggestion_cta"
+            data-wiki-event-label="trust-strip"
+          >
+            Suggest an edit
+          </Link>
+        </PopoverPanel>
+      ) : null}
+    </>
   );
 }
