@@ -1,9 +1,11 @@
 import { renderToStaticMarkup } from "react-dom/server";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { NETWORK_PLACEHOLDER, networkBrand } from "@/src/wiki/network";
 
 import { SiteFooter, WikiChrome } from "./wiki-chrome";
+
+vi.mock("next/navigation", () => ({ useRouter: () => ({ push: () => {} }) }));
 
 const tenant = { id: "t", slug: "marathon", name: "Marathon Wiki", gameSlug: "marathon", gameTitle: "Marathon" };
 const categories = [{ id: "c", slug: "lore", name: "Lore", description: null, pageCount: 1 }];
@@ -49,5 +51,11 @@ describe("site chrome naming", () => {
     const html = render("preview");
     expect(html).toMatch(/<header data-theme="marathon" class="dark [^"]*border-brand/);
     expect(html).toMatch(/<footer data-theme="marathon" class="dark /);
+  });
+
+  it("renders the header search as a collapsed combobox that falls back to the results page", () => {
+    const html = render("preview");
+    expect(html).toContain('action="/marathon/search"');
+    expect(html).toMatch(/role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="[^"]+-listbox"/);
   });
 });
