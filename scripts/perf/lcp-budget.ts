@@ -11,7 +11,7 @@ import { join } from "node:path";
 
 const base = (process.env.LCP_BASE_URL ?? "").replace(/\/$/, "");
 const pages = (process.env.LCP_PAGES ?? "/marathon,/marathon/ranked,/marathon/pages,/marathon/cryo-archive").split(",");
-const runs = Number(process.env.LCP_RUNS ?? 3);
+const runs = Number(process.env.LCP_RUNS ?? 5);
 const budget = Number(process.env.LCP_BUDGET_MS ?? 2500);
 const bypass = process.env.LCP_BYPASS_SECRET ?? "";
 const chrome = process.env.CHROME_PATH;
