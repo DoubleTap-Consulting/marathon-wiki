@@ -43,10 +43,23 @@ export function Box({
   );
 }
 
-export function Diagram({ label, viewBox, className, children }: { label: string; viewBox: string; className?: string; children: ReactNode }) {
+export function Diagram({
+  label,
+  describedBy,
+  viewBox,
+  className,
+  children,
+}: {
+  label: string;
+  /** The id of the figure's Chart data table. */
+  describedBy: string;
+  viewBox: string;
+  className?: string;
+  children: ReactNode;
+}) {
   const [, , width] = viewBox.split(" ").map(Number);
   return (
-    <svg role="img" aria-label={label} viewBox={viewBox} className={className} width="100%" style={{ maxWidth: width, maxHeight: 480 }} fontFamily="inherit">
+    <svg role="img" aria-label={label} aria-describedby={describedBy} viewBox={viewBox} className={className} width="100%" style={{ maxWidth: width, maxHeight: 480 }} fontFamily="inherit">
       {children}
     </svg>
   );

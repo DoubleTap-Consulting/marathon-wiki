@@ -21,14 +21,14 @@ function Swatch({ x, y, size, colour, id }: { x: number; y: number; size: number
 }
 
 /** Named rarity tiers, each with its sourced colour or a hatched "Colour not sourced" swatch. */
-export function RarityNamedTiers({ rows, label }: { rows: ResolvedRow[]; label: string }) {
+export function RarityNamedTiers({ rows, label, describedBy }: { rows: ResolvedRow[]; label: string; describedBy: string }) {
   const tiers = rows.map((row) => ({ key: row.key, name: row.label, colour: row.value in NAMED_COLOUR ? row.value : null }));
   if (tiers.length === 0) return null;
   const note = "Listed in the order this page names them. Sources rank only Superior above Deluxe.";
 
   return (
     <>
-      <Diagram label={label} viewBox="0 0 720 200" className="hidden sm:block">
+      <Diagram label={label} describedBy={describedBy} viewBox="0 0 720 200" className="hidden sm:block">
         {tiers.map((tier, index) => {
           const x = index * 180;
           return (
@@ -51,7 +51,7 @@ export function RarityNamedTiers({ rows, label }: { rows: ResolvedRow[]; label: 
           {note}
         </text>
       </Diagram>
-      <Diagram label={label} viewBox="0 0 340 300" className="sm:hidden">
+      <Diagram label={label} describedBy={describedBy} viewBox="0 0 340 300" className="sm:hidden">
         {tiers.map((tier, index) => {
           const y = index * 60;
           return (

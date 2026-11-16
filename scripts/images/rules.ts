@@ -3,7 +3,7 @@
 import { createHash } from "node:crypto";
 
 import { imageAsset, type ImageAsset } from "../../content/imagery-schema.ts";
-import { claimStates, type ClaimLike, type FigureSpec } from "../../src/wiki/figure-data.ts";
+import { claimStates, figureAlt, figureCaptionTitle, type ClaimLike, type FigureSpec } from "../../src/wiki/figure-data.ts";
 import type { ThemeManifest } from "../../themes/types.ts";
 
 export type GatePage = { slug: string; category: string; claims: ClaimLike[] };
@@ -21,6 +21,7 @@ export type GateInput = {
 const SLOT_MIN_WIDTH = { "home-band": 2560, "hub-band": 2560, plate: 1600, inline: 1600 } as const;
 /** Master file ceiling; the served AVIF budget (band ≤ 120 KB at 1280) is checked on the preview. */
 const MAX_MASTER_BYTES = 512 * 1024;
+const PLACEHOLDER = /\b(?:pending|placeholder|todo|tbd|tk|lorem|ipsum|fixme|xxx)\b|\{[^}]*\}/i;
 const BANNED_LICENSE = /\b(NC|ND|GFDL|GPL|unknown)\b/i;
 
 export function checkImages(input: GateInput) {
@@ -88,10 +89,22 @@ export function checkImages(input: GateInput) {
       if (!String(image[field] ?? "").trim()) f(`${field} is empty`);
     }
     if (!image.attributionText.includes(image.credit)) f("credit must appear verbatim in attributionText");
-    if (!image.alt.trim()) f("alt is required");
-    if (image.captionAuthor === "pending-human") warnings.push(`${input.slug}/${image.id}: caption and alt await a human writer`);
+    // No placeholder copy reaches production: these fail the build, they don't warn.
+    const spec = image.generator ? input.specs[image.generator.kind] : undefined;
+    const copy =
+      image.captionAuthor === "generated" && spec
+        ? { title: spec.title, caption: figureCaptionTitle(spec, 1), alt: figureAlt(spec) }
+        : { title: image.title, caption: image.caption, alt: image.alt };
+    if (image.captionAuthor === "generated") {
+      if (image.tier !== "B" || !spec) f('captionAuthor "generated" is for Tier B diagrams with a generator');
+      if (image.caption || image.alt) f("a generated diagram's caption and alt come from its data; leave them empty in the registry");
+      if (spec && image.title !== spec.title) f(`title must match the generator's title ("${spec.title}")`);
+    } else if (image.tier === "B") f('Tier B captions and alt are generated (captionAuthor "generated")');
+    if (!copy.alt.trim()) f("alt is required");
+    if (image.tier === "C" && !copy.caption.trim()) f("caption is required");
+    for (const [field, text] of Object.entries({ ...copy, approvedBy: image.approvedBy }))
+      if (PLACEHOLDER.test(text)) f(`${field} is placeholder copy ("${text.match(PLACEHOLDER)?.[0]}")`);
     if (image.captionAuthor === "source-quotation" && image.captionSourceUrl !== image.sourceUrl) f("a quoted caption needs captionSourceUrl equal to sourceUrl");
-    if (image.approvedBy === "pending") warnings.push(`${input.slug}/${image.id}: not yet approved`);
 
     // 4. Honesty rules.
     if (image.depicts === "game-content" && image.tier !== "A") f('depicts "game-content" requires Tier A');

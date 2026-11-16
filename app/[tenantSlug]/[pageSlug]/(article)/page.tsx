@@ -167,7 +167,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               image={image}
               number={index + 1}
               claims={ctx.claims}
-              citationNumber={(sourceId) => cited.get(sourceId)?.number ?? null}
+              citation={(sourceId) => {
+                const source = cited.get(sourceId);
+                return source ? { number: source.number, title: source.title, url: source.url } : null;
+              }}
               showGaps={showsImageGaps()}
             />
           ))}

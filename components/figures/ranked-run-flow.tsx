@@ -3,7 +3,7 @@ import type { ResolvedRow } from "@/src/wiki/figure-data";
 import { Arrowhead, Box, Diagram } from "./svg";
 
 /** Ranked run flow: Holotags set the target, then the run ends one of three ways. Each box is a row in Chart data. */
-export function RankedRunFlow({ rows, label }: { rows: ResolvedRow[]; label: string }) {
+export function RankedRunFlow({ rows, label, describedBy }: { rows: ResolvedRow[]; label: string; describedBy: string }) {
   const has = (key: string) => rows.some((row) => row.key === key);
   if (!["target", "meet", "below", "fail"].every(has)) return null;
 
@@ -15,7 +15,7 @@ export function RankedRunFlow({ rows, label }: { rows: ResolvedRow[]; label: str
 
   return (
     <>
-      <Diagram label={label} viewBox="0 0 720 210" className="hidden sm:block">
+      <Diagram label={label} describedBy={describedBy} viewBox="0 0 720 210" className="hidden sm:block">
         <Arrowhead id="rrf-w" />
         <Box x={0} y={60} w={200} h={90} title="Holotags" lines={["Combined value sets", "the score target"]} strong />
         <line x1={200} y1={105} x2={244} y2={105} stroke="currentColor" markerEnd="url(#rrf-w)" />
@@ -34,7 +34,7 @@ export function RankedRunFlow({ rows, label }: { rows: ResolvedRow[]; label: str
           );
         })}
       </Diagram>
-      <Diagram label={label} viewBox="0 0 340 400" className="sm:hidden">
+      <Diagram label={label} describedBy={describedBy} viewBox="0 0 340 400" className="sm:hidden">
         <Arrowhead id="rrf-n" />
         <Box x={0} y={0} w={340} h={70} title="Holotags" lines={["Combined value sets the score target"]} strong />
         <line x1={170} y1={70} x2={170} y2={96} stroke="currentColor" markerEnd="url(#rrf-n)" />

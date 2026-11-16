@@ -17,12 +17,35 @@ export type FigureRow = {
   claimId: string;
 };
 
-export type FigureSpec = { kind: string; page: string; columns: [string, string]; rows: FigureRow[] };
+export type FigureSpec = {
+  kind: string;
+  page: string;
+  /** The caption title: "Fig. N. {title}." */
+  title: string;
+  /** What kind of chart it is and what it shows, for the alt text: "{structure}; the full {contents} are in the data table below." */
+  structure: string;
+  contents: string;
+  columns: [string, string];
+  rows: FigureRow[];
+};
+
+/** The diagram's caption title, numbered per page in order. */
+export function figureCaptionTitle(spec: FigureSpec, number: number) {
+  return `Fig. ${number}. ${spec.title}.`;
+}
+
+/** One sentence naming the structure and pointing at the data table, which holds every value. */
+export function figureAlt(spec: FigureSpec) {
+  return `${spec.structure}; the full ${spec.contents} are in the data table below.`;
+}
 
 export const figureSpecs: Record<string, FigureSpec> = {
   "ranked-run-flow": {
     kind: "ranked-run-flow",
     page: "ranked",
+    title: "How a ranked run is scored",
+    structure: "Flow diagram of ranked scoring",
+    contents: "steps",
     columns: ["Step", "Rule"],
     rows: [
       {
@@ -58,6 +81,9 @@ export const figureSpecs: Record<string, FigureSpec> = {
   "rarity-named-tiers": {
     kind: "rarity-named-tiers",
     page: "rarity-tiers",
+    title: "Named rarity tiers and their sourced colours",
+    structure: "Swatch chart of the named rarity tiers",
+    contents: "tiers and colours",
     columns: ["Tier", "Colour named by a source"],
     rows: [
       { key: "standard", label: "Standard", value: "Not sourced", match: ["Standard"], claimId: "claim_rarity-tiers_3" },

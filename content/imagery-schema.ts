@@ -47,10 +47,11 @@ export const imageAsset = z.strictObject({
   caption: z.string(),
   alt: z.string().max(125),
   /**
-   * Captions and alt are written by a person, never by the AI editor. "pending-human" marks a plain
-   * factual placeholder (source and license only) that a person still has to write; the gate warns on it.
+   * Who wrote the caption and alt; never the AI editor. "source-quotation": quoted from the publisher's
+   * own caption on sourceUrl. "generated": a Tier B caption and alt built from the diagram's data
+   * (src/wiki/figure-data.ts), so the registry holds none.
    */
-  captionAuthor: z.enum(["human", "source-quotation", "pending-human"]),
+  captionAuthor: z.enum(["human", "source-quotation", "generated"]),
   captionSourceUrl: z.url().optional(),
   focal: z.object({ x: z.number().min(0).max(1), y: z.number().min(0).max(1) }).optional(),
   permissionRef: z.string().optional(),

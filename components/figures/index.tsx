@@ -2,12 +2,12 @@ import type { ComponentType } from "react";
 
 import { FigureGap, FigurePlate, type FigureCite } from "@/components/figure";
 import type { ImageAsset } from "@/content/imagery-schema";
-import { figureSpecs, resolveFigureRows, type ClaimLike, type ResolvedRow } from "@/src/wiki/figure-data";
+import { figureAlt, figureCaptionTitle, figureSpecs, resolveFigureRows, type ClaimLike, type ResolvedRow } from "@/src/wiki/figure-data";
 
 import { RankedRunFlow } from "./ranked-run-flow";
 import { RarityNamedTiers } from "./rarity-named-tiers";
 
-const generators: Record<string, ComponentType<{ rows: ResolvedRow[]; label: string }>> = {
+const generators: Record<string, ComponentType<{ rows: ResolvedRow[]; label: string; describedBy: string }>> = {
   "ranked-run-flow": RankedRunFlow,
   "rarity-named-tiers": RarityNamedTiers,
 };
@@ -20,14 +20,15 @@ export function TierBPlate({
   image,
   number,
   claims,
-  citationNumber,
+  citation,
   showGaps,
 }: {
   image: ImageAsset;
+  /** The figure's position among this page's figures, from 1. */
   number: number;
   claims: ClaimLike[];
-  /** The reference number for a source id on this page, if it is cited. */
-  citationNumber: (sourceId: string) => number | null;
+  /** The page's reference for a source id, if the page cites it. */
+  citation: (sourceId: string) => { number: number; title: string; url: string | null } | null;
   showGaps: boolean;
 }) {
   const spec = image.generator ? figureSpecs[image.generator.kind] : undefined;
@@ -35,8 +36,8 @@ export function TierBPlate({
   const rows = spec ? resolveFigureRows(spec, claims) : null;
   const citeFor = (row: ResolvedRow): FigureCite | null => {
     for (const id of row.claim.matchedSourceIds) {
-      const cited = citationNumber(id);
-      if (cited) return { number: cited, href: `#ref-${cited}` };
+      const cited = citation(id);
+      if (cited) return { ...cited, href: `#ref-${cited.number}` };
     }
     return null;
   };
@@ -47,8 +48,8 @@ export function TierBPlate({
   }
 
   return (
-    <FigurePlate image={image} number={number} rows={rows} columns={spec.columns} citeFor={(row) => citeFor(row) as FigureCite}>
-      <Generator rows={rows} label={image.alt} />
+    <FigurePlate image={image} title={figureCaptionTitle(spec, number)} rows={rows} columns={spec.columns} citeFor={(row) => citeFor(row) as FigureCite}>
+      {(dataId) => <Generator rows={rows} label={figureAlt(spec)} describedBy={dataId} />}
     </FigurePlate>
   );
 }

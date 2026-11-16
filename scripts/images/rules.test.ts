@@ -68,6 +68,19 @@ describe("image license gate", () => {
     expect(errors).toMatch(/cosmic-cliffs-mono/);
   });
 
+  it("fails the build on placeholder caption, alt or approval copy", () => {
+    const fails = (id: string, change: Record<string, unknown>, field: RegExp) =>
+      expect(run(edit(id, change)).errors.join("\n")).toMatch(field);
+    fails("proxima-b-surface", { caption: "Caption pending" }, /proxima-b-surface: caption is placeholder copy/);
+    fails("proxima-b-surface", { alt: "TODO describe the image" }, /proxima-b-surface: alt is placeholder copy/);
+    fails("proxima-b-surface", { approvedBy: "pending" }, /proxima-b-surface: approvedBy is placeholder copy/);
+    fails("proxima-b-surface", { captionAuthor: "pending-human" }, /proxima-b-surface: captionAuthor/);
+    fails("lhs-3844b-surface", { caption: "" }, /lhs-3844b-surface: caption is required/);
+    fails("ranked-run-flow", { alt: "Flow of {network}" }, /ranked-run-flow: a generated diagram's caption and alt come from its data/);
+    fails("ranked-run-flow", { captionAuthor: "human", alt: "x", caption: "y" }, /ranked-run-flow: Tier B captions and alt are generated/);
+    fails("ranked-run-flow", { title: "Placeholder title" }, /ranked-run-flow: title must match/);
+  });
+
   it("reads JPEG dimensions from the header", () => {
     expect(imageSize(readFile("public/img/marathon/eso1629a.jpg")!)).toEqual({ width: 2560, height: 640 });
   });

@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { CreditLine, FigureBand } from "@/components/figure";
 import { licenseInfo } from "@/content/imagery-schema";
 import { getCachedWikiHome } from "@/src/wiki/cache";
-import { imagesFor, showsImageGaps } from "@/src/wiki/imagery";
+import { imagesFor } from "@/src/wiki/imagery";
 import { buildWikiMetadata } from "@/src/wiki/metadata";
 import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
 
@@ -60,9 +60,6 @@ export default async function ImageCredits({ params }: Props) {
               <dt className="text-muted-foreground">Modifications</dt><dd>{image.modifications ?? "None"}</dd>
               <dt className="text-muted-foreground">Used on</dt>
               <dd>{image.usedOn.map((use) => <a key={`${use.page}/${use.slot}`} href={`/${tenant.slug}${use.page === "home" ? "" : `/${use.page}`}`} className="mr-3 text-link underline underline-offset-3">{use.page === "home" ? "Home" : use.page}</a>)}</dd>
-              {showsImageGaps() && image.captionAuthor === "pending-human" ? (
-                <><dt className="text-muted-foreground">Review</dt><dd>Caption and alt text pending a human writer; factual source labels only.</dd></>
-              ) : null}
             </dl>
           </section>
         ))}
