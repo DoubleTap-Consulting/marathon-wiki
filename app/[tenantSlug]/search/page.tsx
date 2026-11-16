@@ -8,10 +8,10 @@ import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
 import { SearchResults } from "../_components/search-results";
 import { WikiChrome } from "../_components/wiki-chrome";
 
-export const revalidate = 300;
-export const dynamic = "force-static";
-
-type SearchPageProps = { params: Promise<{ tenantSlug: string }> };
+type SearchPageProps = {
+  params: Promise<{ tenantSlug: string }>;
+  searchParams: Promise<{ q?: string | string[] }>;
+};
 
 export async function generateMetadata({ params }: SearchPageProps): Promise<Metadata> {
   const { tenantSlug } = await params;
@@ -28,15 +28,16 @@ export async function generateMetadata({ params }: SearchPageProps): Promise<Met
   };
 }
 
-export default async function SearchPage({ params }: SearchPageProps) {
-  const { tenantSlug } = await params;
+// Rendered per request so results are in the first paint; the index itself comes from the cache.
+export default async function SearchPage({ params, searchParams }: SearchPageProps) {
+  const [{ tenantSlug }, { q }] = await Promise.all([params, searchParams]);
   const snapshot = await getCachedWikiHome(normalizeTenantSlug(tenantSlug));
   if (!snapshot) notFound();
   const entries = await getCachedWikiSearchIndex(snapshot.tenant.slug, snapshot.tenant.id);
 
   return (
     <WikiChrome tenant={snapshot.tenant} categories={snapshot.categories}>
-      <SearchResults tenantSlug={snapshot.tenant.slug} entries={entries} />
+      <SearchResults tenantSlug={snapshot.tenant.slug} entries={entries} query={(Array.isArray(q) ? q[0] : q)?.trim() ?? ""} />
     </WikiChrome>
   );
 }

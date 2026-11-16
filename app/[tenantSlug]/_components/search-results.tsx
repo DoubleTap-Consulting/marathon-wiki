@@ -1,18 +1,14 @@
-"use client";
-
-import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
-
 import { Input } from "@/components/ui/input";
 import { hitHref, searchPages, type SearchEntry } from "@/src/wiki/search";
 
-function Results({ tenantSlug, entries }: { tenantSlug: string; entries: SearchEntry[] }) {
-  const query = useSearchParams().get("q")?.trim() ?? "";
+/** Full results for the header search. */
+export function SearchResults({ tenantSlug, entries, query }: { tenantSlug: string; entries: SearchEntry[]; query: string }) {
   const hits = searchPages(entries, query);
   const summaries = new Map(entries.map((entry) => [entry.slug, entry.summary]));
 
   return (
-    <>
+    <section className="space-y-6">
+      <h1 className="text-title font-display text-foreground">Search</h1>
       <form action={`/${tenantSlug}/search`} role="search" className="max-w-xl" key={query}>
         <label htmlFor="search-page-input" className="sr-only">
           Search wiki pages
@@ -45,18 +41,6 @@ function Results({ tenantSlug, entries }: { tenantSlug: string; entries: SearchE
           </ol>
         </>
       )}
-    </>
-  );
-}
-
-/** Full results for the header search; the query lives in ?q= so this page stays static. */
-export function SearchResults({ tenantSlug, entries }: { tenantSlug: string; entries: SearchEntry[] }) {
-  return (
-    <section className="space-y-6">
-      <h1 className="text-title font-display text-foreground">Search</h1>
-      <Suspense fallback={<p className="text-ui text-muted-foreground">Loading…</p>}>
-        <Results tenantSlug={tenantSlug} entries={entries} />
-      </Suspense>
     </section>
   );
 }
