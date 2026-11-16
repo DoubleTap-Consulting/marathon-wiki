@@ -3,10 +3,13 @@ import type { Metadata } from "next";
 import { getCachedWikiCategory } from "@/src/wiki/cache";
 import { buildWikiMetadata } from "@/src/wiki/metadata";
 import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
+import { themeFor } from "@/themes/registry";
 
 import { MissingWikiPage } from "../../_components/missing-page";
 import { WikiAdSlot } from "../../_components/monetization";
-import { PageGrid, WikiChrome } from "../../_components/wiki-chrome";
+import { CategoryGlyph, EmptyState, IndexTable } from "../../_components/index-ui";
+import { SiteDate } from "../../_components/site-date";
+import { WikiChrome } from "../../_components/wiki-chrome";
 
 export const revalidate = 300;
 export const dynamic = "force-static";
@@ -59,30 +62,40 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     );
   }
 
+  const { tenant, category, pages, sourcesCheckedAt } = snapshot;
+  const theme = themeFor(tenant.slug);
+
   return (
-    <WikiChrome tenant={snapshot.tenant} categories={snapshot.categories}>
-      <section className="space-y-6">
-        <div className="space-y-3">
-          <p className="text-label font-medium uppercase tracking-normal text-muted-foreground">
-            Category
-          </p>
-          <h1 className="text-title font-display text-foreground">
-            {snapshot.category.name}
-          </h1>
-          <p className="max-w-3xl text-body text-muted-foreground">
-            {snapshot.category.description ??
-              "Published pages grouped under this wiki category."}
+    <WikiChrome tenant={tenant} categories={snapshot.categories}>
+      <section aria-labelledby="category-title">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+          <p className="label">Category</p>
+          <p className="label">
+            {category.pageCount} {category.pageCount === 1 ? "page" : "pages"}
+            {sourcesCheckedAt ? (
+              <>
+                {" · "}Sources checked <SiteDate iso={new Date(sourcesCheckedAt).toISOString()} />
+              </>
+            ) : null}
           </p>
         </div>
+        <h1 id="category-title" className="mt-2 flex items-center gap-3 text-title font-display text-foreground">
+          <CategoryGlyph slug={category.slug} className="size-6" />
+          {category.name}
+        </h1>
+        {category.description ? <p className="mt-3 max-w-[68ch] text-body text-muted-foreground">{category.description}</p> : null}
 
-        <PageGrid
-          tenant={snapshot.tenant}
-          pages={snapshot.pages}
-          emptyTitle="No pages in this category yet"
-          emptyDescription="This category exists, but no published pages are assigned to it yet."
-        />
+        <div className="mt-6">
+          {pages.length > 0 ? (
+            <IndexTable tenantSlug={tenant.slug} pages={pages} showCategory={false} caption={`Pages in ${category.name}, A to Z`} />
+          ) : (
+            <div className="border-t border-foreground">
+              <EmptyState themeSlug={theme.slug} kicker={category.name} title={`No pages in ${category.name} yet.`} description="Pages filed under this category appear here once they are published." />
+            </div>
+          )}
+        </div>
 
-        <WikiAdSlot placement="footer" tenantSlug={snapshot.tenant.slug} />
+        <WikiAdSlot placement="footer" tenantSlug={tenant.slug} className="mt-10 block" />
       </section>
     </WikiChrome>
   );

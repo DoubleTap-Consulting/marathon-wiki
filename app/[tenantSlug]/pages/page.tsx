@@ -52,23 +52,22 @@ export default async function TenantPages({
 
   return (
     <WikiChrome tenant={snapshot.tenant} categories={snapshot.categories}>
-      <section className="space-y-6">
-        <div className="space-y-3">
-          <p className="text-label font-medium uppercase tracking-normal text-muted-foreground">
-            Page index
-          </p>
-          <h1 className="text-title font-display text-foreground">
-            All pages
-          </h1>
-          <p className="max-w-3xl text-body text-muted-foreground">
-            Browse every published page for this tenant. The search box filters
-            the current page index by title, slug, and summary.
+      <section aria-labelledby="all-pages-title">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+          <p className="label">Index</p>
+          <p className="label">
+            {pages.length} {pages.length === 1 ? "page" : "pages"}
           </p>
         </div>
+        <h1 id="all-pages-title" className="mt-2 text-title font-display text-foreground">
+          All pages
+        </h1>
 
-        <PageIndex tenant={snapshot.tenant} pages={pages} />
+        <div className="mt-6">
+          <PageIndex tenant={snapshot.tenant} pages={pages} />
+        </div>
 
-        <WikiAdSlot placement="footer" tenantSlug={snapshot.tenant.slug} />
+        <WikiAdSlot placement="footer" tenantSlug={snapshot.tenant.slug} className="mt-10 block" />
       </section>
     </WikiChrome>
   );

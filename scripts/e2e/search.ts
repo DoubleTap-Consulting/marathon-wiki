@@ -27,6 +27,9 @@ const context = await browser.newContext({ viewport: { width: 1280, height: 900 
 if (shareQuery) await (await context.newPage()).goto(`${baseUrl}${articlePath}${shareQuery}`);
 const entries = (await (await context.request.get(`${baseUrl}/${tenant}/search-index.json`)).json()) as SearchEntry[];
 check(entries.length > 0, `index serves ${entries.length} pages`);
+// Every published page is filed under a category (the index lists published pages only).
+const uncategorized = entries.filter((entry) => !entry.category).map((entry) => entry.slug);
+check(uncategorized.length === 0, `every published page has a category${uncategorized.length ? `; missing: ${uncategorized.join(", ")}` : ""}`);
 
 // Every heading in the index is a real anchor on its article.
 let missing = 0;

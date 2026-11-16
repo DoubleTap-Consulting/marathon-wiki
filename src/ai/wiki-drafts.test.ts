@@ -17,6 +17,7 @@ import {
   saveWikiPageWithRevision,
   type WikiTenant,
 } from "@/src/db/wiki";
+import { seedTestCategories } from "@/src/db/test-categories";
 
 if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL is required for AI wiki draft tests.");
@@ -72,6 +73,7 @@ describe.sequential("AI-assisted wiki draft suggestions", () => {
         primary_locale: "en",
       })
       .execute();
+    await seedTestCategories(db, tenantId);
   });
 
   afterAll(async () => {
@@ -131,6 +133,7 @@ describe.sequential("AI-assisted wiki draft suggestions", () => {
       suggestionId: suggestion.id,
       actorId: "review-editor",
       reviewNote: "Approved AI draft after human review",
+      categorySlug: "equipment",
     }, db);
 
     const page = await getPublishedWikiPageBySlug(tenantId, "overrun-ar", db);

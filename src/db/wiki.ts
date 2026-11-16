@@ -33,7 +33,7 @@ export type WikiCategorySummary = {
   pageCount: number;
 };
 
-export type WikiPageSummary = {
+export type WikiPageBase = {
   id: string;
   slug: string;
   title: string;
@@ -41,6 +41,22 @@ export type WikiPageSummary = {
   status: string;
   updatedAt: Date;
   publishedAt: Date | null;
+};
+
+/** A page as the index tables list it. */
+export type WikiPageSummary = WikiPageBase & {
+  /** The page's first category by sort order; null means the page is uncategorized. */
+  category: { slug: string; name: string } | null;
+  sourceCount: number;
+};
+
+/** One row of the home "Recently changed" list: a page's latest published revision. */
+export type WikiRecentChange = {
+  slug: string;
+  title: string;
+  revisionNumber: number;
+  changeNote: string | null;
+  createdAt: Date;
 };
 
 export type WikiPageRevisionSummary = {
@@ -65,7 +81,7 @@ export type WikiSourceReference = {
   metadata: WikiSourceMetadata | null;
 };
 
-export type WikiPageDetail = WikiPageSummary & {
+export type WikiPageDetail = WikiPageBase & {
   bodyMarkdown: string;
   latestRevisionNumber: number;
   latestRevision: WikiPageRevisionSummary | null;
@@ -91,6 +107,9 @@ export type WikiHomeSnapshot = {
   tenant: WikiTenant;
   categories: WikiCategorySummary[];
   pages: WikiPageSummary[];
+  recentChanges: WikiRecentChange[];
+  /** The most recent source check across the wiki, or null when no source has a retrieval date. */
+  sourcesCheckedAt: Date | null;
 };
 
 export type WikiCategorySnapshot = {
@@ -98,6 +117,7 @@ export type WikiCategorySnapshot = {
   category: WikiCategorySummary;
   categories: WikiCategorySummary[];
   pages: WikiPageSummary[];
+  sourcesCheckedAt: Date | null;
 };
 
 export type WikiPageSnapshot = {
@@ -223,6 +243,8 @@ export type SaveWikiPageInput = {
   changeNote?: string | null;
   aiProvenance?: WikiPageRevisionAiProvenance | null;
   sourceReferences?: WikiSourceReference[];
+  /** Files the page under this category when it has none yet; an existing category is never changed. */
+  categorySlug?: string | null;
 };
 
 export type CreateWikiSuggestionInput = {
@@ -355,7 +377,97 @@ export async function listPublishedWikiPagesByTenant(
     .limit(limit)
     .execute();
 
-  return pages;
+  return withIndexFacts(tenantId, pages, db);
+}
+
+/** Adds each page's first category and its source count, the columns the index tables show. */
+async function withIndexFacts(
+  tenantId: string,
+  pages: WikiPageBase[],
+  db: WikiDatabase,
+): Promise<WikiPageSummary[]> {
+  if (pages.length === 0) return [];
+  const ids = pages.map((page) => page.id);
+  const [categories, sources] = await Promise.all([
+    db
+      .selectFrom("wiki_page_categories as page_category")
+      .innerJoin("wiki_categories as category", (join) =>
+        join.onRef("category.id", "=", "page_category.category_id").onRef("category.tenant_id", "=", "page_category.tenant_id"),
+      )
+      .select(["page_category.page_id as pageId", "category.slug as slug", "category.name as name"])
+      .where("page_category.tenant_id", "=", tenantId)
+      .where("page_category.page_id", "in", ids)
+      .orderBy("category.sort_order", "asc")
+      .orderBy("category.name", "asc")
+      .execute(),
+    // Same count as the article's trust strip: the latest revision's cited references, else the page's sources.
+    db
+      .selectFrom("wiki_pages as page")
+      .leftJoin("wiki_page_revisions as revision", (join) =>
+        join
+          .onRef("revision.page_id", "=", "page.id")
+          .onRef("revision.tenant_id", "=", "page.tenant_id")
+          .onRef("revision.revision_number", "=", "page.latest_revision_number"),
+      )
+      .select([
+        "page.id as pageId",
+        sql<number>`cast(coalesce(
+          case when jsonb_typeof(revision.ai_provenance->'sourceReferences') = 'array' and jsonb_array_length(revision.ai_provenance->'sourceReferences') > 0
+            then jsonb_array_length(revision.ai_provenance->'sourceReferences') end,
+          (select count(*) from wiki_sources source where source.page_id = page.id and source.tenant_id = page.tenant_id)
+        ) as integer)`.as("count"),
+      ])
+      .where("page.tenant_id", "=", tenantId)
+      .where("page.id", "in", ids)
+      .execute(),
+  ]);
+  return pages.map((page) => {
+    const category = categories.find((row) => row.pageId === page.id);
+    return {
+      ...page,
+      category: category ? { slug: category.slug, name: category.name } : null,
+      sourceCount: sources.find((row) => row.pageId === page.id)?.count ?? 0,
+    };
+  });
+}
+
+/** The latest published revision of the most recently changed pages. */
+export async function listRecentWikiChanges(tenantId: string, db: WikiDatabase = getDb(), limit = 5): Promise<WikiRecentChange[]> {
+  return db
+    .selectFrom("wiki_pages as page")
+    .innerJoin("wiki_page_revisions as revision", (join) =>
+      join
+        .onRef("revision.page_id", "=", "page.id")
+        .onRef("revision.tenant_id", "=", "page.tenant_id")
+        .onRef("revision.revision_number", "=", "page.latest_revision_number"),
+    )
+    .select([
+      "page.slug as slug",
+      "page.title as title",
+      "revision.revision_number as revisionNumber",
+      "revision.change_note as changeNote",
+      "revision.created_at as createdAt",
+    ])
+    .where("page.tenant_id", "=", tenantId)
+    .where("page.status", "=", "published")
+    .orderBy("revision.created_at", "desc")
+    .orderBy("page.title", "asc")
+    .limit(limit)
+    .execute();
+}
+
+/** The latest retrieval date across the given pages' sources (all published pages when omitted). */
+export async function getLatestSourceCheck(tenantId: string, db: WikiDatabase = getDb(), pageIds?: string[]): Promise<Date | null> {
+  if (pageIds && pageIds.length === 0) return null;
+  let query = db
+    .selectFrom("wiki_sources as source")
+    .innerJoin("wiki_pages as page", (join) => join.onRef("page.id", "=", "source.page_id").onRef("page.tenant_id", "=", "source.tenant_id"))
+    .select(sql<Date | null>`max(source.retrieved_at)`.as("latest"))
+    .where("source.tenant_id", "=", tenantId)
+    .where("page.status", "=", "published");
+  if (pageIds) query = query.where("page.id", "in", pageIds);
+  const row = await query.executeTakeFirst();
+  return row?.latest ? new Date(row.latest) : null;
 }
 
 /** Everything the search index needs for each published page: body for headings, first category, tags. */
@@ -461,7 +573,7 @@ export async function listPublishedWikiPagesByCategory(
     .limit(limit)
     .execute();
 
-  return pages;
+  return withIndexFacts(tenantId, pages, db);
 }
 
 export async function getPublishedWikiPageBySlug(
@@ -655,15 +767,19 @@ export async function getWikiHomeSnapshot(
     return null;
   }
 
-  const [categories, pages] = await Promise.all([
+  const [categories, pages, recentChanges, sourcesCheckedAt] = await Promise.all([
     listWikiCategoriesByTenant(tenant.id, db),
-    listPublishedWikiPagesByTenant(tenant.id, db, 12),
+    listPublishedWikiPagesByTenant(tenant.id, db, 500),
+    listRecentWikiChanges(tenant.id, db),
+    getLatestSourceCheck(tenant.id, db),
   ]);
 
   return {
     tenant,
     categories,
     pages,
+    recentChanges,
+    sourcesCheckedAt,
   };
 }
 
@@ -688,12 +804,14 @@ export async function getWikiCategorySnapshot(
     listWikiCategoriesByTenant(tenant.id, db),
     listPublishedWikiPagesByCategory(tenant.id, category.id, db),
   ]);
+  const sourcesCheckedAt = await getLatestSourceCheck(tenant.id, db, pages.map((page) => page.id));
 
   return {
     tenant,
     category,
     categories,
     pages,
+    sourcesCheckedAt,
   };
 }
 
@@ -1385,6 +1503,8 @@ export async function approveWikiSuggestion(
     suggestionId: string;
     actorId: string;
     reviewNote?: string | null;
+    /** Required for a new page (else the suggestion's own categorySlug); a published page always has a category. */
+    categorySlug?: string | null;
   },
   db: Kysely<DB> = getDb(),
 ): Promise<{ pageSlug: string }> {
@@ -1434,6 +1554,11 @@ export async function approveWikiSuggestion(
       }
     }
 
+    const categorySlug = input.categorySlug || suggestionCategorySlug(suggestion.metadata);
+    if (suggestion.suggestionType === "new_page" && !categorySlug) {
+      throw new Error("Pick a category before approving a new page.");
+    }
+
     await saveWikiPageWithRevisionInTransaction(
       {
         tenantId: input.tenantId,
@@ -1449,6 +1574,7 @@ export async function approveWikiSuggestion(
           `Approved suggestion ${suggestion.id} (${suggestion.suggestionType})`,
         // An AI editor revision that waited for review keeps its claim-level provenance.
         aiProvenance: aiSuggestionProvenance(suggestion.metadata),
+        categorySlug: suggestion.suggestionType === "new_page" ? categorySlug : null,
       },
       trx,
     );
@@ -1470,6 +1596,11 @@ export async function approveWikiSuggestion(
   });
 }
 
+export function suggestionCategorySlug(metadata: WikiSuggestionMetadata | null | undefined): string | null {
+  const value = metadata?.categorySlug;
+  return typeof value === "string" && value ? value : null;
+}
+
 function aiSuggestionProvenance(metadata: WikiSuggestionMetadata | null | undefined) {
   const provenance = metadata?.origin === "ai_generated" ? metadata.aiProvenance : null;
   return provenance && typeof provenance === "object" ? (provenance as WikiPageRevisionAiProvenance) : null;
@@ -1477,6 +1608,28 @@ function aiSuggestionProvenance(metadata: WikiSuggestionMetadata | null | undefi
 
 function aiSuggestionChangeNote(metadata: WikiSuggestionMetadata | null | undefined) {
   return metadata?.origin === "ai_generated" && typeof metadata.changeNote === "string" ? metadata.changeNote : null;
+}
+
+/** Adds the page to the category only when it is in no category; throws on a category the wiki doesn't have. */
+async function fileUncategorizedPage(input: { tenantId: string; pageId: string; categorySlug: string }, trx: Transaction<DB>) {
+  const category = await trx
+    .selectFrom("wiki_categories")
+    .select("id")
+    .where("tenant_id", "=", input.tenantId)
+    .where("slug", "=", input.categorySlug)
+    .executeTakeFirst();
+  if (!category) throw new Error(`No category '${input.categorySlug}' in this wiki.`);
+  const existing = await trx
+    .selectFrom("wiki_page_categories")
+    .select("category_id")
+    .where("tenant_id", "=", input.tenantId)
+    .where("page_id", "=", input.pageId)
+    .executeTakeFirst();
+  if (existing) return;
+  await trx
+    .insertInto("wiki_page_categories")
+    .values({ tenant_id: input.tenantId, page_id: input.pageId, category_id: category.id })
+    .execute();
 }
 
 async function saveWikiPageWithRevisionInTransaction(
@@ -1600,6 +1753,10 @@ async function saveWikiPageWithRevisionInTransaction(
         })),
       )
       .execute();
+  }
+
+  if (input.categorySlug) {
+    await fileUncategorizedPage({ tenantId: input.tenantId, pageId, categorySlug: input.categorySlug }, trx);
   }
 
   const savedPage = await getPublishedWikiPageBySlug(

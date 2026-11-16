@@ -22,6 +22,7 @@ import {
   type WikiPageRevisionAiProvenance,
   type WikiTenant,
 } from "@/src/db/wiki";
+import { seedTestCategories } from "@/src/db/test-categories";
 
 if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL is required for AI refresh queue tests.");
@@ -72,6 +73,7 @@ describe.sequential("AI refresh queue", () => {
         primary_locale: "en",
       })
       .execute();
+    await seedTestCategories(db, tenantId);
   });
 
   afterAll(async () => {

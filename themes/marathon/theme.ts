@@ -32,5 +32,6 @@ export default {
     sectionIndex: "decimal-leading-zero",
   },
   shape: { corners: "square" },
+  texture: { kind: "dither", regions: ["masthead", "empty-state", "not-found"], opacity: { light: 0.12, dark: 0.18 } },
   motion: { character: "crisp" },
 } satisfies ThemeManifest;

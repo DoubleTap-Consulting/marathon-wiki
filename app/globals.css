@@ -196,3 +196,10 @@ html {
     transition-duration: 150ms !important;
   }
 }
+
+/* The theme's dither texture is decorative only: gone when the reader asks for more contrast, forced colors or print. */
+@media (prefers-contrast: more), (forced-colors: active), print {
+  .dither-band {
+    display: none;
+  }
+}

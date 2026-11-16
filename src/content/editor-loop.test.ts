@@ -21,6 +21,7 @@ import {
   getPublishedWikiPageBySlug,
   updateWikiCommunityNoteModerationStatus,
 } from "@/src/db/wiki";
+import { seedTestCategories } from "@/src/db/test-categories";
 
 if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL is required for the AI editor loop tests.");
@@ -51,6 +52,7 @@ describe.sequential("AI editor loop", () => {
   beforeAll(async () => {
     await db.insertInto("games").values({ id: gameId, slug: `${tenantSlug}-game`, title: "Marathon", franchise: "Marathon", developer: null, publisher: null, release_date: null, metadata: null }).execute();
     await db.insertInto("tenants").values({ id: tenantId, game_id: gameId, slug: tenantSlug, name: "Editor Loop Wiki", status: "active", primary_locale: "en" }).execute();
+    await seedTestCategories(db, tenantId);
   });
 
   afterAll(async () => {
@@ -82,6 +84,8 @@ describe.sequential("AI editor loop", () => {
     expect(provenance?.claimSupport?.every((claim) => claim.status === "supported")).toBe(true);
     expect(provenance?.sourceReferences?.map((reference) => reference.sourceKey)).toEqual(["bungie-runner-shells"]);
     expect(page?.bodyMarkdown).toContain("{{cite:bungie-runner-shells}}");
+    // A page the editor publishes is filed under its spec's category, never left uncategorized.
+    expect(page?.categories.length).toBe(1);
   });
 
   it("refreshes the page when a cited snapshot changes, with a diff and a What changed note", async () => {

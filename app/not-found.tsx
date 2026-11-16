@@ -1,6 +1,5 @@
-import { BookOpen } from "lucide-react";
-
-import { SiteFooter } from "@/app/[tenantSlug]/_components/wiki-chrome";
+import { NotFoundBody } from "@/app/[tenantSlug]/_components/not-found-body";
+import { SiteFooter, WikiChrome } from "@/app/[tenantSlug]/_components/wiki-chrome";
 import { getCachedWikiHome } from "@/src/wiki/cache";
 import { getDefaultTenantSlug } from "@/src/wiki/tenant-routing";
 
@@ -8,32 +7,20 @@ export default async function NotFound() {
   const tenantSlug = getDefaultTenantSlug();
   const home = await getCachedWikiHome(tenantSlug).catch(() => null);
 
+  if (home) {
+    return (
+      <WikiChrome tenant={home.tenant} categories={home.categories}>
+        <NotFoundBody tenantSlug={home.tenant.slug} />
+      </WikiChrome>
+    );
+  }
+
   return (
     <>
-      <main className="min-h-screen bg-background">
-        <div className="mx-auto flex min-h-screen w-full max-w-2xl flex-col justify-center px-5 py-12 sm:px-6">
-          <div className="border bg-card p-6 text-card-foreground">
-            <div className="flex size-11 items-center justify-center bg-secondary text-secondary-foreground">
-              <BookOpen className="size-5" aria-hidden="true" />
-            </div>
-            <h1 className="mt-5 text-title font-display">
-              Page not found
-            </h1>
-            <p className="mt-2 text-ui text-muted-foreground">
-              This wiki page may not exist yet, may be unpublished, or may belong
-              to a different tenant.
-            </p>
-            <a
-              href={`/${tenantSlug}`}
-              className="mt-6 inline-flex min-h-11 items-center border border-foreground bg-primary px-4 hover:bg-primary-hover dark:border-transparent text-ui font-medium text-primary-foreground"
-            >
-              Go to wiki home
-            </a>
-          </div>
-        </div>
+      <main className="min-h-screen bg-background px-5">
+        <NotFoundBody tenantSlug={tenantSlug} />
       </main>
-      {home ? <SiteFooter tenant={home.tenant} categories={home.categories} /> : null}
+      <SiteFooter tenant={{ slug: tenantSlug, gameTitle: "Marathon" }} categories={[]} />
     </>
   );
 }
-
