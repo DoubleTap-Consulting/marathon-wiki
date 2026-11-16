@@ -9,7 +9,7 @@ import { themeFor } from "@/themes/registry";
 
 import { MissingWikiPage } from "../../_components/missing-page";
 import { WikiAdSlot } from "../../_components/monetization";
-import { CategoryGlyph, EmptyState, IndexTable } from "../../_components/index-ui";
+import { PAGE_TITLE_TIMING, CategoryGlyph, EmptyState, IndexTable } from "../../_components/index-ui";
 import { SiteDate } from "../../_components/site-date";
 import { WikiChrome } from "../../_components/wiki-chrome";
 
@@ -82,7 +82,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             ) : null}
           </p>
         </div>
-        <h1 id="category-title" className="mt-2 flex items-center gap-3 text-title font-display text-foreground">
+        <h1 id="category-title" {...PAGE_TITLE_TIMING} className="mt-2 flex items-center gap-3 text-title font-display text-foreground">
           <CategoryGlyph slug={category.slug} className="size-6" />
           {category.name}
         </h1>

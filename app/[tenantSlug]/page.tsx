@@ -9,7 +9,7 @@ import { themeFor } from "@/themes/registry";
 
 import { MissingWikiPage } from "./_components/missing-page";
 import { WikiAdSlot, WikiPremiumHook } from "./_components/monetization";
-import { CategoryGlyph, CropMarks, DitherBand, EmptyState, IndexTable, revisionCode } from "./_components/index-ui";
+import { PAGE_TITLE_TIMING, CategoryGlyph, CropMarks, DitherBand, EmptyState, IndexTable, revisionCode } from "./_components/index-ui";
 import { SiteDate } from "./_components/site-date";
 import { WikiChrome } from "./_components/wiki-chrome";
 
@@ -78,7 +78,7 @@ export default async function TenantHome({ params }: TenantHomeProps) {
               </>
             ) : null}
           </p>
-          <h1 id="wiki-home-title" className="max-w-3xl text-title font-display text-foreground">
+          <h1 id="wiki-home-title" {...PAGE_TITLE_TIMING} className="max-w-3xl text-title font-display text-foreground">
             {theme.identity.descriptor}
           </h1>
           <p className="max-w-[56ch] text-body text-muted-foreground">
