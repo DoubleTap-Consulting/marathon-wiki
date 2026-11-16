@@ -47,4 +47,4 @@ if (vercelEnv === "production") {
   console.log(`vercel-build: skipping migrations and seed (VERCEL_ENV is ${vercelEnv ?? "unset"}).`);
 }
 
-run("next build");
+run("next build --webpack");
