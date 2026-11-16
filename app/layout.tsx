@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Archivo, Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 
 import { applyScheme } from "@/app/_components/scheme";
 import { SchemeSync } from "@/app/_components/scheme-sync";
@@ -16,15 +17,18 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-// The Marathon manifest's display face (themes/marathon/theme.ts: Archivo, wdth axis).
-const displayFace = Archivo({
+// The Marathon manifest's display face (themes/marathon/theme.ts: Archivo, wdth 125, weights 700 and 800).
+// The file is Google Fonts' own latin instance of Archivo at wdth 125, wght 700..800
+// (fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,700..800), self-hosted: 35 KB instead of the
+// 90 KB full-axis file next/font/google serves, with the same outlines at the values the theme uses.
+// OFL: app/_fonts/ARCHIVO-OFL.txt.
+const displayFace = localFont({
+  src: "./_fonts/archivo-wdth125-wght700-800-latin.woff2",
   variable: "--font-display-face",
-  subsets: ["latin"],
-  // Variable weight: next/font only loads the wdth axis on the variable file; 700 and 800 come from it.
-  weight: "variable",
-  axes: ["wdth"],
+  weight: "700 800",
+  style: "normal",
   display: "swap",
-  adjustFontFallback: true,
+  adjustFontFallback: "Arial",
 });
 
 const geistMono = Geist_Mono({
