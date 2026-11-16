@@ -46,7 +46,7 @@ export default async function ImageCredits({ params }: Props) {
           <section key={image.id} id={image.id} className="py-6">
             <h2 className="text-h2 font-semibold text-foreground">{image.title}</h2>
             {image.tier === "C" ? (
-              <FigureBand image={image} slot="hub-band" className="mt-4" />
+              <FigureBand image={image} slot="hub-band" className="mt-4" priority={false} />
             ) : (
               <p className="mt-3 text-small text-muted-foreground"><CreditLine image={image} /></p>
             )}

@@ -20,14 +20,14 @@
       "retrievedAt": "2026-11-15",
       "depicts": "atmosphere",
       "illustrative": true,
-      "caption": "",
-      "alt": "",
-      "captionAuthor": "pending-human",
+      "caption": "What looks much like craggy mountains on a moonlit evening is actually the edge of a nearby, young, star-forming region NGC 3324 in the Carina Nebula.",
+      "alt": "A bright ridge of gas and dust beneath a star field. Real astronomy imagery of NGC 3324, not from the game.",
+      "captionAuthor": "source-quotation",
       "focal": {
         "x": 0.5,
         "y": 0.45
       },
-      "approvedBy": "pending",
+      "approvedBy": "source-quotation",
       "approvedAt": null,
       "usedOn": [
         {
@@ -35,7 +35,8 @@
           "slot": "home-band"
         }
       ],
-      "attributionText": "NIRCam Image of the “Cosmic Cliffs” in Carina · NASA, ESA, CSA, and STScI · CC BY 4.0 · Cropped to 3:1; resized; greyscaled"
+      "attributionText": "NIRCam Image of the “Cosmic Cliffs” in Carina · NASA, ESA, CSA, and STScI · CC BY 4.0 · Cropped to 3:1; resized; greyscaled",
+      "captionSourceUrl": "https://esawebb.org/images/weic2205a/"
     },
     {
       "id": "proxima-b-surface",
@@ -56,14 +57,14 @@
       "retrievedAt": "2026-11-15",
       "depicts": "real-world",
       "illustrative": true,
-      "caption": "Artist's impression of the real exoplanet Proxima b. Not Tau Ceti IV and not from the game.",
-      "alt": "",
-      "captionAuthor": "pending-human",
+      "caption": "This artist’s impression shows a view of the surface of the planet Proxima b orbiting the red dwarf star Proxima Centauri, the closest star to the Solar System.",
+      "alt": "An orange sun above a rocky landscape. Real astronomy illustration of Proxima b, not from the game.",
+      "captionAuthor": "source-quotation",
       "focal": {
         "x": 0.3,
         "y": 0.5
       },
-      "approvedBy": "pending",
+      "approvedBy": "source-quotation",
       "approvedAt": null,
       "usedOn": [
         {
@@ -71,7 +72,8 @@
           "slot": "hub-band"
         }
       ],
-      "attributionText": "Artist's impression of the planet orbiting Proxima Centauri · ESO/M. Kornmesser · CC BY 4.0 · Cropped to 4:1; resized"
+      "attributionText": "Artist's impression of the planet orbiting Proxima Centauri · ESO/M. Kornmesser · CC BY 4.0 · Cropped to 4:1; resized",
+      "captionSourceUrl": "https://www.eso.org/public/images/eso1629a/"
     },
     {
       "id": "lhs-3844b-surface",
@@ -92,14 +94,14 @@
       "retrievedAt": "2026-11-15",
       "depicts": "real-world",
       "illustrative": true,
-      "caption": "Artist's illustration of the real exoplanet LHS 3844b. Not a Marathon zone.",
-      "alt": "",
-      "captionAuthor": "pending-human",
+      "caption": "This artist's illustration depicts the exoplanet LHS 3844b, which is 1.3 times the mass of Earth and orbits an M dwarf star.",
+      "alt": "A rocky planet with a bright edge against space. Real astronomy illustration of LHS 3844b, not from the game.",
+      "captionAuthor": "source-quotation",
       "focal": {
         "x": 0.5,
         "y": 0.5
       },
-      "approvedBy": "pending",
+      "approvedBy": "source-quotation",
       "approvedAt": null,
       "usedOn": [
         {
@@ -107,7 +109,8 @@
           "slot": "hub-band"
         }
       ],
-      "attributionText": "Rare Glimpse of the Surface of a Rocky World (Illustration) · NASA/JPL-Caltech/R. Hurt (IPAC) · Public domain (US Gov.) · Cropped to 4:1; resized"
+      "attributionText": "Rare Glimpse of the Surface of a Rocky World (Illustration) · NASA/JPL-Caltech/R. Hurt (IPAC) · Public domain (US Gov.) · Cropped to 4:1; resized",
+      "captionSourceUrl": "https://photojournal.jpl.nasa.gov/catalog/PIA23130"
     },
     {
       "id": "ranked-run-flow",

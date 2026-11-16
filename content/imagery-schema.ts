@@ -50,7 +50,8 @@ export const imageAsset = z.strictObject({
    * Captions and alt are written by a person, never by the AI editor. "pending-human" marks a plain
    * factual placeholder (source and license only) that a person still has to write; the gate warns on it.
    */
-  captionAuthor: z.enum(["human", "pending-human"]),
+  captionAuthor: z.enum(["human", "source-quotation", "pending-human"]),
+  captionSourceUrl: z.url().optional(),
   focal: z.object({ x: z.number().min(0).max(1), y: z.number().min(0).max(1) }).optional(),
   permissionRef: z.string().optional(),
   approvedBy: z.string().min(1),

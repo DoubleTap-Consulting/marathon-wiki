@@ -88,9 +88,9 @@ export function checkImages(input: GateInput) {
       if (!String(image[field] ?? "").trim()) f(`${field} is empty`);
     }
     if (!image.attributionText.includes(image.credit)) f("credit must appear verbatim in attributionText");
-    const bandOnly = image.usedOn.every((use) => use.slot === "home-band" || use.slot === "hub-band");
-    if (!bandOnly && !image.alt.trim()) f("alt is required outside band slots");
-    if (image.captionAuthor !== "human") warnings.push(`${input.slug}/${image.id}: caption and alt await a human writer`);
+    if (!image.alt.trim()) f("alt is required");
+    if (image.captionAuthor === "pending-human") warnings.push(`${input.slug}/${image.id}: caption and alt await a human writer`);
+    if (image.captionAuthor === "source-quotation" && image.captionSourceUrl !== image.sourceUrl) f("a quoted caption needs captionSourceUrl equal to sourceUrl");
     if (image.approvedBy === "pending") warnings.push(`${input.slug}/${image.id}: not yet approved`);
 
     // 4. Honesty rules.

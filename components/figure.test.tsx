@@ -39,8 +39,8 @@ describe("Figure, for every registry entry", () => {
         expect(figure).toContain(escape(ILLUSTRATIVE_BADGE));
         expect(figure).toContain(`href="${image.sourceUrl}"`);
         expect(figure).not.toMatch(/src="https?:/);
-        expect(figure).toMatch(/loading="lazy"/);
-        expect(figure).not.toMatch(/fetchpriority="high"/);
+        expect(figure).toMatch(/loading="eager"/);
+        expect(figure.toLowerCase()).toMatch(/fetchpriority="high"/);
       } else {
         expect(figure).toContain("Chart data");
         expect(figure).toMatch(/href="#ref-1"/);
