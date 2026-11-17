@@ -21,6 +21,9 @@ export { SchemeToggle };
 const ICON_BUTTON =
   "inline-flex size-11 items-center justify-center text-foreground hover:bg-muted";
 
+const SECTION_LABEL =
+  "mt-4 mb-1 px-3 text-label font-medium uppercase tracking-wide text-muted-foreground";
+
 export function SearchSheet({ tenantSlug }: { tenantSlug: string }) {
   const [open, setOpen] = useState(false);
   // The sheet mounts on first open and stays mounted, so later closes keep their exit animation.
@@ -69,6 +72,12 @@ export function MenuSheet({
     getWikiNavAuthAction().then(setAuth, () => setAuth({ status: "signed_out" }));
   };
 
+  const closeIfLink = (event: React.MouseEvent<HTMLElement>) => {
+    if ((event.target as HTMLElement).closest("a")) {
+      setOpen(false);
+    }
+  };
+
   return (
     <>
       <button type="button" aria-label="Menu" className={ICON_BUTTON} onClick={() => {
@@ -85,20 +94,20 @@ export function MenuSheet({
             <nav
               className="grid gap-1"
               aria-label="Wiki sections"
-              aria-busy={auth === null}
-              onClick={(event) => (event.target as HTMLElement).closest("a") && setOpen(false)}
+              onClick={closeIfLink}
             >
               {primary}
-              <AccountItems
-                items={wikiSidebarAccountItems({
-                  tenantSlug,
-                  currentPath: pathname,
-                  auth,
-                })}
-                loading={auth === null}
-              />
               {children}
             </nav>
+            <AccountGroup
+              items={wikiSidebarAccountItems({
+                tenantSlug,
+                currentPath: pathname,
+                auth,
+              })}
+              loading={auth === null}
+              onClick={closeIfLink}
+            />
           </SheetPanel>
         </Suspense>
       ) : null}
@@ -106,43 +115,68 @@ export function MenuSheet({
   );
 }
 
-function AccountItems({
+function AccountGroup({
   items,
   loading,
+  onClick,
 }: {
   items: WikiSidebarItem[];
   loading: boolean;
+  onClick: (event: React.MouseEvent<HTMLElement>) => void;
 }) {
-  if (loading) {
-    return <div className="min-h-11" aria-hidden="true" />;
-  }
-
   return (
-    <>
-      {items.map((item) =>
-        item.kind === "identity" ? (
-          <div
-            key="identity"
-            className="flex min-h-11 items-center gap-3 px-3 text-foreground"
-          >
-            <span
-              className="flex size-8 shrink-0 items-center justify-center bg-foreground text-small font-medium text-background"
-              aria-hidden="true"
-            >
-              {item.initials}
-            </span>
-            <span className="truncate text-ui font-medium">{item.displayName}</span>
-          </div>
-        ) : (
-          <a
-            key={item.href}
-            href={item.href}
-            className="flex min-h-11 items-center px-3 text-ui font-medium text-foreground hover:bg-muted"
-          >
-            {item.label}
-          </a>
-        ),
+    <nav
+      className="mt-auto min-w-0 border-t"
+      aria-label="Account"
+      aria-busy={loading}
+      onClick={onClick}
+    >
+      <p className={SECTION_LABEL}>Account</p>
+      {loading ? (
+        <div className="min-h-11" aria-hidden="true" />
+      ) : (
+        <div className="grid min-w-0 gap-1">
+          {items.map((item) => {
+            if (item.kind === "identity") {
+              return (
+                <div
+                  key="identity"
+                  className="flex min-h-11 items-center gap-3 px-3 text-foreground"
+                >
+                  <span
+                    className="flex size-8 shrink-0 items-center justify-center bg-foreground text-small font-medium text-background"
+                    aria-hidden="true"
+                  >
+                    {item.initials}
+                  </span>
+                  <span className="truncate text-ui font-medium">{item.displayName}</span>
+                </div>
+              );
+            }
+
+            if (item.kind === "hint") {
+              return (
+                <p
+                  key="hint"
+                  className="min-w-0 max-w-[19rem] px-3 pb-2 text-small leading-5 break-words text-muted-foreground"
+                >
+                  {item.text}
+                </p>
+              );
+            }
+
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                className="flex min-h-11 items-center px-3 text-ui font-medium text-foreground hover:bg-muted"
+              >
+                {item.label}
+              </a>
+            );
+          })}
+        </div>
       )}
-    </>
+    </nav>
   );
 }

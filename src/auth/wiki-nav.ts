@@ -9,7 +9,11 @@ export type WikiNavAuth =
 
 export type WikiSidebarItem =
   | { kind: "link"; href: string; label: string }
-  | { kind: "identity"; displayName: string; initials: string };
+  | { kind: "identity"; displayName: string; initials: string }
+  | { kind: "hint"; text: string };
+
+export const SIGNED_OUT_ACCOUNT_HINT =
+  "Suggest edits; an editor reviews every change.";
 
 export function displayInitials(name: string) {
   const parts = name.trim().split(/\s+/).filter(Boolean);
@@ -67,7 +71,10 @@ export function wikiSidebarAccountItems({
   const redirect = `?redirect=${encodeURIComponent(safeInternalPath(currentPath, fallback))}`;
 
   if (auth.status === "signed_out") {
-    return [{ kind: "link", href: `${fallback}/sign-in${redirect}`, label: "Sign in" }];
+    return [
+      { kind: "link", href: `${fallback}/sign-in${redirect}`, label: "Sign in" },
+      { kind: "hint", text: SIGNED_OUT_ACCOUNT_HINT },
+    ];
   }
 
   const items: WikiSidebarItem[] = [
@@ -76,7 +83,7 @@ export function wikiSidebarAccountItems({
       displayName: auth.displayName,
       initials: displayInitials(auth.displayName),
     },
-    { kind: "link", href: `${fallback}/suggest`, label: "Suggest" },
+    { kind: "link", href: `${fallback}/suggest`, label: "Suggest an edit" },
   ];
 
   if (auth.canReview) {

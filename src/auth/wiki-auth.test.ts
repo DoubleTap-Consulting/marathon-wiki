@@ -159,10 +159,14 @@ describe("wiki sidebar account items", () => {
         href: "/marathon/sign-in?redirect=%2Fmarathon%2Franked",
         label: "Sign in",
       },
+      {
+        kind: "hint",
+        text: "Suggest edits; an editor reviews every change.",
+      },
     ]);
   });
 
-  it("gives a signed-in non-editor Suggest and Sign out, but not Review", () => {
+  it("gives a signed-in non-editor Suggest an edit and Sign out, but not Review", () => {
     expect(
       wikiSidebarAccountItems({
         tenantSlug: "marathon",
@@ -171,7 +175,7 @@ describe("wiki sidebar account items", () => {
       }),
     ).toEqual([
       { kind: "identity", displayName: "Mike Flores", initials: "MF" },
-      { kind: "link", href: "/marathon/suggest", label: "Suggest" },
+      { kind: "link", href: "/marathon/suggest", label: "Suggest an edit" },
       {
         kind: "link",
         href: "/marathon/sign-out?redirect=%2Fmarathon",
@@ -187,7 +191,7 @@ describe("wiki sidebar account items", () => {
       auth: editor,
     }).flatMap((item) => (item.kind === "link" ? [item.label] : []));
 
-    expect(labels).toEqual(["Suggest", "Review", "Sign out"]);
+    expect(labels).toEqual(["Suggest an edit", "Review", "Sign out"]);
   });
 
   it("omits Sign out for the local dev auth fallback", () => {
@@ -197,7 +201,7 @@ describe("wiki sidebar account items", () => {
       auth: devUser,
     }).flatMap((item) => (item.kind === "link" ? [item.label] : []));
 
-    expect(labels).toEqual(["Suggest"]);
+    expect(labels).toEqual(["Suggest an edit"]);
   });
 
   it("waits to render account links until auth has loaded", () => {
