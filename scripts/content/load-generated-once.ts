@@ -2,8 +2,9 @@
  * ONE-TIME load of content/<wiki>/generated/pages.json into one wiki's database.
  * Code only for production: Mike runs it once, by hand, after the merge and migration.
  *
- *   node scripts/content/load-generated-once.ts [--tenant marathon] [--env-file .env.local] [--dry-run] [--confirm "<phrase>"]
+ *   node scripts/content/load-generated-once.ts [--tenant marathon] [--env-file .env.local] [--dry-run] [--public-base https://wikiden.gg] [--confirm "<phrase>"]
  *
+ * --public-base with --dry-run and --tenant gta6 compares against production's public 404s (no database, no secrets).
  * Off by default. It refuses unless:
  *   - it is not running on Vercel;
  *   - a production target also has WIKI_ALLOW_PROD_CONTENT_LOAD=1 (any other target must pass db-guard);
@@ -22,7 +23,9 @@ import { Pool } from "@neondatabase/serverless";
 
 import { checkNonProductionTarget, pointsAtProduction, previewTargetUrl } from "../db-guard.mjs";
 import { decideGeneratedLoad } from "../../src/content/load-once.ts";
+import { upsertGta6Tenant } from "../../src/content/upsert-gta6-tenant.ts";
 import { loadGeneratedPages, type GeneratedPage } from "./generated-load.ts";
+import { dryRunGtaAgainstPublic } from "./dry-run-prod-public.ts";
 
 const root = new URL("../../", import.meta.url).pathname;
 const args = process.argv.slice(2);
@@ -71,11 +74,28 @@ if (!decision.ok && !(dryRun && decision.phrase)) {
   process.exit(1);
 }
 
+const publicBase = flag("public-base");
+if (publicBase) {
+  if (!dryRun) {
+    say("refused: --public-base is read-only. Pass --dry-run as well. No database was opened.");
+    process.exit(1);
+  }
+  if (tenantSlug !== "gta6") {
+    say("refused: --public-base on this loader is for --tenant gta6 (production hides that tenant). For Marathon approved revisions, use load-approved-revisions.ts --public-base.");
+    process.exit(1);
+  }
+  const lines = await dryRunGtaAgainstPublic({
+    base: publicBase.replace(/\/$/, ""),
+    pageCount: pages.length,
+    fileSha256,
+  });
+  for (const line of lines) say(line);
+  process.exit(0);
+}
+
 const pool = new Pool({ connectionString: previewTargetUrl(process.env) as string });
 const client = await pool.connect();
 try {
-  const tenant = await client.query("select id from tenants where slug = $1", [tenantSlug]);
-  if (tenant.rows.length === 0) throw new Error(`no wiki with slug '${tenantSlug}' in this database`);
   const loadKey = `generated-pages:${tenantSlug}`;
   const prior = await client.query(`select to_char(loaded_at at time zone 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS"Z"') as loaded_at, file_sha256, loaded_by from content_load_records where load_key = $1`, [loadKey]);
   if (prior.rows.length) {
@@ -83,20 +103,39 @@ try {
     say(`refused: already loaded into '${tenantSlug}' at ${row.loaded_at} by ${row.loaded_by} (file ${String(row.file_sha256).slice(0, 12)}). This load runs once per wiki; later changes go through the AI editor queue.`);
     process.exitCode = 1;
   } else if (dryRun) {
-    say(`dry run: allowed once. Re-run with --confirm "${decision.phrase}".`);
+    const existing = await client.query("select id from tenants where slug = $1", [tenantSlug]);
+    const tenantNote =
+      tenantSlug === "gta6"
+        ? existing.rows.length
+          ? "would upsert the gta6 game, tenant, and categories (already present; idempotent)"
+          : "would upsert the gta6 game, tenant, and categories (no tenant row today), then load pages"
+        : existing.rows.length
+          ? "tenant already present"
+          : "refused on apply: no wiki with that slug (only the gta6 load upserts a missing tenant)";
+    say(`dry run: allowed once. ${tenantNote}. Re-run with --confirm "${decision.phrase}".`);
   } else if (decision.ok) {
     await client.query("begin");
+    let tenantId: string;
+    if (tenantSlug === "gta6") {
+      const upserted = await upsertGta6Tenant(client);
+      tenantId = upserted.tenantId;
+      say(upserted.created ? "upserted the gta6 game, tenant, and categories (new tenant row)." : "upserted the gta6 game, tenant, and categories (tenant already present).");
+    } else {
+      const tenant = await client.query("select id from tenants where slug = $1", [tenantSlug]);
+      if (tenant.rows.length === 0) throw new Error(`no wiki with slug '${tenantSlug}' in this database`);
+      tenantId = tenant.rows[0].id;
+    }
     const inserted = await client.query(
       `insert into content_load_records (id, load_key, tenant_id, file_sha256, page_count, target, loaded_by)
        values ($1, $2, $3, $4, $5, $6, $7) on conflict (load_key) do nothing returning id`,
-      [`load_${randomUUID()}`, loadKey, tenant.rows[0].id, fileSha256, pages.length, decision.target, `${userInfo().username}@load-generated-once`],
+      [`load_${randomUUID()}`, loadKey, tenantId, fileSha256, pages.length, decision.target, `${userInfo().username}@load-generated-once`],
     );
     if (inserted.rows.length === 0) {
       await client.query("rollback");
       say("refused: another run recorded this load first.");
       process.exitCode = 1;
     } else {
-      const result = await loadGeneratedPages(client, { tenantId: tenant.rows[0].id, pages, fetchedAt, actor: "content-load-once" });
+      const result = await loadGeneratedPages(client, { tenantId, pages, fetchedAt, actor: "content-load-once" });
       await client.query("update content_load_records set published_count = $2, review_count = $3 where id = $1", [inserted.rows[0].id, result.published.length, result.review.length]);
       await client.query("commit");
       say(`loaded into ${decision.target} '${tenantSlug}': ${result.published.length} published, ${result.review.length} filed for Review${result.review.length ? ` (${result.review.join(", ")})` : ""}. Recorded; a second run will refuse.`);
