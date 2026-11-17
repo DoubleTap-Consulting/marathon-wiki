@@ -2,115 +2,1138 @@
   "version": 1,
   "images": [
     {
-      "id": "cosmic-cliffs-mono",
+      "id": "davis-torus-interior",
       "tier": "C",
-      "file": "public/img/marathon/weic2205a-mono.jpg",
-      "width": 2560,
-      "height": 853,
-      "sha256": "d2e64b6299473bea2a4b603ff1a971888f17dc5417bc5108c45cc4ef26fc86ad",
-      "sourceUrl": "https://esawebb.org/images/weic2205a/",
-      "fileUrl": "https://cdn.esawebb.org/archives/images/large/weic2205a.jpg",
-      "license": "CC-BY-4.0",
-      "licenseUrl": "https://esawebb.org/copyright/",
-      "licenseSnapshot": "content/marathon/licenses/esawebb-copyright-2026-11-15.txt",
-      "author": "NASA, ESA, CSA, and STScI",
-      "credit": "NASA, ESA, CSA, and STScI",
-      "title": "NIRCam Image of the “Cosmic Cliffs” in Carina",
-      "modifications": "Cropped to 3:1; resized; greyscaled",
-      "retrievedAt": "2026-11-15",
+      "file": null,
+      "width": 5718,
+      "height": 4525,
+      "sourceUrl": "https://space.nss.org/settlement/nasa/70sArtHiRes/70sArt/art.html",
+      "fileUrl": "https://space.nss.org/settlement/nasa/70sArtHiRes/70sArt/Torus_Interior_AC75-2621_5718.jpg",
+      "license": "PD-US-GOV",
+      "licenseUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+      "author": "Don Davis",
+      "credit": "NASA Ames Research Center",
+      "title": "Interior of a toroidal colony (Stanford torus)",
+      "modifications": "Cropped and resized; the part beneath the text scrim is softened",
+      "retrievedAt": "2026-11-16",
       "depicts": "atmosphere",
-      "illustrative": true,
-      "caption": "What looks much like craggy mountains on a moonlit evening is actually the edge of a nearby, young, star-forming region NGC 3324 in the Carina Nebula.",
-      "alt": "A bright ridge of gas and dust beneath a star field. Real astronomy imagery of NGC 3324, not from the game.",
+      "caption": "Interior view.",
+      "alt": "Painting of a curved green valley with a river and terraced homes inside a ring-shaped space colony.",
       "captionAuthor": "source-quotation",
+      "captionSourceUrl": "https://space.nss.org/settlement/nasa/70sArtHiRes/70sArt/art.html",
       "focal": {
         "x": 0.5,
-        "y": 0.45
+        "y": 0
       },
-      "approvedBy": "source-quotation",
-      "approvedAt": null,
+      "approvedBy": "loupe",
+      "approvedAt": "2026-11-16",
       "usedOn": [
         {
           "page": "home",
           "slot": "home-band"
         }
       ],
-      "attributionText": "NIRCam Image of the “Cosmic Cliffs” in Carina · NASA, ESA, CSA, and STScI · CC BY 4.0 · Cropped to 3:1; resized; greyscaled",
-      "captionSourceUrl": "https://esawebb.org/images/weic2205a/"
+      "attributionText": "Interior of a toroidal colony (Stanford torus) · Don Davis, 1975 · NASA Ames Research Center · NASA ID AC75-2621 · Public domain (US Gov.) · Cropped and resized; the part beneath the text scrim is softened",
+      "art": {
+        "family": "nasa-ames-colonies",
+        "medium": "painting",
+        "rightsStatus": "PD",
+        "rightsBasis": "Painted for NASA Ames Research Center for the 1975–77 space settlement studies; a US government work, and the Ames gallery states the images are not copyrighted.",
+        "institution": "NASA Ames",
+        "year": "1975",
+        "dominant": "#4e5a5e",
+        "renditions": [
+          {
+            "crop": "wide",
+            "width": 828,
+            "height": 414,
+            "format": "avif",
+            "file": "public/img/marathon/art/davis-torus-interior-wide-828.avif",
+            "bytes": 15318,
+            "sha256": "619055bddd9bcb8f453e87127e2b20d0a5739fb31025776966a3da3554c6a037"
+          },
+          {
+            "crop": "wide",
+            "width": 828,
+            "height": 414,
+            "format": "webp",
+            "file": "public/img/marathon/art/davis-torus-interior-wide-828.webp",
+            "bytes": 26652,
+            "sha256": "168bf91f660d9cdaa99823f6795901e73d1f414cc909d0e5fdb8601556bb2b7a"
+          },
+          {
+            "crop": "wide",
+            "width": 1600,
+            "height": 800,
+            "format": "avif",
+            "file": "public/img/marathon/art/davis-torus-interior-wide-1600.avif",
+            "bytes": 35564,
+            "sha256": "fab394a98c201e067e8341b0c575e67d604d3c30322720d840740ce8688b154c"
+          },
+          {
+            "crop": "wide",
+            "width": 1600,
+            "height": 800,
+            "format": "webp",
+            "file": "public/img/marathon/art/davis-torus-interior-wide-1600.webp",
+            "bytes": 63692,
+            "sha256": "13c240a50d0294f209e065f3a258bd970ca54ec5432d24193531b6599e2c0f77"
+          },
+          {
+            "crop": "wide",
+            "width": 2400,
+            "height": 1200,
+            "format": "avif",
+            "file": "public/img/marathon/art/davis-torus-interior-wide-2400.avif",
+            "bytes": 54938,
+            "sha256": "10669609cb997735cdc42acd7585c52bf72c2188dafc14248d26b127d0fc8935"
+          },
+          {
+            "crop": "wide",
+            "width": 2400,
+            "height": 1200,
+            "format": "webp",
+            "file": "public/img/marathon/art/davis-torus-interior-wide-2400.webp",
+            "bytes": 105090,
+            "sha256": "1a8a5ac4ac806b50f3e8d082a8b8057b2081e6772747113fae3c92c611e492b0"
+          },
+          {
+            "crop": "tall",
+            "width": 828,
+            "height": 789,
+            "format": "avif",
+            "file": "public/img/marathon/art/davis-torus-interior-tall-828.avif",
+            "bytes": 16879,
+            "sha256": "f9e89c430629f88362387c112816d55d634c49846a18604632e449512147eb99"
+          },
+          {
+            "crop": "tall",
+            "width": 828,
+            "height": 789,
+            "format": "webp",
+            "file": "public/img/marathon/art/davis-torus-interior-tall-828.webp",
+            "bytes": 32102,
+            "sha256": "8992a86a7ccf22cc1950a8ebc96f5deb861e3944e1f81b7fd12ed147e3f91d5f"
+          },
+          {
+            "crop": "strip",
+            "width": 828,
+            "height": 207,
+            "format": "avif",
+            "file": "public/img/marathon/art/davis-torus-interior-strip-828.avif",
+            "bytes": 7461,
+            "sha256": "c5878f3bd5829cbaa768271fe259b6c5b6f560889fe60dcf5c7e421e200b27a0"
+          },
+          {
+            "crop": "strip",
+            "width": 828,
+            "height": 207,
+            "format": "webp",
+            "file": "public/img/marathon/art/davis-torus-interior-strip-828.webp",
+            "bytes": 12770,
+            "sha256": "8ba9faaebe3d6d71f9fa2b47ba4bdfa47f9eeb0fd0b68c14b4d67b21d77672bc"
+          },
+          {
+            "crop": "strip",
+            "width": 1600,
+            "height": 400,
+            "format": "avif",
+            "file": "public/img/marathon/art/davis-torus-interior-strip-1600.avif",
+            "bytes": 17523,
+            "sha256": "0a0d88be859d69568428b7b55964afd33d217a6444323fd9252f63917e94ebc9"
+          },
+          {
+            "crop": "strip",
+            "width": 1600,
+            "height": 400,
+            "format": "webp",
+            "file": "public/img/marathon/art/davis-torus-interior-strip-1600.webp",
+            "bytes": 31926,
+            "sha256": "12599ce40c7ede0321c8ef6ea19584577b06543969550ead4728f50c966b9501"
+          },
+          {
+            "crop": "strip",
+            "width": 2400,
+            "height": 600,
+            "format": "avif",
+            "file": "public/img/marathon/art/davis-torus-interior-strip-2400.avif",
+            "bytes": 28518,
+            "sha256": "105e663768a24cb7d5fe6d9b8bc17a71af0cda8cb7f189d39a0da4aaee5e400c"
+          },
+          {
+            "crop": "strip",
+            "width": 2400,
+            "height": 600,
+            "format": "webp",
+            "file": "public/img/marathon/art/davis-torus-interior-strip-2400.webp",
+            "bytes": 53708,
+            "sha256": "1437ce9079e32ab766614f14be8205f0bd617a48b99803fbace8e8380dbea791"
+          },
+          {
+            "crop": "full",
+            "width": 640,
+            "height": 506,
+            "format": "avif",
+            "file": "public/img/marathon/art/davis-torus-interior-full-640.avif",
+            "bytes": 46330,
+            "sha256": "503066528e699d196afc0f42fbebeed413b4cab6d660ad01f389ebe54c2168ca"
+          },
+          {
+            "crop": "full",
+            "width": 640,
+            "height": 506,
+            "format": "webp",
+            "file": "public/img/marathon/art/davis-torus-interior-full-640.webp",
+            "bytes": 73028,
+            "sha256": "47890d92e36c2c2c6d6c5e7d3460360f40df08845b1a343fdae817e5c88e701a"
+          }
+        ]
+      }
     },
     {
-      "id": "proxima-b-surface",
+      "id": "davis-bernal-construction",
       "tier": "C",
-      "file": "public/img/marathon/eso1629a.jpg",
-      "width": 2560,
-      "height": 640,
-      "sha256": "001c4c64c44708532cb21bba3b6ba96adfffb97b1956a2b4064cc66251118a04",
-      "sourceUrl": "https://www.eso.org/public/images/eso1629a/",
-      "fileUrl": "https://cdn.eso.org/images/large/eso1629a.jpg",
-      "license": "CC-BY-4.0",
-      "licenseUrl": "https://www.eso.org/public/outreach/copyright/",
-      "licenseSnapshot": "content/marathon/licenses/eso-copyright-2026-11-15.txt",
-      "author": "ESO/M. Kornmesser",
-      "credit": "ESO/M. Kornmesser",
-      "title": "Artist's impression of the planet orbiting Proxima Centauri",
-      "modifications": "Cropped to 4:1; resized",
-      "retrievedAt": "2026-11-15",
-      "depicts": "real-world",
-      "illustrative": true,
-      "caption": "This artist’s impression shows a view of the surface of the planet Proxima b orbiting the red dwarf star Proxima Centauri, the closest star to the Solar System.",
-      "alt": "An orange sun above a rocky landscape. Real astronomy illustration of Proxima b, not from the game.",
+      "file": null,
+      "width": 4496,
+      "height": 5716,
+      "sourceUrl": "https://space.nss.org/settlement/nasa/70sArtHiRes/70sArt/art.html",
+      "fileUrl": "https://space.nss.org/settlement/nasa/70sArtHiRes/70sArt/Bernal_Construction_AC76-1288_5716.jpg",
+      "license": "PD-US-GOV",
+      "licenseUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+      "author": "Don Davis",
+      "credit": "NASA Ames Research Center",
+      "title": "Construction crew at work on a Bernal sphere colony",
+      "modifications": "Cropped and resized; the part beneath the text scrim is softened",
+      "retrievedAt": "2026-11-16",
+      "depicts": "atmosphere",
+      "caption": "Construction crew at work on the colony.",
+      "alt": "Painting of suited workers on scaffolding inside a half-built spherical space colony.",
       "captionAuthor": "source-quotation",
+      "captionSourceUrl": "https://space.nss.org/settlement/nasa/70sArtHiRes/70sArt/art.html",
       "focal": {
-        "x": 0.3,
-        "y": 0.5
+        "x": 0.5,
+        "y": 0
       },
-      "approvedBy": "source-quotation",
-      "approvedAt": null,
+      "approvedBy": "loupe",
+      "approvedAt": "2026-11-16",
       "usedOn": [
         {
-          "page": "categories/lore",
+          "page": "categories/gameplay",
           "slot": "hub-band"
         }
       ],
-      "attributionText": "Artist's impression of the planet orbiting Proxima Centauri · ESO/M. Kornmesser · CC BY 4.0 · Cropped to 4:1; resized",
-      "captionSourceUrl": "https://www.eso.org/public/images/eso1629a/"
+      "attributionText": "Construction crew at work on a Bernal sphere colony · Don Davis, 1976 · NASA Ames Research Center · NASA ID AC76-1288 · Public domain (US Gov.) · Cropped and resized; the part beneath the text scrim is softened",
+      "art": {
+        "family": "nasa-ames-colonies",
+        "medium": "painting",
+        "rightsStatus": "PD",
+        "rightsBasis": "Painted for NASA Ames Research Center for the 1975–77 space settlement studies; a US government work, and the Ames gallery states the images are not copyrighted.",
+        "institution": "NASA Ames",
+        "year": "1976",
+        "dominant": "#8f8b63",
+        "renditions": [
+          {
+            "crop": "wide",
+            "width": 828,
+            "height": 414,
+            "format": "avif",
+            "file": "public/img/marathon/art/davis-bernal-construction-wide-828.avif",
+            "bytes": 23388,
+            "sha256": "12f63c7690f2101b3b4fa49248ec91a0430b0c864894850d897361ee3d404902"
+          },
+          {
+            "crop": "wide",
+            "width": 828,
+            "height": 414,
+            "format": "webp",
+            "file": "public/img/marathon/art/davis-bernal-construction-wide-828.webp",
+            "bytes": 36222,
+            "sha256": "7dbdc7ce09b69effa1aad360a348fcf67fff4fb24d1071ddd21cc9f499638389"
+          },
+          {
+            "crop": "wide",
+            "width": 1600,
+            "height": 800,
+            "format": "avif",
+            "file": "public/img/marathon/art/davis-bernal-construction-wide-1600.avif",
+            "bytes": 51999,
+            "sha256": "5512e9383d9846e2fc0854f428f5bbe34df7608bedc530103d54c3fa23b1e2c2"
+          },
+          {
+            "crop": "wide",
+            "width": 1600,
+            "height": 800,
+            "format": "webp",
+            "file": "public/img/marathon/art/davis-bernal-construction-wide-1600.webp",
+            "bytes": 87954,
+            "sha256": "4fd67a6183fef089bc3b0024f05a2e98ee662cab5cc430e9b04c0772c76fd4bd"
+          },
+          {
+            "crop": "wide",
+            "width": 2400,
+            "height": 1200,
+            "format": "avif",
+            "file": "public/img/marathon/art/davis-bernal-construction-wide-2400.avif",
+            "bytes": 78165,
+            "sha256": "7904437a6f0ed08ad0bbcbb8286aac5fd8600fa09e6e2808e5d71ba4d221ae91"
+          },
+          {
+            "crop": "wide",
+            "width": 2400,
+            "height": 1200,
+            "format": "webp",
+            "file": "public/img/marathon/art/davis-bernal-construction-wide-2400.webp",
+            "bytes": 141452,
+            "sha256": "c5fe0ecfe1d2fb76c5a8d9399a0c0c36247da0ebe4b465d089663f756401cb1f"
+          },
+          {
+            "crop": "tall",
+            "width": 828,
+            "height": 789,
+            "format": "avif",
+            "file": "public/img/marathon/art/davis-bernal-construction-tall-828.avif",
+            "bytes": 17543,
+            "sha256": "061bb528650967504fd1c0c3894c9161f832a5314d8477e2f6f95d7f0ae27d18"
+          },
+          {
+            "crop": "tall",
+            "width": 828,
+            "height": 789,
+            "format": "webp",
+            "file": "public/img/marathon/art/davis-bernal-construction-tall-828.webp",
+            "bytes": 41352,
+            "sha256": "145557c8d312f2db992d95533dcbbf0a277cb35377f1845fc304d88d81aa28d2"
+          },
+          {
+            "crop": "strip",
+            "width": 828,
+            "height": 207,
+            "format": "avif",
+            "file": "public/img/marathon/art/davis-bernal-construction-strip-828.avif",
+            "bytes": 12228,
+            "sha256": "d798286ddcb076868abdca687b33835a780c5f1fafa595b3144692a953fec187"
+          },
+          {
+            "crop": "strip",
+            "width": 828,
+            "height": 207,
+            "format": "webp",
+            "file": "public/img/marathon/art/davis-bernal-construction-strip-828.webp",
+            "bytes": 18814,
+            "sha256": "c7ccc155c2b398e55f51b4b5adb8e9b77376971a41860142cd0bebd59566eae0"
+          },
+          {
+            "crop": "strip",
+            "width": 1600,
+            "height": 400,
+            "format": "avif",
+            "file": "public/img/marathon/art/davis-bernal-construction-strip-1600.avif",
+            "bytes": 25924,
+            "sha256": "7c0cbda6d1c7f7da29b5d63014b2c63f4ca9caa92e974740c7609d53914478e7"
+          },
+          {
+            "crop": "strip",
+            "width": 1600,
+            "height": 400,
+            "format": "webp",
+            "file": "public/img/marathon/art/davis-bernal-construction-strip-1600.webp",
+            "bytes": 45012,
+            "sha256": "4e63aaaa4cba3653384552f6e58279ba0fd3df9b49f1f8b3358cb3df21d2304b"
+          },
+          {
+            "crop": "strip",
+            "width": 2400,
+            "height": 600,
+            "format": "avif",
+            "file": "public/img/marathon/art/davis-bernal-construction-strip-2400.avif",
+            "bytes": 40120,
+            "sha256": "52115e598328ad226c02054b0aae79727b5e9b0cf28f2df89092fb09fe5c6b62"
+          },
+          {
+            "crop": "strip",
+            "width": 2400,
+            "height": 600,
+            "format": "webp",
+            "file": "public/img/marathon/art/davis-bernal-construction-strip-2400.webp",
+            "bytes": 71960,
+            "sha256": "c59d5a81209d53e06488b200239354c270a2466c960273322be0526ec4ed176c"
+          },
+          {
+            "crop": "full",
+            "width": 640,
+            "height": 814,
+            "format": "avif",
+            "file": "public/img/marathon/art/davis-bernal-construction-full-640.avif",
+            "bytes": 87487,
+            "sha256": "ebbe5b5151471aacc73895a07370fb6737f3a4b2d4a0d87babea07d6777ee4f2"
+          },
+          {
+            "crop": "full",
+            "width": 640,
+            "height": 814,
+            "format": "webp",
+            "file": "public/img/marathon/art/davis-bernal-construction-full-640.webp",
+            "bytes": 130192,
+            "sha256": "4ee766fc2871d0504fac6608f530cc45d9b96437d97e2370c14a4f5910c386b3"
+          }
+        ]
+      }
     },
     {
-      "id": "lhs-3844b-surface",
+      "id": "guidice-bernal-cutaway",
       "tier": "C",
-      "file": "public/img/marathon/pia23130.jpg",
-      "width": 2560,
-      "height": 640,
-      "sha256": "436e81bc7e7c1e56f82e6745f85c1390609a9925eda9ed6bd846511b5d501546",
-      "sourceUrl": "https://photojournal.jpl.nasa.gov/catalog/PIA23130",
-      "fileUrl": "https://assets.science.nasa.gov/content/dam/science/psd/photojournal/pia/pia23/pia23130/PIA23130.jpg",
+      "file": null,
+      "width": 5732,
+      "height": 4515,
+      "sourceUrl": "https://space.nss.org/settlement/nasa/70sArtHiRes/70sArt/art.html",
+      "fileUrl": "https://space.nss.org/settlement/nasa/70sArtHiRes/70sArt/Bernal_Cutaway_AC76-1089_5732.jpg",
       "license": "PD-US-GOV",
-      "licenseUrl": "https://www.jpl.nasa.gov/jpl-image-use-policy/",
-      "licenseSnapshot": "content/marathon/licenses/jpl-image-use-policy-2026-11-15.txt",
-      "author": "NASA/JPL-Caltech/R. Hurt (IPAC)",
-      "credit": "NASA/JPL-Caltech/R. Hurt (IPAC)",
-      "title": "Rare Glimpse of the Surface of a Rocky World (Illustration)",
-      "modifications": "Cropped to 4:1; resized",
-      "retrievedAt": "2026-11-15",
-      "depicts": "real-world",
-      "illustrative": true,
-      "caption": "This artist's illustration depicts the exoplanet LHS 3844b, which is 1.3 times the mass of Earth and orbits an M dwarf star.",
-      "alt": "A rocky planet with a bright edge against space. Real astronomy illustration of LHS 3844b, not from the game.",
+      "licenseUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+      "author": "Rick Guidice",
+      "credit": "NASA Ames Research Center",
+      "title": "Cutaway view of a Bernal sphere colony",
+      "modifications": "Cropped and resized; the part beneath the text scrim is softened",
+      "retrievedAt": "2026-11-16",
+      "depicts": "atmosphere",
+      "caption": "Cutaway view of Bernal Sphere.",
+      "alt": "Painting of a spherical space colony cut open to show green farmland and homes inside, lit by the sun.",
       "captionAuthor": "source-quotation",
+      "captionSourceUrl": "https://space.nss.org/settlement/nasa/70sArtHiRes/70sArt/art.html",
+      "focal": {
+        "x": 0.6,
+        "y": 0
+      },
+      "approvedBy": "loupe",
+      "approvedAt": "2026-11-16",
+      "usedOn": [
+        {
+          "page": "categories/equipment",
+          "slot": "hub-band"
+        }
+      ],
+      "attributionText": "Cutaway view of a Bernal sphere colony · Rick Guidice, 1976 · NASA Ames Research Center · NASA ID AC76-1089 · Public domain (US Gov.) · Cropped and resized; the part beneath the text scrim is softened",
+      "art": {
+        "family": "nasa-ames-colonies",
+        "medium": "painting",
+        "rightsStatus": "PD",
+        "rightsBasis": "Painted for NASA Ames Research Center for the 1975–77 space settlement studies; a US government work, and the Ames gallery states the images are not copyrighted.",
+        "institution": "NASA Ames",
+        "year": "1976",
+        "dominant": "#57513e",
+        "renditions": [
+          {
+            "crop": "wide",
+            "width": 828,
+            "height": 414,
+            "format": "avif",
+            "file": "public/img/marathon/art/guidice-bernal-cutaway-wide-828.avif",
+            "bytes": 11842,
+            "sha256": "5fcd5cc1dd3e6ed5cfa3223e520fd8593c9d0ea402c8b7f7c60213ec5ccd40f4"
+          },
+          {
+            "crop": "wide",
+            "width": 828,
+            "height": 414,
+            "format": "webp",
+            "file": "public/img/marathon/art/guidice-bernal-cutaway-wide-828.webp",
+            "bytes": 21312,
+            "sha256": "124d8bce28d09ecbe7ddb339e5fb0c9504b3c2afc3fd00dfd89237fae58588f4"
+          },
+          {
+            "crop": "wide",
+            "width": 1600,
+            "height": 800,
+            "format": "avif",
+            "file": "public/img/marathon/art/guidice-bernal-cutaway-wide-1600.avif",
+            "bytes": 23408,
+            "sha256": "65f4a151b3530fd30a63b8c8ab9cc352bc279fda5307cea8963b08db49da5695"
+          },
+          {
+            "crop": "wide",
+            "width": 1600,
+            "height": 800,
+            "format": "webp",
+            "file": "public/img/marathon/art/guidice-bernal-cutaway-wide-1600.webp",
+            "bytes": 47668,
+            "sha256": "5ce3d171df659ea8dc36f39ffb72b822c667646e73908149af7bace37b196df4"
+          },
+          {
+            "crop": "wide",
+            "width": 2400,
+            "height": 1200,
+            "format": "avif",
+            "file": "public/img/marathon/art/guidice-bernal-cutaway-wide-2400.avif",
+            "bytes": 34965,
+            "sha256": "da4222e32d29c2b1ae2ed64301ab1746bc718351802a27b54a04f8bdc010de3b"
+          },
+          {
+            "crop": "wide",
+            "width": 2400,
+            "height": 1200,
+            "format": "webp",
+            "file": "public/img/marathon/art/guidice-bernal-cutaway-wide-2400.webp",
+            "bytes": 76288,
+            "sha256": "3861174d381aedc00bfd6ee56405a90fb98dfff90e8099332a35350330337ace"
+          },
+          {
+            "crop": "tall",
+            "width": 828,
+            "height": 789,
+            "format": "avif",
+            "file": "public/img/marathon/art/guidice-bernal-cutaway-tall-828.avif",
+            "bytes": 13587,
+            "sha256": "448d51a5251355c5e200f210b5049416975371618799081ec8a83683923ef3be"
+          },
+          {
+            "crop": "tall",
+            "width": 828,
+            "height": 789,
+            "format": "webp",
+            "file": "public/img/marathon/art/guidice-bernal-cutaway-tall-828.webp",
+            "bytes": 27272,
+            "sha256": "0515eeac4118972de5db6cef076ab29728cfad4c2577e5a784c7a426900c04aa"
+          },
+          {
+            "crop": "strip",
+            "width": 828,
+            "height": 207,
+            "format": "avif",
+            "file": "public/img/marathon/art/guidice-bernal-cutaway-strip-828.avif",
+            "bytes": 5865,
+            "sha256": "797fa6b3d41d126c4aa10ae551581db24e46265f4dff82f49572b12b8cb5b64e"
+          },
+          {
+            "crop": "strip",
+            "width": 828,
+            "height": 207,
+            "format": "webp",
+            "file": "public/img/marathon/art/guidice-bernal-cutaway-strip-828.webp",
+            "bytes": 10354,
+            "sha256": "10e76de089f0a3b883954d0b4c4f659050863c9b8c8f948dd7e6b7e4f9f63543"
+          },
+          {
+            "crop": "strip",
+            "width": 1600,
+            "height": 400,
+            "format": "avif",
+            "file": "public/img/marathon/art/guidice-bernal-cutaway-strip-1600.avif",
+            "bytes": 11294,
+            "sha256": "86365e0d0d6ed1e740b0e30c1b6678f60775b6c910057d5cca8a30df61f85ce0"
+          },
+          {
+            "crop": "strip",
+            "width": 1600,
+            "height": 400,
+            "format": "webp",
+            "file": "public/img/marathon/art/guidice-bernal-cutaway-strip-1600.webp",
+            "bytes": 22946,
+            "sha256": "cf5f94548da905ab2c6757deaa2d412dd8bb97eabccf0cc097f7e1b80cd8c3b0"
+          },
+          {
+            "crop": "strip",
+            "width": 2400,
+            "height": 600,
+            "format": "avif",
+            "file": "public/img/marathon/art/guidice-bernal-cutaway-strip-2400.avif",
+            "bytes": 16783,
+            "sha256": "0663ced222134e459f3b27d9a19fa8286390348584c5536038640c0641a4dfda"
+          },
+          {
+            "crop": "strip",
+            "width": 2400,
+            "height": 600,
+            "format": "webp",
+            "file": "public/img/marathon/art/guidice-bernal-cutaway-strip-2400.webp",
+            "bytes": 36502,
+            "sha256": "709857dacfbc4c03367ff2a4380aeefb8ccceb8e1b02935d7665b17851d3a893"
+          },
+          {
+            "crop": "full",
+            "width": 640,
+            "height": 504,
+            "format": "avif",
+            "file": "public/img/marathon/art/guidice-bernal-cutaway-full-640.avif",
+            "bytes": 31345,
+            "sha256": "dce3f3bd8afe93c81294cba482c276122aef7cd02d93be82d480ad282932f95e"
+          },
+          {
+            "crop": "full",
+            "width": 640,
+            "height": 504,
+            "format": "webp",
+            "file": "public/img/marathon/art/guidice-bernal-cutaway-full-640.webp",
+            "bytes": 50050,
+            "sha256": "edaedae56e956bacc8f2b4a1a896a1ca6bab8bfc4930a4a40f9b0de15b008ad8"
+          }
+        ]
+      }
+    },
+    {
+      "id": "davis-cylinder-endcap",
+      "tier": "C",
+      "file": null,
+      "width": 5729,
+      "height": 4518,
+      "sourceUrl": "https://space.nss.org/settlement/nasa/70sArtHiRes/70sArt/art.html",
+      "fileUrl": "https://space.nss.org/settlement/nasa/70sArtHiRes/70sArt/Cylinder_Endcap_AC75-1883_5729.jpg",
+      "license": "PD-US-GOV",
+      "licenseUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+      "author": "Don Davis",
+      "credit": "NASA Ames Research Center",
+      "title": "Endcap view of a cylindrical colony, with suspension bridge",
+      "modifications": "Cropped and resized; the part beneath the text scrim is softened",
+      "retrievedAt": "2026-11-16",
+      "depicts": "atmosphere",
+      "caption": "Endcap view with suspension bridge.",
+      "alt": "Painting of hills, a lake and forest curving up inside a giant cylindrical colony, with clouds overhead.",
+      "captionAuthor": "source-quotation",
+      "captionSourceUrl": "https://space.nss.org/settlement/nasa/70sArtHiRes/70sArt/art.html",
       "focal": {
         "x": 0.5,
-        "y": 0.5
+        "y": 0
       },
-      "approvedBy": "source-quotation",
-      "approvedAt": null,
+      "approvedBy": "loupe",
+      "approvedAt": "2026-11-16",
       "usedOn": [
         {
           "page": "categories/locations",
           "slot": "hub-band"
         }
       ],
-      "attributionText": "Rare Glimpse of the Surface of a Rocky World (Illustration) · NASA/JPL-Caltech/R. Hurt (IPAC) · Public domain (US Gov.) · Cropped to 4:1; resized",
-      "captionSourceUrl": "https://photojournal.jpl.nasa.gov/catalog/PIA23130"
+      "attributionText": "Endcap view of a cylindrical colony, with suspension bridge · Don Davis, 1975 · NASA Ames Research Center · NASA ID AC75-1883 · Public domain (US Gov.) · Cropped and resized; the part beneath the text scrim is softened",
+      "art": {
+        "family": "nasa-ames-colonies",
+        "medium": "painting",
+        "rightsStatus": "PD",
+        "rightsBasis": "Painted for NASA Ames Research Center for the 1975–77 space settlement studies; a US government work, and the Ames gallery states the images are not copyrighted.",
+        "institution": "NASA Ames",
+        "year": "1975",
+        "dominant": "#4a5c7d",
+        "renditions": [
+          {
+            "crop": "wide",
+            "width": 828,
+            "height": 414,
+            "format": "avif",
+            "file": "public/img/marathon/art/davis-cylinder-endcap-wide-828.avif",
+            "bytes": 9327,
+            "sha256": "f170b03fdb7da33125062291a9708bc85ad803ced7ff16bf64e9159c3e0f0a90"
+          },
+          {
+            "crop": "wide",
+            "width": 828,
+            "height": 414,
+            "format": "webp",
+            "file": "public/img/marathon/art/davis-cylinder-endcap-wide-828.webp",
+            "bytes": 16052,
+            "sha256": "9daf44bc4fe6f3d8bff6a2f4de463fa1ebdfde9c594cb8481ff265a08af1660d"
+          },
+          {
+            "crop": "wide",
+            "width": 1600,
+            "height": 800,
+            "format": "avif",
+            "file": "public/img/marathon/art/davis-cylinder-endcap-wide-1600.avif",
+            "bytes": 23076,
+            "sha256": "721a8102dbbf0fdd125431de87bc6eccbe8c802b2b70cef74438f127573038f5"
+          },
+          {
+            "crop": "wide",
+            "width": 1600,
+            "height": 800,
+            "format": "webp",
+            "file": "public/img/marathon/art/davis-cylinder-endcap-wide-1600.webp",
+            "bytes": 41396,
+            "sha256": "eb714193b14f5351311a07804cda232e4b17bcafdd71411d3b7ea1de721f78ea"
+          },
+          {
+            "crop": "wide",
+            "width": 2400,
+            "height": 1200,
+            "format": "avif",
+            "file": "public/img/marathon/art/davis-cylinder-endcap-wide-2400.avif",
+            "bytes": 37879,
+            "sha256": "9377505629f8ead032356912e8f8efe1e50bc2d5330b063ba9c075fc724c05cc"
+          },
+          {
+            "crop": "wide",
+            "width": 2400,
+            "height": 1200,
+            "format": "webp",
+            "file": "public/img/marathon/art/davis-cylinder-endcap-wide-2400.webp",
+            "bytes": 71662,
+            "sha256": "3a79e5049ecc6645df918f3bde82e38c644e8e9687a6013acdc32a383bfbf7d2"
+          },
+          {
+            "crop": "tall",
+            "width": 828,
+            "height": 789,
+            "format": "avif",
+            "file": "public/img/marathon/art/davis-cylinder-endcap-tall-828.avif",
+            "bytes": 11901,
+            "sha256": "e56d27075bb3ad282ea7dd0bd01988276ecd14d4a4ab3dd71731b645a732c792"
+          },
+          {
+            "crop": "tall",
+            "width": 828,
+            "height": 789,
+            "format": "webp",
+            "file": "public/img/marathon/art/davis-cylinder-endcap-tall-828.webp",
+            "bytes": 22312,
+            "sha256": "911921dcbfc517cd217de9b6f2f29e700aec86601704ede37d88e660bfdfa760"
+          },
+          {
+            "crop": "strip",
+            "width": 828,
+            "height": 207,
+            "format": "avif",
+            "file": "public/img/marathon/art/davis-cylinder-endcap-strip-828.avif",
+            "bytes": 7350,
+            "sha256": "26589c9544b5c67574040760db2d14ab3073cedecf0d6325c8fa310b1b0b0387"
+          },
+          {
+            "crop": "strip",
+            "width": 828,
+            "height": 207,
+            "format": "webp",
+            "file": "public/img/marathon/art/davis-cylinder-endcap-strip-828.webp",
+            "bytes": 10942,
+            "sha256": "a5f976ebe8af9b0f0c5cc8b33bc898527540d9a062a42b81eec69b83495fac41"
+          },
+          {
+            "crop": "strip",
+            "width": 1600,
+            "height": 400,
+            "format": "avif",
+            "file": "public/img/marathon/art/davis-cylinder-endcap-strip-1600.avif",
+            "bytes": 17297,
+            "sha256": "b5ef7fe092f9a33b312d317f86388d6c56dbf838edcf19ccf259f91f5a5abf36"
+          },
+          {
+            "crop": "strip",
+            "width": 1600,
+            "height": 400,
+            "format": "webp",
+            "file": "public/img/marathon/art/davis-cylinder-endcap-strip-1600.webp",
+            "bytes": 27546,
+            "sha256": "a713073fcdb25b3a9aebd02af2ee5925f8315c251f166c556ecd2b13c3af9b15"
+          },
+          {
+            "crop": "strip",
+            "width": 2400,
+            "height": 600,
+            "format": "avif",
+            "file": "public/img/marathon/art/davis-cylinder-endcap-strip-2400.avif",
+            "bytes": 26127,
+            "sha256": "e9bd8af117dd6519881ffc59017ebfc2b83f2dbd262636581f8a6982cd4eb02a"
+          },
+          {
+            "crop": "strip",
+            "width": 2400,
+            "height": 600,
+            "format": "webp",
+            "file": "public/img/marathon/art/davis-cylinder-endcap-strip-2400.webp",
+            "bytes": 45376,
+            "sha256": "e4e61f45203a71f7efabb42916dcc6cfd76f7b7796ef261685e9b531a191ebdd"
+          },
+          {
+            "crop": "full",
+            "width": 640,
+            "height": 505,
+            "format": "avif",
+            "file": "public/img/marathon/art/davis-cylinder-endcap-full-640.avif",
+            "bytes": 42817,
+            "sha256": "4fe85da337b7bf852c6b2de3d9d04d09834a864e4d2d152b960c47f368904275"
+          },
+          {
+            "crop": "full",
+            "width": 640,
+            "height": 505,
+            "format": "webp",
+            "file": "public/img/marathon/art/davis-cylinder-endcap-full-640.webp",
+            "bytes": 63118,
+            "sha256": "7ca6d598be9503c32ffe0d133eb6b990b82225b6c065da19dad0d99c3f7341da"
+          }
+        ]
+      }
+    },
+    {
+      "id": "trouvelot-aurora-1872",
+      "tier": "C",
+      "file": null,
+      "width": 9315,
+      "height": 7301,
+      "sourceUrl": "https://digitalcollections.nypl.org/items/b405ef10-c62b-012f-6bcf-58d385a7bc34",
+      "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/6/60/Trouvelot_-_Aurora_Borealis_-_1872.jpg",
+      "license": "PD-US-EXPIRED",
+      "licenseUrl": "https://rightsstatements.org/vocab/NoC-US/1.0/",
+      "author": "E. L. Trouvelot",
+      "credit": "From The New York Public Library",
+      "title": "Aurora Borealis: As observed March 1, 1872, at 9h. 25m. P.M.",
+      "modifications": "Cropped and resized; the part beneath the text scrim is softened",
+      "retrievedAt": "2026-11-16",
+      "depicts": "atmosphere",
+      "caption": "Aurora Borealis: As observed March 1, 1872, at 9h. 25m. P.M.",
+      "alt": "Chromolithograph of pale aurora rays fanning up from a dark arch over a treeline, under a starry sky.",
+      "captionAuthor": "source-quotation",
+      "captionSourceUrl": "https://digitalcollections.nypl.org/items/b405ef10-c62b-012f-6bcf-58d385a7bc34",
+      "focal": {
+        "x": 0.5,
+        "y": 0
+      },
+      "approvedBy": "loupe",
+      "approvedAt": "2026-11-16",
+      "usedOn": [
+        {
+          "page": "categories/overview",
+          "slot": "hub-band"
+        }
+      ],
+      "attributionText": "Aurora Borealis: As observed March 1, 1872, at 9h. 25m. P.M. · E. L. Trouvelot, 1881 · From The New York Public Library · Public domain (US) · Cropped and resized; the part beneath the text scrim is softened",
+      "art": {
+        "family": "trouvelot-1881",
+        "medium": "chromolithograph",
+        "rightsStatus": "PD",
+        "rightsBasis": "Published in 1881 by Charles Scribner’s Sons; NYPL’s item record says it believes the work is in the public domain in the United States.",
+        "institution": "NYPL",
+        "year": "1881",
+        "dominant": "#545249",
+        "renditions": [
+          {
+            "crop": "wide",
+            "width": 828,
+            "height": 414,
+            "format": "avif",
+            "file": "public/img/marathon/art/trouvelot-aurora-1872-wide-828.avif",
+            "bytes": 4156,
+            "sha256": "637e1004a77cc2ac9c1fa23ea98fb317857605b40e943e28cd3e43f88c86c2b7"
+          },
+          {
+            "crop": "wide",
+            "width": 828,
+            "height": 414,
+            "format": "webp",
+            "file": "public/img/marathon/art/trouvelot-aurora-1872-wide-828.webp",
+            "bytes": 5864,
+            "sha256": "e9e72ff0b1bf31273b7e137d2c1edc811d47b326c1a15e04c00b463fd4f0e909"
+          },
+          {
+            "crop": "wide",
+            "width": 1600,
+            "height": 800,
+            "format": "avif",
+            "file": "public/img/marathon/art/trouvelot-aurora-1872-wide-1600.avif",
+            "bytes": 19795,
+            "sha256": "4235702b7ad63c44a4a442bf767e0ba238f72d0825e268150b9467303312d417"
+          },
+          {
+            "crop": "wide",
+            "width": 1600,
+            "height": 800,
+            "format": "webp",
+            "file": "public/img/marathon/art/trouvelot-aurora-1872-wide-1600.webp",
+            "bytes": 16944,
+            "sha256": "20ab6e81ac84cdc4633644ed5b3e1e893b3bb15c234df6cd3454f10c282ab9e9"
+          },
+          {
+            "crop": "wide",
+            "width": 2400,
+            "height": 1200,
+            "format": "avif",
+            "file": "public/img/marathon/art/trouvelot-aurora-1872-wide-2400.avif",
+            "bytes": 80140,
+            "sha256": "1fb18f0f15836ccbaff7abc646505fcba67fa845e410b7c4c13958ea8a54434f"
+          },
+          {
+            "crop": "wide",
+            "width": 2400,
+            "height": 1200,
+            "format": "webp",
+            "file": "public/img/marathon/art/trouvelot-aurora-1872-wide-2400.webp",
+            "bytes": 52234,
+            "sha256": "33096364b1ebfb33e3e4038345d94e9ea77cd912753e85c09ff6db00b36e5fdd"
+          },
+          {
+            "crop": "tall",
+            "width": 828,
+            "height": 789,
+            "format": "avif",
+            "file": "public/img/marathon/art/trouvelot-aurora-1872-tall-828.avif",
+            "bytes": 5074,
+            "sha256": "bfe4370179ac1eb6808c37e3ef6b2ba492b09d043acb59902f663acab15c6a60"
+          },
+          {
+            "crop": "tall",
+            "width": 828,
+            "height": 789,
+            "format": "webp",
+            "file": "public/img/marathon/art/trouvelot-aurora-1872-tall-828.webp",
+            "bytes": 7730,
+            "sha256": "05a16f23fe865e00bb14d79e7abcdecb3a767b052488b31e756d17cf799f1454"
+          },
+          {
+            "crop": "strip",
+            "width": 828,
+            "height": 207,
+            "format": "avif",
+            "file": "public/img/marathon/art/trouvelot-aurora-1872-strip-828.avif",
+            "bytes": 2308,
+            "sha256": "ba2f9d29b7fc5b94691435b37ef0ce28cf33c03985f7c496201d824c66d071cf"
+          },
+          {
+            "crop": "strip",
+            "width": 828,
+            "height": 207,
+            "format": "webp",
+            "file": "public/img/marathon/art/trouvelot-aurora-1872-strip-828.webp",
+            "bytes": 3080,
+            "sha256": "4419d264438beb4f4d92600a5363934d8826a2a93ab6677a434db60429900621"
+          },
+          {
+            "crop": "strip",
+            "width": 1600,
+            "height": 400,
+            "format": "avif",
+            "file": "public/img/marathon/art/trouvelot-aurora-1872-strip-1600.avif",
+            "bytes": 7512,
+            "sha256": "f2706a7376ab5c5f997a836ef18c66ee126a74bb9143671491537533e7314c88"
+          },
+          {
+            "crop": "strip",
+            "width": 1600,
+            "height": 400,
+            "format": "webp",
+            "file": "public/img/marathon/art/trouvelot-aurora-1872-strip-1600.webp",
+            "bytes": 8210,
+            "sha256": "f54f389826fc0b9d3c405ee92f67b2de162f0bd6c34bc4329048761bd93fb6c7"
+          },
+          {
+            "crop": "strip",
+            "width": 2400,
+            "height": 600,
+            "format": "avif",
+            "file": "public/img/marathon/art/trouvelot-aurora-1872-strip-2400.avif",
+            "bytes": 35817,
+            "sha256": "8d06725eb02ecf7d0c7f36b4e50dfd528e1d66ab166ea3e1c952d245b31f84a0"
+          },
+          {
+            "crop": "strip",
+            "width": 2400,
+            "height": 600,
+            "format": "webp",
+            "file": "public/img/marathon/art/trouvelot-aurora-1872-strip-2400.webp",
+            "bytes": 24692,
+            "sha256": "179e734f18dba4f1eb09af96b5d71e6634ee418568db1bd3bb5a56d08e23d268"
+          },
+          {
+            "crop": "full",
+            "width": 640,
+            "height": 483,
+            "format": "avif",
+            "file": "public/img/marathon/art/trouvelot-aurora-1872-full-640.avif",
+            "bytes": 7432,
+            "sha256": "a0fc08dfa04dee9c26eb661c6843ad117e8afb160d7a1f9196a3af1986cb1d27"
+          },
+          {
+            "crop": "full",
+            "width": 640,
+            "height": 483,
+            "format": "webp",
+            "file": "public/img/marathon/art/trouvelot-aurora-1872-full-640.webp",
+            "bytes": 7864,
+            "sha256": "544af130c07cfc4e27b79d2f1a61f7b02d93b159abdb47e4c690fb832db3a26a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "trouvelot-orion-nebula",
+      "tier": "C",
+      "file": null,
+      "width": 9155,
+      "height": 7212,
+      "sourceUrl": "https://digitalcollections.nypl.org/items/b70d9980-c62b-012f-6201-58d385a7bc34",
+      "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Trouvelot-_The_great_nebula_in_Orion_-_1875.jpg",
+      "license": "PD-US-EXPIRED",
+      "licenseUrl": "https://rightsstatements.org/vocab/NoC-US/1.0/",
+      "author": "E. L. Trouvelot",
+      "credit": "From The New York Public Library",
+      "title": "The great nebula in Orion: From a study made in the years 1875-76",
+      "modifications": "Cropped and resized; the part beneath the text scrim is softened",
+      "retrievedAt": "2026-11-16",
+      "depicts": "atmosphere",
+      "caption": "The great nebula in Orion: From a study made in the years 1875-76",
+      "alt": "Chromolithograph of the Orion Nebula as soft grey clouds of light around bright stars on a black sky.",
+      "captionAuthor": "source-quotation",
+      "captionSourceUrl": "https://digitalcollections.nypl.org/items/b70d9980-c62b-012f-6201-58d385a7bc34",
+      "focal": {
+        "x": 0.5,
+        "y": 0
+      },
+      "approvedBy": "loupe",
+      "approvedAt": "2026-11-16",
+      "usedOn": [
+        {
+          "page": "categories/lore",
+          "slot": "hub-band"
+        }
+      ],
+      "attributionText": "The great nebula in Orion: From a study made in the years 1875-76 · E. L. Trouvelot, 1881 · From The New York Public Library · Public domain (US) · Cropped and resized; the part beneath the text scrim is softened",
+      "art": {
+        "family": "trouvelot-1881",
+        "medium": "chromolithograph",
+        "rightsStatus": "PD",
+        "rightsBasis": "Published in 1881 by Charles Scribner’s Sons; NYPL’s item record says it believes the work is in the public domain in the United States.",
+        "institution": "NYPL",
+        "year": "1881",
+        "dominant": "#232522",
+        "renditions": [
+          {
+            "crop": "wide",
+            "width": 828,
+            "height": 414,
+            "format": "avif",
+            "file": "public/img/marathon/art/trouvelot-orion-nebula-wide-828.avif",
+            "bytes": 3792,
+            "sha256": "aca42915cc951adf588a4792aa01ec0d3a09e2ee502aae5f45dddaaab8a2abff"
+          },
+          {
+            "crop": "wide",
+            "width": 828,
+            "height": 414,
+            "format": "webp",
+            "file": "public/img/marathon/art/trouvelot-orion-nebula-wide-828.webp",
+            "bytes": 3952,
+            "sha256": "d7e8e5687d8eb808fb0e7fdaabdaded40252a0ecdf7bedfe2a67353dd1afe1f3"
+          },
+          {
+            "crop": "wide",
+            "width": 1600,
+            "height": 800,
+            "format": "avif",
+            "file": "public/img/marathon/art/trouvelot-orion-nebula-wide-1600.avif",
+            "bytes": 19814,
+            "sha256": "ea0a421a8f4e514e7e21986c728888c3c778959805f01f6bc68336bb4a984fbe"
+          },
+          {
+            "crop": "wide",
+            "width": 1600,
+            "height": 800,
+            "format": "webp",
+            "file": "public/img/marathon/art/trouvelot-orion-nebula-wide-1600.webp",
+            "bytes": 15710,
+            "sha256": "4127bb188be45582aa222fea249824c77462043104de55ca475b85da7f5f7f23"
+          },
+          {
+            "crop": "wide",
+            "width": 2400,
+            "height": 1200,
+            "format": "avif",
+            "file": "public/img/marathon/art/trouvelot-orion-nebula-wide-2400.avif",
+            "bytes": 71318,
+            "sha256": "ee91612697f8d86698cbda7e75b2d8fc2b06229f4b2a7fd3cf2c8df7ab1de302"
+          },
+          {
+            "crop": "wide",
+            "width": 2400,
+            "height": 1200,
+            "format": "webp",
+            "file": "public/img/marathon/art/trouvelot-orion-nebula-wide-2400.webp",
+            "bytes": 47486,
+            "sha256": "4b6bb8210044edccc8408b87b3f0b7dafa80878363eaa935426937b0f587577d"
+          },
+          {
+            "crop": "tall",
+            "width": 828,
+            "height": 789,
+            "format": "avif",
+            "file": "public/img/marathon/art/trouvelot-orion-nebula-tall-828.avif",
+            "bytes": 5984,
+            "sha256": "0b0cc1b8cd8b096bae55218e3509ba546073c75d3e12ce0df1b3f8204416faad"
+          },
+          {
+            "crop": "tall",
+            "width": 828,
+            "height": 789,
+            "format": "webp",
+            "file": "public/img/marathon/art/trouvelot-orion-nebula-tall-828.webp",
+            "bytes": 7078,
+            "sha256": "bc2e7411e4996d51c555b6a335a7efedaa93172f6c3265edd85dcc1a3e32b639"
+          },
+          {
+            "crop": "strip",
+            "width": 828,
+            "height": 207,
+            "format": "avif",
+            "file": "public/img/marathon/art/trouvelot-orion-nebula-strip-828.avif",
+            "bytes": 2908,
+            "sha256": "dd05ceedc05ed6781a53361ab403e6d31d14728fe039cae152e01a8f0678ecd8"
+          },
+          {
+            "crop": "strip",
+            "width": 828,
+            "height": 207,
+            "format": "webp",
+            "file": "public/img/marathon/art/trouvelot-orion-nebula-strip-828.webp",
+            "bytes": 2790,
+            "sha256": "07bf5f1443a901db26dce6d9ad46f31a4cbbcb417aa316d52d75818deef1b082"
+          },
+          {
+            "crop": "strip",
+            "width": 1600,
+            "height": 400,
+            "format": "avif",
+            "file": "public/img/marathon/art/trouvelot-orion-nebula-strip-1600.avif",
+            "bytes": 12738,
+            "sha256": "7bdd0b0f2f740fd2670142ca93d0382720bdddb61c96533aa919d7aee9116c73"
+          },
+          {
+            "crop": "strip",
+            "width": 1600,
+            "height": 400,
+            "format": "webp",
+            "file": "public/img/marathon/art/trouvelot-orion-nebula-strip-1600.webp",
+            "bytes": 10342,
+            "sha256": "918ce2b8a17c80be67ab4a3371ffd66597659164db8831239e9954c30e0777eb"
+          },
+          {
+            "crop": "strip",
+            "width": 2400,
+            "height": 600,
+            "format": "avif",
+            "file": "public/img/marathon/art/trouvelot-orion-nebula-strip-2400.avif",
+            "bytes": 43168,
+            "sha256": "b79e43132c86810c16bae0a769e6c8a62ca6bd58dc354cb7e8ff52dfab706468"
+          },
+          {
+            "crop": "strip",
+            "width": 2400,
+            "height": 600,
+            "format": "webp",
+            "file": "public/img/marathon/art/trouvelot-orion-nebula-strip-2400.webp",
+            "bytes": 28940,
+            "sha256": "da6131b97b941cefd93051ae7289e8fedfcdfa0be363c9cc07263b9402d6bd08"
+          },
+          {
+            "crop": "full",
+            "width": 640,
+            "height": 481,
+            "format": "avif",
+            "file": "public/img/marathon/art/trouvelot-orion-nebula-full-640.avif",
+            "bytes": 6943,
+            "sha256": "a18fb19f706f9666d35023500cd94046d5869b47a82371d7410946e7ec12818d"
+          },
+          {
+            "crop": "full",
+            "width": 640,
+            "height": 481,
+            "format": "webp",
+            "file": "public/img/marathon/art/trouvelot-orion-nebula-full-640.webp",
+            "bytes": 6124,
+            "sha256": "d29736fd1aa17c027c95ebd61525566160469699880d88b18aa471de3dfd5fd9"
+          }
+        ]
+      }
     },
     {
       "id": "ranked-run-flow",
@@ -136,7 +1159,6 @@
       "modifications": null,
       "retrievedAt": "2026-11-15",
       "depicts": "game-data",
-      "illustrative": false,
       "caption": "",
       "alt": "",
       "captionAuthor": "generated",
@@ -175,7 +1197,6 @@
       "modifications": null,
       "retrievedAt": "2026-11-15",
       "depicts": "game-data",
-      "illustrative": false,
       "caption": "",
       "alt": "",
       "captionAuthor": "generated",

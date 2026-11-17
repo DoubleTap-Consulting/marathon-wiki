@@ -1,4 +1,4 @@
-import { FigureBand } from "@/components/figure";
+import { ArtSurface } from "@/components/art";
 import { hubBandFor } from "@/src/wiki/imagery";
 import type { Metadata } from "next";
 
@@ -68,27 +68,56 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const theme = themeFor(tenant.slug);
   const hubBand = hubBandFor(tenant.slug, category.slug);
 
-  return (
-    <WikiChrome tenant={tenant} categories={snapshot.categories}>
-      <section aria-labelledby="category-title">
-        <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-          <p className="label">Category</p>
-          <p className="label">
-            {category.pageCount} {category.pageCount === 1 ? "page" : "pages"}
-            {sourcesCheckedAt ? (
-              <>
-                {" · "}Sources checked <SiteDate iso={new Date(sourcesCheckedAt).toISOString()} />
-              </>
-            ) : null}
-          </p>
-        </div>
-        <h1 id="category-title" {...PAGE_TITLE_TIMING} className="mt-2 flex items-center gap-3 text-title font-display text-foreground">
-          <CategoryGlyph slug={category.slug} className="size-6" />
-          {category.name}
-        </h1>
-        {category.description ? <p className="mt-3 max-w-[68ch] text-body text-muted-foreground">{category.description}</p> : null}
+  const count = `${category.pageCount} ${category.pageCount === 1 ? "page" : "pages"}`;
+  const checked = sourcesCheckedAt ? (
+    <>
+      {" · "}Sources checked <SiteDate iso={new Date(sourcesCheckedAt).toISOString()} />
+    </>
+  ) : null;
 
-        {hubBand ? <FigureBand image={hubBand} slot="hub-band" className="mt-6" /> : null}
+  return (
+    <WikiChrome
+      tenant={tenant}
+      categories={snapshot.categories}
+      hero={
+        hubBand ? (
+          <ArtSurface
+            image={hubBand}
+            variant="hub"
+            transition
+            creditHref={`/${tenant.slug}/credits#${hubBand.id}`}
+            contentClassName="mx-auto w-full max-w-6xl px-5 sm:px-6 lg:px-8"
+          >
+            <p className="label-art">Category</p>
+            <h1 id="category-title" {...PAGE_TITLE_TIMING} className="mt-2 flex items-center gap-3 text-title font-display text-paper">
+              <CategoryGlyph slug={category.slug} className="size-6" />
+              {category.name}
+            </h1>
+            <p className="mt-2 label-art">
+              {count}
+              {checked}
+            </p>
+          </ArtSurface>
+        ) : null
+      }
+    >
+      <section aria-labelledby="category-title">
+        {hubBand ? null : (
+          <>
+            <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+              <p className="label">Category</p>
+              <p className="label">
+                {count}
+                {checked}
+              </p>
+            </div>
+            <h1 id="category-title" {...PAGE_TITLE_TIMING} className="mt-2 flex items-center gap-3 text-title font-display text-foreground">
+              <CategoryGlyph slug={category.slug} className="size-6" />
+              {category.name}
+            </h1>
+          </>
+        )}
+        {category.description ? <p className={hubBand ? "max-w-[68ch] text-body text-muted-foreground" : "mt-3 max-w-[68ch] text-body text-muted-foreground"}>{category.description}</p> : null}
 
         <div className="mt-6">
           {pages.length > 0 ? (

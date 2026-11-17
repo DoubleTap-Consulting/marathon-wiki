@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { FigureBand } from "@/components/figure";
+import { ArtSurface } from "@/components/art";
 import { homeBandFor } from "@/src/wiki/imagery";
 import { getCachedWikiHome } from "@/src/wiki/cache";
 import { buildWikiMetadata } from "@/src/wiki/metadata";
@@ -65,33 +65,57 @@ export default async function TenantHome({ params }: TenantHomeProps) {
     `${pages.length} ${pages.length === 1 ? "page" : "pages"}`,
   ].filter(Boolean);
 
+  const checked = sourcesCheckedAt ? (
+    <>
+      {" · "}Sources checked <SiteDate iso={new Date(sourcesCheckedAt).toISOString()} />
+    </>
+  ) : null;
+  const dek =
+    theme.identity.tagline ??
+    `Source-backed pages on ${tenant.gameTitle}'s weapons, maps, factions and systems, kept current by AI and checked by readers.`;
+
   return (
-    <WikiChrome tenant={tenant} categories={categories}>
-      <section aria-labelledby="wiki-home-title" className="relative border-b border-foreground px-1 pt-4 pb-6 sm:px-4 sm:pt-6">
-        <CropMarks />
-        <div className="space-y-3">
-          <p className="label">
-            {meta.join(" · ")}
-            {sourcesCheckedAt ? (
-              <>
-                {" · "}Sources checked <SiteDate iso={new Date(sourcesCheckedAt).toISOString()} />
-              </>
-            ) : null}
-          </p>
-          <h1 id="wiki-home-title" {...PAGE_TITLE_TIMING} className="max-w-3xl text-title font-display text-foreground">
-            {theme.identity.descriptor}
-          </h1>
-          <p className="max-w-[56ch] text-body text-muted-foreground">
-            {theme.identity.tagline ??
-              `Source-backed pages on ${tenant.gameTitle}'s weapons, maps, factions and systems, kept current by AI and checked by readers.`}
-          </p>
-        </div>
-        {homeBand ? (
-          <FigureBand image={homeBand} slot="home-band" className="mt-6" />
-        ) : (
+    <WikiChrome
+      tenant={tenant}
+      categories={categories}
+      hero={
+        homeBand ? (
+          <ArtSurface
+            image={homeBand}
+            variant="home"
+            creditHref={`/${tenant.slug}/credits#${homeBand.id}`}
+            contentClassName="mx-auto w-full max-w-6xl px-5 sm:px-6 lg:px-8"
+          >
+            <section aria-labelledby="wiki-home-title" className="space-y-3">
+              <p className="label-art">
+                {meta.join(" · ")}
+                {checked}
+              </p>
+              <h1 id="wiki-home-title" {...PAGE_TITLE_TIMING} className="max-w-3xl text-title font-display text-paper">
+                {theme.identity.descriptor}
+              </h1>
+              <p className="max-w-[56ch] text-body text-paper/85">{dek}</p>
+            </section>
+          </ArtSurface>
+        ) : null
+      }
+    >
+      {homeBand ? null : (
+        <section aria-labelledby="wiki-home-title" className="relative border-b border-foreground px-1 pt-4 pb-6 sm:px-4 sm:pt-6">
+          <CropMarks />
+          <div className="space-y-3">
+            <p className="label">
+              {meta.join(" · ")}
+              {checked}
+            </p>
+            <h1 id="wiki-home-title" {...PAGE_TITLE_TIMING} className="max-w-3xl text-title font-display text-foreground">
+              {theme.identity.descriptor}
+            </h1>
+            <p className="max-w-[56ch] text-body text-muted-foreground">{dek}</p>
+          </div>
           <DitherBand themeSlug={theme.slug} region="masthead" className="mt-6" />
-        )}
-      </section>
+        </section>
+      )}
 
       {pages.length === 0 ? (
         <EmptyState

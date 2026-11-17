@@ -49,6 +49,8 @@
   --color-claim-conflict: var(--claim-conflict);
   --color-diff-added: var(--diff-added);
   --color-diff-added-surface: var(--diff-added-surface);
+  --color-paper: var(--art-paper);
+  --color-ink-scrim: var(--art-ink-scrim);
 }
 
 /* The theme's display face, for display and title text only; case, tracking and width come from
@@ -77,6 +79,12 @@
 @utility label-strong {
   @apply label;
   color: var(--foreground);
+}
+
+/* Labels on an art surface's ink scrim: paper at 70% (components/art.test.tsx proves ≥ 4.5:1 worst case). */
+@utility label-art {
+  @apply label;
+  color: color-mix(in oklab, var(--art-paper) 70%, transparent);
 }
 
 @theme {
@@ -112,6 +120,10 @@
 }
 
 :root {
+  /* Art surfaces (SPEC-art-direction): paper text on an ink scrim over the painting, the same in both schemes.
+     src/wiki/art-contrast.test.ts proves the worst case (a white pixel under the scrim) still clears 7:1. */
+  --art-paper: oklch(0.985 0.004 115);
+  --art-ink-scrim: oklch(0.16 0 0 / 0.85);
   /* Trust colors are core: identical in every theme (spec §3). */
   --destructive: oklch(0.58 0.21 27);
   --claim-unverified: oklch(0.555 0.149 49);
@@ -205,10 +217,42 @@ html {
   }
 }
 
-/* Atmosphere isn't content: hide bands (including captions) in print and forced-colors. */
+/* Links over art take a paper focus ring, not the theme's olive (which disappears on ink). */
+.art-surface :focus-visible {
+  outline-color: var(--art-paper);
+}
+
+/* The painting is atmosphere, not content: print and forced-colors keep the text and drop the art and scrim. */
 @media print, (forced-colors: active) {
-  .figure-band {
+  .art-surface {
+    background: none !important;
+    color: CanvasText;
+  }
+  .art-painting,
+  .art-scrim[aria-hidden="true"] {
     display: none;
+  }
+  .art-scrim {
+    background: none;
+  }
+}
+
+/* Hub → article: the hub hero morphs into the article plate (same painting, new frame). Cross-document view
+   transitions, so plain links animate; under reduced motion there is no transition at all, just the swap. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+  ::view-transition-group(category-art),
+  ::view-transition-group(root) {
+    animation-duration: 320ms;
+    animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  ::view-transition-old(category-art),
+  ::view-transition-new(category-art) {
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
   }
 }
 

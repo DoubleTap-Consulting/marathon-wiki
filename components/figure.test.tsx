@@ -7,7 +7,6 @@ import { licenseInfo } from "@/content/imagery-schema";
 import { figureAlt, figureSpecs } from "@/src/wiki/figure-data";
 import { imagesFor } from "@/src/wiki/imagery";
 
-import { FigureBand, ILLUSTRATIVE_BADGE } from "./figure";
 import { TierBPlate } from "./figures";
 
 const generated: Array<{ slug: string; aiProvenance: { claimSupport: never[] } }> = JSON.parse(
@@ -23,26 +22,17 @@ function figureOf(html: string) {
   return match![0];
 }
 
-describe("Figure, for every registry entry", () => {
-  for (const image of imagesFor("marathon")) {
-    it(`${image.id}: badge, credit and license link sit inside its figure`, () => {
-      const html =
-        image.tier === "C"
-          ? renderToStaticMarkup(<FigureBand image={image} slot={image.usedOn[0].slot === "home-band" ? "home-band" : "hub-band"} />)
-          : renderToStaticMarkup(
+describe("Figure, for every diagram in the registry", () => {
+  for (const image of imagesFor("marathon").filter((entry) => entry.tier === "B")) {
+    it(`${image.id}: credit and license link sit inside its figure`, () => {
+      const html = renderToStaticMarkup(
               <TierBPlate image={image} number={1} claims={claimsFor(image.generator!.page)} citation={() => ({ number: 1, title: "Ranked in Marathon", url: "https://www.bungie.net/7/en/News/Article/ranked_in_marathon" })} showGaps={false} />,
             );
       const figure = figureOf(html);
       expect(figure).toContain(escape(image.credit));
       expect(figure).toContain(`href="${image.licenseUrl}"`);
       expect(figure).toContain(escape(licenseInfo[image.license].short));
-      if (image.tier === "C") {
-        expect(figure).toContain(escape(ILLUSTRATIVE_BADGE));
-        expect(figure).toContain(`href="${image.sourceUrl}"`);
-        expect(figure).not.toMatch(/src="https?:/);
-        expect(figure).toMatch(/loading="eager"/);
-        expect(figure.toLowerCase()).toMatch(/fetchpriority="high"/);
-      } else {
+      {
         const spec = figureSpecs[image.generator!.kind];
         expect(figure).toContain("Chart data");
         expect(figure).toContain(escape(`Fig. 1. ${spec.title}.`));

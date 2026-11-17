@@ -1,4 +1,950 @@
 {
   "version": 1,
-  "images": []
+  "images": [
+    {
+      "id": "homer-shore-and-surf",
+      "tier": "C",
+      "file": null,
+      "width": 4000,
+      "height": 2814,
+      "sourceUrl": "https://www.metmuseum.org/art/collection/search/11138",
+      "fileUrl": "https://images.metmuseum.org/CRDImages/ad/original/DP-21450-001.jpg",
+      "license": "PD-US-EXPIRED",
+      "licenseUrl": "https://www.metmuseum.org/policies/image-resources",
+      "author": "Winslow Homer",
+      "credit": "The Metropolitan Museum of Art",
+      "title": "Shore and Surf, Nassau",
+      "modifications": "Cropped and resized; the part beneath the text scrim is softened",
+      "retrievedAt": "2026-11-16",
+      "depicts": "atmosphere",
+      "caption": "Shore and Surf, Nassau",
+      "alt": "Watercolor of turquoise surf breaking on dark rocks under a grey sky, with a steamer on the horizon.",
+      "captionAuthor": "source-quotation",
+      "captionSourceUrl": "https://www.metmuseum.org/art/collection/search/11138",
+      "focal": {
+        "x": 0.5,
+        "y": 0
+      },
+      "approvedBy": "loupe",
+      "approvedAt": "2026-11-16",
+      "usedOn": [
+        {
+          "page": "home",
+          "slot": "home-band"
+        }
+      ],
+      "attributionText": "Shore and Surf, Nassau · Winslow Homer, 1899 · The Metropolitan Museum of Art, Open Access · Public domain (US) · Cropped and resized; the part beneath the text scrim is softened",
+      "art": {
+        "family": "homer-tropics",
+        "medium": "painting",
+        "rightsStatus": "PD",
+        "rightsBasis": "Watercolor by Winslow Homer (1836–1910), made in 1899; public domain in the US, and The Met marks the object public domain and releases its image under Open Access (CC0).",
+        "institution": "The Met",
+        "year": "1899",
+        "dominant": "#697976",
+        "renditions": [
+          {
+            "crop": "wide",
+            "width": 828,
+            "height": 414,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-shore-and-surf-wide-828.avif",
+            "bytes": 14316,
+            "sha256": "2f0eeae6fd6fa783bedfa87ad86002c09cf17cd289307d8f1f746ca518ae70e7"
+          },
+          {
+            "crop": "wide",
+            "width": 828,
+            "height": 414,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-shore-and-surf-wide-828.webp",
+            "bytes": 17782,
+            "sha256": "865626c778d2e1ee21b4b2c4ea98f0af3e879469cec00fba26eb3abf6ef92ba3"
+          },
+          {
+            "crop": "wide",
+            "width": 1600,
+            "height": 800,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-shore-and-surf-wide-1600.avif",
+            "bytes": 47739,
+            "sha256": "c9ea83001a59c8b9674b14d1fc52084c8c5f4cf7736db7e02deea86971767571"
+          },
+          {
+            "crop": "wide",
+            "width": 1600,
+            "height": 800,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-shore-and-surf-wide-1600.webp",
+            "bytes": 53564,
+            "sha256": "956ecab495f8669d980a32cd27a88798bb9d06dc4db89981d9ef6f9724b9920d"
+          },
+          {
+            "crop": "wide",
+            "width": 2400,
+            "height": 1200,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-shore-and-surf-wide-2400.avif",
+            "bytes": 105624,
+            "sha256": "fd7d90865f3582bc8120910921f096086cc757338b8c7984dc783c503433de65"
+          },
+          {
+            "crop": "wide",
+            "width": 2400,
+            "height": 1200,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-shore-and-surf-wide-2400.webp",
+            "bytes": 114920,
+            "sha256": "8ca1600809b1cfc590e1821814146922cda21859ebc3a497fc7aebc609b56493"
+          },
+          {
+            "crop": "strip",
+            "width": 828,
+            "height": 207,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-shore-and-surf-strip-828.avif",
+            "bytes": 7441,
+            "sha256": "15c9769954e197c92737d5b7bbba54577f1f0015cb570661faa5423466fb8915"
+          },
+          {
+            "crop": "strip",
+            "width": 828,
+            "height": 207,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-shore-and-surf-strip-828.webp",
+            "bytes": 9162,
+            "sha256": "3798fb6d6e80c7bec468fac630d952d2e0c227436e29ab5126b56de22717805a"
+          },
+          {
+            "crop": "strip",
+            "width": 1600,
+            "height": 400,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-shore-and-surf-strip-1600.avif",
+            "bytes": 22594,
+            "sha256": "7c40e711d4ba3e1edb851f0802680bf0eb25b3bf04fec2c205ed8f6924874206"
+          },
+          {
+            "crop": "strip",
+            "width": 1600,
+            "height": 400,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-shore-and-surf-strip-1600.webp",
+            "bytes": 27186,
+            "sha256": "2d256488d46966ec3ff30f4c6c5ce983ed131a554cbc55d99616f983d14a04ad"
+          },
+          {
+            "crop": "strip",
+            "width": 2400,
+            "height": 600,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-shore-and-surf-strip-2400.avif",
+            "bytes": 52285,
+            "sha256": "ef2b063f10d973a0c34ae450887f605b16a1f4ea0fd6e16b96e4a4d5bca954d9"
+          },
+          {
+            "crop": "strip",
+            "width": 2400,
+            "height": 600,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-shore-and-surf-strip-2400.webp",
+            "bytes": 56912,
+            "sha256": "5030d2278bd59a3e5311a8e86216856ed25c724ea417f5966d64694e521c82b8"
+          },
+          {
+            "crop": "full",
+            "width": 640,
+            "height": 450,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-shore-and-surf-full-640.avif",
+            "bytes": 10134,
+            "sha256": "47f01fa469ff920bf17ad4c4d666d05630f71c684364ecc7a49eb834bf19f54a"
+          },
+          {
+            "crop": "full",
+            "width": 640,
+            "height": 450,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-shore-and-surf-full-640.webp",
+            "bytes": 19164,
+            "sha256": "79dcfba12bde41dd91a383c95b646045f04148fbdbf33c731fb9d554d55e827f"
+          },
+          {
+            "crop": "tall",
+            "width": 828,
+            "height": 789,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-shore-and-surf-tall-828.avif",
+            "bytes": 16268,
+            "sha256": "7ff994cf7b9a33de23358ac4a5fdced54c86aa0e71194ad066b508846a92415b"
+          },
+          {
+            "crop": "tall",
+            "width": 828,
+            "height": 789,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-shore-and-surf-tall-828.webp",
+            "bytes": 20658,
+            "sha256": "3e262e0bf30835e07ed33575c3c1d48be75b2a0d020636ac2371eae99a5477de"
+          }
+        ]
+      }
+    },
+    {
+      "id": "homer-key-west-boats",
+      "tier": "C",
+      "file": null,
+      "width": 3811,
+      "height": 2449,
+      "sourceUrl": "https://www.metmuseum.org/art/collection/search/11120",
+      "fileUrl": "https://images.metmuseum.org/CRDImages/ad/original/DP119111.jpg",
+      "license": "PD-US-EXPIRED",
+      "licenseUrl": "https://www.metmuseum.org/policies/image-resources",
+      "author": "Winslow Homer",
+      "credit": "The Metropolitan Museum of Art",
+      "title": "Fishing Boats, Key West",
+      "modifications": "Cropped and resized; the part beneath the text scrim is softened",
+      "retrievedAt": "2026-11-16",
+      "depicts": "atmosphere",
+      "caption": "Fishing Boats, Key West",
+      "alt": "Watercolor of white fishing sloops with furled sails at anchor in pale blue Key West water.",
+      "captionAuthor": "source-quotation",
+      "captionSourceUrl": "https://www.metmuseum.org/art/collection/search/11120",
+      "focal": {
+        "x": 0.5,
+        "y": 0
+      },
+      "approvedBy": "loupe",
+      "approvedAt": "2026-11-16",
+      "usedOn": [
+        {
+          "page": "categories/overview",
+          "slot": "hub-band"
+        }
+      ],
+      "attributionText": "Fishing Boats, Key West · Winslow Homer, 1903 · The Metropolitan Museum of Art, Open Access · Public domain (US) · Cropped and resized; the part beneath the text scrim is softened",
+      "art": {
+        "family": "homer-tropics",
+        "medium": "painting",
+        "rightsStatus": "PD",
+        "rightsBasis": "Watercolor by Winslow Homer (1836–1910), made in 1903; public domain in the US, and The Met marks the object public domain and releases its image under Open Access (CC0).",
+        "institution": "The Met",
+        "year": "1903",
+        "dominant": "#a1acad",
+        "renditions": [
+          {
+            "crop": "wide",
+            "width": 828,
+            "height": 414,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-key-west-boats-wide-828.avif",
+            "bytes": 14427,
+            "sha256": "86ac28a3d93211f0852bb25ebef577b9b8db3a8452fe943de811127d0bae1841"
+          },
+          {
+            "crop": "wide",
+            "width": 828,
+            "height": 414,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-key-west-boats-wide-828.webp",
+            "bytes": 16424,
+            "sha256": "69983326c607c6f71a239b1645dca608b0badb40f2a97e473ebaf8c4576c20c3"
+          },
+          {
+            "crop": "wide",
+            "width": 1600,
+            "height": 800,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-key-west-boats-wide-1600.avif",
+            "bytes": 42210,
+            "sha256": "4c3bd8a59fb870dfd9e8962b3addb4e3ed8a23f62021c9f12a4eed825f82ca7e"
+          },
+          {
+            "crop": "wide",
+            "width": 1600,
+            "height": 800,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-key-west-boats-wide-1600.webp",
+            "bytes": 45760,
+            "sha256": "c18cc3d5a16fd8df28ca3ae2d95aa5cf8b10e6709ce04235c77e0753339bc712"
+          },
+          {
+            "crop": "wide",
+            "width": 2400,
+            "height": 1200,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-key-west-boats-wide-2400.avif",
+            "bytes": 83295,
+            "sha256": "f50b7b8d04d2fafe9186165d12d7116a056a2093de734f0cf5ce2a437c171c95"
+          },
+          {
+            "crop": "wide",
+            "width": 2400,
+            "height": 1200,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-key-west-boats-wide-2400.webp",
+            "bytes": 88940,
+            "sha256": "bdbdcb231f081323c7f99d6f557074a60eecbdc7830d6bbc5517655e7f1d0280"
+          },
+          {
+            "crop": "tall",
+            "width": 828,
+            "height": 789,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-key-west-boats-tall-828.avif",
+            "bytes": 10507,
+            "sha256": "099647a1978f8eb2b70efbd7c91f892639fa7b625065d4ead4ee537b0861828d"
+          },
+          {
+            "crop": "tall",
+            "width": 828,
+            "height": 789,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-key-west-boats-tall-828.webp",
+            "bytes": 15668,
+            "sha256": "b11f28757409406c4b0912494a47f0e9db4792cb0faed5a770a802f360ed498e"
+          },
+          {
+            "crop": "strip",
+            "width": 828,
+            "height": 207,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-key-west-boats-strip-828.avif",
+            "bytes": 7860,
+            "sha256": "bc498f290ca6fefa372594812f3ed38f33d843717d01849d9276e33b6682c6b8"
+          },
+          {
+            "crop": "strip",
+            "width": 828,
+            "height": 207,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-key-west-boats-strip-828.webp",
+            "bytes": 8488,
+            "sha256": "82ffb7e0170c9bcaee9f14ff92a36c867b4980d18851d1bc8d401e2762856427"
+          },
+          {
+            "crop": "strip",
+            "width": 1600,
+            "height": 400,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-key-west-boats-strip-1600.avif",
+            "bytes": 21095,
+            "sha256": "bb4da1f157413859137b14241075976a75fd5f5e020bf3c69523b33c383a06bb"
+          },
+          {
+            "crop": "strip",
+            "width": 1600,
+            "height": 400,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-key-west-boats-strip-1600.webp",
+            "bytes": 23006,
+            "sha256": "b156a5f1c813db7da7ccc21cbacdf9bff3c068bf936bf3bd3b294d7f880c2e34"
+          },
+          {
+            "crop": "strip",
+            "width": 2400,
+            "height": 600,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-key-west-boats-strip-2400.avif",
+            "bytes": 41749,
+            "sha256": "63594648a02099500c1266d05cfe2c8db5a29d4412b12fcb26ebb26a078f478c"
+          },
+          {
+            "crop": "strip",
+            "width": 2400,
+            "height": 600,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-key-west-boats-strip-2400.webp",
+            "bytes": 44010,
+            "sha256": "6f6853ae6cf408f6caf0d0122f1626e5b8d481a5040b3a8fb0f285780e3d4750"
+          },
+          {
+            "crop": "full",
+            "width": 640,
+            "height": 411,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-key-west-boats-full-640.avif",
+            "bytes": 9998,
+            "sha256": "541ff5baf010476ec66fd478cf9ef2a89a4761235d55a962b1ac694a1f105cd3"
+          },
+          {
+            "crop": "full",
+            "width": 640,
+            "height": 411,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-key-west-boats-full-640.webp",
+            "bytes": 17778,
+            "sha256": "082625ff6b0b362bef1b8ae61c6dc3edf02835ca65f6b06c1d3c36478bf03ec5"
+          }
+        ]
+      }
+    },
+    {
+      "id": "homer-hurricane-bahamas",
+      "tier": "C",
+      "file": null,
+      "width": 4000,
+      "height": 2763,
+      "sourceUrl": "https://www.metmuseum.org/art/collection/search/11124",
+      "fileUrl": "https://images.metmuseum.org/CRDImages/ad/original/DP-17779-001.jpg",
+      "license": "PD-US-EXPIRED",
+      "licenseUrl": "https://www.metmuseum.org/policies/image-resources",
+      "author": "Winslow Homer",
+      "credit": "The Metropolitan Museum of Art",
+      "title": "Hurricane, Bahamas",
+      "modifications": "Cropped and resized; the part beneath the text scrim is softened",
+      "retrievedAt": "2026-11-16",
+      "depicts": "atmosphere",
+      "caption": "Hurricane, Bahamas",
+      "alt": "Watercolor of palm trees bent by a storm wind over red-roofed houses under heavy grey clouds.",
+      "captionAuthor": "source-quotation",
+      "captionSourceUrl": "https://www.metmuseum.org/art/collection/search/11124",
+      "focal": {
+        "x": 0.5,
+        "y": 0
+      },
+      "approvedBy": "loupe",
+      "approvedAt": "2026-11-16",
+      "usedOn": [
+        {
+          "page": "categories/gameplay",
+          "slot": "hub-band"
+        }
+      ],
+      "attributionText": "Hurricane, Bahamas · Winslow Homer, 1898 · The Metropolitan Museum of Art, Open Access · Public domain (US) · Cropped and resized; the part beneath the text scrim is softened",
+      "art": {
+        "family": "homer-tropics",
+        "medium": "painting",
+        "rightsStatus": "PD",
+        "rightsBasis": "Watercolor by Winslow Homer (1836–1910), made in 1898; public domain in the US, and The Met marks the object public domain and releases its image under Open Access (CC0).",
+        "institution": "The Met",
+        "year": "1898",
+        "dominant": "#98958b",
+        "renditions": [
+          {
+            "crop": "wide",
+            "width": 828,
+            "height": 414,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-hurricane-bahamas-wide-828.avif",
+            "bytes": 11308,
+            "sha256": "e0e1d8ae3394abe6074ce543f1c8c0bf7531a9f95234468d8fdfb4b7710ae07a"
+          },
+          {
+            "crop": "wide",
+            "width": 828,
+            "height": 414,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-hurricane-bahamas-wide-828.webp",
+            "bytes": 13528,
+            "sha256": "9a64166ef68c4d79a1e2cd59291bf6be745560a4ea20ab1e7546ad778a50009f"
+          },
+          {
+            "crop": "wide",
+            "width": 1600,
+            "height": 800,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-hurricane-bahamas-wide-1600.avif",
+            "bytes": 28490,
+            "sha256": "0c61f936b295e5655ca79a019a7b018951611c66b512217179ccc70a0c89d0e1"
+          },
+          {
+            "crop": "wide",
+            "width": 1600,
+            "height": 800,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-hurricane-bahamas-wide-1600.webp",
+            "bytes": 33906,
+            "sha256": "efc7a86d3a832f8de0219eba2f6a4088069e43da07224e3c3a71fc1a2551a12c"
+          },
+          {
+            "crop": "wide",
+            "width": 2400,
+            "height": 1200,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-hurricane-bahamas-wide-2400.avif",
+            "bytes": 55556,
+            "sha256": "c7500f576fe41c1fa1c58f882c5e98b284d746059c14c071e71ce8347be3aa91"
+          },
+          {
+            "crop": "wide",
+            "width": 2400,
+            "height": 1200,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-hurricane-bahamas-wide-2400.webp",
+            "bytes": 64526,
+            "sha256": "20ad25190b165c38c52f67e461ad864d1b72916041bfdec817ba5e00289f9a66"
+          },
+          {
+            "crop": "tall",
+            "width": 828,
+            "height": 789,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-hurricane-bahamas-tall-828.avif",
+            "bytes": 11199,
+            "sha256": "0bd3aa0726c8380b35edcfa2354f8e9d0eb8a3f3c387bc8c29325edcc984724a"
+          },
+          {
+            "crop": "tall",
+            "width": 828,
+            "height": 789,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-hurricane-bahamas-tall-828.webp",
+            "bytes": 16916,
+            "sha256": "f478e6169fbea05dd5a71f5be3a22a5a7d98cef824c823275e0f8666d2b92df8"
+          },
+          {
+            "crop": "strip",
+            "width": 828,
+            "height": 207,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-hurricane-bahamas-strip-828.avif",
+            "bytes": 6056,
+            "sha256": "21a3343091f2d89a9d1a9812089efc0f3138da31363e4dbb1415a1b5ad41c994"
+          },
+          {
+            "crop": "strip",
+            "width": 828,
+            "height": 207,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-hurricane-bahamas-strip-828.webp",
+            "bytes": 7156,
+            "sha256": "77d0d35e04c394f5b0bb967df500ae8d3668fa5f2417085e6e86bcdd41088bc3"
+          },
+          {
+            "crop": "strip",
+            "width": 1600,
+            "height": 400,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-hurricane-bahamas-strip-1600.avif",
+            "bytes": 13967,
+            "sha256": "13c76e8abcee44ca83db27f35ce3c24ca9e392ec34a11ba71b9fe56b05626a3f"
+          },
+          {
+            "crop": "strip",
+            "width": 1600,
+            "height": 400,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-hurricane-bahamas-strip-1600.webp",
+            "bytes": 17328,
+            "sha256": "b57b4b76c8507a4d4a14acc4ed8ed74b6f55e7d4a3a57bbcf4af9a4d39bebb93"
+          },
+          {
+            "crop": "strip",
+            "width": 2400,
+            "height": 600,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-hurricane-bahamas-strip-2400.avif",
+            "bytes": 26746,
+            "sha256": "9918f24cf9c5efc5ec9f40a4d32d3ebc9631ac5cb6646fd5feb00a8442b1c13e"
+          },
+          {
+            "crop": "strip",
+            "width": 2400,
+            "height": 600,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-hurricane-bahamas-strip-2400.webp",
+            "bytes": 31550,
+            "sha256": "e7e748b10f17b93d1b9c24f32f1cdfd537343c6ab6f2076ddc007b1e9fcffcbb"
+          },
+          {
+            "crop": "full",
+            "width": 640,
+            "height": 442,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-hurricane-bahamas-full-640.avif",
+            "bytes": 12643,
+            "sha256": "164b47902f8410614a20ba50d7cc207d862f82abeeff2deaa167367a267dc923"
+          },
+          {
+            "crop": "full",
+            "width": 640,
+            "height": 442,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-hurricane-bahamas-full-640.webp",
+            "bytes": 20476,
+            "sha256": "33776d39ce87a965f6507c3673ad462d72ed780e5cf20b5f90bc557079bc3a4e"
+          }
+        ]
+      }
+    },
+    {
+      "id": "homer-sloop-nassau",
+      "tier": "C",
+      "file": null,
+      "width": 3885,
+      "height": 2727,
+      "sourceUrl": "https://www.metmuseum.org/art/collection/search/11139",
+      "fileUrl": "https://images.metmuseum.org/CRDImages/ad/original/DP119112.jpg",
+      "license": "PD-US-EXPIRED",
+      "licenseUrl": "https://www.metmuseum.org/policies/image-resources",
+      "author": "Winslow Homer",
+      "credit": "The Metropolitan Museum of Art",
+      "title": "Sloop, Nassau",
+      "modifications": "Cropped and resized; the part beneath the text scrim is softened",
+      "retrievedAt": "2026-11-16",
+      "depicts": "atmosphere",
+      "caption": "Sloop, Nassau",
+      "alt": "Watercolor of a white sloop with loose sails on bright green-blue water under a stormy sky.",
+      "captionAuthor": "source-quotation",
+      "captionSourceUrl": "https://www.metmuseum.org/art/collection/search/11139",
+      "focal": {
+        "x": 0.5,
+        "y": 0
+      },
+      "approvedBy": "loupe",
+      "approvedAt": "2026-11-16",
+      "usedOn": [
+        {
+          "page": "categories/locations",
+          "slot": "hub-band"
+        }
+      ],
+      "attributionText": "Sloop, Nassau · Winslow Homer, 1899 · The Metropolitan Museum of Art, Open Access · Public domain (US) · Cropped and resized; the part beneath the text scrim is softened",
+      "art": {
+        "family": "homer-tropics",
+        "medium": "painting",
+        "rightsStatus": "PD",
+        "rightsBasis": "Watercolor by Winslow Homer (1836–1910), made in 1899; public domain in the US, and The Met marks the object public domain and releases its image under Open Access (CC0).",
+        "institution": "The Met",
+        "year": "1899",
+        "dominant": "#929e9a",
+        "renditions": [
+          {
+            "crop": "wide",
+            "width": 828,
+            "height": 414,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-sloop-nassau-wide-828.avif",
+            "bytes": 11848,
+            "sha256": "44bd2f9dcc56ce5d1729a9be7cec2838e1d18729bf2d3e54dc78b23a34548fe5"
+          },
+          {
+            "crop": "wide",
+            "width": 828,
+            "height": 414,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-sloop-nassau-wide-828.webp",
+            "bytes": 14096,
+            "sha256": "b04121e3c1154d29c0d7ec5ff97f5dfa6cabbe952874f8bccf81c124dfc246ce"
+          },
+          {
+            "crop": "wide",
+            "width": 1600,
+            "height": 800,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-sloop-nassau-wide-1600.avif",
+            "bytes": 39858,
+            "sha256": "436efe21818c926400a465a3ca1c5567830d8a9be14400b7aed42e005d04b1cf"
+          },
+          {
+            "crop": "wide",
+            "width": 1600,
+            "height": 800,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-sloop-nassau-wide-1600.webp",
+            "bytes": 42844,
+            "sha256": "1e7819fe71a7a06d825dc6c430fa3dd13974500e01dc58d8e5864469d6762b52"
+          },
+          {
+            "crop": "wide",
+            "width": 2400,
+            "height": 1200,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-sloop-nassau-wide-2400.avif",
+            "bytes": 86739,
+            "sha256": "096af1ce3127ea56d2ba5fb234989c87a1474676ac0faf5420045a41b162bf27"
+          },
+          {
+            "crop": "wide",
+            "width": 2400,
+            "height": 1200,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-sloop-nassau-wide-2400.webp",
+            "bytes": 91466,
+            "sha256": "8ec44272c02c0728b9983eca2b0a150f4434ea8058a6200cd17b5026cf58c348"
+          },
+          {
+            "crop": "tall",
+            "width": 828,
+            "height": 789,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-sloop-nassau-tall-828.avif",
+            "bytes": 10697,
+            "sha256": "a4af064483cef0736b56aec961cff32005bf2ae5972f362c45ca48bd62200259"
+          },
+          {
+            "crop": "tall",
+            "width": 828,
+            "height": 789,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-sloop-nassau-tall-828.webp",
+            "bytes": 16948,
+            "sha256": "777f94044e384efe86b2a66d7c6831a8ec37f85c80922a3dc92969d756e09598"
+          },
+          {
+            "crop": "strip",
+            "width": 828,
+            "height": 207,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-sloop-nassau-strip-828.avif",
+            "bytes": 6879,
+            "sha256": "e7c58c3f9637fa7f3fe87eaa29a486fa88bdf78dfd2413d1d7d250b640486455"
+          },
+          {
+            "crop": "strip",
+            "width": 828,
+            "height": 207,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-sloop-nassau-strip-828.webp",
+            "bytes": 7918,
+            "sha256": "b59e0387a30be9f3c4103bdadc7894ccddfa40bc24f54fbcd5d5dd0dc92844ea"
+          },
+          {
+            "crop": "strip",
+            "width": 1600,
+            "height": 400,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-sloop-nassau-strip-1600.avif",
+            "bytes": 20591,
+            "sha256": "e4a016865fbb3b63a095b8929c8ee10b7d67391637c0313db15a1ac9eb947543"
+          },
+          {
+            "crop": "strip",
+            "width": 1600,
+            "height": 400,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-sloop-nassau-strip-1600.webp",
+            "bytes": 23716,
+            "sha256": "8598894041da8be4621b668811d663f67c12a4af21c1d4d19a3196776bc94fa2"
+          },
+          {
+            "crop": "strip",
+            "width": 2400,
+            "height": 600,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-sloop-nassau-strip-2400.avif",
+            "bytes": 46073,
+            "sha256": "253c4a0d808e57ce84934ad9a76a82d8ded9e1173979c1ac657f177aef27d896"
+          },
+          {
+            "crop": "strip",
+            "width": 2400,
+            "height": 600,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-sloop-nassau-strip-2400.webp",
+            "bytes": 48624,
+            "sha256": "b64dd51239ef4fff66cdc516510da0e2e2289d01f621f2260a835e9650c6fcc5"
+          },
+          {
+            "crop": "full",
+            "width": 640,
+            "height": 445,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-sloop-nassau-full-640.avif",
+            "bytes": 10926,
+            "sha256": "a4b4d0fed8b90e8405946b23d09fbf465dd4d16998d928957abccff0dda76b11"
+          },
+          {
+            "crop": "full",
+            "width": 640,
+            "height": 445,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-sloop-nassau-full-640.webp",
+            "bytes": 20612,
+            "sha256": "193aa1c7812a658d03a1edd9279e4691bb9008b083d6b8e6dd93141e05383ece"
+          }
+        ]
+      }
+    },
+    {
+      "id": "homer-gulf-stream",
+      "tier": "C",
+      "file": null,
+      "width": 4000,
+      "height": 2468,
+      "sourceUrl": "https://www.metmuseum.org/art/collection/search/11122",
+      "fileUrl": "https://images.metmuseum.org/CRDImages/ad/original/DP-20821-001.jpg",
+      "license": "PD-US-EXPIRED",
+      "licenseUrl": "https://www.metmuseum.org/policies/image-resources",
+      "author": "Winslow Homer",
+      "credit": "The Metropolitan Museum of Art",
+      "title": "The Gulf Stream",
+      "modifications": "Cropped and resized; the part beneath the text scrim is softened",
+      "retrievedAt": "2026-11-16",
+      "depicts": "atmosphere",
+      "caption": "The Gulf Stream",
+      "alt": "Painting of a dismasted boat with a lone sailor adrift on a rough green sea, sharks circling.",
+      "captionAuthor": "source-quotation",
+      "captionSourceUrl": "https://www.metmuseum.org/art/collection/search/11122",
+      "focal": {
+        "x": 0.45,
+        "y": 0
+      },
+      "approvedBy": "loupe",
+      "approvedAt": "2026-11-16",
+      "usedOn": [
+        {
+          "page": "categories/lore",
+          "slot": "hub-band"
+        }
+      ],
+      "attributionText": "The Gulf Stream · Winslow Homer, 1899 · The Metropolitan Museum of Art, Open Access · Public domain (US) · Cropped and resized; the part beneath the text scrim is softened",
+      "art": {
+        "family": "homer-tropics",
+        "medium": "painting",
+        "rightsStatus": "PD",
+        "rightsBasis": "Oil on canvas by Winslow Homer (1836–1910), made in 1899; public domain in the US, and The Met marks the object public domain and releases its image under Open Access (CC0).",
+        "institution": "The Met",
+        "year": "1899",
+        "dominant": "#303c38",
+        "renditions": [
+          {
+            "crop": "wide",
+            "width": 828,
+            "height": 414,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-gulf-stream-wide-828.avif",
+            "bytes": 13553,
+            "sha256": "ba11b4d9591a93314fb99d228432a4a6b05e90819906ccc8df3b04974b8e70cd"
+          },
+          {
+            "crop": "wide",
+            "width": 828,
+            "height": 414,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-gulf-stream-wide-828.webp",
+            "bytes": 16040,
+            "sha256": "b8ca9023d3731628ba5f8ede338f6d208509e05e3851e5e728b86a53f24b8364"
+          },
+          {
+            "crop": "wide",
+            "width": 1600,
+            "height": 800,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-gulf-stream-wide-1600.avif",
+            "bytes": 44052,
+            "sha256": "f5ba7a2cab026dcfb1de88bbcd2a43c9f507ecf5eb214ab95c0ff80af4fd929c"
+          },
+          {
+            "crop": "wide",
+            "width": 1600,
+            "height": 800,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-gulf-stream-wide-1600.webp",
+            "bytes": 48610,
+            "sha256": "9d3c52219729e7c79837c3e093f8be19a885deb77f78b09f1cd9488ccb7fe6f6"
+          },
+          {
+            "crop": "wide",
+            "width": 2400,
+            "height": 1200,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-gulf-stream-wide-2400.avif",
+            "bytes": 106724,
+            "sha256": "bc9d781c1d10b5e3e511f741efacc861c2be7a5305a75370a057bebe3289b253"
+          },
+          {
+            "crop": "wide",
+            "width": 2400,
+            "height": 1200,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-gulf-stream-wide-2400.webp",
+            "bytes": 111032,
+            "sha256": "a2f5948ec04dc959e2d0ee61826d209ea0c25a9071b52773e221b56ece43222d"
+          },
+          {
+            "crop": "tall",
+            "width": 828,
+            "height": 789,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-gulf-stream-tall-828.avif",
+            "bytes": 10688,
+            "sha256": "0a3d42796dd27e7d72072498d4b516ef4232a6dfc208998aa9a6ccaf7fb3e219"
+          },
+          {
+            "crop": "tall",
+            "width": 828,
+            "height": 789,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-gulf-stream-tall-828.webp",
+            "bytes": 16436,
+            "sha256": "95dacab99b176b0d289a9cc553aaf956d9d5e8f168515bf01cc813b19e763d34"
+          },
+          {
+            "crop": "strip",
+            "width": 828,
+            "height": 207,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-gulf-stream-strip-828.avif",
+            "bytes": 7450,
+            "sha256": "40252b843d1ba7cc03ab5a7b80ed03faaebf9acfc1f2e93a1adcaf0a6844dbe1"
+          },
+          {
+            "crop": "strip",
+            "width": 828,
+            "height": 207,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-gulf-stream-strip-828.webp",
+            "bytes": 8844,
+            "sha256": "15eec76b883fa66defae2c985cd676ce1f9fa5172fb71a3927452e5d7ae588f4"
+          },
+          {
+            "crop": "strip",
+            "width": 1600,
+            "height": 400,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-gulf-stream-strip-1600.avif",
+            "bytes": 21018,
+            "sha256": "9f8e45e903775527f76a1779f633789549d491f245e99d6972f820d55072c99c"
+          },
+          {
+            "crop": "strip",
+            "width": 1600,
+            "height": 400,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-gulf-stream-strip-1600.webp",
+            "bytes": 24704,
+            "sha256": "42b6139989a9cf4d2f9a8b103241757d3e05c704b062f848a11daec06c7eeaa2"
+          },
+          {
+            "crop": "strip",
+            "width": 2400,
+            "height": 600,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-gulf-stream-strip-2400.avif",
+            "bytes": 47005,
+            "sha256": "a17161f2d4a0fdf90454a9f352a099a8edad94bf7276194964199887af8cd08a"
+          },
+          {
+            "crop": "strip",
+            "width": 2400,
+            "height": 600,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-gulf-stream-strip-2400.webp",
+            "bytes": 52098,
+            "sha256": "6c06a667df55d6acf623dac28dcd497d220438105e7c71fa8107702b59270ad2"
+          },
+          {
+            "crop": "full",
+            "width": 640,
+            "height": 391,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-gulf-stream-full-640.avif",
+            "bytes": 9270,
+            "sha256": "696b50572b2d719b80b22f605e5f0e1e4f26c3e8e3b816848a4f6782c38edb88"
+          },
+          {
+            "crop": "full",
+            "width": 640,
+            "height": 391,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-gulf-stream-full-640.webp",
+            "bytes": 17558,
+            "sha256": "a9e0737583b65dc391c34f613f6faa89afebf029b43077b2bcd22f1b55e01b20"
+          }
+        ]
+      }
+    }
+  ]
 }

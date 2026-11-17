@@ -36,8 +36,15 @@ export default {
   motion: { character: "crisp" },
   imagery: {
     tiers: ["B", "C"],
-    homeBand: "cosmic-cliffs-mono",
-    hubBands: { lore: "proxima-b-surface", locations: "lhs-3844b-surface" },
-    atmosphere: "mono",
+    // The house collection (content/marathon/images.json, SPEC-art-direction). Articles inherit their category's painting.
+    homeBand: "davis-torus-interior",
+    hubBands: {
+      overview: "trouvelot-aurora-1872",
+      gameplay: "davis-bernal-construction",
+      equipment: "guidice-bernal-cutaway",
+      locations: "davis-cylinder-endcap",
+      lore: "trouvelot-orion-nebula",
+    },
+    atmosphere: "color",
   },
 } satisfies ThemeManifest;

@@ -36,8 +36,13 @@ export default {
   motion: { character: "silk" },
   imagery: {
     tiers: ["B", "C"],
-    homeBand: null,
-    hubBands: {},
+    homeBand: "homer-shore-and-surf",
+    hubBands: {
+      overview: "homer-key-west-boats",
+      gameplay: "homer-hurricane-bahamas",
+      locations: "homer-sloop-nassau",
+      lore: "homer-gulf-stream",
+    },
     atmosphere: "color",
   },
 } satisfies ThemeManifest;

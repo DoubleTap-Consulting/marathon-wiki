@@ -27,7 +27,8 @@ describe("wiki robots policy", () => {
       GTA6_ENABLED: "1",
     });
     expect(robots.rules).toMatchObject({ allow: "/" });
-    expect(robots.rules.disallow).not.toContain("/gta6");
+    // rules is a single rule object here (asserted above); narrow the Rule | Rule[] union for tsc.
+    expect((robots.rules as Exclude<typeof robots.rules, unknown[]>).disallow).not.toContain("/gta6");
   });
 
   it("blocks indexing for preview deployments unless explicitly enabled", () => {

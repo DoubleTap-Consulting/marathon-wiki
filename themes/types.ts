@@ -53,8 +53,11 @@ export const themeManifest = z.strictObject({
   imagery: z
     .object({
       tiers: z.array(z.enum(["A", "B", "C", "D"])),
+      /** The painting behind the home hero. */
       homeBand: z.string().nullable(),
+      /** Category slug → the painting behind its hub hero; its articles' plates inherit it. */
       hubBands: z.record(z.string(), z.string()),
+      /** "color": paintings in natural color (art direction v2). "mono" is the retired greyscale treatment. */
       atmosphere: z.enum(["mono", "color"]),
       fairUse: z.object({ approvedRef: z.string() }).optional(),
     })
