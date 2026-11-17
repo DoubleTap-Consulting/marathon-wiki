@@ -11,7 +11,14 @@ const hidden = process.env.GTA6_EXPECT_HIDDEN === "1";
 async function get(path: string) {
   const response = await fetch(`${base}${path}`, { redirect: "manual" });
   const body = await response.text();
-  return { status: response.status, body, contentType: response.headers.get("content-type") ?? "" };
+  return {
+    status: response.status,
+    body,
+    contentType: response.headers.get("content-type") ?? "",
+    robotsTag: response.headers.get("x-robots-tag") ?? "",
+    matchedPath: response.headers.get("x-matched-path") ?? "",
+    rewrite: response.headers.get("x-middleware-rewrite") ?? "",
+  };
 }
 
 function titleOf(body: string) {
@@ -45,14 +52,37 @@ if (hidden) {
     ["/gta6", gta6],
     ["/gta6/lucia-caminos", lucia],
     ["/gta6/pages", pages],
-    ["/gta6/search-index.json", index],
   ] as const) {
     expectStatus(path, res.status, 404);
-    if (res.contentType.includes("text/html")) {
-      if (!/page not found/i.test(titleOf(res.body))) failures.push(`${path}: not a not-found page (${titleOf(res.body)})`);
-      if (!/noindex/i.test(robotsOf(res.body))) failures.push(`${path}: missing noindex`);
+    if (!/noindex/i.test(res.robotsTag)) failures.push(`${path}: missing X-Robots-Tag: noindex (${res.robotsTag})`);
+    if (res.matchedPath.includes("/_not-found") || res.rewrite.includes("/_not-found")) {
+      failures.push(`${path}: served via rewrite to /_not-found, which Vercel returns as HTTP 200`);
+    }
+    if (!res.contentType.includes("text/html")) {
+      failures.push(`${path}: expected text/html, got ${res.contentType}`);
+      continue;
+    }
+    if (!/page not found/i.test(titleOf(res.body))) failures.push(`${path}: not a not-found page (${titleOf(res.body)})`);
+    if (!/noindex/i.test(robotsOf(res.body))) failures.push(`${path}: missing noindex`);
+  }
+
+  expectStatus("/gta6/search-index.json", index.status, 404);
+  if (!/noindex/i.test(index.robotsTag)) {
+    failures.push(`/gta6/search-index.json: missing X-Robots-Tag: noindex (${index.robotsTag})`);
+  }
+  if (!index.contentType.includes("application/json")) {
+    failures.push(`/gta6/search-index.json: expected application/json, got ${index.contentType}`);
+  } else {
+    try {
+      const payload = JSON.parse(index.body) as { error?: string };
+      if (payload.error !== "Not Found") {
+        failures.push(`/gta6/search-index.json: unexpected JSON body ${index.body.slice(0, 120)}`);
+      }
+    } catch {
+      failures.push(`/gta6/search-index.json: body is not JSON`);
     }
   }
+
   if (/gta6/i.test(sitemap.body)) failures.push("sitemap.xml lists /gta6 while the flag is off");
   if (!/Disallow:\s*\/gta6\/?/i.test(robots.body)) failures.push("robots.txt does not disallow /gta6 while the flag is off");
 } else {
