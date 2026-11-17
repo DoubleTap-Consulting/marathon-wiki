@@ -93,12 +93,12 @@ describe("art surfaces", () => {
     expect(html).toContain(`background-color:${home.art.dominant}`);
   });
 
-  it("home and hub heroes fetch first; article plates load eagerly without jumping the queue", () => {
-    expect(render(home, "home").toLowerCase()).toMatch(/fetchpriority="high"/);
-    expect(render(hubBandFor("marathon", "lore")!, "hub").toLowerCase()).toMatch(/fetchpriority="high"/);
-    const plate = render(hubBandFor("marathon", "lore")!, "plate");
-    expect(plate).toMatch(/loading="eager"/);
-    expect(plate.toLowerCase()).not.toMatch(/fetchpriority="high"/);
+  it("every surface is above the fold and the LCP element: eager, high priority (plates too)", () => {
+    for (const variant of ["home", "hub", "plate"] as const) {
+      const html = render(variant === "home" ? home : hubBandFor("marathon", "lore")!, variant);
+      expect(html, variant).toMatch(/loading="eager"/);
+      expect(html.toLowerCase(), variant).toMatch(/fetchpriority="high"/);
+    }
   });
 
   it("art-directs: the mobile source (tall 828w) comes first, sizes 100vw", () => {

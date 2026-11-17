@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { preload } from "react-dom";
 
 import { cn } from "@/lib/utils";
 import { artCreditLine, publicPath, renditionFor, srcSetFor, type ArtImage } from "@/src/wiki/imagery";
@@ -57,20 +56,6 @@ export function ArtSurface({
   const desktop = DESKTOP_CROP[variant];
   const mobile = MOBILE_CROP[variant];
   const fallback = renditionFor(renditions, desktop, "webp", 1600) ?? renditionFor(renditions, desktop, "webp", 828);
-  const priority = variant !== "plate";
-  if (priority) {
-    // Fetch the hero before the stylesheet and fonts are parsed: it's the page's LCP element.
-    const mobileAvif = renditionFor(renditions, mobile, "avif", 828);
-    if (mobileAvif) preload(publicPath(mobileAvif.file), { as: "image", type: "image/avif", media: MOBILE, fetchPriority: "high" });
-    preload(publicPath(renditionFor(renditions, desktop, "avif", 1600)!.file), {
-      as: "image",
-      type: "image/avif",
-      media: DESKTOP,
-      imageSrcSet: srcSetFor(renditions, desktop, "avif"),
-      imageSizes: "100vw",
-      fetchPriority: "high",
-    });
-  }
   const focalX = `${Math.round((image.focal?.x ?? 0.5) * 100)}%`;
 
   return (
@@ -81,6 +66,9 @@ export function ArtSurface({
       className={cn("art-surface relative isolate flex flex-col overflow-hidden text-paper", BOX[variant])}
       style={{ backgroundColor: dominant, viewTransitionName: transition ? ART_TRANSITION_NAME : undefined }}
     >
+      {/* No preload() hint: the <img> is the first thing in <main>, so the parser finds it right after the
+          header, and a React preload hint would also fire whenever the router prefetches this route's payload,
+          downloading other pages' heroes. fetchpriority="high" puts it ahead of the scripts. */}
       <picture className="art-painting absolute inset-0 -z-10">
         <source media={MOBILE} type="image/avif" srcSet={srcSetFor(renditions, mobile, "avif")} sizes="100vw" />
         <source media={MOBILE} type="image/webp" srcSet={srcSetFor(renditions, mobile, "webp")} sizes="100vw" />
@@ -94,8 +82,8 @@ export function ArtSurface({
           width={fallback?.width}
           height={fallback?.height}
           loading="eager"
-          fetchPriority={priority ? "high" : "auto"}
-          decoding={priority ? "sync" : "async"}
+          fetchPriority="high"
+          decoding="async"
           className="size-full object-cover"
           style={{ objectPosition: `${focalX} 0%` }}
         />

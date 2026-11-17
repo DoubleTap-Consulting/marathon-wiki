@@ -134,10 +134,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const crumb = page.categories[0];
   const plates = figuresForPage(tenant.slug, page.slug, "plate");
   const art = articleArtFor(tenant.slug, page.slug, crumb?.slug);
+  // A plain link, not <Link>: a full navigation is what lets the plate morph back into the hub hero (a
+  // cross-document view transition), and <Link> would prefetch the hub and preload its hero on every article.
   const breadcrumb = crumb ? (
-    <Link href={`/${tenant.slug}/categories/${crumb.slug}` as Route} className={art ? "hover:text-paper" : "hover:text-foreground"}>
+    <a href={`/${tenant.slug}/categories/${crumb.slug}`} className={art ? "hover:text-paper" : "hover:text-foreground"}>
       {crumb.name}
-    </Link>
+    </a>
   ) : (
     tenant.name
   );
