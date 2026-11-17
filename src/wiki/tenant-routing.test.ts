@@ -32,12 +32,15 @@ describe("tenant routing helpers", () => {
     expect(getTenantSlugFromHost("127.0.0.1:3102")).toBeNull();
   });
 
-  it("keeps framework and asset paths out of tenant routing", () => {
+  it("keeps framework, asset, and network legal paths out of tenant routing", () => {
     expect(isPublicFilePath("/api/health")).toBe(true);
     expect(isPublicFilePath("/__clerk/some-proxy-path")).toBe(true);
     expect(isPublicFilePath("/trpc/wiki.bySlug")).toBe(true);
     expect(isPublicFilePath("/_next/static/chunk.js")).toBe(true);
     expect(isPublicFilePath("/favicon.ico")).toBe(true);
+    expect(isPublicFilePath("/privacy")).toBe(true);
+    expect(isPublicFilePath("/terms")).toBe(true);
     expect(isPublicFilePath("/marathon/weapons")).toBe(false);
+    expect(isPublicFilePath("/privacy-policy")).toBe(false);
   });
 });

@@ -2,35 +2,50 @@ import type { MetadataRoute } from "next";
 
 import { listWikiSitemapEntries, MARATHON_TENANT_SLUG } from "@/src/db/wiki";
 import { getWikiSiteBaseUrl } from "@/src/wiki/launch-config";
+import { legalNav } from "@/src/wiki/legal";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 300;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = getWikiSiteBaseUrl();
+  const legalEntries = legalSitemapEntries(baseUrl);
 
   try {
     const entries = await listWikiSitemapEntries();
 
     if (entries.length > 0) {
-      return entries.map((entry) => ({
-        url: new URL(getSitemapPath(entry), baseUrl).toString(),
-        lastModified: entry.updatedAt ?? new Date(),
-        changeFrequency: entry.routeType === "page" ? "weekly" : "daily",
-        priority: getSitemapPriority(entry.routeType),
-      }));
+      return [
+        ...legalEntries,
+        ...entries.map((entry) => ({
+          url: new URL(getSitemapPath(entry), baseUrl).toString(),
+          lastModified: entry.updatedAt ?? new Date(),
+          changeFrequency: (entry.routeType === "page" ? "weekly" : "daily") as
+            "weekly" | "daily",
+          priority: getSitemapPriority(entry.routeType),
+        })),
+      ];
     }
   } catch (error) {
     console.warn("wiki_sitemap_generation_failed", error);
   }
 
   return [
+    ...legalEntries,
     {
       url: new URL(`/${MARATHON_TENANT_SLUG}`, baseUrl).toString(),
       changeFrequency: "daily",
       priority: 0.9,
     },
   ];
+}
+
+export function legalSitemapEntries(baseUrl: URL): MetadataRoute.Sitemap {
+  return legalNav.map((link) => ({
+    url: new URL(link.href, baseUrl).toString(),
+    changeFrequency: "yearly",
+    priority: 0.3,
+  }));
 }
 
 function getSitemapPath(entry: Awaited<ReturnType<typeof listWikiSitemapEntries>>[number]) {

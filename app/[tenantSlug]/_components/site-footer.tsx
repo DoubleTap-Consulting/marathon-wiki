@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { legalNav } from "@/src/wiki/legal";
 import { networkBrand, type NetworkBrand } from "@/src/wiki/network";
 import { themeFor } from "@/themes/registry";
 
@@ -29,6 +30,7 @@ export function SiteFooter({
     ...categories.map((category) => ({ href: `/${tenant.slug}/categories/${category.slug}`, label: category.name })),
     { href: `/${tenant.slug}/review`, label: "Review" },
     ...(theme.imagery ? [{ href: `/${tenant.slug}/credits`, label: "Image credits" }] : []),
+    ...legalNav,
   ];
 
   return (
