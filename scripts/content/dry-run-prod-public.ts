@@ -16,6 +16,9 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { approvedConfirmationPhrase } from "../../src/content/load-approved-revisions.ts";
+import { countUpdatedAndNew } from "../../src/content/apply-approved-revisions.ts";
+
 const root = new URL("../../", import.meta.url).pathname;
 const args = process.argv.slice(2);
 const flag = (name: string) => {
@@ -91,7 +94,7 @@ export async function dryRunApprovedAgainstPublic(input: {
     const rev = history.status === 200 ? currentRevisionFromHistory(history.body) : null;
     if (!live) {
       missing += 1;
-      rows.push(`  ${page.slug}: not on the public index (history HTTP ${history.status}${rev ? `, current r${rev}` : ""}). would be a new published revision if the page exists in the database.`);
+      rows.push(`  ${page.slug}: not on the public index (history HTTP ${history.status}${rev ? `, current r${rev}` : ""}). would insert the page row and its first published revision (new page).`);
       continue;
     }
     const sumSame = summariesMatch(live.summary, page.summary);
@@ -109,11 +112,18 @@ export async function dryRunApprovedAgainstPublic(input: {
     if (!sumSame) bits.push(`from ${JSON.stringify(live.summary)} to ${JSON.stringify(page.summary)}`);
     rows.push(`  ${page.slug}: ${bits.join("; ")}; would supersede r${rev ?? "?"} with a new published revision.`);
   }
-  lines.push(`would insert a new published revision for ${input.revisions.length} approved page(s).`);
+  const { updatedCount, newCount } = countUpdatedAndNew(bySlug.keys(), input.revisions.map((page) => page.slug));
+  lines.push(`would update ${updatedCount} existing public page(s) and create ${newCount} new page(s).`);
   lines.push(`summary changes: ${summaryChanged}; title changes: ${titleChanged}; pages missing from the public index: ${missing}.`);
   lines.push("body markdown is not served on a public JSON endpoint; only titles, summaries, and headings from search-index.json, plus revision numbers from /history, were compared.");
   lines.push(...rows);
-  const phrase = `apply ${input.revisions.length} approved revisions ${input.fileSha256.slice(0, 12)} into production ${input.tenantSlug}`;
+  const phrase = approvedConfirmationPhrase({
+    updatedCount,
+    newCount,
+    fileSha256: input.fileSha256,
+    target: "production",
+    tenantSlug: input.tenantSlug,
+  });
   lines.push(`confirm phrase if this file is later applied to production: ${phrase}`);
   return lines;
 }
@@ -130,7 +140,7 @@ export async function dryRunGtaAgainstPublic(input: { base: string; pageCount: n
   if (any200) {
     lines.push("unexpected: at least one /gta6 path returned 200; not treating GTA 6 as absent on production.");
   } else {
-    lines.push(`production currently serves 0 GTA 6 pages (the tenant is hidden). A one-time load of content/gta6/generated/pages.json would introduce all ${input.pageCount} generated pages as new (sha256 ${input.fileSha256.slice(0, 12)}).`);
+    lines.push(`production currently serves 0 GTA 6 pages (the tenant is hidden). A one-time load would upsert the gta6 game, tenant, and categories (idempotent, same transaction) and introduce all ${input.pageCount} generated pages as new (sha256 ${input.fileSha256.slice(0, 12)}).`);
     lines.push(`confirm phrase if this file is later applied to production: load ${input.pageCount} pages ${input.fileSha256.slice(0, 12)} into production gta6`);
   }
   return lines;
@@ -153,7 +163,7 @@ async function main() {
 
   console.log(`== public dry run against ${base} (no database, no secrets) ==`);
   console.log("");
-  console.log("-- (a) 25 approved Marathon revisions --");
+  console.log("-- (a) approved Marathon revisions --");
   for (const line of await dryRunApprovedAgainstPublic({ base, tenantSlug: "marathon", revisions: approved, fileSha256: approvedSha })) {
     console.log(line);
   }

@@ -23,6 +23,7 @@ import { Pool } from "@neondatabase/serverless";
 
 import { checkNonProductionTarget, pointsAtProduction, previewTargetUrl } from "../db-guard.mjs";
 import { decideGeneratedLoad } from "../../src/content/load-once.ts";
+import { upsertGta6Tenant } from "../../src/content/upsert-gta6-tenant.ts";
 import { loadGeneratedPages, type GeneratedPage } from "./generated-load.ts";
 import { dryRunGtaAgainstPublic } from "./dry-run-prod-public.ts";
 
@@ -95,8 +96,6 @@ if (publicBase) {
 const pool = new Pool({ connectionString: previewTargetUrl(process.env) as string });
 const client = await pool.connect();
 try {
-  const tenant = await client.query("select id from tenants where slug = $1", [tenantSlug]);
-  if (tenant.rows.length === 0) throw new Error(`no wiki with slug '${tenantSlug}' in this database`);
   const loadKey = `generated-pages:${tenantSlug}`;
   const prior = await client.query(`select to_char(loaded_at at time zone 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS"Z"') as loaded_at, file_sha256, loaded_by from content_load_records where load_key = $1`, [loadKey]);
   if (prior.rows.length) {
@@ -104,20 +103,39 @@ try {
     say(`refused: already loaded into '${tenantSlug}' at ${row.loaded_at} by ${row.loaded_by} (file ${String(row.file_sha256).slice(0, 12)}). This load runs once per wiki; later changes go through the AI editor queue.`);
     process.exitCode = 1;
   } else if (dryRun) {
-    say(`dry run: allowed once. Re-run with --confirm "${decision.phrase}".`);
+    const existing = await client.query("select id from tenants where slug = $1", [tenantSlug]);
+    const tenantNote =
+      tenantSlug === "gta6"
+        ? existing.rows.length
+          ? "would upsert the gta6 game, tenant, and categories (already present; idempotent)"
+          : "would upsert the gta6 game, tenant, and categories (no tenant row today), then load pages"
+        : existing.rows.length
+          ? "tenant already present"
+          : "refused on apply: no wiki with that slug (only the gta6 load upserts a missing tenant)";
+    say(`dry run: allowed once. ${tenantNote}. Re-run with --confirm "${decision.phrase}".`);
   } else if (decision.ok) {
     await client.query("begin");
+    let tenantId: string;
+    if (tenantSlug === "gta6") {
+      const upserted = await upsertGta6Tenant(client);
+      tenantId = upserted.tenantId;
+      say(upserted.created ? "upserted the gta6 game, tenant, and categories (new tenant row)." : "upserted the gta6 game, tenant, and categories (tenant already present).");
+    } else {
+      const tenant = await client.query("select id from tenants where slug = $1", [tenantSlug]);
+      if (tenant.rows.length === 0) throw new Error(`no wiki with slug '${tenantSlug}' in this database`);
+      tenantId = tenant.rows[0].id;
+    }
     const inserted = await client.query(
       `insert into content_load_records (id, load_key, tenant_id, file_sha256, page_count, target, loaded_by)
        values ($1, $2, $3, $4, $5, $6, $7) on conflict (load_key) do nothing returning id`,
-      [`load_${randomUUID()}`, loadKey, tenant.rows[0].id, fileSha256, pages.length, decision.target, `${userInfo().username}@load-generated-once`],
+      [`load_${randomUUID()}`, loadKey, tenantId, fileSha256, pages.length, decision.target, `${userInfo().username}@load-generated-once`],
     );
     if (inserted.rows.length === 0) {
       await client.query("rollback");
       say("refused: another run recorded this load first.");
       process.exitCode = 1;
     } else {
-      const result = await loadGeneratedPages(client, { tenantId: tenant.rows[0].id, pages, fetchedAt, actor: "content-load-once" });
+      const result = await loadGeneratedPages(client, { tenantId, pages, fetchedAt, actor: "content-load-once" });
       await client.query("update content_load_records set published_count = $2, review_count = $3 where id = $1", [inserted.rows[0].id, result.published.length, result.review.length]);
       await client.query("commit");
       say(`loaded into ${decision.target} '${tenantSlug}': ${result.published.length} published, ${result.review.length} filed for Review${result.review.length ? ` (${result.review.join(", ")})` : ""}. Recorded; a second run will refuse.`);

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 
 import {
+  DEFAULT_RUN_CAP_USD,
   enqueueUpcomingEventRefreshes,
   parseEventRefreshTargets,
   processDueAiRefreshQueueItems,
@@ -152,6 +153,8 @@ async function handleWikiUpdateCron(request: Request, body?: unknown) {
     process: {
       processedCount: processing.processed.length,
       failedCount: processing.failed.length,
+      spendUsd: processing.spendUsd,
+      capUsd: Number(process.env.WIKI_AI_RUN_CAP_USD ?? DEFAULT_RUN_CAP_USD),
       processed: processing.processed.map((entry) => ({
         id: entry.item.id,
         pageSlug: entry.pageSlug,

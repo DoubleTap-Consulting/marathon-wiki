@@ -299,6 +299,7 @@ export async function processDueAiRefreshQueueItems(
   processed: ProcessedRefresh[];
   failed: Array<{ item: AiRefreshQueueItem; error: string }>;
   skipped: string | null;
+  spendUsd: number;
 }> {
   const db = options.db ?? getDb();
   const env = options.env ?? process.env;
@@ -308,15 +309,20 @@ export async function processDueAiRefreshQueueItems(
   const failed: Array<{ item: AiRefreshQueueItem; error: string }> = [];
 
   if (!options.call && !hasGatewayCredential(env)) {
-    return { processed, failed, skipped: "no AI Gateway credential; no items were claimed" };
+    return { processed, failed, skipped: "no AI Gateway credential; no items were claimed", spendUsd: 0 };
   }
+  const ledger = new MemoryLedger();
   const call =
     options.call ??
     createGatewayCaller({
-      ledger: new MemoryLedger(),
+      ledger,
       capUsd: Number(env.WIKI_AI_RUN_CAP_USD ?? DEFAULT_RUN_CAP_USD),
       minIntervalMs: Number(env.WIKI_AI_MIN_CALL_INTERVAL_MS ?? 1_000),
     });
+  const spendUsd = () => {
+    const attached = (call as { ledger?: MemoryLedger }).ledger;
+    return (attached ?? ledger).totalUsd();
+  };
 
   const dueItems = await claimDueAiRefreshQueueItems(
     {
@@ -383,7 +389,7 @@ export async function processDueAiRefreshQueueItems(
       if (error instanceof BudgetExceeded) {
         // Stop spending and return the claimed items, untouched, to the queue.
         for (const pending of dueItems.slice(index)) await releaseAiRefreshQueueItem(pending.id, db);
-        return { processed, failed, skipped: error.message };
+        return { processed, failed, skipped: error.message, spendUsd: spendUsd() };
       }
       const message = getErrorMessage(error);
       const updatedItem = await markAiRefreshQueueItemFailed(
@@ -408,6 +414,7 @@ export async function processDueAiRefreshQueueItems(
     processed,
     failed,
     skipped: null,
+    spendUsd: spendUsd(),
   };
 }
 
