@@ -32,7 +32,7 @@ node scripts/content/load-approved-revisions.ts --tenant marathon --dry-run --pu
 node scripts/content/dry-run-prod-public.ts --base https://wikiden.gg
 ```
 
-**Rollback.** History keeps the previous revision for the 24 updated pages. Public history on wikiden.gg, taken before this load, is the source of the revision numbers below. After the load, a new current revision will sit on top; restore by copying the prior revision into a new one (the previous row is not deleted):
+**Rollback.** For the 24 updated pages, history keeps the previous revision. After the load, a new current revision sits on top; restore by copying the prior revision into a new one (the previous row is not deleted):
 
 ```
 WIKI_ALLOW_PROD_CONTENT_LOAD=1 node scripts/content/restore-revision.ts \
@@ -47,9 +47,27 @@ Prior public revisions (from `/marathon/<slug>/history` on 16 Nov 2026):
 - r2: `factions`, `gameplay`, `locations`, `overview`, `ranked`, `recon`, `weapons`
 - r1: `arachne`, `contracts`, `cores`, `cryo-archive`, `cyberacme`, `expedition`, `mida`, `night-marsh`, `nucaloric`, `perimeter`, `seasonal-resets`, `seasons`, `sentinel`, `the-cradle`, `thief`, `traxus`, `vandal`
 
-`armory` would be created as r1. This PR does not add a page-delete script; restore-revision cannot hide a first revision. If we had to take `armory` down after creating it, that would be a separate, approved change.
+`armory` is created as r1, so restore-revision cannot hide it. Unpublish it instead (rows and revisions are kept; public pages 404 and drop out of the sitemap, search index, and category lists). Same guards as the loaders. Cached HTML can linger up to 300 seconds (`WIKI_REVALIDATE_SECONDS`); a redeploy makes the 404 immediate.
 
-The restore command was dry-run against the preview database (endpoint `ep-wandering-field-bd77ppbc`, not production) after an earlier file was applied there: it reported it would copy `the-cradle` r4 as a new r6 and made no write.
+```
+WIKI_ALLOW_PROD_CONTENT_LOAD=1 node scripts/content/unpublish-pages.ts \
+  --tenant marathon --slugs armory --dry-run
+WIKI_ALLOW_PROD_CONTENT_LOAD=1 node scripts/content/unpublish-pages.ts \
+  --tenant marathon --slugs armory \
+  --confirm "unpublish marathon armory from production"
+```
+
+To put `armory` back (or `restore-revision.ts` on a page that still exists, which also sets status to published):
+
+```
+WIKI_ALLOW_PROD_CONTENT_LOAD=1 node scripts/content/unpublish-pages.ts \
+  --tenant marathon --slugs armory --republish --dry-run
+WIKI_ALLOW_PROD_CONTENT_LOAD=1 node scripts/content/unpublish-pages.ts \
+  --tenant marathon --slugs armory --republish \
+  --confirm "republish marathon armory into production"
+```
+
+The restore command was dry-run against the preview database (endpoint `ep-wandering-field-bd77ppbc`, not production) after an earlier file was applied there: it reported it would copy `the-cradle` r4 as a new r6 and made no write. Unpublish and republish were tested against that same preview database in `src/content/unpublish-pages.test.ts` (not production): after unpublish, `getWikiPageSnapshot` is null, which is what the article and history routes use before they 404.
 
 **Cost.** $0 model spend. The loader does not call the AI Gateway; it only writes the committed file.
 
@@ -73,7 +91,20 @@ The confirm phrase comes from `confirmationPhrase` in `src/content/load-once.ts`
 node scripts/content/load-generated-once.ts --tenant gta6 --dry-run --public-base https://wikiden.gg
 ```
 
-**Rollback.** Unset `GTA6_ENABLED` (or set it to anything other than `1`). That path is already tested: production today, with the flag absent, returns 404 + `x-robots-tag: noindex` for `/gta6` and `/gta6/overview.json`. The one-time load cannot be re-run. Loaded rows would remain in the database while the site hides `/gta6`.
+**Rollback.** First unset `GTA6_ENABLED` (or set it to anything other than `1`) and redeploy. That path is already tested: production today, with the flag absent, returns 404 + `x-robots-tag: noindex` for `/gta6` and `/gta6/overview.json`. The one-time load cannot be re-run; the rows stay in the database while the site hides `/gta6`.
+
+The deeper undo is to unpublish the 41 GTA 6 pages (rows and revisions are kept). Do this only after the flag is off and the redeploy is live, so `/gta6` stays hidden while you work. Cached pages can linger up to 300 seconds unless you redeploy again.
+
+```
+WIKI_ALLOW_PROD_CONTENT_LOAD=1 node scripts/content/unpublish-pages.ts \
+  --tenant gta6 --slugs age-rating,ambrosia,boobie-ike,brian-heder,cal-hampton,characters,drequan-priest,extended-look,gameplay,gta-online,gta-plus,jason-duval,launch-trailer,leonida,lucia-caminos,map,original-score,overview,pc-version,physical-edition,platforms,playstation-features,port-gellhorn,pre-load,pre-orders,price-and-editions,radio-and-soundtrack,raul-bautista,real-dimez,release-date,story,system-requirements,the-keys,trailer-1,trailer-2,trailers,ultimate-edition,vice-city,vintage-vice-city-pack,where-to-buy,xbox-cloud-gaming \
+  --dry-run
+WIKI_ALLOW_PROD_CONTENT_LOAD=1 node scripts/content/unpublish-pages.ts \
+  --tenant gta6 --slugs age-rating,ambrosia,boobie-ike,brian-heder,cal-hampton,characters,drequan-priest,extended-look,gameplay,gta-online,gta-plus,jason-duval,launch-trailer,leonida,lucia-caminos,map,original-score,overview,pc-version,physical-edition,platforms,playstation-features,port-gellhorn,pre-load,pre-orders,price-and-editions,radio-and-soundtrack,raul-bautista,real-dimez,release-date,story,system-requirements,the-keys,trailer-1,trailer-2,trailers,ultimate-edition,vice-city,vintage-vice-city-pack,where-to-buy,xbox-cloud-gaming \
+  --confirm "unpublish gta6 age-rating,ambrosia,boobie-ike,brian-heder,cal-hampton,characters,drequan-priest,extended-look,gameplay,gta-online,gta-plus,jason-duval,launch-trailer,leonida,lucia-caminos,map,original-score,overview,pc-version,physical-edition,platforms,playstation-features,port-gellhorn,pre-load,pre-orders,price-and-editions,radio-and-soundtrack,raul-bautista,real-dimez,release-date,story,system-requirements,the-keys,trailer-1,trailer-2,trailers,ultimate-edition,vice-city,vintage-vice-city-pack,where-to-buy,xbox-cloud-gaming from production"
+```
+
+To bring those pages back later, use the same `--slugs` list with `--republish` and the confirm phrase `republish gta6 age-rating,... into production` (same sorted slug list).
 
 **Cost.** $0 model spend for the load and for the flag. The loader does not call the AI Gateway. (Generating those pages was earlier work; this switch only loads the committed file and flips the flag.)
 
@@ -97,7 +128,7 @@ The production editor cron uses the same credential check: `hasGatewayCredential
 - OIDC: `VERCEL_OIDC_TOKEN` must be present in the cron function at runtime, and the AI Gateway must accept it (this is the documented Vercel-deployment path; confirm the token name is present at runtime — do not print the value — before relying on it), or
 - Mike sets a Production `AI_GATEWAY_API_KEY` himself (same kind of static key the box used).
 
-**Manual run before enabling the schedule.** Setting `WIKI_AI_EDITOR_CRON=1` also arms the daily 09:00 UTC job, so fire one manual request immediately after the flag is set (and after auth is in place). If the run is not acceptable, unset the flag before 09:00 UTC. Do not print `CRON_SECRET`.
+**Manual run right after the flag is set.** Setting `WIKI_AI_EDITOR_CRON=1` also arms the daily 09:00 UTC (3:00 AM CT) job. Fire one manual request immediately after the flag is set (and after auth is in place). If the run looks wrong, unset `WIKI_AI_EDITOR_CRON` before 09:00 UTC (3:00 AM CT). Do not print `CRON_SECRET`.
 
 ```
 # After WIKI_AI_EDITOR_CRON=1 is set on Production. The $0.25 cap is the default;
@@ -114,7 +145,7 @@ Read the cost from the JSON response: `process.spendUsd` is the priced token usa
 
 The $0.276 paraphrase total is not a measured editor-cron spend (that flag has never been on in production) and was run under a $4.50 paraphrase cap, not the $0.25 editor cap.
 
-**Rollback.** Remove the flag or set it to anything other than `1`. The next scheduled run will refuse. Already-published editor revisions stay in history and can be rolled back with `restore-revision.ts` the same way as (a).
+**Rollback.** Unset `WIKI_AI_EDITOR_CRON` (or set it to anything other than `1`), and do that before 09:00 UTC (3:00 AM CT) if the manual run looks wrong. The next scheduled run will refuse. Already-published editor revisions stay in history and can be rolled back with `restore-revision.ts` the same way as (a).
 
 **Cost.** Source re-fetch: $0 model spend (README and `app/api/cron/source-refetch/route.ts`: no AI calls). Editor cron: no production run has been measured because the flag has never been on; the documented cap is $0.25 per run and at most 3 items (README, `DEFAULT_RUN_CAP_USD`). Do not treat that cap as an observed spend. The $0.276 figure is the earlier local paraphrase rewrite, cited above.
 
@@ -179,4 +210,4 @@ confirm phrase if this file is later applied to production: load 41 pages 0b65fb
 - **(d) vs (a).** Covered by (a). `ranked` and `recon` are in the 25. See (d) above.
 - **AI Gateway auth for the editor cron.** The $0.276 preview rewrite used a box-local `AI_GATEWAY_API_KEY`, not Vercel OIDC. Production does not have `AI_GATEWAY_API_KEY` in the env list (names and targets only). Confirm `VERCEL_OIDC_TOKEN` is present at cron runtime, or have Mike set a Production `AI_GATEWAY_API_KEY`, before turning `WIKI_AI_EDITOR_CRON` on. See (c).
 - **`GTA6_ENABLED` and the two cron flags.** Also absent from the Vercel env list, which is expected until Mike sets them.
-- **`armory` on production.** In the 25-file and currently a public 404. (a) now creates the page row and its first published revision in the same transaction as the 24 updates.
+- **`armory` on production.** In the 25-file and currently a public 404. (a) creates the page row and its first published revision in the same transaction as the 24 updates. Rollback for that new page is `unpublish-pages.ts` (see (a)).
