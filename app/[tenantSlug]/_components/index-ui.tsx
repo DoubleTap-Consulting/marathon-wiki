@@ -167,9 +167,9 @@ export function IndexTable({
               <span className="sm:sr-only">Updated </span>
               <SiteDate iso={new Date(page.updatedAt).toISOString()} />
             </td>
-            <td className="label col-start-2 row-start-1 text-right align-top whitespace-nowrap sm:py-3.5">
-              {page.sourceCount}
-              <span className="sm:sr-only"> {page.sourceCount === 1 ? "source" : "sources"}</span>
+            <td className="col-start-2 row-start-1 text-right align-top whitespace-nowrap text-small text-muted-foreground sm:py-3.5">
+              {Number(page.sourceCount)}
+              <span className="sm:sr-only"> {Number(page.sourceCount) === 1 ? "source" : "sources"}</span>
             </td>
           </tr>
         ))}

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { DEFAULT_PUBLISH_POLICY, evaluatePublishGate } from "./editor";
-import { findSourceOverlaps, normalizeWords, sourceOverlapReason, unquotedProse } from "./source-overlap";
+import { evaluateQuotePolicy, editorNoteReason, findEditorNoteLeaks, findSourceOverlaps, normalizeWords, sourceOverlapReason, unquotedProse } from "./source-overlap";
 
 const luciaSource = {
   sourceKey: "gta6-people-lucia",
@@ -70,5 +70,84 @@ describe("source overlap gate", () => {
       { phrase: "q r s t u v w x", wordCount: 8 },
     ]);
     expect(reason).toContain("and 1 more");
+  });
+});
+
+describe("quotation budget", () => {
+  const filler = "Official materials describe the setting, the characters, and the release in measured terms that stay well clear of marketing copy while remaining accurate to the cited sources. " + "Further context names platforms, editions, and the dates already confirmed by those same materials without repeating their wording.";
+
+  it("fails a section that contains more than one quotation", () => {
+    const body = `## Overview\n\nRockstar says "sheer luck got her out" and later "fresh out of prison."{{cite:s}}\n\n${filler}`;
+    const policy = evaluateQuotePolicy(body);
+    expect(policy.reasons.some((reason) => reason.includes('section "Overview" has 2 quotations'))).toBe(true);
+    const gate = evaluatePublishGate(supported, DEFAULT_PUBLISH_POLICY, { hub: false, words: 40, quotePolicy: policy });
+    expect(gate.decision).toBe("needs_review");
+    expect(gate.reasons.join(" ")).toContain("2 quotations");
+  });
+
+  it("allows one short quotation in each of two sections", () => {
+    const body = `## Overview\n\nRockstar writes that "sheer luck got her out."{{cite:s}} ${filler}\n\n## Ambition\n\nThe biography also uses the phrase "half-baked fantasies."{{cite:s}} ${filler}`;
+    const policy = evaluateQuotePolicy(body);
+    expect(policy.reasons).toEqual([]);
+    expect(policy.quotes).toHaveLength(2);
+  });
+
+  it("fails a quotation longer than 15 words and allows one of 15 words", () => {
+    const sixteen = "one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen";
+    const fifteen = "one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen";
+    const over = evaluateQuotePolicy(`## Overview\n\nRockstar writes "${sixteen}."{{cite:s}} ${filler} ${filler}`);
+    expect(over.reasons.some((reason) => reason.includes("16 words"))).toBe(true);
+    const allowed = evaluateQuotePolicy(`## Overview\n\nRockstar writes "${fifteen}."{{cite:s}} ${filler} ${filler}`);
+    expect(allowed.reasons.filter((reason) => reason.includes("words (max 15)"))).toEqual([]);
+    expect(allowed.quotes[0]?.wordCount).toBe(15);
+  });
+
+  it("fails when quoted words are more than 10% of page prose, and allows 10%", () => {
+    const quote = "one two three four five six seven eight nine ten"; // 10 words
+    // 10 / 100 = 10% exactly should pass; add 90 non-quote words.
+    const ninety = Array.from({ length: 90 }, (_, i) => `w${i}`).join(" ");
+    const atCap = evaluateQuotePolicy(`## Overview\n\n"${quote}." ${ninety}`);
+    expect(atCap.quotedWords).toBe(10);
+    expect(atCap.proseWords).toBe(100);
+    expect(atCap.quotedRatio).toBeCloseTo(0.1);
+    expect(atCap.reasons.filter((reason) => reason.includes("quoted words"))).toEqual([]);
+
+    const eightyNine = Array.from({ length: 89 }, (_, i) => `w${i}`).join(" ");
+    const over = evaluateQuotePolicy(`## Overview\n\n"${quote}." ${eightyNine}`);
+    expect(over.proseWords).toBe(99);
+    expect(over.quotedRatio).toBeGreaterThan(0.1);
+    expect(over.reasons.some((reason) => reason.includes("quoted words are"))).toBe(true);
+  });
+});
+
+
+describe("editor-note leak gate", () => {
+  it("fails a summary that reads as an editor change note", () => {
+    const leaks = findEditorNoteLeaks({
+      summary: "Neutral paraphrase of Ranked mode describing overview, Holotags, scoring, and Season 2 changes with citations preserved.",
+    });
+    expect(leaks.map((leak) => leak.field)).toEqual(["summary"]);
+    expect(editorNoteReason(leaks)).toMatch(/summary reads as editor commentary/);
+    const gate = evaluatePublishGate(supported, DEFAULT_PUBLISH_POLICY, { hub: false, words: 40, editorNotes: leaks });
+    expect(gate.decision).toBe("needs_review");
+    expect(gate.reasons.some((reason) => reason.includes("editor commentary"))).toBe(true);
+  });
+
+  it("fails the same pattern in a dek or in body prose, and allows a reader-facing summary", () => {
+    expect(
+      findEditorNoteLeaks({
+        summary: "Ranked is a competitive extraction mode scored with Holotags.",
+      }),
+    ).toEqual([]);
+    const dek = findEditorNoteLeaks({
+      summary: "Ranked is a competitive extraction mode scored with Holotags.",
+      dek: "Paraphrased WikiDen page about Ranked, preserving facts.",
+    });
+    expect(dek.map((leak) => leak.field)).toEqual(["dek"]);
+    const body = findEditorNoteLeaks({
+      summary: "Ranked is a competitive extraction mode scored with Holotags.",
+      bodyMarkdown: "## Overview\n\nThis rewritten entry preserves the original citations.{{cite:bungie-ranked}}\n",
+    });
+    expect(body.some((leak) => leak.field === "body")).toBe(true);
   });
 });

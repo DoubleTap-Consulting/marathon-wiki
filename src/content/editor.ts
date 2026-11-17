@@ -34,7 +34,7 @@ import {
   type ResolvedClaim,
   type SourceRecord,
 } from "./pipeline.ts";
-import { findSourceOverlaps, sourceOverlapReason, type SourceOverlap } from "./source-overlap.ts";
+import { evaluateQuotePolicy, findEditorNoteLeaks, findSourceOverlaps, editorNoteReason, quotePolicyReason, sourceOverlapReason, type EditorNoteLeak, type QuotePolicyResult, type SourceOverlap } from "./source-overlap.ts";
 import {
   PATCH_SYSTEM,
   buildPatchPrompt,
@@ -104,7 +104,7 @@ export const DEFAULT_PUBLISH_POLICY: PublishPolicy = { minSupportedRatio: 0.8, m
  * (countProseWords). `regressions` are supported statements the revision drops although their
  * sources did not change.
  */
-export type GateShape = { hub: boolean; words: number; regressions?: Regression[]; sourceOverlaps?: SourceOverlap[] };
+export type GateShape = { hub: boolean; words: number; regressions?: Regression[]; sourceOverlaps?: SourceOverlap[]; quotePolicy?: QuotePolicyResult; editorNotes?: EditorNoteLeak[] };
 
 export type GateResult = {
   decision: "publish" | "needs_review";
@@ -144,6 +144,10 @@ export function evaluatePublishGate(
   }
   const overlapReason = sourceOverlapReason(shape?.sourceOverlaps ?? []);
   if (overlapReason) reasons.push(overlapReason);
+  const quoteReason = shape?.quotePolicy ? quotePolicyReason(shape.quotePolicy) : null;
+  if (quoteReason) reasons.push(quoteReason);
+  const noteReason = editorNoteReason(shape?.editorNotes ?? []);
+  if (noteReason) reasons.push(noteReason);
   return { decision: reasons.length ? "needs_review" : "publish", supported, unsupported, contradicted, supportedRatio, reasons, policy, ...(shape ? { shape } : {}) };
 }
 
@@ -537,7 +541,14 @@ export async function composePage(input: ComposeInput): Promise<ComposedPage> {
     bodyMarkdown,
     extracts.map((extract) => ({ sourceKey: extract.sourceKey, text: extract.text })),
   );
-  const gate = evaluatePublishGate(allClaims, input.policy, { hub: isHubSpec(spec), words: countProseWords(bodyMarkdown), regressions, sourceOverlaps });
+  const quotePolicy = evaluateQuotePolicy(bodyMarkdown);
+  const summary = written.summary ?? input.previous?.summary ?? spec.title;
+  const summaryOverlaps = findSourceOverlaps(
+    summary,
+    extracts.map((extract) => ({ sourceKey: extract.sourceKey, text: extract.text })),
+  );
+  const editorNotes = findEditorNoteLeaks({ summary, bodyMarkdown });
+  const gate = evaluatePublishGate(allClaims, input.policy, { hub: isHubSpec(spec), words: countProseWords(bodyMarkdown), regressions, sourceOverlaps: [...sourceOverlaps, ...summaryOverlaps], quotePolicy, editorNotes });
 
   const reason = input.previous ? (input.refreshReason ?? "manual_refresh") : "new_page";
   const changedList = [...changedSources].filter((key) => (input.changedSources ?? []).includes(key) || input.previous?.sourceHashes[key]);
@@ -552,7 +563,7 @@ export async function composePage(input: ComposeInput): Promise<ComposedPage> {
   return {
     slug: spec.slug,
     title: spec.title,
-    summary: written.summary ?? input.previous?.summary ?? spec.title,
+    summary,
     category: spec.category,
     bodyMarkdown,
     aiProvenance: {

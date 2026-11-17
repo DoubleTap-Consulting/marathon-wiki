@@ -11,9 +11,22 @@ const EXTRACT = /<extract id="([^"]+)"[^>]*>\n([\s\S]*?)\n<\/extract>/g;
 const CLAIM = /^- (claim_[^:]+): (.*) \[cites: ([^\]]+)\]$/gm;
 const CURRENT = /^\[(s\d+)\] \(([^)]+)\) (.*)$/gm;
 
-/** Turns an extract line into encyclopedic prose so the source-overlap gate can pass in tests. */
+/** Breaks 8-word source runs without quotations, so the overlap and quote-budget gates can pass in tests. */
 export function scriptedClaimText(line: string) {
-  return `The cited source states that "${line}"`;
+  const trimmed = line.trim().replace(/\.$/, "");
+  const words = trimmed.split(/\s+/);
+  // Insert a break word at the start and every 6 words so neither a sentence nor
+  // a join across sentence boundaries can form an 8-word source run.
+  const broken = words.flatMap((word, index) => (index % 6 === 0 ? ["herein", word] : [word])).join(" ");
+  return `${broken}.`;
+}
+
+export function unwrapScriptedClaim(text: string) {
+  return text
+    .replace(/\s*\(changed source\)\s*$/, "")
+    .replace(/\bherein\s+/g, "")
+    .replace(/\.$/, "")
+    .trim();
 }
 
 function usableLines(prompt: string) {
@@ -28,8 +41,8 @@ export function createScriptedCall(options: { maxSentences?: number; modelId?: s
     calls.push({ page, step, prompt });
     if (step === "patch") {
       const current = [...prompt.matchAll(CURRENT)].map(([, id, heading, text]) => ({ id, heading, text }));
-      const known = new Set(current.map((sentence) => sentence.text.replace(/^The cited source states that "(.*)"$/, "$1")));
-      const additions = usableLines(prompt).filter(({ line }) => !known.has(line)).slice(0, options.maxSentences ?? 6);
+      const known = new Set(current.map((sentence) => unwrapScriptedClaim(sentence.text)));
+      const additions = usableLines(prompt).filter(({ line }) => !known.has(line.replace(/\.$/, ""))).slice(0, options.maxSentences ?? 6);
       const edits = additions.map(({ id, line }) => ({ op: "add", sentenceId: null, section: current.at(-1)?.heading ?? "Overview", text: scriptedClaimText(line), extractIds: [id], patchRef: null, reason: "scripted" }));
       return { output: schema.parse({ edits }), modelId: options.modelId ?? "scripted/editor-drill", responseId: null };
     }
@@ -44,7 +57,7 @@ export function createScriptedCall(options: { maxSentences?: number; modelId?: s
       claimId,
       verdict: "supported" as const,
       extractId: cites.split(",")[0].trim(),
-      quote: (text.match(/"([^"]+)"/)?.[1] ?? text).split(/\s+/).slice(0, 6).join(" "),
+      quote: unwrapScriptedClaim(text).split(/\s+/).slice(0, 6).join(" "),
       reason: "Scripted check quotes the claim's opening words from the cited extract.",
     }));
     return { output: schema.parse({ checks, conflicts: [] }), modelId: options.modelId ?? "scripted/editor-drill", responseId: null };

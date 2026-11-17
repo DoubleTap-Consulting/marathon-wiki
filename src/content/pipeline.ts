@@ -16,7 +16,7 @@
  */
 import { z } from "zod";
 
-export const CONTENT_PROMPT_VERSION = "marathon-real-content-v5";
+export const CONTENT_PROMPT_VERSION = "marathon-real-content-v6";
 export const CLAIM_CHECK_PROMPT_VERSION = "marathon-claim-check-v2";
 
 export type AuthorityTier = "official" | "reputable_editorial" | "community_wiki" | "community";
@@ -271,7 +271,8 @@ export function draftSystemFor(wiki: WikiDraftContext = MARATHON_DRAFT_CONTEXT) 
     "You may ONLY state facts that appear in the extracts provided. Never use outside knowledge, never guess, never fill gaps.",
     "State each fact once. Do not restate a fact in other words, and do not pad with sentences about what a publication lists.",
     "Write in your own words, in neutral encyclopedic third person. Do not copy sentences from the extracts, and never copy text from community wikis.",
-    `If a source uses a distinctive phrase, slogan, or marketing line, quote a short span in quotation marks and attribute it to the publisher (for example '${wiki.officialPublisher} describes the character as …'). Unquoted prose must not repeat a run of eight or more words from an extract.`,
+    "Prefer paraphrase over quotation. A page may use at most one short quotation per section, each quotation at most 15 words, and quoted words at most 10% of the page's prose. Do not pack a page with quotations to avoid copying. Unquoted prose must not repeat a run of eight or more words from an extract.",
+    `Example of paraphrase: '${wiki.officialPublisher}'s biography says Lucia learned to fight young and served time in the Leonida Penitentiary after fighting for her family.' If you do quote a distinctive official phrase, attribute it and keep it short.`,
     "Every sentence must list the extract ids that state its fact. A sentence without a supporting extract must be left out.",
     "One fact per sentence, under 30 words: a fact checker must find it stated in a single cited extract, so long sentences that",
     "combine facts from several places get removed.",
@@ -320,7 +321,7 @@ export function buildDraftPrompt(
     isHubSpec(spec)
       ? "Length: this is a hub page, so 3 to 6 sections and 260 to 500 words in total, all from the extracts. If the extracts cannot support that much, write less rather than padding; a thin hub goes to editor review."
       : "Length: 2 to 5 sections, 120 to 450 words in total. Fewer, well-supported sentences beat more, weaker ones.",
-    "The summary is one plain sentence (it is shown under the title and is not fact-checked, so keep it to the page's scope).",
+    "The summary is one plain sentence about the subject (it is shown under the title and as the meta description). Do not mention paraphrasing, rewriting, citations, WikiDen, or that the text was rewritten; just describe the topic.",
     "Do not write a references section; citations are added automatically from extractIds.",
     ...(spec.table === "weapons"
       ? ["A table of every launch weapon (name, class, ammo) is added below your text automatically. Do not list weapons by class in prose; cover what the table cannot: how weapons work, ammo types in general, and post-launch changes."]

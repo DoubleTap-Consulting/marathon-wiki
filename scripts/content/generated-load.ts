@@ -82,7 +82,7 @@ export async function loadGeneratedPages(
     const revisionNumber: number = max.rows[0].max + 1;
     const revisionId = generatedRowId(tenantId, "rev", `${page.slug}_${step}`);
     const changeNote =
-      page.aiProvenance.changeNote ?? (revisionNumber === 1 ? "First version of the page, written from cited sources." : "Rewritten from cited official and press sources.");
+      page.aiProvenance.changeNote ?? (revisionNumber === 1 ? "First version of the page, written from cited sources." : "Updated from cited official and press sources.");
     await client.query(
       `insert into wiki_page_revisions (id, tenant_id, page_id, revision_number, title, summary, body_markdown, change_note, ai_provenance, created_by, created_at)
        values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,

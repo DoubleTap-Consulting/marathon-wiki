@@ -8,7 +8,7 @@ export default {
     developer: "Bungie",
     wordmark: { src: "themes/marathon/wordmark.svg", label: "Marathon Wiki", minWidth: 132 },
     descriptor: "An unofficial guide to Marathon",
-    tagline: "Source-checked pages on shells, weapons, zones and factions, rewritten by AI when a source changes.",
+    tagline: "Source-checked pages on shells, weapons, zones and factions, updated by AI when a source changes.",
     kicker: "Field reference · Tau Ceti IV",
   },
   chrome: "ink",

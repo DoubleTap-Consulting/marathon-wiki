@@ -1,7 +1,8 @@
 /**
  * Publish-gate helper: unquoted wiki prose must not repeat a run of 8 or more
- * consecutive words from a cited source (normalized). Short quotations in
- * quotation marks are allowed.
+ * consecutive words from a cited source (normalized). Quotations are allowed
+ * only within a tight budget: at most one per section, at most 15 words each,
+ * and at most 10% of the page's prose.
  */
 
 export const MIN_SOURCE_OVERLAP_WORDS = 8;
@@ -90,4 +91,155 @@ export function sourceOverlapReason(overlaps: SourceOverlap[]): string | null {
     .join("; ");
   const extra = overlaps.length > 3 ? `; and ${overlaps.length - 3} more` : "";
   return `copies 8+ consecutive words from a cited source outside quotation marks: ${preview}${extra}`;
+}
+
+
+export const MAX_QUOTE_WORDS = 15;
+export const MAX_QUOTES_PER_SECTION = 1;
+export const MAX_QUOTED_WORD_RATIO = 0.1;
+
+export type QuotedSpan = { text: string; wordCount: number; section: string };
+
+export type QuotePolicyResult = {
+  quotes: QuotedSpan[];
+  quotedWords: number;
+  proseWords: number;
+  quotedRatio: number;
+  reasons: string[];
+};
+
+const HEADING = /^\s*#{1,6}\s+(.*)$/;
+
+/** Body sections split on markdown headings; lead-in text before the first heading is its own section. */
+export function splitMarkdownSections(markdown: string): Array<{ heading: string; body: string }> {
+  const sections: Array<{ heading: string; body: string }> = [];
+  let heading = "";
+  let lines: string[] = [];
+  const flush = () => {
+    const body = lines.join("\n");
+    if (heading || body.trim()) sections.push({ heading, body });
+    lines = [];
+  };
+  for (const line of markdown.split("\n")) {
+    const match = line.match(HEADING);
+    if (match) {
+      flush();
+      heading = match[1].trim();
+      continue;
+    }
+    lines.push(line);
+  }
+  flush();
+  return sections;
+}
+
+function flattenForQuotes(markdown: string): string {
+  return markdown
+    .replace(CITE, " ")
+    .replace(WIKI_LINK, (_match, slug: string, label?: string) => label ?? slug)
+    .replace(MD_LINK, "$1")
+    .replace(/[“”«»]/g, (char) => (char === "“" || char === "«" ? '"' : '"'));
+}
+
+export function extractQuotedSpans(markdown: string): QuotedSpan[] {
+  const quotes: QuotedSpan[] = [];
+  for (const section of splitMarkdownSections(markdown)) {
+    const flattened = flattenForQuotes(section.body);
+    for (const match of flattened.matchAll(DOUBLE_QUOTES)) {
+      const text = (match[1] ?? match[2] ?? "").trim();
+      if (!text) continue;
+      quotes.push({ text, wordCount: normalizeWords(text).length, section: section.heading || "(introduction)" });
+    }
+  }
+  return quotes;
+}
+
+/** Prose the ratio is measured against: same exclusions as unquotedProse, but quotations are kept. */
+export function pageProseWords(markdown: string): string[] {
+  const withoutStructure = markdown
+    .split("\n")
+    .filter((line) => !/^\s*#/.test(line) && !/^\s*[-*]\s+\[\[/.test(line) && !/^\s*\|/.test(line))
+    .join(" ");
+  const flattened = withoutStructure
+    .replace(CITE, " ")
+    .replace(WIKI_LINK, (_match, slug: string, label?: string) => label ?? slug)
+    .replace(MD_LINK, "$1");
+  return normalizeWords(flattened);
+}
+
+export function evaluateQuotePolicy(markdown: string): QuotePolicyResult {
+  const quotes = extractQuotedSpans(markdown);
+  const proseWords = pageProseWords(markdown);
+  const quotedWords = quotes.reduce((sum, quote) => sum + quote.wordCount, 0);
+  const quotedRatio = proseWords.length === 0 ? 0 : quotedWords / proseWords.length;
+  const reasons: string[] = [];
+
+  const bySection = new Map<string, QuotedSpan[]>();
+  for (const quote of quotes) {
+    const list = bySection.get(quote.section) ?? [];
+    list.push(quote);
+    bySection.set(quote.section, list);
+  }
+  for (const [section, list] of bySection) {
+    if (list.length > MAX_QUOTES_PER_SECTION) {
+      reasons.push(`section "${section}" has ${list.length} quotations (max ${MAX_QUOTES_PER_SECTION})`);
+    }
+  }
+  for (const quote of quotes) {
+    if (quote.wordCount > MAX_QUOTE_WORDS) {
+      reasons.push(`quotation in "${quote.section}" is ${quote.wordCount} words (max ${MAX_QUOTE_WORDS}): "${quote.text}"`);
+    }
+  }
+  if (quotedRatio > MAX_QUOTED_WORD_RATIO) {
+    const percent = Math.round(quotedRatio * 1000) / 10;
+    reasons.push(`quoted words are ${percent}% of page prose (${quotedWords} of ${proseWords.length}, max ${MAX_QUOTED_WORD_RATIO * 100}%)`);
+  }
+
+  return { quotes, quotedWords, proseWords: proseWords.length, quotedRatio, reasons };
+}
+
+export function quotePolicyReason(policy: QuotePolicyResult): string | null {
+  if (policy.reasons.length === 0) return null;
+  return policy.reasons.join("; ");
+}
+
+
+/** Editor-note leaks in a summary/dek or in body prose. A match fails the content check and the build. */
+export const EDITOR_NOTE_LEAK = /paraphras|rewrit|preserv|citation|WikiDen (page|entry)|neutral/i;
+
+export type EditorNoteLeak = { field: "summary" | "dek" | "body"; excerpt: string };
+
+function excerptAround(text: string, index: number, width = 80): string {
+  const start = Math.max(0, index - 20);
+  const end = Math.min(text.length, index + width);
+  return text.slice(start, end).replace(/\s+/g, " ").trim();
+}
+
+/** Flag summary, dek, and body prose that read as editor notes instead of reader-facing copy. */
+export function findEditorNoteLeaks(input: { summary?: string | null; dek?: string | null; bodyMarkdown?: string | null }): EditorNoteLeak[] {
+  const hits: EditorNoteLeak[] = [];
+  const check = (field: EditorNoteLeak["field"], value: string | null | undefined) => {
+    if (!value) return;
+    const match = value.match(EDITOR_NOTE_LEAK);
+    if (match && match.index !== undefined) hits.push({ field, excerpt: excerptAround(value, match.index) });
+  };
+  check("summary", input.summary);
+  if (input.dek != null && input.dek !== input.summary) check("dek", input.dek);
+  if (input.bodyMarkdown) {
+    // Same exclusions as overlap prose: headings, see-also wiki links, and tables are not body prose.
+    const prose = input.bodyMarkdown
+      .split("\n")
+      .filter((line) => !/^\s*#/.test(line) && !/^\s*[-*]\s+\[\[/.test(line) && !/^\s*\|/.test(line))
+      .join("\n")
+      .replace(CITE, " ");
+    check("body", prose);
+  }
+  return hits;
+}
+
+export function editorNoteReason(leaks: EditorNoteLeak[]): string | null {
+  if (leaks.length === 0) return null;
+  return leaks
+    .map((leak) => `${leak.field} reads as editor commentary, not reader-facing copy: "${leak.excerpt}"`)
+    .join("; ");
 }
