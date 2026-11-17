@@ -40,6 +40,8 @@ describe("site chrome naming", () => {
     for (const brand of [null, networkBrand({ VERCEL_ENV: "preview" })]) {
       const html = renderToStaticMarkup(<SiteFooter tenant={tenant} categories={categories} brand={brand} />);
       expect(html).toContain("Unofficial fan wiki. Not affiliated with or endorsed by Bungie. Marathon is a trademark of Bungie.");
+      expect(html).toContain('href="/privacy"');
+      expect(html).toContain('href="/terms"');
     }
   });
 

@@ -5,7 +5,9 @@ const RESERVED_PATHS = new Set([
   "api",
   "_next",
   "favicon.ico",
+  "privacy",
   "robots.txt",
+  "terms",
   "trpc",
 ]);
 const FALLBACK_DEFAULT_TENANT_SLUG = "marathon";
