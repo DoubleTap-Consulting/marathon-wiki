@@ -1,0 +1,229 @@
+[
+  {
+    "id": "davis-torus-interior",
+    "master": "Torus_Interior_AC75-2621_5718.jpg",
+    "crops": {
+      "wide": [
+        0,
+        0.1,
+        1,
+        0.732
+      ],
+      "tall": [
+        0.08,
+        0,
+        0.92,
+        1
+      ],
+      "full": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "strip": [
+        0,
+        0.05,
+        1,
+        0.366
+      ]
+    },
+    "fullAspect": 1.2636
+  },
+  {
+    "id": "davis-bernal-construction",
+    "master": "Bernal_Construction_AC76-1288_5716.jpg",
+    "crops": {
+      "wide": [
+        0,
+        0.3,
+        1,
+        0.693
+      ],
+      "tall": [
+        0,
+        0.1,
+        1,
+        0.849
+      ],
+      "strip": [
+        0,
+        0.35,
+        1,
+        0.547
+      ],
+      "full": [
+        0,
+        0,
+        1,
+        1
+      ]
+    },
+    "fullAspect": 0.7866,
+    "q": {
+      "tall": {
+        "avif": 34
+      }
+    }
+  },
+  {
+    "id": "guidice-bernal-cutaway",
+    "master": "Bernal_Cutaway_AC76-1089_5732.jpg",
+    "crops": {
+      "wide": [
+        0,
+        0.15,
+        1,
+        0.785
+      ],
+      "tall": [
+        0.17,
+        0,
+        0.997,
+        1
+      ],
+      "strip": [
+        0,
+        0.2,
+        1,
+        0.517
+      ],
+      "full": [
+        0,
+        0,
+        1,
+        1
+      ]
+    },
+    "fullAspect": 1.2695
+  },
+  {
+    "id": "davis-cylinder-endcap",
+    "master": "Cylinder_Endcap_AC75-1883_5729.jpg",
+    "crops": {
+      "wide": [
+        0,
+        0,
+        1,
+        0.634
+      ],
+      "tall": [
+        0.1,
+        0,
+        0.927,
+        1
+      ],
+      "strip": [
+        0,
+        0.25,
+        1,
+        0.567
+      ],
+      "full": [
+        0,
+        0,
+        1,
+        1
+      ]
+    },
+    "fullAspect": 1.268
+  },
+  {
+    "id": "trouvelot-aurora-1872",
+    "master": "trouvelot-aurora.jpg",
+    "crops": {
+      "wide": [
+        0.075,
+        0.36,
+        0.925,
+        0.909
+      ],
+      "tall": [
+        0.25,
+        0.25,
+        0.744,
+        0.85
+      ],
+      "strip": [
+        0.075,
+        0.45,
+        0.925,
+        0.721
+      ],
+      "full": [
+        0.0696,
+        0.08,
+        0.931,
+        0.909
+      ]
+    },
+    "fullAspect": 1.3257,
+    "q": {
+      "wide": {
+        "avif": 60,
+        "webp": 70
+      },
+      "tall": {
+        "avif": 60,
+        "webp": 70
+      },
+      "strip": {
+        "avif": 60,
+        "webp": 70
+      },
+      "full": {
+        "avif": 60,
+        "webp": 70
+      }
+    }
+  },
+  {
+    "id": "trouvelot-orion-nebula",
+    "master": "trouvelot-orion.jpg",
+    "crops": {
+      "wide": [
+        0.07,
+        0.28,
+        0.935,
+        0.83
+      ],
+      "tall": [
+        0.37,
+        0.45,
+        0.742,
+        0.9
+      ],
+      "strip": [
+        0.07,
+        0.5,
+        0.935,
+        0.7745
+      ],
+      "full": [
+        0.063,
+        0.07,
+        0.941,
+        0.907
+      ]
+    },
+    "fullAspect": 1.3316,
+    "q": {
+      "wide": {
+        "avif": 60,
+        "webp": 70
+      },
+      "tall": {
+        "avif": 60,
+        "webp": 70
+      },
+      "strip": {
+        "avif": 60,
+        "webp": 70
+      },
+      "full": {
+        "avif": 60,
+        "webp": 70
+      }
+    }
+  }
+]

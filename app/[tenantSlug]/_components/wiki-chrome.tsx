@@ -18,6 +18,7 @@ export function WikiChrome({
   children,
   width = "default",
   skipTarget = "main",
+  hero,
 }: {
   tenant: WikiTenant;
   categories: WikiCategorySummary[];
@@ -25,6 +26,8 @@ export function WikiChrome({
   /** "article" uses the 3-column reading layout width. */
   width?: "default" | "article";
   skipTarget?: string;
+  /** A full-bleed art surface at the top of <main>, directly under the header's rule (components/art.tsx). */
+  hero?: React.ReactNode;
 }) {
   const theme = themeFor(tenant.slug);
   const brand = networkBrand();
@@ -101,15 +104,17 @@ export function WikiChrome({
         </div>
       </header>
 
-      <main
-        id="main"
-        className={
-          width === "article"
-            ? "mx-auto w-full max-w-[1240px] px-5 pt-6 pb-16 md:px-8 lg:pt-10"
-            : "mx-auto w-full max-w-6xl px-5 py-8 sm:px-6 lg:px-8"
-        }
-      >
-        {children}
+      <main id="main">
+        {hero}
+        <div
+          className={
+            width === "article"
+              ? "mx-auto w-full max-w-[1240px] px-5 pt-6 pb-16 md:px-8 lg:pt-10"
+              : "mx-auto w-full max-w-6xl px-5 py-8 sm:px-6 lg:px-8"
+          }
+        >
+          {children}
+        </div>
       </main>
 
       <SiteFooter tenant={tenant} categories={categories} brand={brand} />

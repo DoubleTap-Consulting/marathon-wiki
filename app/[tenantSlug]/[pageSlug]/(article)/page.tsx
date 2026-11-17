@@ -19,7 +19,9 @@ import {
   type ArticleSource,
 } from "@/src/wiki/article";
 import { getCachedWikiPage, getCachedWikiPageRevisions, getCachedWikiPages } from "@/src/wiki/cache";
-import { figuresForPage, showsImageGaps } from "@/src/wiki/imagery";
+import { ArtSurface } from "@/components/art";
+import { cn } from "@/lib/utils";
+import { articleArtFor, figuresForPage, showsImageGaps } from "@/src/wiki/imagery";
 import { buildWikiMetadata } from "@/src/wiki/metadata";
 import { summarizeSourceCheck, type SourceCheck } from "@/src/wiki/source-check";
 import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
@@ -131,26 +133,51 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const latestRevision = revisions?.[0] ?? null;
   const crumb = page.categories[0];
   const plates = figuresForPage(tenant.slug, page.slug, "plate");
+  const art = articleArtFor(tenant.slug, page.slug, crumb?.slug);
+  const breadcrumb = crumb ? (
+    <Link href={`/${tenant.slug}/categories/${crumb.slug}` as Route} className={art ? "hover:text-paper" : "hover:text-foreground"}>
+      {crumb.name}
+    </Link>
+  ) : (
+    tenant.name
+  );
 
   return (
-    <WikiChrome tenant={tenant} categories={snapshot.categories} width="article" skipTarget="article">
+    <WikiChrome
+      tenant={tenant}
+      categories={snapshot.categories}
+      width="article"
+      skipTarget="article"
+      hero={
+        art ? (
+          <ArtSurface
+            image={art}
+            variant="plate"
+            transition
+            creditHref={`/${tenant.slug}/credits#${art.id}`}
+            contentClassName={cn("mx-auto w-full max-w-[1240px] px-5 md:px-8", toc.length > 0 && "lg:pl-[calc(2rem+200px+3rem)]")}
+          >
+            <p className="label-art">{breadcrumb}</p>
+            <h1 id="article-title" className="mt-1 text-title font-display text-paper">
+              {page.title}
+            </h1>
+          </ArtSurface>
+        ) : null
+      }
+    >
       <div className="lg:grid lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-12">
         <div className="hidden lg:block">{toc.length > 0 ? <TocNav toc={toc} /> : null}</div>
 
-        <article id="article" className="min-w-0 max-w-[68ch]" tabIndex={-1}>
+        <article id="article" aria-labelledby="article-title" className="min-w-0 max-w-[68ch]" tabIndex={-1}>
           <RememberVisit tenantSlug={tenant.slug} page={{ slug: page.slug, title: page.title, category: crumb?.name ?? null }} />
-          <p className={META}>
-            {crumb ? (
-              <Link href={`/${tenant.slug}/categories/${crumb.slug}` as Route} className="hover:text-foreground">
-                {crumb.name}
-              </Link>
-            ) : (
-              tenant.name
-            )}
-          </p>
-          <h1 className="mt-2 text-title font-display text-foreground">
-            {page.title}
-          </h1>
+          {art ? null : (
+            <>
+              <p className={META}>{breadcrumb}</p>
+              <h1 id="article-title" className="mt-2 text-title font-display text-foreground">
+                {page.title}
+              </h1>
+            </>
+          )}
           <TrustStrip
             summary={summary}
             base={base}
