@@ -53,13 +53,16 @@ async function render(src, box, w, h, softenAt, spec_pre) {
   const only = process.env.ART_ONLY ? new Set(process.env.ART_ONLY.split(",")) : null;
   for (const work of works) {
     if (only && !only.has(work.id)) continue;
-    manifest[work.id] = { renditions: [] };
+    // ART_CROPS=tall rebuilds only those crops and keeps the work's other renditions in the manifest.
+    const crops = process.env.ART_CROPS ? new Set(process.env.ART_CROPS.split(",")) : null;
+    const kept = crops ? (manifest[work.id]?.renditions ?? []).filter((r) => !crops.has(r.crop)) : [];
+    manifest[work.id] = { ...(crops ? manifest[work.id] : {}), renditions: kept };
     for (const [crop, spec] of Object.entries(CROPS)) {
       const box = work.crops[crop]; const q = { ...spec.q, ...(work.q?.[crop] ?? {}) };
-      if (!box) continue;
+      if (!box || (crops && !crops.has(crop))) continue;
       for (const w of spec.widths) {
         const aspect = spec.aspect ?? work.fullAspect; const h = Math.round(w / aspect);
-        const { img, dominant } = await render(work.src, box, w, h, spec.soften, spec.pre);
+        const { img, dominant } = await render(work.src, box, w, h, spec.soften, work.pre?.[crop] ?? spec.pre);
         if (crop === "wide" && w === 828) manifest[work.id].dominant = dominant;
         for (const fmt of ["avif", "webp"]) {
           const file = `${work.id}-${crop}-${w}.${fmt}`;

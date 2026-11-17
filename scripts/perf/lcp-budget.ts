@@ -4,7 +4,10 @@
 //
 // LCP_BYPASS_SECRET (optional): Vercel "Protection Bypass for Automation" secret for protected previews.
 // It is sent as a request header and never printed.
-import { execFileSync } from "node:child_process";
+// LCP_WARMUP_URL (optional): a URL to open once before measuring, e.g. a Vercel share link
+// (`…/?_vercel_share=…`) that sets the protection cookie. Every run then reuses that one Chrome over
+// --port; Lighthouse still clears the HTTP cache per run but keeps cookies. Never printed or committed.
+import { execFileSync, spawn } from "node:child_process";
 import { mkdtempSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -18,6 +21,23 @@ const chrome = process.env.CHROME_PATH;
 if (!base) throw new Error("Set LCP_BASE_URL to the deployment to measure.");
 
 const out = mkdtempSync(join(tmpdir(), "lcp-"));
+const warmup = process.env.LCP_WARMUP_URL ?? "";
+const port = 9333;
+let browser: ReturnType<typeof spawn> | undefined;
+if (warmup) {
+  if (!chrome) throw new Error("LCP_WARMUP_URL needs CHROME_PATH (the Chrome that holds the cookie).");
+  browser = spawn(chrome, ["--headless=new", "--no-sandbox", `--remote-debugging-port=${port}`, `--user-data-dir=${join(out, "profile")}`, "about:blank"], { stdio: "ignore" });
+  const cdp = `http://127.0.0.1:${port}`;
+  for (let i = 0; ; i += 1) {
+    try { await fetch(`${cdp}/json/version`); break; } catch { if (i > 50) throw new Error("Chrome did not start"); await new Promise((r) => setTimeout(r, 200)); }
+  }
+  const tab = (await (await fetch(`${cdp}/json/new?${warmup}`, { method: "PUT" })).json()) as { id: string };
+  await new Promise((r) => setTimeout(r, 5000));
+  await fetch(`${cdp}/json/close/${tab.id}`);
+}
+browser?.unref();
+process.on("exit", () => browser?.kill());
+const target = warmup ? [`--port=${port}`] : ["--chrome-flags=--headless=new --no-sandbox"];
 const headers = bypass ? ["--extra-headers", JSON.stringify({ "x-vercel-protection-bypass": bypass })] : [];
 const median = (values: number[]) => [...values].sort((a, b) => a - b)[Math.floor(values.length / 2)];
 
@@ -34,7 +54,7 @@ for (const page of pages) {
     const path = join(out, `${page.replace(/\//g, "_")}-${run}.json`);
     execFileSync(
       "npx",
-      ["-y", "lighthouse@12", `${base}${page}`, ...headers, "--quiet", "--only-categories=performance", "--output=json", `--output-path=${path}`, "--chrome-flags=--headless=new --no-sandbox"],
+      ["-y", "lighthouse@12", `${base}${page}`, ...headers, "--quiet", "--only-categories=performance", "--output=json", `--output-path=${path}`, ...target],
       { stdio: ["ignore", "ignore", "inherit"], env: { ...process.env, ...(chrome ? { CHROME_PATH: chrome } : {}) } },
     );
     const report = JSON.parse(readFileSync(path, "utf8")) as Report;
@@ -47,6 +67,7 @@ for (const page of pages) {
   rows.push(row);
 }
 
+browser?.kill();
 let failed = 0;
 console.log(`Simulated mobile LCP, median of ${runs} (budget ${budget} ms)`);
 console.log("| Page | Runs (ms) | Median | CLS (max) | |");

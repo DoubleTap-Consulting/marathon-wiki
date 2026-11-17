@@ -98,24 +98,6 @@
             "sha256": "8ca1600809b1cfc590e1821814146922cda21859ebc3a497fc7aebc609b56493"
           },
           {
-            "crop": "tall",
-            "width": 828,
-            "height": 789,
-            "format": "avif",
-            "file": "public/img/gta6/art/homer-shore-and-surf-tall-828.avif",
-            "bytes": 9788,
-            "sha256": "b2a9a3d6d7ccb597fe04ee8309b11948e8094edb5b636b94fe63f4ecc3ac44e8"
-          },
-          {
-            "crop": "tall",
-            "width": 828,
-            "height": 789,
-            "format": "webp",
-            "file": "public/img/gta6/art/homer-shore-and-surf-tall-828.webp",
-            "bytes": 15568,
-            "sha256": "dc2cbc6fc219e34e60fc5176c2515ea1b4a935abf06e259c22ef9d2ea74bc3b9"
-          },
-          {
             "crop": "strip",
             "width": 828,
             "height": 207,
@@ -186,6 +168,24 @@
             "file": "public/img/gta6/art/homer-shore-and-surf-full-640.webp",
             "bytes": 19164,
             "sha256": "79dcfba12bde41dd91a383c95b646045f04148fbdbf33c731fb9d554d55e827f"
+          },
+          {
+            "crop": "tall",
+            "width": 828,
+            "height": 789,
+            "format": "avif",
+            "file": "public/img/gta6/art/homer-shore-and-surf-tall-828.avif",
+            "bytes": 16268,
+            "sha256": "7ff994cf7b9a33de23358ac4a5fdced54c86aa0e71194ad066b508846a92415b"
+          },
+          {
+            "crop": "tall",
+            "width": 828,
+            "height": 789,
+            "format": "webp",
+            "file": "public/img/gta6/art/homer-shore-and-surf-tall-828.webp",
+            "bytes": 20658,
+            "sha256": "3e262e0bf30835e07ed33575c3c1d48be75b2a0d020636ac2371eae99a5477de"
           }
         ]
       }
