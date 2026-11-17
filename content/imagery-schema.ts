@@ -39,7 +39,7 @@ export const artRendition = z.strictObject({
  * this record; the license gate fails the build without it.
  */
 export const artRecord = z.strictObject({
-  family: z.enum(["nasa-ames-colonies", "trouvelot-1881"]),
+  family: z.enum(["nasa-ames-colonies", "trouvelot-1881", "homer-tropics"]),
   /** Paintings and prints only: a photograph reads as a document, so the collection never holds one. */
   medium: z.enum(["painting", "chromolithograph"]),
   rightsStatus: z.enum(["PD", "CC0"]),

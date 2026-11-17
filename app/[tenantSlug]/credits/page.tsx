@@ -24,6 +24,10 @@ const FAMILIES: Record<ArtRecord["family"], { title: string; blurb: string }> = 
     title: "E. L. Trouvelot’s astronomical drawings, 1881",
     blurb: "Chromolithographs from The Trouvelot Astronomical Drawings, held by the NYPL Rare Book Division.",
   },
+  "homer-tropics": {
+    title: "Winslow Homer’s Florida and Caribbean paintings, 1898–1903",
+    blurb: "Watercolors and an oil Homer made on winter trips to Key West and the Bahamas, from The Met’s Open Access collection.",
+  },
 };
 
 const LINK = "text-link underline underline-offset-3";

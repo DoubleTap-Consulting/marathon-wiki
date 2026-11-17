@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import {
+  HIDDEN_TENANT_HTML,
   HIDDEN_TENANT_ROBOTS_TAG,
   hiddenTenantResponse,
   isJsonPath,
@@ -23,6 +24,17 @@ async function readBody(response: Response) {
 }
 
 describe("hidden tenant response", () => {
+  it("is a self-contained page: inline styles only, a WikiDen wordmark and a link to the Marathon guide", async () => {
+    const body = await readBody(hiddenTenantResponse("/gta6/anything"));
+    expect(body).toBe(HIDDEN_TENANT_HTML);
+    expect(body).toMatch(/<a href="\/marathon">Browse the Marathon guide<\/a>/);
+    expect(body).toMatch(/>WikiDen</);
+    expect(body).toMatch(/<style>[\s\S]+<\/style>/);
+    // No external resources: no stylesheets, scripts, images, fonts, frames or url() fetches.
+    expect(body).not.toMatch(/<link\b|<script\b|<img\b|<iframe\b|@import|url\(|src=/i);
+    expect(body.match(/href="([^"]+)"/g)).toEqual(['href="/marathon"']);
+  });
+
   it("returns a direct HTML 404 with a noindex robots tag, not a rewrite", async () => {
     const response = hiddenTenantResponse("/gta6");
 
