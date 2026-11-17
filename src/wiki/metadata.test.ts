@@ -33,21 +33,21 @@ describe("wiki metadata", () => {
     });
 
     expect(metadata).toMatchObject({
-      title: { absolute: "Overrun AR | Marathon Wiki" },
+      title: { absolute: "Overrun AR · WikiDen" },
       description: "Automatic rifle details for Marathon.",
       alternates: {
         canonical: "https://wiki.example.com/marathon/overrun-ar",
       },
       openGraph: {
         type: "article",
-        siteName: "Marathon Wiki",
-        title: "Overrun AR | Marathon Wiki",
+        siteName: "WikiDen",
+        title: "Overrun AR · WikiDen",
         description: "Automatic rifle details for Marathon.",
         url: "https://wiki.example.com/marathon/overrun-ar",
       },
       twitter: {
         card: "summary",
-        title: "Overrun AR | Marathon Wiki",
+        title: "Overrun AR · WikiDen",
         description: "Automatic rifle details for Marathon.",
       },
     });
@@ -57,9 +57,15 @@ describe("wiki metadata", () => {
     process.env.NEXT_PUBLIC_SITE_URL = "https://wiki.example.com";
     process.env.VERCEL_ENV = "production";
 
-    expect(buildWikiMetadata({ title: "Marathon Wiki", path: "/marathon", siteName: "Marathon Wiki" }).title).toEqual({ absolute: "Marathon Wiki" });
-    expect(buildWikiMetadata({ title: "All pages", path: "/marathon/pages", siteName: "Marathon Wiki" }).title).toEqual({ absolute: "All pages | Marathon Wiki" });
-    expect(buildWikiMetadata({ title: "Weapons", path: "/marathon/weapons", siteName: "Marathon Wiki" }).title).toEqual({ absolute: "Weapons | Marathon Wiki" });
+    expect(buildWikiMetadata({ title: "Marathon Wiki", path: "/marathon", siteName: "Marathon Wiki" }).title).toEqual({
+      absolute: "An unofficial guide to Marathon · WikiDen",
+    });
+    expect(buildWikiMetadata({ title: "All pages", path: "/marathon/pages", siteName: "Marathon Wiki" }).title).toEqual({
+      absolute: "All pages · WikiDen",
+    });
+    expect(buildWikiMetadata({ title: "Weapons", path: "/marathon/weapons", siteName: "Marathon Wiki" }).title).toEqual({
+      absolute: "Weapons · WikiDen",
+    });
   });
 
   it("uses launch-safe fallback descriptions for pages without summaries", () => {
@@ -90,40 +96,34 @@ describe("wiki metadata", () => {
       siteName: "Marathon Wiki",
     });
 
-    expect(home.alternates?.canonical).toBe(
-      "https://marathon-wiki.vercel.app/marathon",
-    );
-    expect(home.openGraph?.url).toBe("https://marathon-wiki.vercel.app/marathon");
-    expect(article.alternates?.canonical).toBe(
-      "https://marathon-wiki.vercel.app/marathon/ranked",
-    );
-    expect(article.openGraph?.url).toBe(
-      "https://marathon-wiki.vercel.app/marathon/ranked",
-    );
+    expect(home.alternates?.canonical).toBe("https://wikiden.gg/marathon");
+    expect(home.openGraph?.url).toBe("https://wikiden.gg/marathon");
+    expect(article.alternates?.canonical).toBe("https://wikiden.gg/marathon/ranked");
+    expect(article.openGraph?.url).toBe("https://wikiden.gg/marathon/ranked");
   });
 
-  it("keeps production naming unchanged while the network has no name", () => {
+  it("uses the WikiDen brand in production titles and og:site_name", () => {
     process.env.NEXT_PUBLIC_SITE_URL = "https://wiki.example.com";
     process.env.VERCEL_ENV = "production";
 
     const home = buildWikiMetadata({ title: "Marathon Wiki", path: "/marathon", siteName: "Marathon Wiki" });
     const article = buildWikiMetadata({ title: "Ranked", path: "/marathon/ranked", siteName: "Marathon Wiki" });
 
-    expect(home.title).toEqual({ absolute: "Marathon Wiki" });
-    expect(article.title).toEqual({ absolute: "Ranked | Marathon Wiki" });
-    expect(article.openGraph).toMatchObject({ siteName: "Marathon Wiki", title: "Ranked | Marathon Wiki" });
+    expect(home.title).toEqual({ absolute: "An unofficial guide to Marathon · WikiDen" });
+    expect(article.title).toEqual({ absolute: "Ranked · WikiDen" });
+    expect(article.openGraph).toMatchObject({ siteName: "WikiDen", title: "Ranked · WikiDen" });
     expect(JSON.stringify([home, article])).not.toContain(NETWORK_PLACEHOLDER);
   });
 
-  it("titles previews '<Page> · <Network>', naming the game in words on the home page", () => {
+  it("titles previews '<Page> · WikiDen', naming the game in words on the home page", () => {
     process.env.NEXT_PUBLIC_SITE_URL = "https://wiki.example.com";
     process.env.VERCEL_ENV = "preview";
 
     const home = buildWikiMetadata({ title: "Marathon Wiki", path: "/marathon", siteName: "Marathon Wiki" });
     const article = buildWikiMetadata({ title: "Overrun AR | Marathon Wiki", path: "/marathon/overrun-ar", siteName: "Marathon Wiki" });
 
-    expect(home.title).toEqual({ absolute: `An unofficial guide to Marathon · ${NETWORK_PLACEHOLDER}` });
-    expect(article.title).toEqual({ absolute: `Overrun AR · ${NETWORK_PLACEHOLDER}` });
-    expect(article.openGraph).toMatchObject({ siteName: NETWORK_PLACEHOLDER });
+    expect(home.title).toEqual({ absolute: "An unofficial guide to Marathon · WikiDen" });
+    expect(article.title).toEqual({ absolute: "Overrun AR · WikiDen" });
+    expect(article.openGraph).toMatchObject({ siteName: "WikiDen" });
   });
 });

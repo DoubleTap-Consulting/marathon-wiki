@@ -22,7 +22,7 @@ describe("launch config", () => {
         VERCEL_ENV: "preview",
         VERCEL_URL: "some-preview.vercel.app",
       }).toString(),
-    ).toBe("https://marathon-wiki.vercel.app/");
+    ).toBe("https://wikiden.gg/");
 
     expect(
       getWikiSiteBaseUrl({
@@ -30,7 +30,7 @@ describe("launch config", () => {
         VERCEL_URL:
           "marathon-wiki-mag3yjz8b-michael-flores-projects-acc295a3.vercel.app",
       }).toString(),
-    ).toBe("https://marathon-wiki.vercel.app/");
+    ).toBe("https://wikiden.gg/");
 
     expect(
       getWikiSiteBaseUrl({
