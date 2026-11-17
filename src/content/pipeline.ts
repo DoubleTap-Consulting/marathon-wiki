@@ -321,7 +321,7 @@ export function buildDraftPrompt(
     isHubSpec(spec)
       ? "Length: this is a hub page, so 3 to 6 sections and 260 to 500 words in total, all from the extracts. If the extracts cannot support that much, write less rather than padding; a thin hub goes to editor review."
       : "Length: 2 to 5 sections, 120 to 450 words in total. Fewer, well-supported sentences beat more, weaker ones.",
-    "The summary is one plain sentence (it is shown under the title and is not fact-checked, so keep it to the page's scope).",
+    "The summary is one plain sentence about the subject (it is shown under the title and as the meta description). Do not mention paraphrasing, rewriting, citations, WikiDen, or that the text was rewritten; just describe the topic.",
     "Do not write a references section; citations are added automatically from extractIds.",
     ...(spec.table === "weapons"
       ? ["A table of every launch weapon (name, class, ammo) is added below your text automatically. Do not list weapons by class in prose; cover what the table cannot: how weapons work, ammo types in general, and post-launch changes."]

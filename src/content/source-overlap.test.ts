@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { DEFAULT_PUBLISH_POLICY, evaluatePublishGate } from "./editor";
-import { evaluateQuotePolicy, findSourceOverlaps, normalizeWords, sourceOverlapReason, unquotedProse } from "./source-overlap";
+import { evaluateQuotePolicy, editorNoteReason, findEditorNoteLeaks, findSourceOverlaps, normalizeWords, sourceOverlapReason, unquotedProse } from "./source-overlap";
 
 const luciaSource = {
   sourceKey: "gta6-people-lucia",
@@ -117,5 +117,37 @@ describe("quotation budget", () => {
     expect(over.proseWords).toBe(99);
     expect(over.quotedRatio).toBeGreaterThan(0.1);
     expect(over.reasons.some((reason) => reason.includes("quoted words are"))).toBe(true);
+  });
+});
+
+
+describe("editor-note leak gate", () => {
+  it("fails a summary that reads as an editor change note", () => {
+    const leaks = findEditorNoteLeaks({
+      summary: "Neutral paraphrase of Ranked mode describing overview, Holotags, scoring, and Season 2 changes with citations preserved.",
+    });
+    expect(leaks.map((leak) => leak.field)).toEqual(["summary"]);
+    expect(editorNoteReason(leaks)).toMatch(/summary reads as editor commentary/);
+    const gate = evaluatePublishGate(supported, DEFAULT_PUBLISH_POLICY, { hub: false, words: 40, editorNotes: leaks });
+    expect(gate.decision).toBe("needs_review");
+    expect(gate.reasons.some((reason) => reason.includes("editor commentary"))).toBe(true);
+  });
+
+  it("fails the same pattern in a dek or in body prose, and allows a reader-facing summary", () => {
+    expect(
+      findEditorNoteLeaks({
+        summary: "Ranked is a competitive extraction mode scored with Holotags.",
+      }),
+    ).toEqual([]);
+    const dek = findEditorNoteLeaks({
+      summary: "Ranked is a competitive extraction mode scored with Holotags.",
+      dek: "Paraphrased WikiDen page about Ranked, preserving facts.",
+    });
+    expect(dek.map((leak) => leak.field)).toEqual(["dek"]);
+    const body = findEditorNoteLeaks({
+      summary: "Ranked is a competitive extraction mode scored with Holotags.",
+      bodyMarkdown: "## Overview\n\nThis rewritten entry preserves the original citations.{{cite:bungie-ranked}}\n",
+    });
+    expect(body.some((leak) => leak.field === "body")).toBe(true);
   });
 });

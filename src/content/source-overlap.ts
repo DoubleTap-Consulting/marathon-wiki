@@ -202,3 +202,44 @@ export function quotePolicyReason(policy: QuotePolicyResult): string | null {
   if (policy.reasons.length === 0) return null;
   return policy.reasons.join("; ");
 }
+
+
+/** Editor-note leaks in a summary/dek or in body prose. A match fails the content check and the build. */
+export const EDITOR_NOTE_LEAK = /paraphras|rewrit|preserv|citation|WikiDen (page|entry)|neutral/i;
+
+export type EditorNoteLeak = { field: "summary" | "dek" | "body"; excerpt: string };
+
+function excerptAround(text: string, index: number, width = 80): string {
+  const start = Math.max(0, index - 20);
+  const end = Math.min(text.length, index + width);
+  return text.slice(start, end).replace(/\s+/g, " ").trim();
+}
+
+/** Flag summary, dek, and body prose that read as editor notes instead of reader-facing copy. */
+export function findEditorNoteLeaks(input: { summary?: string | null; dek?: string | null; bodyMarkdown?: string | null }): EditorNoteLeak[] {
+  const hits: EditorNoteLeak[] = [];
+  const check = (field: EditorNoteLeak["field"], value: string | null | undefined) => {
+    if (!value) return;
+    const match = value.match(EDITOR_NOTE_LEAK);
+    if (match && match.index !== undefined) hits.push({ field, excerpt: excerptAround(value, match.index) });
+  };
+  check("summary", input.summary);
+  if (input.dek != null && input.dek !== input.summary) check("dek", input.dek);
+  if (input.bodyMarkdown) {
+    // Same exclusions as overlap prose: headings, see-also wiki links, and tables are not body prose.
+    const prose = input.bodyMarkdown
+      .split("\n")
+      .filter((line) => !/^\s*#/.test(line) && !/^\s*[-*]\s+\[\[/.test(line) && !/^\s*\|/.test(line))
+      .join("\n")
+      .replace(CITE, " ");
+    check("body", prose);
+  }
+  return hits;
+}
+
+export function editorNoteReason(leaks: EditorNoteLeak[]): string | null {
+  if (leaks.length === 0) return null;
+  return leaks
+    .map((leak) => `${leak.field} reads as editor commentary, not reader-facing copy: "${leak.excerpt}"`)
+    .join("; ");
+}

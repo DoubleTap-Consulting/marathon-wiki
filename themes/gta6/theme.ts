@@ -8,7 +8,7 @@ export default {
     developer: "Rockstar Games",
     wordmark: { src: "themes/gta6/wordmark.svg", label: "WikiDen", minWidth: 120 },
     descriptor: "An unofficial guide to Grand Theft Auto VI",
-    tagline: "Source-checked pages on the release, platforms, characters and setting, rewritten by AI when a source changes.",
+    tagline: "Source-checked pages on the release, platforms, characters and setting, updated by AI when a source changes.",
     kicker: "Field notes · Leonida",
   },
   chrome: "ink",

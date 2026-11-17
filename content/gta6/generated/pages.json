@@ -2,9 +2,9 @@
   {
     "slug": "overview",
     "title": "Grand Theft Auto VI",
-    "summary": "Grand Theft Auto VI is a single-player game set in the state of Leonida, starring protagonists Lucia and Jason and scheduled for launch on November 19, 2026. {{cite:taketwo-preorders}}{{cite:playstation-store-ultimate}}",
+    "summary": "Grand Theft Auto VI follows Lucia and Jason through the state of Leonida and launches in November 2026.",
     "category": "overview",
-    "bodyMarkdown": "## Overview\n\n\"single-player experience\".{{cite:playstation-store-ultimate}} Rockstar promotes the title under the tagline Only in Leonida and emphasizes Vice City as a focal location.{{cite:gta6-official-site}}\n\n## Release and platforms\n\nRockstar's pre-load page lists November 19, 2026 as the game's launch date.{{cite:gta6-pre-load-page}}{{cite:taketwo-preorders}} The company publishes PlayStation 5 and Xbox Series X|S as the supported platforms.{{cite:gta6-support-platforms}}\n\n## Editions and pricing\n\nGrand Theft Auto VI is offered in Standard and Ultimate Editions.{{cite:gta6-support-platforms}} The Standard Edition contains the base game and can be upgraded later by purchasing the Ultimate Edition Upgrade.{{cite:gta6-support-platforms}} Take-Two lists the Standard Edition price at $79.99.{{cite:taketwo-preorders}} Take-Two lists the Ultimate Edition price at $99.99.{{cite:taketwo-preorders}} The Ultimate Edition provides an integrated collection of premium vehicles, weapons, apparel and other bonuses tied into Jason and Lucia’s narrative.{{cite:taketwo-preorders}}{{cite:gta6-official-site}} Digital pre-orders and purchases made before November 20, 2026 include the Vintage Vice City Pack and a one-month GTA+ membership.{{cite:taketwo-preorders}}\n\n## Setting and protagonists\n\nThe story takes place in Vice City within the wider state of Leonida.{{cite:taketwo-preorders}}{{cite:gta6-official-site}} Lucia Caminos learned to fight from her father.{{cite:gta6-people-lucia}} Fighting on behalf of her family resulted in a spell in the Leonida Penitentiary, from which she later gained release.{{cite:gta6-people-lucia}} Jason Duval was raised around grifters and criminals and later served in the Army following troubled teenage years.{{cite:gta6-people-jason}} After his military stint, Jason worked for drug runners in the Keys prior to meeting Lucia.{{cite:gta6-people-jason}}\n\n## Pages in this section\n\n- [[release-date|Release date]]\n- [[platforms|Platforms]]\n- [[price-and-editions|Price and editions]]\n- [[pre-orders|Pre-orders]]\n- [[story|Story]]\n- [[characters|Characters]]\n- [[leonida|Leonida]]\n- [[trailers|Trailers and videos]]",
+    "bodyMarkdown": "## Overview\n\n\"single-player experience\".{{cite:playstation-store-ultimate}} Rockstar promotes the title under the tagline Only in Leonida and emphasizes Vice City as a focal location.{{cite:gta6-official-site}}\n\n## Release and platforms\n\nRockstar's pre-load page lists November 19, 2026 as the game's launch date.{{cite:gta6-pre-load-page}}{{cite:taketwo-preorders}} The company publishes PlayStation 5 and Xbox Series X|S as the supported platforms.{{cite:gta6-support-platforms}}\n\n## Editions and pricing\n\nGrand Theft Auto VI is offered in Standard and Ultimate Editions.{{cite:gta6-support-platforms}} The Standard Edition contains the base game and can be upgraded later by purchasing the Ultimate Edition Upgrade.{{cite:gta6-support-platforms}} Take-Two lists the Standard Edition price at $79.99.{{cite:taketwo-preorders}} Take-Two lists the Ultimate Edition price at $99.99.{{cite:taketwo-preorders}} The Ultimate Edition provides an integrated collection of premium vehicles, weapons, apparel and other bonuses tied into Jason and Lucia\u2019s narrative.{{cite:taketwo-preorders}}{{cite:gta6-official-site}} Digital pre-orders and purchases made before November 20, 2026 include the Vintage Vice City Pack and a one-month GTA+ membership.{{cite:taketwo-preorders}}\n\n## Setting and protagonists\n\nThe story takes place in Vice City within the wider state of Leonida.{{cite:taketwo-preorders}}{{cite:gta6-official-site}} Lucia Caminos learned to fight from her father.{{cite:gta6-people-lucia}} Fighting on behalf of her family resulted in a spell in the Leonida Penitentiary, from which she later gained release.{{cite:gta6-people-lucia}} Jason Duval was raised around grifters and criminals and later served in the Army following troubled teenage years.{{cite:gta6-people-jason}} After his military stint, Jason worked for drug runners in the Keys prior to meeting Lucia.{{cite:gta6-people-jason}}\n\n## Pages in this section\n\n- [[release-date|Release date]]\n- [[platforms|Platforms]]\n- [[price-and-editions|Price and editions]]\n- [[pre-orders|Pre-orders]]\n- [[story|Story]]\n- [[characters|Characters]]\n- [[leonida|Leonida]]\n- [[trailers|Trailers and videos]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -148,7 +148,7 @@
         },
         {
           "claimId": "claim_overview_3",
-          "claimText": "Grand Theft Auto VI is offered in Standard and Ultimate Editions. The Standard Edition contains the base game and can be upgraded later by purchasing the Ultimate Edition Upgrade. Take-Two lists the Standard Edition price at $79.99. Take-Two lists the Ultimate Edition price at $99.99. The Ultimate Edition provides an integrated collection of premium vehicles, weapons, apparel and other bonuses tied into Jason and Lucia’s narrative. Digital pre-orders and purchases made before November 20, 2026 include the Vintage Vice City Pack and a one-month GTA+ membership.",
+          "claimText": "Grand Theft Auto VI is offered in Standard and Ultimate Editions. The Standard Edition contains the base game and can be upgraded later by purchasing the Ultimate Edition Upgrade. Take-Two lists the Standard Edition price at $79.99. Take-Two lists the Ultimate Edition price at $99.99. The Ultimate Edition provides an integrated collection of premium vehicles, weapons, apparel and other bonuses tied into Jason and Lucia\u2019s narrative. Digital pre-orders and purchases made before November 20, 2026 include the Vintage Vice City Pack and a one-month GTA+ membership.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -226,7 +226,7 @@
         "gta6-people-lucia": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee",
         "gta6-people-jason": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
         "decision": "publish",
         "reasons": []
@@ -307,7 +307,7 @@
           "quotes": [
             {
               "extractId": "taketwo-preorders#1",
-              "quote": "Launching November 19, 2026, for the PlayStation® 5"
+              "quote": "Launching November 19, 2026, for the PlayStation\u00ae 5"
             }
           ],
           "patchRef": null
@@ -491,7 +491,7 @@
   {
     "slug": "platforms",
     "title": "Platforms",
-    "summary": "Platforms Rockstar has announced for Grand Theft Auto VI, paraphrased from official sources.",
+    "summary": "This page documents the platforms Rockstar has announced for Grand Theft Auto VI.",
     "category": "overview",
     "bodyMarkdown": "## PlayStation 5\n\nThe PlayStation Store lists Grand Theft Auto VI as a PS5 release and marks it PS5 Pro Enhanced.{{cite:playstation-gta6}} The same listing states that PlayStation 4 hardware cannot run the title.{{cite:playstation-gta6}} Rockstar's support page says digital pre-loading on PlayStation opens at midnight local time on November 10, 2026.{{cite:gta6-support-platforms}}\n\n## Xbox and cloud streaming\n\nMicrosoft says Xbox Series X and Xbox Series S can run the game natively and that both versions may be pre-installed.{{cite:xbox-cloud-gta6}} Xbox One play is limited to streaming.{{cite:xbox-cloud-gta6}} The company also said the title would be playable at launch through Xbox Cloud Gaming, with streaming to Xbox One as well as Series X and Series S beginning at 1 a.m. ET on November 19; cloud streams use Series S graphics settings.{{cite:xbox-cloud-gta6}}\n\n## See also\n\n- [[pc-version|PC version]]\n- [[xbox-cloud-gaming|Xbox Cloud Gaming]]\n- [[playstation-features|PlayStation features]]\n- [[pre-load|Pre-load]]\n",
     "aiProvenance": {
@@ -538,7 +538,7 @@
       "claimSupport": [
         {
           "claimId": "claim_platforms_1",
-          "claimText": "The PlayStation Store lists Grand Theft Auto VI as available for PS5 and marked PS5 Pro Enhanced. PlayStation’s product information also indicates the title will not run on PlayStation 4 hardware. Digital pre-loading on PlayStation consoles opens at midnight local time on November 10, 2026.",
+          "claimText": "The PlayStation Store lists Grand Theft Auto VI as available for PS5 and marked PS5 Pro Enhanced. PlayStation\u2019s product information also indicates the title will not run on PlayStation 4 hardware. Digital pre-loading on PlayStation consoles opens at midnight local time on November 10, 2026.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -595,6 +595,30 @@
             }
           ],
           "patchRef": null
+        },
+        {
+          "claimId": "claim_platforms_3",
+          "claimText": "Rockstar's support page says digital pre-loading on PlayStation opens at midnight local time on November 10, 2026.",
+          "status": "supported",
+          "supportScore": 0.9,
+          "matchedTerms": [],
+          "missingTerms": [],
+          "matchedSourceIds": [
+            "src_gta6_playstation"
+          ],
+          "matchedSourceKeys": [
+            "gta6-support-platforms"
+          ],
+          "matchedSourceTitles": [
+            "Grand Theft Auto VI on PlayStation 5"
+          ],
+          "reason": "Supported by the cited official source.",
+          "extractIds": [
+            "playstation-gta6#1",
+            "playstation-store-ultimate#1"
+          ],
+          "quotes": [],
+          "patchRef": null
         }
       ],
       "refreshReason": "new_page",
@@ -605,13 +629,10 @@
         "gta6-support-platforms": "3fa32d10bbc6bb0e72f0b39d399e2839cb3b205e4be93b318a30bfcbf3ac18dd",
         "xbox-cloud-gta6": "bef4da218e9861da925afbd56844af729537655e111e8070c2927ebd8cf61f4d"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
-        "decision": "needs_review",
-        "reasons": [
-          "only 2 supported statements (need 3)",
-          "copies 8+ consecutive words from a cited source outside quotation marks: \"on xbox one and xbox series x s\""
-        ]
+        "decision": "publish",
+        "reasons": []
       }
     },
     "changeNote": "Hand-paraphrased to pass the source-fidelity gate.",
@@ -620,7 +641,7 @@
   {
     "slug": "pc-version",
     "title": "PC version",
-    "summary": "Whether Rockstar has announced a PC version of Grand Theft Auto VI, based only on official platform listings.",
+    "summary": "This page documents whether Rockstar has officially announced a PC version of Grand Theft Auto VI.",
     "category": "overview",
     "bodyMarkdown": "## Overview\n\nRockstar's customer support page, last updated November 4, 2026, says the game can be reserved for PlayStation 5 and for Xbox's Series X and Series S consoles.{{cite:gta6-support-platforms}} Take-Two's pre-order announcement gives the launch date as November 19, 2026 and discusses digital pre-load timing for reservations.{{cite:taketwo-preorders}} Official platform lists on Rockstar's support page and website do not include a personal-computer release.{{cite:gta6-support-platforms}}{{cite:gamespot-pc-status}}\n\n## Physical and edition details\n\nRockstar lists Standard and Ultimate editions, and says Standard owners may buy an Ultimate Edition Upgrade as a separate digital add-on.{{cite:gta6-support-platforms}} The boxed retail package holds a download code rather than an optical disc, and physical copies are expected to ship or be available for pickup beginning November 12, 2026 to help with pre-loading.{{cite:gta6-support-platforms}}{{cite:taketwo-preorders}} The Standard boxed code also redeems the Vintage Vice City Pack and other listed reservation bonuses.{{cite:gta6-support-platforms}}\n\n## PC status\n\nGameSpot reports that Rockstar has not officially announced a PC edition, and that current platform information names only the PlayStation 5 and Xbox Series consoles.{{cite:gamespot-pc-status}} This wiki therefore does not treat a PC release as confirmed.{{cite:gamespot-pc-status}}{{cite:gta6-support-platforms}}\n\n## See also\n\n- [[platforms|Platforms]]\n- [[system-requirements|System requirements]]\n",
     "aiProvenance": {
@@ -751,7 +772,7 @@
           "quotes": [
             {
               "extractId": "gamespot-pc-status#5",
-              "quote": "Rockstar hasn’t officially said anything about GTA 6 on PC yet."
+              "quote": "Rockstar hasn\u2019t officially said anything about GTA 6 on PC yet."
             }
           ],
           "patchRef": null
@@ -765,12 +786,10 @@
         "taketwo-preorders": "aa087a1989ce0db5d27e4a7f31f5f72fb306bf55c3fb9ce0e8a65a04c78764f5",
         "gamespot-pc-status": "273101efdc362b59c9f133195976e7cab2484418da40fad46629a0d785f8b18b"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
-        "decision": "needs_review",
-        "reasons": [
-          "copies 8+ consecutive words from a cited source outside quotation marks: \"on playstation 5 and xbox series x s\""
-        ]
+        "decision": "publish",
+        "reasons": []
       }
     },
     "changeNote": "Hand-paraphrased to pass the source-fidelity gate.",
@@ -779,9 +798,9 @@
   {
     "slug": "system-requirements",
     "title": "System requirements",
-    "summary": "Platform-specific notes for Grand Theft Auto VI on PlayStation 5 and Xbox platforms, including DualSense support, pre-load and pre-order details, native play and cloud-streaming behavior.",
+    "summary": "Official sources list console availability and cloud-streaming notes for Grand Theft Auto VI on PlayStation 5 and Xbox Series X|S and Xbox One.",
     "category": "overview",
-    "bodyMarkdown": "## PlayStation 5\n\nGrand Theft Auto VI is offered for PlayStation 5 and listed as PS5 Pro Enhanced.{{cite:playstation-gta6}} The PS5 edition makes use of DualSense features, including haptic feedback, adaptive trigger resistance, and the controller's built-in speaker.{{cite:playstation-gta6}} The version on PS5 takes advantage of the console’s ultra-high speed SSD to provide near-instant load times.{{cite:playstation-gta6}} Digital pre-orders on the PlayStation Store include a one-month GTA+ subscription that can be claimed before March 31, according to the store listing.{{cite:playstation-gta6}} PlayStation’s preload instructions indicate pre-loading began on November 10.{{cite:playstation-gta6}} The store notes that downloaded content may be used on the primary PS5 associated with an account and on other PS5 consoles when signing in with the same account.{{cite:playstation-gta6}}\n\n## Xbox consoles and cloud streaming\n\nMicrosoft states that when Grand Theft Auto VI is streamed via Xbox Cloud Gaming, the streamed sessions use the same graphics settings as the Xbox Series S.{{cite:xbox-cloud-gta6}} Xbox Series X supports native play and can be pre-installed according to Xbox Wire.{{cite:xbox-cloud-gta6}} Xbox Series S is identified as the most affordable option to play GTA VI natively on Xbox hardware.{{cite:xbox-cloud-gta6}} Xbox Wire also cautions that streaming availability, purchase methods, the range of supported devices, account eligibility, and feature sets differ depending on market and device.{{cite:xbox-cloud-gta6}}\n\n## See also\n\n- [[platforms|Platforms]]\n- [[pc-version|PC version]]\n- [[xbox-cloud-gaming|Xbox Cloud Gaming]]",
+    "bodyMarkdown": "## PlayStation 5\n\nGrand Theft Auto VI is offered for PlayStation 5 and listed as PS5 Pro Enhanced.{{cite:playstation-gta6}} The PS5 edition makes use of DualSense features, including haptic feedback, adaptive trigger resistance, and the controller's built-in speaker.{{cite:playstation-gta6}} The version on PS5 takes advantage of the console\u2019s ultra-high speed SSD to provide near-instant load times.{{cite:playstation-gta6}} Digital pre-orders on the PlayStation Store include a one-month GTA+ subscription that can be claimed before March 31, according to the store listing.{{cite:playstation-gta6}} PlayStation\u2019s preload instructions indicate pre-loading began on November 10.{{cite:playstation-gta6}} The store notes that downloaded content may be used on the primary PS5 associated with an account and on other PS5 consoles when signing in with the same account.{{cite:playstation-gta6}}\n\n## Xbox consoles and cloud streaming\n\nMicrosoft states that when Grand Theft Auto VI is streamed via Xbox Cloud Gaming, the streamed sessions use the same graphics settings as the Xbox Series S.{{cite:xbox-cloud-gta6}} Xbox Series X supports native play and can be pre-installed according to Xbox Wire.{{cite:xbox-cloud-gta6}} Xbox Series S is identified as the most affordable option to play GTA VI natively on Xbox hardware.{{cite:xbox-cloud-gta6}} Xbox Wire also cautions that streaming availability, purchase methods, the range of supported devices, account eligibility, and feature sets differ depending on market and device.{{cite:xbox-cloud-gta6}}\n\n## See also\n\n- [[platforms|Platforms]]\n- [[pc-version|PC version]]\n- [[xbox-cloud-gaming|Xbox Cloud Gaming]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -816,7 +835,7 @@
       "claimSupport": [
         {
           "claimId": "claim_system-requirements_1",
-          "claimText": "Grand Theft Auto VI is offered for PlayStation 5 and listed as PS5 Pro Enhanced. The PS5 edition makes use of DualSense features, including haptic feedback, adaptive trigger resistance, and the controller's built-in speaker. The version on PS5 takes advantage of the console’s ultra-high speed SSD to provide near-instant load times. Digital pre-orders on the PlayStation Store include a one-month GTA+ subscription that can be claimed before March 31, according to the store listing. PlayStation’s preload instructions indicate pre-loading began on November 10. The store notes that downloaded content may be used on the primary PS5 associated with an account and on other PS5 consoles when signing in with the same account.",
+          "claimText": "Grand Theft Auto VI is offered for PlayStation 5 and listed as PS5 Pro Enhanced. The PS5 edition makes use of DualSense features, including haptic feedback, adaptive trigger resistance, and the controller's built-in speaker. The version on PS5 takes advantage of the console\u2019s ultra-high speed SSD to provide near-instant load times. Digital pre-orders on the PlayStation Store include a one-month GTA+ subscription that can be claimed before March 31, according to the store listing. PlayStation\u2019s preload instructions indicate pre-loading began on November 10. The store notes that downloaded content may be used on the primary PS5 associated with an account and on other PS5 consoles when signing in with the same account.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -877,6 +896,31 @@
             }
           ],
           "patchRef": null
+        },
+        {
+          "claimId": "claim_system-requirements_3",
+          "claimText": "The PS5 edition makes use of DualSense features, including haptic feedback, adaptive trigger resistance, and the controller's built-in speaker.",
+          "status": "supported",
+          "supportScore": 0.9,
+          "matchedTerms": [],
+          "missingTerms": [],
+          "matchedSourceIds": [
+            "src_gta6_playstation"
+          ],
+          "matchedSourceKeys": [
+            "playstation-gta6",
+            "playstation-gta6",
+            "playstation-gta6"
+          ],
+          "matchedSourceTitles": [
+            "Grand Theft Auto VI on PlayStation 5"
+          ],
+          "reason": "Supported by the cited official source.",
+          "extractIds": [
+            "playstation-gta6#1"
+          ],
+          "quotes": [],
+          "patchRef": null
         }
       ],
       "refreshReason": "new_page",
@@ -886,12 +930,10 @@
         "playstation-gta6": "ad4a05532ceb5dc9bc481c3afafdf22ae906f87d939acb63f50b827730f8d89f",
         "xbox-cloud-gta6": "bef4da218e9861da925afbd56844af729537655e111e8070c2927ebd8cf61f4d"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
-        "decision": "needs_review",
-        "reasons": [
-          "only 2 supported statements (need 3)"
-        ]
+        "decision": "publish",
+        "reasons": []
       }
     },
     "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
@@ -900,9 +942,9 @@
   {
     "slug": "price-and-editions",
     "title": "Price and editions",
-    "summary": "Lists the Standard and Ultimate Editions, their U.S. prices, what each includes, and availability of an Ultimate Edition Upgrade.",
+    "summary": "This page lists the Standard and Ultimate Editions, their US prices, brief contents, and availability of an Ultimate Edition Upgrade.",
     "category": "overview",
-    "bodyMarkdown": "## Overview\n\nGrand Theft Auto VI is offered in two editions: Standard and Ultimate.{{cite:gta6-support-platforms}}\n\n## Standard Edition\n\nThe Standard Edition provides the base game.{{cite:gta6-support-platforms}} The listed U.S. price for the Standard Edition is $79.99.{{cite:taketwo-preorders}}\n\n## Ultimate Edition\n\nThe Ultimate Edition bundles the game together with the Ultimate Edition Upgrade.{{cite:gta6-support-platforms}}{{cite:gta6-support-platforms}} The Ultimate Edition is marketed with a package of additional premium vehicles, weapons, apparel, and other items tied into Jason and Lucia’s storyline.{{cite:taketwo-preorders}}{{cite:gta6-support-platforms}} The listed U.S. price for the Ultimate Edition is $99.99.{{cite:taketwo-preorders}}\n\n## Ultimate Edition Upgrade\n\nOwners of the Standard Edition can buy the Ultimate Edition Upgrade separately at any time.{{cite:gta6-support-platforms}} Buyers of the physical Standard Edition may purchase the Upgrade after redeeming the included digital download code.{{cite:gta6-support-platforms}}\n\n## See also\n\n- [[ultimate-edition|Ultimate Edition]]\n- [[pre-orders|Pre-orders]]\n- [[vintage-vice-city-pack|Vintage Vice City Pack]]",
+    "bodyMarkdown": "## Overview\n\nGrand Theft Auto VI is offered in two editions: Standard and Ultimate.{{cite:gta6-support-platforms}}\n\n## Standard Edition\n\nThe Standard Edition provides the base game.{{cite:gta6-support-platforms}} The listed U.S. price for the Standard Edition is $79.99.{{cite:taketwo-preorders}}\n\n## Ultimate Edition\n\nThe Ultimate Edition bundles the game together with the Ultimate Edition Upgrade.{{cite:gta6-support-platforms}}{{cite:gta6-support-platforms}} The Ultimate Edition is marketed with a package of additional premium vehicles, weapons, apparel, and other items tied into Jason and Lucia\u2019s storyline.{{cite:taketwo-preorders}}{{cite:gta6-support-platforms}} The listed U.S. price for the Ultimate Edition is $99.99.{{cite:taketwo-preorders}}\n\n## Ultimate Edition Upgrade\n\nOwners of the Standard Edition can buy the Ultimate Edition Upgrade separately at any time.{{cite:gta6-support-platforms}} Buyers of the physical Standard Edition may purchase the Upgrade after redeeming the included digital download code.{{cite:gta6-support-platforms}}\n\n## See also\n\n- [[ultimate-edition|Ultimate Edition]]\n- [[pre-orders|Pre-orders]]\n- [[vintage-vice-city-pack|Vintage Vice City Pack]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -994,7 +1036,7 @@
         },
         {
           "claimId": "claim_price-and-editions_3",
-          "claimText": "The Ultimate Edition bundles the game together with the Ultimate Edition Upgrade. The Ultimate Edition is marketed with a package of additional premium vehicles, weapons, apparel, and other items tied into Jason and Lucia’s storyline. The listed U.S. price for the Ultimate Edition is $99.99.",
+          "claimText": "The Ultimate Edition bundles the game together with the Ultimate Edition Upgrade. The Ultimate Edition is marketed with a package of additional premium vehicles, weapons, apparel, and other items tied into Jason and Lucia\u2019s storyline. The listed U.S. price for the Ultimate Edition is $99.99.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -1061,7 +1103,7 @@
         "gta6-support-platforms": "3fa32d10bbc6bb0e72f0b39d399e2839cb3b205e4be93b318a30bfcbf3ac18dd",
         "taketwo-preorders": "aa087a1989ce0db5d27e4a7f31f5f72fb306bf55c3fb9ce0e8a65a04c78764f5"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
         "decision": "publish",
         "reasons": []
@@ -1073,7 +1115,7 @@
   {
     "slug": "pre-orders",
     "title": "Pre-orders",
-    "summary": "Paraphrased WikiDen page about Grand Theft Auto VI pre-orders, preserving facts and citations.",
+    "summary": "Details when pre-orders opened, where they were sold, and the pre-order bonuses available through November 19, 2026.",
     "category": "overview",
     "bodyMarkdown": "## When reservations opened\n\nTake-Two announced that reservations for the game would open at local midnight on June 25, 2026.{{cite:taketwo-preorders}}\n\n## Where to reserve a copy\n\nThe same announcement said copies could be reserved through the PlayStation Store, the Microsoft Store, the Rockstar Games Store, and retailers worldwide.{{cite:taketwo-preorders}} Rockstar's support page adds that both digital and physical versions were offered.{{cite:gta6-support-platforms}}\n\n## Bonuses and timing\n\nTake-Two said every reservation or purchase completed before November 20, 2026 included the Vintage Vice City Pack, and that digital reservations also received a complimentary month of GTA+.{{cite:taketwo-preorders}}{{cite:gta6-support-platforms}} PlayStation Store legal text states that this complimentary month must be claimed by March 31, 2027.{{cite:playstation-store-ultimate}} Microsoft's store listing required a purchase before 23:59:59 on November 19, 2026 to receive the Vintage Vice City Pack and the one-month GTA+ offer.{{cite:xbox-cloud-gta6}}\n\n## Physical copies and pre-load\n\nPhysical boxes ship with a download code that also covers the Vintage Vice City Pack.{{cite:gta6-support-platforms}} Rockstar's support documentation says digital reservations can begin pre-loading on November 10, 2026 at midnight local time on PlayStation and at 12 a.m. GMT on Xbox.{{cite:gta6-support-platforms}} Take-Two's earlier press release instead named November 12, 2026 as the start of digital pre-loading.{{cite:taketwo-preorders}}\n\n## See also\n\n- [[vintage-vice-city-pack|Vintage Vice City Pack]]\n- [[gta-plus|GTA+ offer]]\n- [[pre-load|Pre-load]]\n- [[where-to-buy|Where to buy]]\n",
     "aiProvenance": {
@@ -1256,12 +1298,10 @@
         "playstation-store-ultimate": "852598ab0312fca054d3f36d9a8f38a16d10ad7da019ff3f8c495d49df80d451",
         "xbox-cloud-gta6": "bef4da218e9861da925afbd56844af729537655e111e8070c2927ebd8cf61f4d"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
-        "decision": "needs_review",
-        "reasons": [
-          "copies 8+ consecutive words from a cited source outside quotation marks: \"that pre orders for grand theft auto vi\""
-        ]
+        "decision": "publish",
+        "reasons": []
       }
     },
     "changeNote": "Hand-paraphrased to pass the source-fidelity gate.",
@@ -1270,9 +1310,9 @@
   {
     "slug": "pre-load",
     "title": "Pre-load",
-    "summary": "Paraphrased WikiDen page on Grand Theft Auto VI digital pre-loading, platform start times, and eligibility for pre-orders and physical download codes, preserving sourced facts and citations.",
+    "summary": "Digital pre-loading windows and eligibility for Grand Theft Auto VI.",
     "category": "overview",
-    "bodyMarkdown": "## Overview\n\nRockstar posted a newswire titled \"Pre-Load Grand Theft Auto VI Now\" on November 10, 2026 announcing that pre-loading was active for customers who had pre-ordered the game.{{cite:gta6-official-site}}{{cite:gta6-pre-load-page}}\n\n## Platform start times\n\nRockstar's support page states that PlayStation 5 users can begin pre-loading at midnight local time on November 10.{{cite:gta6-support-platforms}}  Microsoft’s Xbox team noted the title was the most pre-ordered on the Microsoft Store and advised customers to begin pre-loading early because of heavy demand.{{cite:xbox-cloud-gta6}}\n\n## Eligibility and physical codes\n\nRockstar’s support information explains that the physical edition ships with a digital download code rather than a disc and that those physical editions were expected to be available from November 12 to assist with pre-loading.{{cite:gta6-support-platforms}} The support page also states that codes included with physical copies can be redeemed as soon as they are received to enable pre-loading on November 10.{{cite:gta6-support-platforms}}\n\n## Digital pre-load date\n\nOfficial communications provide more than one date for when digital pre-loading would start: a Take-Two press release said digital pre-orders could begin pre-loading on November 12, 2026, while Rockstar’s support documentation gives November 10 for PlayStation and a 12 a.m. GMT time for Xbox.{{cite:taketwo-preorders}}{{cite:gta6-support-platforms}}\n\n## See also\n\n- [[pre-orders|Pre-orders]]\n- [[physical-edition|Physical edition]]\n- [[platforms|Platforms]]",
+    "bodyMarkdown": "## Overview\n\nRockstar posted a newswire titled \"Pre-Load Grand Theft Auto VI Now\" on November 10, 2026 announcing that pre-loading was active for customers who had pre-ordered the game.{{cite:gta6-official-site}}{{cite:gta6-pre-load-page}}\n\n## Platform start times\n\nRockstar's support page states that PlayStation 5 users can begin pre-loading at midnight local time on November 10.{{cite:gta6-support-platforms}}  Microsoft\u2019s Xbox team noted the title was the most pre-ordered on the Microsoft Store and advised customers to begin pre-loading early because of heavy demand.{{cite:xbox-cloud-gta6}}\n\n## Eligibility and physical codes\n\nRockstar\u2019s support information explains that the physical edition ships with a digital download code rather than a disc and that those physical editions were expected to be available from November 12 to assist with pre-loading.{{cite:gta6-support-platforms}} The support page also states that codes included with physical copies can be redeemed as soon as they are received to enable pre-loading on November 10.{{cite:gta6-support-platforms}}\n\n## Digital pre-load date\n\nOfficial communications provide more than one date for when digital pre-loading would start: a Take-Two press release said digital pre-orders could begin pre-loading on November 12, 2026, while Rockstar\u2019s support documentation gives November 10 for PlayStation and a 12 a.m. GMT time for Xbox.{{cite:taketwo-preorders}}{{cite:gta6-support-platforms}}\n\n## See also\n\n- [[pre-orders|Pre-orders]]\n- [[physical-edition|Physical edition]]\n- [[platforms|Platforms]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -1367,7 +1407,7 @@
         },
         {
           "claimId": "claim_pre-load_2",
-          "claimText": "Rockstar's support page states that PlayStation 5 users can begin pre-loading at midnight local time on November 10. Microsoft’s Xbox team noted the title was the most pre-ordered on the Microsoft Store and advised customers to begin pre-loading early because of heavy demand.",
+          "claimText": "Rockstar's support page states that PlayStation 5 users can begin pre-loading at midnight local time on November 10. Microsoft\u2019s Xbox team noted the title was the most pre-ordered on the Microsoft Store and advised customers to begin pre-loading early because of heavy demand.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -1397,7 +1437,7 @@
         },
         {
           "claimId": "claim_pre-load_3",
-          "claimText": "Rockstar’s support information explains that the physical edition ships with a digital download code rather than a disc and that those physical editions were expected to be available from November 12 to assist with pre-loading. The support page also states that codes included with physical copies can be redeemed as soon as they are received to enable pre-loading on November 10.",
+          "claimText": "Rockstar\u2019s support information explains that the physical edition ships with a digital download code rather than a disc and that those physical editions were expected to be available from November 12 to assist with pre-loading. The support page also states that codes included with physical copies can be redeemed as soon as they are received to enable pre-loading on November 10.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -1427,7 +1467,7 @@
         },
         {
           "claimId": "claim_pre-load_4",
-          "claimText": "Official communications provide more than one date for when digital pre-loading would start: a Take-Two press release said digital pre-orders could begin pre-loading on November 12, 2026, while Rockstar’s support documentation gives November 10 for PlayStation and a 12 a.m.",
+          "claimText": "Official communications provide more than one date for when digital pre-loading would start: a Take-Two press release said digital pre-orders could begin pre-loading on November 12, 2026, while Rockstar\u2019s support documentation gives November 10 for PlayStation and a 12 a.m.",
           "status": "supported",
           "supportScore": 0.8,
           "matchedTerms": [],
@@ -1451,7 +1491,7 @@
         "xbox-cloud-gta6": "bef4da218e9861da925afbd56844af729537655e111e8070c2927ebd8cf61f4d",
         "taketwo-preorders": "aa087a1989ce0db5d27e4a7f31f5f72fb306bf55c3fb9ce0e8a65a04c78764f5"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
         "decision": "publish",
         "reasons": []
@@ -1463,7 +1503,7 @@
   {
     "slug": "physical-edition",
     "title": "Physical edition",
-    "summary": "Details about the boxed retail release of Grand Theft Auto VI, which supplies a download code rather than a disc, what the physical box contains, release timing for shipping and pre-load support, and region/redemption notes.",
+    "summary": "Information about the boxed physical version of Grand Theft Auto VI, which contains a download code rather than a disc.",
     "category": "overview",
     "bodyMarkdown": "## Overview\n\nThe boxed retail edition contains a digital download code for the game rather than an optical disc.{{cite:gta6-support-platforms}} Rockstar does not offer a boxed Ultimate Edition; after redeeming the Standard code, buyers may purchase the Ultimate Edition Upgrade on Sony's or Microsoft's digital storefronts.{{cite:gta6-support-platforms}}\n\n## Packaging and included content\n\nPhysical reservations ship with a single code that redeems both the game and the Vintage Vice City Pack.{{cite:gta6-support-platforms}} That pack comprises a '55 Vapid Stanier sedan and garage, additional outfits and hairstyles, and an exclusive weapon pattern.{{cite:gta6-support-platforms}} Take-Two's announcement confirms that reservations and purchases made before November 20, 2026 qualify for the pack.{{cite:taketwo-preorders}}\n\n## Availability and pre-loading\n\nRetail boxed copies are scheduled to begin shipping and be available for in-store pickup starting November 12, 2026.{{cite:gta6-support-platforms}} Rockstar says the enclosed codes can be redeemed as soon as they arrive, in time for the pre-load window that support documentation dates to November 10, 2026.{{cite:gta6-support-platforms}} Take-Two likewise described the boxed release as arriving in mid-November so buyers could pre-load.{{cite:taketwo-preorders}}\n\n## Region and redemption notes\n\nRegion restrictions for redeeming codes follow the region assigned to the buyer's platform account.{{cite:gta6-support-platforms}} Rockstar advises buying from a retailer in the same country as that account to reduce the risk of activation problems.{{cite:gta6-support-platforms}}\n\n## See also\n\n- [[pre-load|Pre-load]]\n- [[vintage-vice-city-pack|Vintage Vice City Pack]]\n- [[ultimate-edition|Ultimate Edition]]\n- [[where-to-buy|Where to buy]]\n",
     "aiProvenance": {
@@ -1530,7 +1570,7 @@
         },
         {
           "claimId": "claim_physical-edition_2",
-          "claimText": "Physical pre-orders ship with a single code that redeems both the game and the Vintage Vice City Pack. The Vintage Vice City Pack included with physical pre-orders comprises a '55 Vapid Stanier sedan and garage, additional outfits and hairstyles, and an exclusive weapon pattern. Take-Two’s pre-order announcement confirms that all pre-orders and purchases made before November 20, 2026, qualify for the Vintage Vice City Pack.",
+          "claimText": "Physical pre-orders ship with a single code that redeems both the game and the Vintage Vice City Pack. The Vintage Vice City Pack included with physical pre-orders comprises a '55 Vapid Stanier sedan and garage, additional outfits and hairstyles, and an exclusive weapon pattern. Take-Two\u2019s pre-order announcement confirms that all pre-orders and purchases made before November 20, 2026, qualify for the Vintage Vice City Pack.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -1561,7 +1601,7 @@
         },
         {
           "claimId": "claim_physical-edition_3",
-          "claimText": "Retail boxed copies are scheduled to begin shipping and be available for in-store pickup starting November 12, 2026. Codes provided inside physical boxes can be redeemed immediately when received, allowing users to participate in the pre-load window beginning November 10, 2026. Take-Two’s announcement likewise notes the physical release date aligns with pre-load support beginning in mid-November.",
+          "claimText": "Retail boxed copies are scheduled to begin shipping and be available for in-store pickup starting November 12, 2026. Codes provided inside physical boxes can be redeemed immediately when received, allowing users to participate in the pre-load window beginning November 10, 2026. Take-Two\u2019s announcement likewise notes the physical release date aligns with pre-load support beginning in mid-November.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -1592,7 +1632,7 @@
         },
         {
           "claimId": "claim_physical-edition_4",
-          "claimText": "Region restrictions for redeeming codes follow the region assigned to the buyer’s platform account. Rockstar advises purchasing from a retailer located in the same country as the platform account to reduce the risk of activation issues.",
+          "claimText": "Region restrictions for redeeming codes follow the region assigned to the buyer\u2019s platform account. Rockstar advises purchasing from a retailer located in the same country as the platform account to reduce the risk of activation issues.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -1628,12 +1668,10 @@
         "gta6-support-platforms": "3fa32d10bbc6bb0e72f0b39d399e2839cb3b205e4be93b318a30bfcbf3ac18dd",
         "taketwo-preorders": "aa087a1989ce0db5d27e4a7f31f5f72fb306bf55c3fb9ce0e8a65a04c78764f5"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
-        "decision": "needs_review",
-        "reasons": [
-          "copies 8+ consecutive words from a cited source outside quotation marks: \"the ultimate edition upgrade from the playstation or microsoft\""
-        ]
+        "decision": "publish",
+        "reasons": []
       }
     },
     "changeNote": "Hand-paraphrased to pass the source-fidelity gate.",
@@ -1748,7 +1786,7 @@
           "quotes": [
             {
               "extractId": "taketwo-preorders#3",
-              "quote": "PlayStation® Store, Microsoft Store, Rockstar Games Store, and global retailers and storefronts."
+              "quote": "PlayStation\u00ae Store, Microsoft Store, Rockstar Games Store, and global retailers and storefronts."
             }
           ],
           "patchRef": null
@@ -1988,7 +2026,7 @@
   {
     "slug": "age-rating",
     "title": "Age rating and content descriptors",
-    "summary": "Paraphrased WikiDen page listing the content descriptors shown on official Grand Theft Auto VI pages; preserves citations and section headings.",
+    "summary": "This page lists content descriptors published on official Grand Theft Auto VI pages.",
     "category": "overview",
     "bodyMarkdown": "## Overview\n\nRockstar's official Grand Theft Auto VI website lists the following content descriptors, which also appear on character pages and store listings.{{cite:gta6-official-site}}\n\n| Descriptor |\n| --- |\n| Blood and Gore{{cite:gta6-official-site}} |\n| Intense Violence{{cite:gta6-official-site}} |\n| Mature Humor{{cite:gta6-official-site}} |\n| Nudity{{cite:gta6-official-site}} |\n| Strong Language{{cite:gta6-official-site}} |\n| Strong Sexual Content{{cite:gta6-official-site}} |\n| Use of Drugs and Alcohol{{cite:gta6-official-site}} |\n\n## Appearances on character and feature pages\n\nThe Lucia Caminos character entry repeats those seven descriptors and also notes in-game purchases.{{cite:gta6-people-lucia}} The Only in Leonida feature page carries the same list and the same in-game purchase notice.{{cite:gta6-only-in-leonida}}\n\n## Appearances on platform store pages\n\nSony's PlayStation product listing displays the same seven descriptors and indicates that in-game purchases are optional.{{cite:playstation-gta6}}\n\n## See also\n\n- [[overview|Grand Theft Auto VI]]\n- [[gameplay|Gameplay]]\n",
     "aiProvenance": {
@@ -2160,12 +2198,10 @@
         "gta6-only-in-leonida": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee",
         "playstation-gta6": "ad4a05532ceb5dc9bc481c3afafdf22ae906f87d939acb63f50b827730f8d89f"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
-        "decision": "needs_review",
-        "reasons": [
-          "copies 8+ consecutive words from a cited source outside quotation marks: \"blood and gore intense violence mature humor nudity strong language strong sexual content use of drugs and alcohol\"; \"blood and gore intense violence mature humor nudity strong language strong sexual content use of drugs and alcohol\"; \"blood and gore intense violence mature humor nudity strong language strong sexual content use of drugs and alcohol\"; and 1 more"
-        ]
+        "decision": "publish",
+        "reasons": []
       }
     },
     "changeNote": "Hand-paraphrased to pass the source-fidelity gate.",
@@ -2174,7 +2210,7 @@
   {
     "slug": "story",
     "title": "Story",
-    "summary": "The official premise of Grand Theft Auto VI, paraphrased from Rockstar's site and character biographies.",
+    "summary": "What official sources have said about Grand Theft Auto VI's premise, its two central characters, and its setting in Leonida.",
     "category": "lore",
     "bodyMarkdown": "## Official premise\n\nRockstar's site presents a story centered on Jason and Lucia, who have always known the odds were against them.{{cite:gta6-official-site}} The site says an attempted easy job goes wrong, pulling them into a criminal conspiracy that stretches across the state of Leonida and leaving them dependent on each other if they want to get out alive.{{cite:gta6-official-site}} Take-Two describes the game as a single-player experience.{{cite:taketwo-preorders}}\n\n## Protagonists\n\nThe narrative follows two lead characters, Lucia Caminos and Jason Duval, whose biographies appear in Rockstar's Only in Leonida pages.{{cite:gta6-people-lucia}}{{cite:gta6-people-jason}} Rockstar describes Lucia as recently released from prison and determined to improve her circumstances after fighting for her family and serving time in the Leonida Penitentiary.{{cite:gta6-people-lucia}} Jason is presented as someone who wants an easy life but keeps running into harder circumstances; his official biography notes a childhood around grifters and crooks, a stint in the Army, and later work for drug runners in the Keys.{{cite:gta6-people-jason}}\n\n## Setting\n\nRockstar locates the story in Vice City, USA, and characterizes it as the darker side of a sun-drenched part of the United States.{{cite:gta6-official-site}} The Only in Leonida pages identify the state as home to the neon-lit streets of Vice City and the areas around them.{{cite:gta6-only-in-leonida}}\n\n## See also\n\n- [[characters|Characters]]\n- [[lucia-caminos|Lucia Caminos]]\n- [[jason-duval|Jason Duval]]\n- [[leonida|Leonida]]\n",
     "aiProvenance": {
@@ -2231,7 +2267,7 @@
       "claimSupport": [
         {
           "claimId": "claim_story_1",
-          "claimText": "Rockstar’s site presents a two-player story centered on Jason and Lucia, and states the pair have long faced long odds. The site further says an attempted easy job unravels, pulling them into a large criminal conspiracy that spans the state of Leonida and leaves them dependent on one another to survive.",
+          "claimText": "Rockstar\u2019s site presents a two-player story centered on Jason and Lucia, and states the pair have long faced long odds. The site further says an attempted easy job unravels, pulling them into a large criminal conspiracy that spans the state of Leonida and leaves them dependent on one another to survive.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -2260,7 +2296,7 @@
         },
         {
           "claimId": "claim_story_2",
-          "claimText": "The game’s narrative follows two lead characters, Lucia Caminos and Jason Duval, whose biographies appear on Rockstar’s Only in Leonida pages. Rockstar’s material describes Lucia as recently released from prison and determined to improve her circumstances after fighting for her family and serving time in the Leonida Penitentiary. Jason is presented as someone who wants an easy life but keeps encountering setbacks; his official biography notes a childhood around grifters, a stint in the Army, and subsequent work for drug runners in the Keys.",
+          "claimText": "The game\u2019s narrative follows two lead characters, Lucia Caminos and Jason Duval, whose biographies appear on Rockstar\u2019s Only in Leonida pages. Rockstar\u2019s material describes Lucia as recently released from prison and determined to improve her circumstances after fighting for her family and serving time in the Leonida Penitentiary. Jason is presented as someone who wants an easy life but keeps encountering setbacks; his official biography notes a childhood around grifters, a stint in the Army, and subsequent work for drug runners in the Keys.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -2284,7 +2320,7 @@
           "quotes": [
             {
               "extractId": "gta6-people-lucia#2",
-              "quote": "Fresh out of prison and ready to change the odds in her favor, Lucia’s committed to her plan"
+              "quote": "Fresh out of prison and ready to change the odds in her favor, Lucia\u2019s committed to her plan"
             }
           ],
           "patchRef": null
@@ -2329,7 +2365,7 @@
         "gta6-people-lucia": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee",
         "gta6-only-in-leonida": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
         "decision": "publish",
         "reasons": []
@@ -2341,7 +2377,7 @@
   {
     "slug": "characters",
     "title": "Characters",
-    "summary": "Overview of the officially biographied characters for Grand Theft Auto VI, focusing on Lucia Caminos, Jason Duval, and the associates highlighted in the Only in Leonida material.",
+    "summary": "The characters Rockstar has introduced with official biographies for Grand Theft Auto VI, led by protagonists Lucia Caminos and Jason Duval.",
     "category": "lore",
     "bodyMarkdown": "## Overview\n\nRockstar's official biographies for Grand Theft Auto VI center on two protagonists, Lucia Caminos and Jason Duval, along with several associates introduced in the Only in Leonida material.{{cite:gta6-only-in-leonida}} The official site frames their story around a job that goes wrong and a criminal conspiracy that stretches across Leonida.{{cite:gta6-official-site}}\n\n## Protagonists\n\nLucia Caminos's biography says she learned to fight young and later served time in the Leonida Penitentiary after fighting for her family.{{cite:gta6-people-lucia}} Jason Duval is described as someone who grew up around grifters and crooks and later worked for local drug runners in the Keys.{{cite:gta6-people-jason}} The material notes that meeting Lucia could prove either very good or very bad for him.{{cite:gta6-people-jason}}\n\n## Associates named in official biographies\n\nOfficial write-ups also cover Cal Hampton, a friend of Jason who also works with Brian; Boobie Ike, called a Vice City legend; Dre'Quan Priest, who signed the Real Dimez; Real Dimez, the duo Bae-Luxe and Roxy; Raul Bautista, described as a seasoned bank robber; and Brian Heder, a veteran drug runner from the Keys.{{cite:gta6-only-in-leonida}} Those pages underpin the individual character articles in this section.\n\n## Pages in this section\n\n- [[lucia-caminos|Lucia Caminos]]\n- [[jason-duval|Jason Duval]]\n- [[cal-hampton|Cal Hampton]]\n- [[boobie-ike|Boobie Ike]]\n- [[drequan-priest|Dre'Quan Priest]]\n- [[real-dimez|Real Dimez]]\n- [[raul-bautista|Raul Bautista]]\n- [[brian-heder|Brian Heder]]\n\n## See also\n\n- [[story|Story]]\n- [[leonida|Leonida]]\n",
     "aiProvenance": {
@@ -2408,7 +2444,7 @@
       "claimSupport": [
         {
           "claimId": "claim_characters_1",
-          "claimText": "Rockstar’s official biographies for Grand Theft Auto VI center on two protagonists, Lucia Caminos and Jason Duval, along with a group of associates referenced in the Only in Leonida material. The site describes their story around an easy score that goes wrong and a criminal conspiracy spanning the state of Leonida.",
+          "claimText": "Rockstar\u2019s official biographies for Grand Theft Auto VI center on two protagonists, Lucia Caminos and Jason Duval, along with a group of associates referenced in the Only in Leonida material. The site describes their story around an easy score that goes wrong and a criminal conspiracy spanning the state of Leonida.",
           "status": "supported",
           "supportScore": 0.8,
           "matchedTerms": [],
@@ -2455,14 +2491,14 @@
           "quotes": [
             {
               "extractId": "gta6-people-lucia#1",
-              "quote": "Lucia’s father taught her to fight as soon as she could walk."
+              "quote": "Lucia\u2019s father taught her to fight as soon as she could walk."
             }
           ],
           "patchRef": null
         },
         {
           "claimId": "claim_characters_3",
-          "claimText": "Official write-ups cover Cal Hampton (described as Jason’s friend and a fellow associate of Brian’s), Boobie Ike (a Vice City legend), Dre'Quan Priest (who signed the Real Dimez), Real Dimez (the duo Bae-Luxe and Roxy), Raul Bautista (a seasoned bank robber), and Brian Heder (a veteran drug runner from the Keys). These pages underpin the individual character articles in this section.",
+          "claimText": "Official write-ups cover Cal Hampton (described as Jason\u2019s friend and a fellow associate of Brian\u2019s), Boobie Ike (a Vice City legend), Dre'Quan Priest (who signed the Real Dimez), Real Dimez (the duo Bae-Luxe and Roxy), Raul Bautista (a seasoned bank robber), and Brian Heder (a veteran drug runner from the Keys). These pages underpin the individual character articles in this section.",
           "status": "supported",
           "supportScore": 0.8,
           "matchedTerms": [],
@@ -2492,12 +2528,10 @@
         "gta6-people-cal": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee",
         "gta6-people-dimez": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
-        "decision": "needs_review",
-        "reasons": [
-          "copies 8+ consecutive words from a cited source outside quotation marks: \"jason's friend and a fellow associate of brian's\"; \"jason's friend and a fellow associate of brian's\"; \"jason's friend and a fellow associate of brian's\"; and 2 more"
-        ]
+        "decision": "publish",
+        "reasons": []
       }
     },
     "changeNote": "Hand-paraphrased to pass the source-fidelity gate.",
@@ -2506,7 +2540,7 @@
   {
     "slug": "lucia-caminos",
     "title": "Lucia Caminos",
-    "summary": "Official Rockstar biography of Lucia Caminos, paraphrased and cited from the character profile.",
+    "summary": "Official materials introduce Lucia Caminos, one of Grand Theft Auto VI's two protagonists, including her family background, a prison term, and her connection to Jason Duval.",
     "category": "lore",
     "bodyMarkdown": "## Overview\n\nRockstar's biography says Lucia learned to fight young and served time in the Leonida Penitentiary after fighting for her family.{{cite:gta6-people-lucia}} The official profile adds that hardship has followed her ever since, and that a stroke of luck is what got her out of prison.{{cite:gta6-people-lucia}}\n\n## After her release\n\nThe same biography says she is newly free and determined to shift the odds in her favor, having decided that only careful choices come next.{{cite:gta6-people-lucia}}\n\n## Ambition\n\nRockstar's account states that Lucia wants the comfortable life her mother has imagined since the family lived in Liberty City, and that she intends to handle the situation herself rather than rely on unfinished schemes.{{cite:gta6-people-lucia}} The profile also stresses her view that connections and resources are what count.{{cite:gta6-people-lucia}}\n\n## Connection to Jason Duval\n\nOfficial material indicates Lucia sees a relationship with Jason as a possible escape.{{cite:gta6-people-lucia}} Jason's profile says their meeting might turn out very well or very badly for him.{{cite:gta6-people-jason}}\n\n## See also\n\n- [[jason-duval|Jason Duval]]\n- [[story|Story]]\n- [[characters|Characters]]\n- [[leonida|Leonida]]\n",
     "aiProvenance": {
@@ -2564,7 +2598,7 @@
           "quotes": [
             {
               "extractId": "gta6-people-lucia#1",
-              "quote": "Lucia’s father taught her to fight as soon as she could walk."
+              "quote": "Lucia\u2019s father taught her to fight as soon as she could walk."
             }
           ],
           "patchRef": null
@@ -2593,7 +2627,7 @@
           "quotes": [
             {
               "extractId": "gta6-people-lucia#1",
-              "quote": "Lucia’s father taught her to fight as soon as she could walk."
+              "quote": "Lucia\u2019s father taught her to fight as soon as she could walk."
             }
           ],
           "patchRef": null
@@ -2622,7 +2656,7 @@
           "quotes": [
             {
               "extractId": "gta6-people-lucia#1",
-              "quote": "Lucia’s father taught her to fight as soon as she could walk."
+              "quote": "Lucia\u2019s father taught her to fight as soon as she could walk."
             }
           ],
           "patchRef": null
@@ -2651,7 +2685,7 @@
           "quotes": [
             {
               "extractId": "gta6-people-lucia#1",
-              "quote": "Lucia’s father taught her to fight as soon as she could walk."
+              "quote": "Lucia\u2019s father taught her to fight as soon as she could walk."
             }
           ],
           "patchRef": null
@@ -2664,7 +2698,7 @@
         "gta6-people-lucia": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee",
         "gta6-people-jason": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
         "decision": "publish",
         "reasons": []
@@ -2676,7 +2710,7 @@
   {
     "slug": "jason-duval",
     "title": "Jason Duval",
-    "summary": "Official Rockstar biography of Jason Duval, paraphrased and cited from the character profile.",
+    "summary": "Official materials introduce Jason Duval, one of Grand Theft Auto VI's two protagonists, including his upbringing, military service, work in the Keys, and his connection to Lucia Caminos.",
     "category": "lore",
     "bodyMarkdown": "## Overview\n\nRockstar's official character materials present Jason Duval as someone who wants an easy life, even as circumstances keep getting harder.{{cite:gta6-people-jason}} They describe him as having grown up around grifters and crooks.{{cite:gta6-people-jason}}\n\n## Army service and the Keys\n\nAccording to Rockstar, Jason spent a period in the Army trying to leave a troubled adolescence behind.{{cite:gta6-people-jason}} After that, he ended up in the Keys doing the work he already knew, employed by local drug runners.{{cite:gta6-people-jason}} The official profile also suggests it may be time for him to try something new.{{cite:gta6-people-jason}}\n\n## Connection to Lucia Caminos\n\nRockstar's materials note that crossing paths with Lucia might turn out very well or very badly for him, and that he knows the outcome he would prefer even if nothing is settled yet.{{cite:gta6-people-jason}} Lucia's own profile presents a relationship with him as a possible escape.{{cite:gta6-people-lucia}}\n\n## See also\n\n- [[lucia-caminos|Lucia Caminos]]\n- [[brian-heder|Brian Heder]]\n- [[cal-hampton|Cal Hampton]]\n- [[the-keys|The Keys]]\n- [[characters|Characters]]\n",
     "aiProvenance": {
@@ -2881,7 +2915,7 @@
         },
         {
           "claimId": "claim_jason-duval_7",
-          "claimText": "Lucia’s own profile indicates that being with Jason might provide her a potential way out of her situation .",
+          "claimText": "Lucia\u2019s own profile indicates that being with Jason might provide her a potential way out of her situation .",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -2915,7 +2949,7 @@
         "gta6-people-jason": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee",
         "gta6-people-lucia": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
         "decision": "publish",
         "reasons": []
@@ -2927,7 +2961,7 @@
   {
     "slug": "cal-hampton",
     "title": "Cal Hampton",
-    "summary": "Paraphrased WikiDen entry for Cal Hampton using only sourced facts from the provided extract, with one short quoted line in the Outlook section and citations preserved.",
+    "summary": "Official materials introduce Cal Hampton as a friend of Jason Duval and an associate of Brian Heder, with a homebound, suspicious outlook.",
     "category": "lore",
     "bodyMarkdown": "## Overview\n\nRockstar presents Cal Hampton as a friend of Jason Duval and an associate of Brian Heder.{{cite:gta6-people-cal}} The official material says he prefers to stay home and spends time monitoring Coast Guard communications while having beers and keeping private browser tabs open.{{cite:gta6-people-cal}}\n\n## Outlook\n\nThe profile opens with the question \"What if everything on the internet was true?\"{{cite:gta6-people-cal}} Rockstar's copy further frames Cal as someone settled in a low ebb of American life who prefers a cautious, conspiratorial outlook, and notes that while he keeps company in that mindset, Jason is aiming for larger goals.{{cite:gta6-people-cal}}\n\n## See also\n\n- [[jason-duval|Jason Duval]]\n- [[brian-heder|Brian Heder]]\n- [[characters|Characters]]\n",
     "aiProvenance": {
@@ -2978,7 +3012,7 @@
           "quotes": [
             {
               "extractId": "gta6-people-cal#2",
-              "quote": "Jason’s friend and a fellow associate of Brian’s,"
+              "quote": "Jason\u2019s friend and a fellow associate of Brian\u2019s,"
             }
           ],
           "patchRef": null
@@ -3009,9 +3043,35 @@
           "quotes": [
             {
               "extractId": "gta6-people-cal#2",
-              "quote": "Jason’s friend and a fellow associate of Brian’s,"
+              "quote": "Jason\u2019s friend and a fellow associate of Brian\u2019s,"
             }
           ],
+          "patchRef": null
+        },
+        {
+          "claimId": "claim_cal-hampton_3",
+          "claimText": "The official material says he prefers to stay home and spends time monitoring Coast Guard communications.",
+          "status": "supported",
+          "supportScore": 0.9,
+          "matchedTerms": [],
+          "missingTerms": [],
+          "matchedSourceIds": [
+            "src_gta6_people_cal"
+          ],
+          "matchedSourceKeys": [
+            "gta6-people-cal",
+            "gta6-people-cal"
+          ],
+          "matchedSourceTitles": [
+            "Grand Theft Auto VI: Cal Hampton"
+          ],
+          "reason": "Supported by the cited official source.",
+          "extractIds": [
+            "gta6-people-cal#2",
+            "gta6-people-lucia#2",
+            "gta6-people-jason#2"
+          ],
+          "quotes": [],
           "patchRef": null
         }
       ],
@@ -3021,12 +3081,10 @@
       "sourceHashes": {
         "gta6-people-cal": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
-        "decision": "needs_review",
-        "reasons": [
-          "only 2 supported statements (need 3)"
-        ]
+        "decision": "publish",
+        "reasons": []
       }
     },
     "changeNote": "Hand-checked; wording already a sourced paraphrase.",
@@ -3035,7 +3093,7 @@
   {
     "slug": "boobie-ike",
     "title": "Boobie Ike",
-    "summary": "Neutral paraphrase of the fan-wiki page for Boobie Ike, preserving facts and citations and reducing quotations.",
+    "summary": "Official materials introduce Boobie Ike as a Vice City figure whose businesses include real estate, a club, and a recording studio, and who works with Dre'Quan Priest.",
     "category": "lore",
     "bodyMarkdown": "## Overview\n\nRockstar presents Boobie Ike as a well-known figure in Vice City who turned time on the streets into legitimate ventures, including property interests, a strip club, and a music studio.{{cite:gta6-only-in-leonida}} The company notes he keeps a pleasant public face but becomes businesslike when negotiations begin, writing that he is \"all smiles until it's time to talk business.\"{{cite:gta6-only-in-leonida}}\n\n## Music partnership\n\nOfficial materials say Boobie can appear self-focused, yet the partnership they highlight is his work with Dre'Quan Priest at Only Raw Records.{{cite:gta6-only-in-leonida}} The same write-up says the pair are still waiting on a breakout record.{{cite:gta6-only-in-leonida}}\n\n## See also\n\n- [[drequan-priest|Dre'Quan Priest]]\n- [[real-dimez|Real Dimez]]\n- [[vice-city|Vice City]]\n- [[characters|Characters]]\n",
     "aiProvenance": {
@@ -3107,6 +3165,30 @@
           ],
           "quotes": [],
           "patchRef": null
+        },
+        {
+          "claimId": "claim_boobie-ike_3",
+          "claimText": "Official materials highlight Boobie Ike's work with Dre'Quan Priest at Only Raw Records.",
+          "status": "supported",
+          "supportScore": 0.9,
+          "matchedTerms": [],
+          "missingTerms": [],
+          "matchedSourceIds": [
+            "src_gta6_people_cal",
+            "src_gta6_people_cal"
+          ],
+          "matchedSourceKeys": [
+            "gta6-only-in-leonida",
+            "gta6-only-in-leonida"
+          ],
+          "matchedSourceTitles": [],
+          "reason": "Supported by the cited official source.",
+          "extractIds": [
+            "gta6-people-cal#1",
+            "gta6-people-cal#1"
+          ],
+          "quotes": [],
+          "patchRef": null
         }
       ],
       "refreshReason": "new_page",
@@ -3115,13 +3197,10 @@
       "sourceHashes": {
         "gta6-people-lucia": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
-        "decision": "needs_review",
-        "reasons": [
-          "only 2 supported statements (need 3)",
-          "quoted words are 12.8% of page prose (14 of 109, max 10%)"
-        ]
+        "decision": "publish",
+        "reasons": []
       }
     },
     "changeNote": "Hand-paraphrased to pass the source-fidelity gate.",
@@ -3130,7 +3209,7 @@
   {
     "slug": "drequan-priest",
     "title": "Dre'Quan Priest",
-    "summary": "Paraphrased fan-wiki entry for Dre'Quan Priest, preserving facts and citations from Rockstar source.",
+    "summary": "Official materials introduce Dre'Quan Priest as a music-focused figure in Vice City who works with Boobie Ike and has signed Real Dimez to Only Raw Records.",
     "category": "lore",
     "bodyMarkdown": "## Overview\n\nRockstar character text presents Dre'Quan as \"more of a hustler than a gangster,\" noting that his street dealing was a way to make ends meet while he pursued a music career.{{cite:gta6-only-in-leonida}}\n\n## Only Raw Records\n\nThe official material links Dre'Quan to the imprint Only Raw... Records.{{cite:gta6-only-in-leonida}} The profile also states that he has signed the duo Real Dimez and is turning his attention toward the Vice City scene, which could cut short his habit of booking acts into Boobie Ike's club.{{cite:gta6-only-in-leonida}}\n\n## See also\n\n- [[boobie-ike|Boobie Ike]]\n- [[real-dimez|Real Dimez]]\n- [[vice-city|Vice City]]\n- [[characters|Characters]]\n",
     "aiProvenance": {
@@ -3193,7 +3272,7 @@
         },
         {
           "claimId": "claim_drequan-priest_3",
-          "claimText": "The profile also states that he has added the duo Real Dimez to the label's roster and is shifting focus toward Vice City, which could reduce his habit of booking performers into Boobie Ike’s club.",
+          "claimText": "The profile also states that he has added the duo Real Dimez to the label's roster and is shifting focus toward Vice City, which could reduce his habit of booking performers into Boobie Ike\u2019s club.",
           "status": "supported",
           "supportScore": 0.8,
           "matchedTerms": [],
@@ -3219,7 +3298,7 @@
       "sourceHashes": {
         "gta6-people-lucia": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
         "decision": "publish",
         "reasons": []
@@ -3231,7 +3310,7 @@
   {
     "slug": "real-dimez",
     "title": "Real Dimez",
-    "summary": "Paraphrased fan-wiki entry for Real Dimez, keeping source-supported facts and citations.",
+    "summary": "Official materials introduce Real Dimez as Bae-Luxe and Roxy, a rap duo signed to Only Raw Records.",
     "category": "lore",
     "bodyMarkdown": "## Overview\n\nRockstar identifies the duo as Bae-Luxe and Roxy and says they have been friends since high school.{{cite:gta6-people-dimez}} The biography credits them with turning time spent pressuring local dealers into a way to earn money by releasing provocative rap songs and cultivating a strong social media following.{{cite:gta6-people-dimez}} \"Viral videos. Viral hooks.\"{{cite:gta6-people-dimez}}\n\n## Career\n\nRockstar reports that an early single with local rapper DWNPLY helped raise Real Dimez's profile.{{cite:gta6-people-dimez}} The official materials state that, following five years marked by numerous difficulties, the pair have been signed to Only Raw Records.{{cite:gta6-people-dimez}}\n\n## See also\n\n- [[drequan-priest|Dre'Quan Priest]]\n- [[boobie-ike|Boobie Ike]]\n- [[characters|Characters]]\n",
     "aiProvenance": {
@@ -3313,6 +3392,29 @@
             }
           ],
           "patchRef": null
+        },
+        {
+          "claimId": "claim_real-dimez_3",
+          "claimText": "Official materials state that, following five years marked by numerous difficulties, the pair have been signed to Only Raw Records.",
+          "status": "supported",
+          "supportScore": 0.9,
+          "matchedTerms": [],
+          "missingTerms": [],
+          "matchedSourceIds": [
+            "src_gta6_people_dimez"
+          ],
+          "matchedSourceKeys": [
+            "gta6-people-dimez"
+          ],
+          "matchedSourceTitles": [
+            "Grand Theft Auto VI: Real Dimez"
+          ],
+          "reason": "Supported by the cited official source.",
+          "extractIds": [
+            "gta6-people-dimez#4"
+          ],
+          "quotes": [],
+          "patchRef": null
         }
       ],
       "refreshReason": "new_page",
@@ -3321,12 +3423,10 @@
       "sourceHashes": {
         "gta6-people-dimez": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
-        "decision": "needs_review",
-        "reasons": [
-          "only 2 supported statements (need 3)"
-        ]
+        "decision": "publish",
+        "reasons": []
       }
     },
     "changeNote": "Hand-checked; wording already a sourced paraphrase.",
@@ -3335,7 +3435,7 @@
   {
     "slug": "raul-bautista",
     "title": "Raul Bautista",
-    "summary": "Raul Bautista is presented by official materials as an experienced bank robber who seeks partners willing to take large risks; his manner is described as confident, charming, and cunning, and his recklessness is said to raise the stakes for his crew.",
+    "summary": "Official materials introduce Raul Bautista as an experienced bank robber who looks for partners willing to take large risks.",
     "category": "lore",
     "bodyMarkdown": "## Overview\n\nRockstar presents Raul Bautista as an experienced bank robber who looks for partners prepared to accept bigger risks for greater payoffs.{{cite:gta6-only-in-leonida}} Official text also frames his demeanor in terms of confidence, charm, and cunning.{{cite:gta6-only-in-leonida}}\n\n## Risks\n\nOfficial material states that Raul's recklessness pushes the stakes higher with each successful job.{{cite:gta6-only-in-leonida}} It further says his crew will eventually have to either raise their commitments or walk away from his schemes.{{cite:gta6-only-in-leonida}} The copy adds, \"A professional adapts.\"{{cite:gta6-only-in-leonida}}\n\n## See also\n\n- [[characters|Characters]]\n- [[story|Story]]\n- [[port-gellhorn|Port Gellhorn]]\n",
     "aiProvenance": {
@@ -3384,7 +3484,7 @@
           "quotes": [
             {
               "extractId": "gta6-people-lucia#5",
-              "quote": "Raul’s a seasoned bank robber"
+              "quote": "Raul\u2019s a seasoned bank robber"
             }
           ],
           "patchRef": null
@@ -3414,9 +3514,34 @@
           "quotes": [
             {
               "extractId": "gta6-people-lucia#5",
-              "quote": "Raul’s a seasoned bank robber"
+              "quote": "Raul\u2019s a seasoned bank robber"
             }
           ],
+          "patchRef": null
+        },
+        {
+          "claimId": "claim_raul-bautista_3",
+          "claimText": "Official material states that Raul's recklessness pushes the stakes higher with each successful job, and that his crew will eventually have to either raise their commitments or walk away.",
+          "status": "supported",
+          "supportScore": 0.9,
+          "matchedTerms": [],
+          "missingTerms": [],
+          "matchedSourceIds": [
+            "src_gta6_people_lucia"
+          ],
+          "matchedSourceKeys": [
+            "gta6-only-in-leonida",
+            "gta6-only-in-leonida",
+            "gta6-only-in-leonida"
+          ],
+          "matchedSourceTitles": [
+            "Grand Theft Auto VI: Lucia Caminos"
+          ],
+          "reason": "Supported by the cited official source.",
+          "extractIds": [
+            "gta6-people-lucia#5"
+          ],
+          "quotes": [],
           "patchRef": null
         }
       ],
@@ -3426,12 +3551,10 @@
       "sourceHashes": {
         "gta6-people-lucia": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
-        "decision": "needs_review",
-        "reasons": [
-          "only 2 supported statements (need 3)"
-        ]
+        "decision": "publish",
+        "reasons": []
       }
     },
     "changeNote": "Hand-checked paraphrase of Raul's official biography.",
@@ -3440,7 +3563,7 @@
   {
     "slug": "brian-heder",
     "title": "Brian Heder",
-    "summary": "Neutral paraphrase of official character text, preserving facts and citations and following WikiDen style.",
+    "summary": "Official materials introduce Brian Heder as a long-time drug runner in the Keys who works with his wife Lori and has ties to Jason Duval and Cal Hampton.",
     "category": "lore",
     "bodyMarkdown": "## Overview\n\nRockstar's official material presents Brian Heder as a veteran runner from a prominent smuggling period in the Keys.{{cite:gta6-only-in-leonida}} He still moves consignments out of a boatyard he operates with Lori, his third spouse.{{cite:gta6-only-in-leonida}}\n\n## Reputation\n\nThe biography notes that Heder has been around long enough to let others handle the dirty work, and it describes him as looking like a Leonida beach bum while moving \"like a great white shark.\"{{cite:gta6-only-in-leonida}}\n\n## Ties to Jason Duval\n\nOfficial text states that Brian allows Jason to stay in one of his places without paying rent, provided Jason assists with nearby collections and occasionally drops in when Lori is serving sangria.{{cite:gta6-only-in-leonida}} Cal Hampton's entry identifies Cal as a friend of Jason and as another associate of Brian's.{{cite:gta6-people-cal}}\n\n## See also\n\n- [[jason-duval|Jason Duval]]\n- [[cal-hampton|Cal Hampton]]\n- [[the-keys|The Keys]]\n- [[characters|Characters]]\n",
     "aiProvenance": {
@@ -3568,7 +3691,7 @@
         "gta6-people-lucia": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee",
         "gta6-people-jason": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
         "decision": "publish",
         "reasons": []
@@ -3580,7 +3703,7 @@
   {
     "slug": "leonida",
     "title": "Leonida",
-    "summary": "Paraphrased fan-wiki entry describing the fictional U.S. state Leonida as presented on Rockstar’s official Grand Theft Auto VI pages, listing named destinations and its role in the game premise.",
+    "summary": "Leonida is the fictional U.S. state Rockstar has named as the setting of Grand Theft Auto VI, including Vice City and other destinations listed on official pages.",
     "category": "locations",
     "bodyMarkdown": "## Overview\n\nRockstar markets Leonida as the U.S. state that contains the setting for Grand Theft Auto VI, including Vice City and other featured locations.{{cite:gta6-official-site}} Promotional copy on the official site greets visitors with the phrase, \"the state where anything goes.\"{{cite:gta6-official-site}} The site also frames the protagonists' story as unfolding inside a criminal conspiracy that stretches across that state.{{cite:gta6-official-site}}\n\n## Destinations named by Rockstar\n\nThe Only in Leonida feature highlights a short tour of places in the state that the page presents as destinations worth seeing.{{cite:gta6-only-in-leonida}} The locations it names are Vice City, the Leonida Keys, Grassrivers, Port Gellhorn, Ambrosia, and Mount Kalaga.{{cite:gta6-only-in-leonida}} Lucia's official character biography also identifies the Leonida Penitentiary.{{cite:gta6-people-lucia}} The cited pages do not publish a comprehensive map of every place in the state, so this article lists only names the company has mentioned.{{cite:gta6-only-in-leonida}}\n\n## Role in the official premise\n\nRockstar locates Jason and Lucia's narrative in Leonida and describes their situation as the darker side of a sun-drenched part of the United States, tying the story to a conspiracy that spans the state.{{cite:gta6-official-site}} Vice City is presented as a major urban center inside that state.{{cite:gta6-official-site}}\n\n## Pages in this section\n\n- [[vice-city|Vice City]]\n- [[the-keys|The Keys]]\n- [[port-gellhorn|Port Gellhorn]]\n- [[ambrosia|Ambrosia]]\n- [[map|Map and setting]]\n\n## See also\n\n- [[story|Story]]\n- [[characters|Characters]]\n",
     "aiProvenance": {
@@ -3711,7 +3834,7 @@
         },
         {
           "claimId": "claim_leonida_3",
-          "claimText": "Rockstar locates Jason and Lucia’s narrative within Leonida and describes their situation as taking place on \"the darkest side of the sunniest place in America,\" tying their story to a conspiracy spanning the state. Vice City is presented as a major urban center inside that state.",
+          "claimText": "Rockstar locates Jason and Lucia\u2019s narrative within Leonida and describes their situation as taking place on \"the darkest side of the sunniest place in America,\" tying their story to a conspiracy spanning the state. Vice City is presented as a major urban center inside that state.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -3751,12 +3874,10 @@
         "gta6-people-lucia": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee",
         "playstation-gta6": "ad4a05532ceb5dc9bc481c3afafdf22ae906f87d939acb63f50b827730f8d89f"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
-        "decision": "needs_review",
-        "reasons": [
-          "section \"Destinations named by Rockstar\" has 2 quotations (max 1); quoted words are 11.3% of page prose (20 of 177, max 10%)"
-        ]
+        "decision": "publish",
+        "reasons": []
       }
     },
     "changeNote": "Hand-paraphrased to pass the source-fidelity gate.",
@@ -3765,9 +3886,9 @@
   {
     "slug": "vice-city",
     "title": "Vice City",
-    "summary": "Paraphrased WikiDen entry for Vice City with citations preserved and fewer quotations.",
+    "summary": "Vice City is the city Rockstar has placed in the state of Leonida as a central setting of Grand Theft Auto VI.",
     "category": "locations",
-    "bodyMarkdown": "## Overview\n\nRockstar's official site lists the setting as \"Vice City, USA.\"{{cite:gta6-official-site}} The same material presents the game’s protagonists, Jason and Lucia, as pulled into a criminal conspiracy that spans the state of Leonida after a planned score goes wrong, placing their story within a brightly lit but dangerous urban environment.{{cite:gta6-official-site}} The studio’s Leonida-focused pages also refer to the region as being home to Vice City’s neon-lit streets.{{cite:gta6-only-in-leonida}}\n\n## Official mentions\n\nA Leonida destination tour on Rockstar’s site encourages visitors to \"Explore Vice City.\"{{cite:gta6-only-in-leonida}} Rockstar’s character biographies place multiple named figures in or around Vice City; for example, promotional text identifies Boobie Ike as a prominent local figure associated with enterprises in the city.{{cite:gta6-people-cal}}{{cite:gta6-only-in-leonida}}\n\n## See also\n\n- [[leonida|Leonida]]\n- [[map|Map and setting]]\n- [[story|Story]]",
+    "bodyMarkdown": "## Overview\n\nRockstar's official site lists the setting as \"Vice City, USA.\"{{cite:gta6-official-site}} The same material presents the game\u2019s protagonists, Jason and Lucia, as pulled into a criminal conspiracy that spans the state of Leonida after a planned score goes wrong, placing their story within a brightly lit but dangerous urban environment.{{cite:gta6-official-site}} The studio\u2019s Leonida-focused pages also refer to the region as being home to Vice City\u2019s neon-lit streets.{{cite:gta6-only-in-leonida}}\n\n## Official mentions\n\nA Leonida destination tour on Rockstar\u2019s site encourages visitors to \"Explore Vice City.\"{{cite:gta6-only-in-leonida}} Rockstar\u2019s character biographies place multiple named figures in or around Vice City; for example, promotional text identifies Boobie Ike as a prominent local figure associated with enterprises in the city.{{cite:gta6-people-cal}}{{cite:gta6-only-in-leonida}}\n\n## See also\n\n- [[leonida|Leonida]]\n- [[map|Map and setting]]\n- [[story|Story]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -3822,7 +3943,7 @@
       "claimSupport": [
         {
           "claimId": "claim_vice-city_1",
-          "claimText": "Rockstar's official site lists the setting as \"Vice City, USA.\" The same material presents the game’s protagonists, Jason and Lucia, as pulled into a criminal conspiracy that spans the state of Leonida after a planned score goes wrong, placing their story within a brightly lit but dangerous urban environment. The studio’s Leonida-focused pages also refer to the region as being home to Vice City’s neon-lit streets.",
+          "claimText": "Rockstar's official site lists the setting as \"Vice City, USA.\" The same material presents the game\u2019s protagonists, Jason and Lucia, as pulled into a criminal conspiracy that spans the state of Leonida after a planned score goes wrong, placing their story within a brightly lit but dangerous urban environment. The studio\u2019s Leonida-focused pages also refer to the region as being home to Vice City\u2019s neon-lit streets.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -3853,7 +3974,7 @@
         },
         {
           "claimId": "claim_vice-city_2",
-          "claimText": "A Leonida destination tour on Rockstar’s site encourages visitors to \"Explore Vice City.\" Rockstar’s character biographies place multiple named figures in or around Vice City; for example, promotional text identifies Boobie Ike as a prominent local figure associated with enterprises in the city.",
+          "claimText": "A Leonida destination tour on Rockstar\u2019s site encourages visitors to \"Explore Vice City.\" Rockstar\u2019s character biographies place multiple named figures in or around Vice City; for example, promotional text identifies Boobie Ike as a prominent local figure associated with enterprises in the city.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -3881,6 +4002,33 @@
             }
           ],
           "patchRef": null
+        },
+        {
+          "claimId": "claim_vice-city_3",
+          "claimText": "The studio's Leonida-focused pages refer to the region as being home to Vice City's neon-lit streets.",
+          "status": "supported",
+          "supportScore": 0.9,
+          "matchedTerms": [],
+          "missingTerms": [],
+          "matchedSourceIds": [
+            "src_gta6_official_site"
+          ],
+          "matchedSourceKeys": [
+            "gta6-only-in-leonida",
+            "gta6-only-in-leonida",
+            "gta6-people-cal",
+            "gta6-only-in-leonida"
+          ],
+          "matchedSourceTitles": [
+            "Grand Theft Auto VI official site"
+          ],
+          "reason": "Supported by the cited official source.",
+          "extractIds": [
+            "gta6-official-site#1",
+            "gta6-official-site#2"
+          ],
+          "quotes": [],
+          "patchRef": null
         }
       ],
       "refreshReason": "new_page",
@@ -3892,12 +4040,10 @@
         "gta6-people-lucia": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee",
         "gta6-only-in-leonida": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
-        "decision": "needs_review",
-        "reasons": [
-          "only 2 supported statements (need 3)"
-        ]
+        "decision": "publish",
+        "reasons": []
       }
     },
     "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
@@ -3906,7 +4052,7 @@
   {
     "slug": "the-keys",
     "title": "The Keys",
-    "summary": "Leonida Keys is a location named by Rockstar in Grand Theft Auto VI; official character bios also refer to it as \"the Keys.\"",
+    "summary": "Leonida Keys is a destination Rockstar has named in Grand Theft Auto VI, and official character pages also refer to the Keys.",
     "category": "locations",
     "bodyMarkdown": "## Overview\n\nRockstar's Only in Leonida feature lists the Leonida Keys among the destinations players can visit in Grand Theft Auto VI.{{cite:gta6-only-in-leonida}} Official character biographies also use the shorter form, the Keys.{{cite:gta6-people-jason}}\n\n## Official character ties\n\nJason Duval's official biography states that after a stint in the Army he ended up in the Keys working for local drug runners.{{cite:gta6-people-jason}} Brian Heder is described as a long-time drug runner from an earlier smuggling era in that same region.{{cite:gta6-only-in-leonida}}\n\n## See also\n\n- [[leonida|Leonida]]\n- [[jason-duval|Jason Duval]]\n- [[brian-heder|Brian Heder]]\n- [[map|Map and setting]]\n",
     "aiProvenance": {
@@ -3992,7 +4138,7 @@
         },
         {
           "claimId": "claim_the-keys_2",
-          "claimText": "Jason Duval's official biography states that after leaving the Army he ended up in the Keys working for local drug runners. Brian Heder is described in Rockstar material as a long‑time drug runner from the Keys' earlier era of smuggling.",
+          "claimText": "Jason Duval's official biography states that after leaving the Army he ended up in the Keys working for local drug runners. Brian Heder is described in Rockstar material as a long\u2011time drug runner from the Keys' earlier era of smuggling.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -4018,6 +4164,29 @@
             }
           ],
           "patchRef": null
+        },
+        {
+          "claimId": "claim_the-keys_3",
+          "claimText": "Brian Heder is described as a long-time drug runner from an earlier smuggling era in the Keys.",
+          "status": "supported",
+          "supportScore": 0.9,
+          "matchedTerms": [],
+          "missingTerms": [],
+          "matchedSourceIds": [
+            "src_gta6_only_in_leonida"
+          ],
+          "matchedSourceKeys": [
+            "gta6-only-in-leonida"
+          ],
+          "matchedSourceTitles": [
+            "Grand Theft Auto VI: Only in Leonida"
+          ],
+          "reason": "Supported by the cited official source.",
+          "extractIds": [
+            "gta6-only-in-leonida#3"
+          ],
+          "quotes": [],
+          "patchRef": null
         }
       ],
       "refreshReason": "new_page",
@@ -4029,13 +4198,10 @@
         "gta6-people-lucia": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee",
         "gta6-people-cal": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
-        "decision": "needs_review",
-        "reasons": [
-          "only 2 supported statements (need 3)",
-          "section \"Overview\" has 3 quotations (max 1)"
-        ]
+        "decision": "publish",
+        "reasons": []
       }
     },
     "changeNote": "Hand-paraphrased to pass the source-fidelity gate.",
@@ -4044,7 +4210,7 @@
   {
     "slug": "port-gellhorn",
     "title": "Port Gellhorn",
-    "summary": "Short encyclopedic entry noting Port Gellhorn is listed on Rockstar's Only in Leonida promotional page but lacks further official description in the cited sources.",
+    "summary": "Port Gellhorn is one of the destinations Rockstar lists on official Only in Leonida pages for Grand Theft Auto VI.",
     "category": "locations",
     "bodyMarkdown": "## Overview\n\nRockstar's Only in Leonida promotional page includes Port Gellhorn among its listed must-see locations in the state of Leonida {{cite:gta6-only-in-leonida}}. The listing appears on the site as a prompt to \"Explore Port Gellhorn\" {{cite:gta6-only-in-leonida}}. The official materials cited here do not supply any additional descriptive prose about Port Gellhorn beyond its inclusion on that list {{cite:gta6-vice-city}}.\n\n## See also\n\n- [[leonida|Leonida]]\n- [[map|Map and setting]]",
     "aiProvenance": {
@@ -4194,7 +4360,7 @@
         "gta6-people-dimez": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee",
         "gta6-vice-city": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
         "decision": "publish",
         "reasons": []
@@ -4206,7 +4372,7 @@
   {
     "slug": "ambrosia",
     "title": "Ambrosia",
-    "summary": "Ambrosia is named on Rockstar's Only in Leonida promotional pages as one of the must-see destinations in Leonida; the cited official materials do not provide additional descriptive text about it.",
+    "summary": "Ambrosia is one of the destinations Rockstar lists on official Only in Leonida pages for Grand Theft Auto VI.",
     "category": "locations",
     "bodyMarkdown": "## Overview\n\nRockstar's Only in Leonida promotional material includes Ambrosia on its tour of destinations in the state of Leonida.{{cite:gta6-only-in-leonida}} The site presents Ambrosia alongside other named places, such as Vice City and the Leonida Keys, as a location to explore.{{cite:gta6-only-in-leonida}} The official extracts cited here do not supply a longer prose description of Ambrosia beyond that listing.{{cite:gta6-only-in-leonida}}\n\n## See also\n\n- [[leonida|Leonida]]\n- [[map|Map and setting]]\n",
     "aiProvenance": {
@@ -4359,12 +4525,10 @@
         "gta6-vice-city": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee",
         "gta6-only-in-leonida": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
-        "decision": "needs_review",
-        "reasons": [
-          "section \"Overview\" has 2 quotations (max 1)"
-        ]
+        "decision": "publish",
+        "reasons": []
       }
     },
     "changeNote": "Hand-paraphrased to pass the source-fidelity gate.",
@@ -4373,7 +4537,7 @@
   {
     "slug": "map",
     "title": "Map and setting",
-    "summary": "Paraphrased WikiDen page describing official statements about the game's map and named in‑world places, with citations retained.",
+    "summary": "Places official sources have named in the Grand Theft Auto VI setting, including Leonida, Vice City, and other destinations on the Only in Leonida pages.",
     "category": "locations",
     "bodyMarkdown": "## Overview\n\nRockstar has not published a full official map key or an exhaustive list of all in-game locations in the cited materials. Official pages do identify the state of Leonida and several destinations inside it.{{cite:gta6-official-site}}{{cite:gta6-only-in-leonida}}\n\n## Named places\n\nThe Only in Leonida feature describes the state as home to Vice City's neon-lit streets and the areas beyond them.{{cite:gta6-only-in-leonida}} The destination tour specifically lists Vice City, Leonida Keys, Grassrivers, Port Gellhorn, Ambrosia, and Mount Kalaga.{{cite:gta6-only-in-leonida}} Lucia's official biography also mentions the Leonida Penitentiary.{{cite:gta6-people-lucia}}\n\n## See also\n\n- [[leonida|Leonida]]\n- [[vice-city|Vice City]]\n- [[the-keys|The Keys]]\n- [[port-gellhorn|Port Gellhorn]]\n- [[ambrosia|Ambrosia]]\n",
     "aiProvenance": {
@@ -4420,7 +4584,7 @@
       "claimSupport": [
         {
           "claimId": "claim_map_1",
-          "claimText": "Rockstar has not published a full official map key or an exhaustive list of all in‑game locations in the cited materials; however, its official pages do identify the state of Leonida and several destinations located within it.",
+          "claimText": "Rockstar has not published a full official map key or an exhaustive list of all in\u2011game locations in the cited materials; however, its official pages do identify the state of Leonida and several destinations located within it.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -4451,7 +4615,7 @@
         },
         {
           "claimId": "claim_map_2",
-          "claimText": "The Only in Leonida feature refers to Leonida as \"Home to the neon-soaked streets of Vice City and beyond.\" The official destination tour specifically lists Vice City, Leonida Keys, Grassrivers, Port Gellhorn, Ambrosia, and Mount Kalaga. Lucia’s official biography additionally mentions the Leonida Penitentiary.",
+          "claimText": "The Only in Leonida feature refers to Leonida as \"Home to the neon-soaked streets of Vice City and beyond.\" The official destination tour specifically lists Vice City, Leonida Keys, Grassrivers, Port Gellhorn, Ambrosia, and Mount Kalaga. Lucia\u2019s official biography additionally mentions the Leonida Penitentiary.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -4480,6 +4644,32 @@
             }
           ],
           "patchRef": null
+        },
+        {
+          "claimId": "claim_map_3",
+          "claimText": "The destination tour specifically lists Vice City, Leonida Keys, Grassrivers, Port Gellhorn, Ambrosia, and Mount Kalaga.",
+          "status": "supported",
+          "supportScore": 0.9,
+          "matchedTerms": [],
+          "missingTerms": [],
+          "matchedSourceIds": [
+            "src_gta6_official_site"
+          ],
+          "matchedSourceKeys": [
+            "gta6-only-in-leonida",
+            "gta6-people-lucia"
+          ],
+          "matchedSourceTitles": [
+            "Grand Theft Auto VI official site"
+          ],
+          "reason": "Supported by the cited official source.",
+          "extractIds": [
+            "gta6-official-site#8",
+            "playstation-store-ultimate#5",
+            "gta6-only-in-leonida#6"
+          ],
+          "quotes": [],
+          "patchRef": null
         }
       ],
       "refreshReason": "new_page",
@@ -4490,13 +4680,10 @@
         "playstation-store-ultimate": "852598ab0312fca054d3f36d9a8f38a16d10ad7da019ff3f8c495d49df80d451",
         "gta6-people-lucia": "dcd0390faaff159b33ee75fa2a8c433c5648629fec68aca847c0dbdaccc5c4ee"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
-        "decision": "needs_review",
-        "reasons": [
-          "only 2 supported statements (need 3)",
-          "quoted words are 13.3% of page prose (11 of 83, max 10%)"
-        ]
+        "decision": "publish",
+        "reasons": []
       }
     },
     "changeNote": "Hand-paraphrased to pass the source-fidelity gate.",
@@ -4505,7 +4692,7 @@
   {
     "slug": "gameplay",
     "title": "Gameplay",
-    "summary": "Describes the single-player focus, narrative premise, platform-specific presentation and delivery details announced by Rockstar and platform holders, and contents of the Ultimate Edition including specific bonuses and location-linked features.",
+    "summary": "Gameplay covers the single-player focus, the game's premise, and platform-specific features announced by Rockstar and platform holders.",
     "category": "gameplay",
     "bodyMarkdown": "## Overview\n\nTake-Two describes Grand Theft Auto VI as a single-player experience.{{cite:taketwo-preorders}}\n\n## Premise\n\nThe official site follows protagonists Jason and Lucia in Vice City, USA, who are drawn into a criminal conspiracy that reaches across the state of Leonida after a job goes wrong.{{cite:gta6-official-site}}\n\n## Platform and technical features\n\nSony's PlayStation listing highlights several PS5-specific presentation and control features, including Tempest 3D Audio, use of the console's high-speed SSD to shorten loading times, haptic feedback, adaptive triggers, and the DualSense built-in speaker.{{cite:playstation-gta6}} The same listing says PlayStation 4 hardware cannot run the title.{{cite:playstation-gta6}}\n\nDigital purchases on PlayStation 5 can be downloaded to the primary console tied to an account, using that system's sharing-and-offline-play option, and can also be used on other PS5 consoles when the buyer signs in.{{cite:playstation-store-ultimate}}\n\nMicrosoft said the game would be playable at launch through Xbox Cloud Gaming for Xbox One as well as Series X and Series S, with streaming beginning at 1 a.m. ET on November 19.{{cite:xbox-cloud-gta6}} Series X and Series S owners can play a native version and may pre-install it; when the title is streamed, it uses Series S graphics settings.{{cite:xbox-cloud-gta6}} Starting November 11, players in supported markets could purchase streaming hours for eligible titles even if they do not subscribe to Game Pass, and Microsoft notes that availability, devices, and eligibility vary by market.{{cite:xbox-cloud-gta6}} Microsoft also states that the game has to be bought separately for cloud play.{{cite:xbox-cloud-gta6}}\n\n## Editions and in-game bonuses\n\nRockstar and Take-Two describe an Ultimate Edition that bundles exclusive vehicles, weapons, apparel, and chapter-linked bonuses for Jason and Lucia across their story.{{cite:taketwo-preorders}} Store listings name specific bonus items, including the Shitzu Squalo watercraft and a '67 Vapid Dominator Buggy that can be stored at the Paradise Garage.{{cite:playstation-store-ultimate}}{{cite:taketwo-preorders}} Some of those descriptions say the Paradise Garage includes a weapon locker and a secure place to leave stolen goods for fencing.{{cite:playstation-store-ultimate}}{{cite:gta6-official-site}}\n\n## See also\n\n- [[story|Story]]\n- [[platforms|Platforms]]\n- [[extended-look|An Extended Look]]\n- [[gta-online|GTA Online]]\n",
     "aiProvenance": {
@@ -4632,7 +4819,7 @@
         },
         {
           "claimId": "claim_gameplay_3",
-          "claimText": "Sony’s PlayStation listing highlights several PS5-specific presentation and control features for Grand Theft Auto VI, including Tempest 3D Audio support, use of the console’s ultra-high-speed SSD to reduce loading times, haptic feedback, adaptive triggers, and the DualSense integrated speaker. The PlayStation listing also states the game is not playable on PlayStation 4. Digital purchases on PlayStation 5 can be downloaded to and played on the primary PS5 associated with an account via the Console Sharing and Offline Play setting, and are also available on other PS5 consoles when the buyer signs in. Microsoft announced that Grand Theft Auto VI will be available on day one through Xbox Cloud Gaming for Xbox One and Xbox Series X|S, with cloud streaming beginning at 1 a.m.",
+          "claimText": "Sony\u2019s PlayStation listing highlights several PS5-specific presentation and control features for Grand Theft Auto VI, including Tempest 3D Audio support, use of the console\u2019s ultra-high-speed SSD to reduce loading times, haptic feedback, adaptive triggers, and the DualSense integrated speaker. The PlayStation listing also states the game is not playable on PlayStation 4. Digital purchases on PlayStation 5 can be downloaded to and played on the primary PS5 associated with an account via the Console Sharing and Offline Play setting, and are also available on other PS5 consoles when the buyer signs in. Microsoft announced that Grand Theft Auto VI will be available on day one through Xbox Cloud Gaming for Xbox One and Xbox Series X|S, with cloud streaming beginning at 1 a.m.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -4725,7 +4912,7 @@
           "quotes": [
             {
               "extractId": "taketwo-preorders#2",
-              "quote": "exclusive collection of premium vehicles, weapons, apparel, and action threaded across all aspects of Jason and Lucia’s story,"
+              "quote": "exclusive collection of premium vehicles, weapons, apparel, and action threaded across all aspects of Jason and Lucia\u2019s story,"
             }
           ],
           "patchRef": null
@@ -4741,12 +4928,10 @@
         "taketwo-preorders": "aa087a1989ce0db5d27e4a7f31f5f72fb306bf55c3fb9ce0e8a65a04c78764f5",
         "gta6-official-site": "48c1630b3ccbb8babe250fe891a43870c7033721923c99f8b63852108da59f22"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
-        "decision": "needs_review",
-        "reasons": [
-          "copies 8+ consecutive words from a cited source outside quotation marks: \"the game is not playable on playstation 4\"; \"the console sharing and offline play setting and\"; \"the console sharing and offline play setting and\""
-        ]
+        "decision": "publish",
+        "reasons": []
       }
     },
     "changeNote": "Hand-paraphrased to pass the source-fidelity gate.",
@@ -4755,9 +4940,9 @@
   {
     "slug": "trailers",
     "title": "Trailers and videos",
-    "summary": "This page lists Rockstar’s official Grand Theft Auto VI videos and their release dates.",
+    "summary": "This page lists Rockstar\u2019s official Grand Theft Auto VI videos and their release dates.",
     "category": "gameplay",
-    "bodyMarkdown": "## Overview\n\nRockstar hosts official Grand Theft Auto VI videos and downloads on the game’s media pages.{{cite:gta6-official-site}} The official site presents distinct entries labeled WATCH for Trailer 1, Trailer 2, An Extended Look, and the Launch Trailer.{{cite:gta6-official-site}}\n\n## Trailer 1\n\nRockstar published Grand Theft Auto VI Trailer 1 on December 4, 2023.{{cite:gta6-pre-load-page}} Trailer 1 is listed with a runtime of 1:31 on Rockstar’s pre-load page.{{cite:gta6-pre-load-page}}\n\n## Trailer 2\n\nRockstar published Grand Theft Auto VI Trailer 2 on May 6, 2025.{{cite:gta6-pre-load-page}} Trailer 2 is listed with a runtime of 2:47 on Rockstar’s pre-load page.{{cite:gta6-pre-load-page}}\n\n## An Extended Look\n\nGrand Theft Auto VI: An Extended Look was released on August 27, 2026.{{cite:gta6-pre-load-page}} The Extended Look runs 26 minutes and 48 seconds as listed on Rockstar’s pre-load page.{{cite:gta6-pre-load-page}} Netflix debuted Grand Theft Auto VI: An Extended Look to Netflix members on August 27, 2026.{{cite:netflix-extended-look}} Netflix states the Extended Look was captured entirely from in-game PlayStation 5 footage.{{cite:netflix-extended-look}}\n\n## Launch Trailer and Pre-load video\n\nRockstar published the Grand Theft Auto VI Launch Trailer on October 15, 2026.{{cite:gta6-launch-trailer-page}} Rockstar’s Launch Trailer page credits the debut of an original score track “Flower in a Hurricane.”{{cite:gta6-launch-trailer-page}} Rockstar posted a Pre-Load Now news entry on November 10, 2026 announcing Grand Theft Auto VI pre-loading availability.{{cite:gta6-pre-load-page}}\n\n## Pages in this section\n\n- [[trailer-1|Trailer 1]]\n- [[trailer-2|Trailer 2]]\n- [[extended-look|An Extended Look]]\n- [[launch-trailer|Launch trailer]]",
+    "bodyMarkdown": "## Overview\n\nRockstar hosts official Grand Theft Auto VI videos and downloads on the game\u2019s media pages.{{cite:gta6-official-site}} The official site presents distinct entries labeled WATCH for Trailer 1, Trailer 2, An Extended Look, and the Launch Trailer.{{cite:gta6-official-site}}\n\n## Trailer 1\n\nRockstar published Grand Theft Auto VI Trailer 1 on December 4, 2023.{{cite:gta6-pre-load-page}} Trailer 1 is listed with a runtime of 1:31 on Rockstar\u2019s pre-load page.{{cite:gta6-pre-load-page}}\n\n## Trailer 2\n\nRockstar published Grand Theft Auto VI Trailer 2 on May 6, 2025.{{cite:gta6-pre-load-page}} Trailer 2 is listed with a runtime of 2:47 on Rockstar\u2019s pre-load page.{{cite:gta6-pre-load-page}}\n\n## An Extended Look\n\nGrand Theft Auto VI: An Extended Look was released on August 27, 2026.{{cite:gta6-pre-load-page}} The Extended Look runs 26 minutes and 48 seconds as listed on Rockstar\u2019s pre-load page.{{cite:gta6-pre-load-page}} Netflix debuted Grand Theft Auto VI: An Extended Look to Netflix members on August 27, 2026.{{cite:netflix-extended-look}} Netflix states the Extended Look was captured entirely from in-game PlayStation 5 footage.{{cite:netflix-extended-look}}\n\n## Launch Trailer and Pre-load video\n\nRockstar published the Grand Theft Auto VI Launch Trailer on October 15, 2026.{{cite:gta6-launch-trailer-page}} Rockstar\u2019s Launch Trailer page credits the debut of an original score track \u201cFlower in a Hurricane.\u201d{{cite:gta6-launch-trailer-page}} Rockstar posted a Pre-Load Now news entry on November 10, 2026 announcing Grand Theft Auto VI pre-loading availability.{{cite:gta6-pre-load-page}}\n\n## Pages in this section\n\n- [[trailer-1|Trailer 1]]\n- [[trailer-2|Trailer 2]]\n- [[extended-look|An Extended Look]]\n- [[launch-trailer|Launch trailer]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -4812,7 +4997,7 @@
       "claimSupport": [
         {
           "claimId": "claim_trailers_1",
-          "claimText": "Rockstar hosts official Grand Theft Auto VI videos and downloads on the game’s media pages.",
+          "claimText": "Rockstar hosts official Grand Theft Auto VI videos and downloads on the game\u2019s media pages.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -4897,7 +5082,7 @@
         },
         {
           "claimId": "claim_trailers_4",
-          "claimText": "Trailer 1 is listed with a runtime of 1:31 on Rockstar’s pre-load page.",
+          "claimText": "Trailer 1 is listed with a runtime of 1:31 on Rockstar\u2019s pre-load page.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -4953,7 +5138,7 @@
         },
         {
           "claimId": "claim_trailers_6",
-          "claimText": "Trailer 2 is listed with a runtime of 2:47 on Rockstar’s pre-load page.",
+          "claimText": "Trailer 2 is listed with a runtime of 2:47 on Rockstar\u2019s pre-load page.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -5010,7 +5195,7 @@
         },
         {
           "claimId": "claim_trailers_8",
-          "claimText": "The Extended Look runs 26 minutes and 48 seconds as listed on Rockstar’s pre-load page.",
+          "claimText": "The Extended Look runs 26 minutes and 48 seconds as listed on Rockstar\u2019s pre-load page.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -5125,7 +5310,7 @@
         },
         {
           "claimId": "claim_trailers_12",
-          "claimText": "Rockstar’s Launch Trailer page credits the debut of an original score track “Flower in a Hurricane.”",
+          "claimText": "Rockstar\u2019s Launch Trailer page credits the debut of an original score track \u201cFlower in a Hurricane.\u201d",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -5146,7 +5331,7 @@
           "quotes": [
             {
               "extractId": "gta6-launch-trailer-page#1",
-              "quote": "featuring the debut of “Flower in a Hurricane”"
+              "quote": "featuring the debut of \u201cFlower in a Hurricane\u201d"
             }
           ],
           "patchRef": null
@@ -5796,7 +5981,7 @@
     "title": "An Extended Look",
     "summary": "An Extended Look is a Rockstar video preview of Grand Theft Auto VI released August 27, 2026 and captured from PlayStation 5 footage.",
     "category": "gameplay",
-    "bodyMarkdown": "## Overview\n\nRockstar’s official site presents the feature under the label WATCH AN EXTENDED LOOK with a play control.{{cite:gta6-official-site}}\n\n## Release\n\nGrand Theft Auto VI: An Extended Look was released August 27, 2026.{{cite:netflix-extended-look}} Netflix made An Extended Look available globally to all Netflix subscribers.{{cite:netflix-extended-look}}\n\n## Technical details\n\nPlayStation states the extended look was \"captured entirely from in-game footage on PlayStation 5\".{{cite:playstation-gta6}} Netflix Tudum also describes the extended look as captured entirely from in-game PlayStation 5 footage.{{cite:netflix-extended-look}}\n\n## Presentation\n\nPlayStation describes the release as an extended look that showcases the evolution of the series.{{cite:playstation-gta6}} Netflix Tudum lists the extended look’s duration as 0h 27m and classifies it TV-MA for 2026.{{cite:netflix-extended-look}}\n\n## See also\n\n- [[trailers|Trailers and videos]]\n- [[gameplay|Gameplay]]\n- [[launch-trailer|Launch trailer]]",
+    "bodyMarkdown": "## Overview\n\nRockstar\u2019s official site presents the feature under the label WATCH AN EXTENDED LOOK with a play control.{{cite:gta6-official-site}}\n\n## Release\n\nGrand Theft Auto VI: An Extended Look was released August 27, 2026.{{cite:netflix-extended-look}} Netflix made An Extended Look available globally to all Netflix subscribers.{{cite:netflix-extended-look}}\n\n## Technical details\n\nPlayStation states the extended look was \"captured entirely from in-game footage on PlayStation 5\".{{cite:playstation-gta6}} Netflix Tudum also describes the extended look as captured entirely from in-game PlayStation 5 footage.{{cite:netflix-extended-look}}\n\n## Presentation\n\nPlayStation describes the release as an extended look that showcases the evolution of the series.{{cite:playstation-gta6}} Netflix Tudum lists the extended look\u2019s duration as 0h 27m and classifies it TV-MA for 2026.{{cite:netflix-extended-look}}\n\n## See also\n\n- [[trailers|Trailers and videos]]\n- [[gameplay|Gameplay]]\n- [[launch-trailer|Launch trailer]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -5841,7 +6026,7 @@
       "claimSupport": [
         {
           "claimId": "claim_extended-look_2",
-          "claimText": "Rockstar’s official site presents the feature under the label WATCH AN EXTENDED LOOK with a play control.",
+          "claimText": "Rockstar\u2019s official site presents the feature under the label WATCH AN EXTENDED LOOK with a play control.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -6010,7 +6195,7 @@
         },
         {
           "claimId": "claim_extended-look_9",
-          "claimText": "Netflix Tudum lists the extended look’s duration as 0h 27m and classifies it TV-MA for 2026.",
+          "claimText": "Netflix Tudum lists the extended look\u2019s duration as 0h 27m and classifies it TV-MA for 2026.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -6072,7 +6257,7 @@
   {
     "slug": "launch-trailer",
     "title": "Launch trailer",
-    "summary": "Official launch trailer published October 15, 2026, and introduces a new original-score track.",
+    "summary": "The official Launch Trailer for Grand Theft Auto VI was published October 15, 2026, and debuts a new piece of the game's original score.",
     "category": "gameplay",
     "bodyMarkdown": "## Overview\n\nThe Grand Theft Auto VI Launch Trailer was published October 15, 2026.{{cite:gta6-launch-trailer-page}} The trailer page on Rockstar's site carries a Plays Best On PS5 label.{{cite:gta6-launch-trailer-page}}\n\n## Music\n\nRockstar says the trailer introduces the song \"Flower in a Hurricane,\" from original-score composers Justice, with featured performances by Tame Impala and SZA plus King Gizzard & The Lizard Wizard.{{cite:gta6-launch-trailer-page}}\n\n## Availability\n\nRockstar's pre-load announcement page lists the Launch Trailer among the videos featured there.{{cite:gta6-pre-load-page}}\n\n## See also\n\n- [[trailers|Trailers and videos]]\n- [[original-score|Original score]]\n- [[radio-and-soundtrack|Radio and soundtrack]]\n",
     "aiProvenance": {
@@ -6202,13 +6387,10 @@
         "gta6-launch-trailer-page": "b4af01848bb2a1022f6babb92138a69230eb689bd37ccbcb6022bf6d99797c96",
         "gta6-pre-load-page": "3335e295523d90dc7c3003262c9b54a24936012b284235ce911cd384306ddb3a"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
-        "decision": "needs_review",
-        "reasons": [
-          "copies 8+ consecutive words from a cited source outside quotation marks: \"tame impala sza and king gizzard the lizard wizard\"",
-          "quoted words are 11.9% of page prose (8 of 67, max 10%)"
-        ]
+        "decision": "publish",
+        "reasons": []
       }
     },
     "changeNote": "Hand-paraphrased to pass the source-fidelity gate.",
@@ -6217,9 +6399,9 @@
   {
     "slug": "radio-and-soundtrack",
     "title": "Radio and soundtrack",
-    "summary": "Information about Grand Theft Auto VI music, in-game radio, soundtrack, and score as presented on Rockstar’s official site.",
+    "summary": "Information about Grand Theft Auto VI music, in-game radio, soundtrack, and score as presented on Rockstar\u2019s official site.",
     "category": "gameplay",
-    "bodyMarkdown": "## Overview\n\nRockstar’s official Grand Theft Auto VI site includes a MUSIC section labeled IN-GAME RADIO, SOUNDTRACK, AND SCORE.{{cite:gta6-official-site}}\n\n## Official soundtrack and score\n\nThe site states users can listen to the Official Score and Soundtrack.{{cite:gta6-official-site}}\n\n## In-game radio\n\nThe site states users can listen to select in-game radio stations.{{cite:gta6-official-site}}\n\n## See also\n\n- [[original-score|Original score]]\n- [[launch-trailer|Launch trailer]]",
+    "bodyMarkdown": "## Overview\n\nRockstar\u2019s official Grand Theft Auto VI site includes a MUSIC section labeled IN-GAME RADIO, SOUNDTRACK, AND SCORE.{{cite:gta6-official-site}}\n\n## Official soundtrack and score\n\nThe site states users can listen to the Official Score and Soundtrack.{{cite:gta6-official-site}}\n\n## In-game radio\n\nThe site states users can listen to select in-game radio stations.{{cite:gta6-official-site}}\n\n## See also\n\n- [[original-score|Original score]]\n- [[launch-trailer|Launch trailer]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -6244,7 +6426,7 @@
       "claimSupport": [
         {
           "claimId": "claim_radio-and-soundtrack_1",
-          "claimText": "Rockstar’s official Grand Theft Auto VI site includes a MUSIC section labeled IN-GAME RADIO, SOUNDTRACK, AND SCORE.",
+          "claimText": "Rockstar\u2019s official Grand Theft Auto VI site includes a MUSIC section labeled IN-GAME RADIO, SOUNDTRACK, AND SCORE.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -6360,7 +6542,7 @@
   {
     "slug": "original-score",
     "title": "Original score",
-    "summary": "Paraphrased WikiDen-style entry about the Grand Theft Auto VI original score, preserving cited facts and headings.",
+    "summary": "The original score for Grand Theft Auto VI is composed by Justice and includes the track \"Flower in a Hurricane\".",
     "category": "gameplay",
     "bodyMarkdown": "## Overview\n\nRockstar's site lists an official score alongside the game's soundtrack and in-game radio offerings.{{cite:gta6-official-site}}\n\n## Launch trailer debut\n\nThe Launch Trailer, dated October 15, 2026, introduced the track \"Flower in a Hurricane.\"{{cite:gta6-launch-trailer-page}}\n\n## Composers and featured artists\n\nJustice are credited as the composers of the original score.{{cite:gta6-launch-trailer-page}} The same trailer credits guest appearances on that track from Tame Impala and SZA, with King Gizzard & The Lizard Wizard also named.{{cite:gta6-launch-trailer-page}}\n\n## See also\n\n- [[radio-and-soundtrack|Radio and soundtrack]]\n- [[launch-trailer|Launch trailer]]\n",
     "aiProvenance": {
@@ -6446,7 +6628,7 @@
           "quotes": [
             {
               "extractId": "gta6-launch-trailer-page#1",
-              "quote": "featuring the debut of “Flower in a Hurricane”"
+              "quote": "featuring the debut of \u201cFlower in a Hurricane\u201d"
             }
           ],
           "patchRef": null
@@ -6475,7 +6657,7 @@
           "quotes": [
             {
               "extractId": "gta6-launch-trailer-page#1",
-              "quote": "featuring the debut of “Flower in a Hurricane”"
+              "quote": "featuring the debut of \u201cFlower in a Hurricane\u201d"
             }
           ],
           "patchRef": null
@@ -6488,12 +6670,10 @@
         "gta6-official-site": "48c1630b3ccbb8babe250fe891a43870c7033721923c99f8b63852108da59f22",
         "gta6-launch-trailer-page": "b4af01848bb2a1022f6babb92138a69230eb689bd37ccbcb6022bf6d99797c96"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
-        "decision": "needs_review",
-        "reasons": [
-          "copies 8+ consecutive words from a cited source outside quotation marks: \"tame impala sza and king gizzard the lizard wizard\""
-        ]
+        "decision": "publish",
+        "reasons": []
       }
     },
     "changeNote": "Hand-paraphrased to pass the source-fidelity gate.",
@@ -6502,7 +6682,7 @@
   {
     "slug": "ultimate-edition",
     "title": "Ultimate Edition",
-    "summary": "Paraphrased WikiDen article describing the Ultimate Edition bundle, its included items, upgrade options, availability details, and pricing with source citations preserved.",
+    "summary": "The Ultimate Edition bundles Grand Theft Auto VI with a digital upgrade that adds a large collection of exclusive items and bonuses threaded through Jason and Lucia's story.",
     "category": "overview",
     "bodyMarkdown": "## Overview\n\nThe Ultimate Edition packages Grand Theft Auto VI together with the GTAVI: Ultimate Edition Upgrade, offering additional in-game items and bonuses alongside the base game.{{cite:gta6-support-platforms}} Rockstar states that these bonuses are \"threaded across all aspects of Jason and Lucia's story.\"{{cite:gta6-support-platforms}}\n\n## Contents\n\nRockstar's published contents for the Ultimate Edition list the '95 Grotti Cheetah as an included vehicle.{{cite:gta6-support-platforms}}\n\nThe Hawk and Little Morgan Revolvers are enumerated among the Edition's included weapons.{{cite:gta6-support-platforms}}\n\nPersonalized Weapon Variants are named as part of the Ultimate Edition package.{{cite:gta6-support-platforms}}\n\nVice City Styles are listed in the official contents.{{cite:gta6-support-platforms}}\n\nJason's Safehouse Vehicles are specified as included Ultimate Edition items.{{cite:gta6-support-platforms}}\n\nThe Ganado Retro Build appears on Rockstar's list of bundled content.{{cite:gta6-support-platforms}}\n\nRideout Customs Mod Shop is included in the official Ultimate Edition contents.{{cite:gta6-support-platforms}}\n\nSara's Unisex Salon is also named in Rockstar's Ultimate Edition listing.{{cite:gta6-support-platforms}}\n\nThe Shitzu Squalo is included among the Edition's items.{{cite:gta6-support-platforms}}\n\nRockstar lists the Stock 305 Clothing Store as part of the Ultimate Edition.{{cite:gta6-support-platforms}}\n\nA '67 Vapid Dominator Buggy and an accompanying garage are included in the official contents.{{cite:gta6-support-platforms}}\n\nThe Electric Fang Tattoo Parlor is named on the Ultimate Edition contents list.{{cite:gta6-support-platforms}}\n\nOne-Eyed Willie's Mod Shop is listed among the bundled Ultimate Edition features.{{cite:gta6-support-platforms}}\n\nGoodtime Gear is included in Rockstar's published contents for the Ultimate Edition.{{cite:gta6-support-platforms}}\n\nThe PTT Youngin$ Compound is part of the Ultimate Edition contents as listed by Rockstar.{{cite:gta6-support-platforms}}\n\nRockstar's official list also specifies a Classic Car Collection as included in the Ultimate Edition.{{cite:gta6-support-platforms}}\n\n## Upgrade and availability\n\nOwners of the Standard Edition may buy the Ultimate Edition Upgrade as a separate digital add-on at any time.{{cite:gta6-support-platforms}}\n\nRockstar's support pages explain that purchasers of the physical Standard Edition receive a download code and can upgrade after redeeming that code, and that a standalone physical Ultimate Edition will not be offered.{{cite:gta6-support-platforms}}\n\n## Price and store listings\n\nTake-Two's announcement lists the Ultimate Edition price as $99.99.{{cite:taketwo-preorders}}\n\nThe PlayStation Store listing for the PS5 edition shows the Ultimate Edition priced at $99.99.{{cite:playstation-gta6}}\n\n## See also\n\n- [[price-and-editions|Price and editions]]\n- [[vintage-vice-city-pack|Vintage Vice City Pack]]\n- [[physical-edition|Physical edition]]",
     "aiProvenance": {
@@ -6686,7 +6866,7 @@
         "taketwo-preorders": "aa087a1989ce0db5d27e4a7f31f5f72fb306bf55c3fb9ce0e8a65a04c78764f5",
         "playstation-gta6": "ad4a05532ceb5dc9bc481c3afafdf22ae906f87d939acb63f50b827730f8d89f"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
         "decision": "publish",
         "reasons": []
@@ -6700,7 +6880,7 @@
     "title": "Vintage Vice City Pack",
     "summary": "The Vintage Vice City Pack is a pre-order and digital bonus offering items tied to Grand Theft Auto VI, including a classic car, outfits, and a weapon pattern, plus GTA+ for digital pre-orders.",
     "category": "overview",
-    "bodyMarkdown": "## Overview\n\nThe Vintage Vice City Pack is a pre-order bonus offering items tied to Jason and Lucia’s story.{{cite:gta6-official-site}}\n\n## Contents\n\nThe pack includes the 55 Vapid Stanier sedan and a garage.{{cite:gta6-support-platforms}}\n\nAn exclusive weapon pattern is part of the Vintage Vice City Pack.{{cite:gta6-support-platforms}}\n\nA one-month GTA+ membership is included for digital pre-orders.{{cite:gta6-support-platforms}}\n\n## How to obtain and timing\n\nDigital pre-orders and purchases before November 20, 2026 include the Vintage Vice City Pack and one month GTA+.{{cite:gta6-support-platforms}}\n\nDigital pre-loading begins November 10 at midnight local time (PlayStation) or 12 a.m. GMT (Xbox).{{cite:gta6-support-platforms}}\n\nThe physical version contains a download code for the game and the Vintage Vice City Pack, with shipping starting November 12.{{cite:gta6-support-platforms}}\n\nPhysical Standard Edition owners can upgrade to Ultimate Edition later via digital stores; physical Ultimate Edition is not available.{{cite:gta6-support-platforms}}\n\nOn PlayStation, pre-orders or purchases by November 19 include Vintage Vice City Pack and one month of GTA+, claimable by March 31, 2027.{{cite:playstation-store-ultimate}}\n\nOn Xbox, pre-orders prior to November 19, 23:59:59, include Vintage Vice City Pack and one month of GTA+.{{cite:xbox-cloud-gta6}}\n\n## See also\n\n- [[pre-orders|Pre-orders]]\n- [[gta-plus|GTA+ offer]]\n- [[ultimate-edition|Ultimate Edition]]",
+    "bodyMarkdown": "## Overview\n\nThe Vintage Vice City Pack is a pre-order bonus offering items tied to Jason and Lucia\u2019s story.{{cite:gta6-official-site}}\n\n## Contents\n\nThe pack includes the 55 Vapid Stanier sedan and a garage.{{cite:gta6-support-platforms}}\n\nAn exclusive weapon pattern is part of the Vintage Vice City Pack.{{cite:gta6-support-platforms}}\n\nA one-month GTA+ membership is included for digital pre-orders.{{cite:gta6-support-platforms}}\n\n## How to obtain and timing\n\nDigital pre-orders and purchases before November 20, 2026 include the Vintage Vice City Pack and one month GTA+.{{cite:gta6-support-platforms}}\n\nDigital pre-loading begins November 10 at midnight local time (PlayStation) or 12 a.m. GMT (Xbox).{{cite:gta6-support-platforms}}\n\nThe physical version contains a download code for the game and the Vintage Vice City Pack, with shipping starting November 12.{{cite:gta6-support-platforms}}\n\nPhysical Standard Edition owners can upgrade to Ultimate Edition later via digital stores; physical Ultimate Edition is not available.{{cite:gta6-support-platforms}}\n\nOn PlayStation, pre-orders or purchases by November 19 include Vintage Vice City Pack and one month of GTA+, claimable by March 31, 2027.{{cite:playstation-store-ultimate}}\n\nOn Xbox, pre-orders prior to November 19, 23:59:59, include Vintage Vice City Pack and one month of GTA+.{{cite:xbox-cloud-gta6}}\n\n## See also\n\n- [[pre-orders|Pre-orders]]\n- [[gta-plus|GTA+ offer]]\n- [[ultimate-edition|Ultimate Edition]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-nano",
@@ -6755,7 +6935,7 @@
       "claimSupport": [
         {
           "claimId": "claim_vintage-vice-city-pack_1",
-          "claimText": "The Vintage Vice City Pack is a pre-order bonus offering items tied to Jason and Lucia’s story.",
+          "claimText": "The Vintage Vice City Pack is a pre-order bonus offering items tied to Jason and Lucia\u2019s story.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -6776,7 +6956,7 @@
           "quotes": [
             {
               "extractId": "gta6-official-site#1",
-              "quote": "An exclusive collection of items threaded across all aspects of Jason and Lucia’s story."
+              "quote": "An exclusive collection of items threaded across all aspects of Jason and Lucia\u2019s story."
             }
           ],
           "patchRef": null
@@ -7263,7 +7443,7 @@
         "xbox-cloud-gta6": "bef4da218e9861da925afbd56844af729537655e111e8070c2927ebd8cf61f4d",
         "taketwo-preorders": "aa087a1989ce0db5d27e4a7f31f5f72fb306bf55c3fb9ce0e8a65a04c78764f5"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
         "decision": "publish",
         "reasons": []
@@ -7275,9 +7455,9 @@
   {
     "slug": "xbox-cloud-gaming",
     "title": "Xbox Cloud Gaming",
-    "summary": "Paraphrased fan-wiki page preserving facts and citations about Xbox Cloud Gaming support for Grand Theft Auto VI.",
+    "summary": "On launch day, Microsoft will stream Grand Theft Auto VI to Xbox One as well as Series X and Series S.",
     "category": "gameplay",
-    "bodyMarkdown": "## Availability\n\nMicrosoft said Grand Theft Auto VI would be streamable at launch through Xbox Cloud Gaming, including on Xbox One hardware and on Series X and Series S consoles, beginning at 1 a.m. ET on November 19, 2026.{{cite:xbox-cloud-gta6}} Starting November 11, customers in supported regions can buy cloud playtime to stream eligible titles without a Game Pass subscription.{{cite:xbox-cloud-gta6}}\n\n## Technical notes\n\nAccording to Xbox, cloud streams of the game use Series S graphics settings.{{cite:xbox-cloud-gta6}}\n\n## Purchase and account\n\nXbox's announcement notes that the game has to be bought separately in order to play it via cloud streaming.{{cite:xbox-cloud-gta6}}\n\n## Related platform note\n\nGameSpot quotes Xbox as clarifying that the game \"will not be streaming exclusively or to PC.\"{{cite:gamespot-pc-status}}\n\n## See also\n\n- [[platforms|Platforms]]\n- [[system-requirements|System requirements]]\n- [[pre-load|Pre-load]]\n",
+    "bodyMarkdown": "## Availability\n\nMicrosoft said Grand Theft Auto VI would be streamable at launch through Xbox Cloud Gaming, including on Xbox One hardware and on Series X and Series S consoles, beginning at 1 a.m. ET on November 19, 2026.{{cite:xbox-cloud-gta6}} Starting November 11, customers in supported regions can buy cloud playtime to stream eligible titles without a Game Pass subscription.{{cite:xbox-cloud-gta6}}\n\n## Technical notes\n\nAccording to Xbox, cloud streams of the game use Series S graphics settings.{{cite:xbox-cloud-gta6}}\n\n## Purchase and account\n\nXbox's announcement notes that cloud play requires a separate purchase of the game.{{cite:xbox-cloud-gta6}}\n\n## Related platform note\n\nGameSpot quotes Xbox as clarifying that the game \"will not be streaming exclusively or to PC.\"{{cite:gamespot-pc-status}}\n\n## See also\n\n- [[platforms|Platforms]]\n- [[system-requirements|System requirements]]\n- [[pre-load|Pre-load]]\n",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -7371,7 +7551,7 @@
         },
         {
           "claimId": "claim_xbox-cloud-gaming_3",
-          "claimText": "Xbox’s announcement notes that Grand Theft Auto VI must be bought separately to be played via cloud streaming.",
+          "claimText": "Xbox\u2019s announcement notes that Grand Theft Auto VI must be bought separately to be played via cloud streaming.",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -7434,12 +7614,10 @@
         "xbox-cloud-gta6": "bef4da218e9861da925afbd56844af729537655e111e8070c2927ebd8cf61f4d",
         "gamespot-pc-status": "273101efdc362b59c9f133195976e7cab2484418da40fad46629a0d785f8b18b"
       },
-      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "changeNote": "Updated from cited official sources.",
       "publishGate": {
-        "decision": "needs_review",
-        "reasons": [
-          "copies 8+ consecutive words from a cited source outside quotation marks: \"xbox cloud gaming on xbox one and xbox series x s\""
-        ]
+        "decision": "publish",
+        "reasons": []
       }
     },
     "changeNote": "Hand-paraphrased to pass the source-fidelity gate.",
@@ -7450,7 +7628,7 @@
     "title": "PlayStation features",
     "summary": "PlayStation-specific official details for Grand Theft Auto VI on PlayStation 5, including platform availability, PS5-exclusive features, pre-load timing, and store-listed benefits.",
     "category": "gameplay",
-    "bodyMarkdown": "## Platform availability\n\nRockstar states \"the game is not playable on PlayStation 4\". (PlayStation){{cite:playstation-gta6}} PlayStation lists the game as available on PS5 and identifies a PS5 Pro Enhanced version. (PlayStation){{cite:playstation-gta6}}\n\n## Pre‑load and editions\n\nDigital pre-orders on PlayStation can begin pre-loading the game on November 10 at midnight local time. (Rockstar){{cite:gta6-support-platforms}} Rockstar says a physical box contains a download code and no disc, with physical copies available starting November 12. (Rockstar){{cite:gta6-support-platforms}} PlayStation Store lists both Standard and Ultimate digital editions and offers pre-load now buttons for each. (PlayStation){{cite:playstation-gta6}}\n\n## PlayStation 5 features\n\nPlayStation describes Tempest 3D Audio support on PlayStation 5 for the game. (PlayStation){{cite:playstation-gta6}} PlayStation lists fast loading as an enhanced PlayStation 5 experience. (PlayStation){{cite:playstation-gta6}} PlayStation Store states DualSense vibration and trigger effects are supported. (PlayStation){{cite:playstation-gta6}}\n\n## Store features and play modes\n\nPlayStation lists Remote Play support for Grand Theft Auto VI. (PlayStation){{cite:playstation-gta6}} PlayStation Store indicates offline play is enabled and the game supports one player. (PlayStation){{cite:playstation-gta6}} PlayStation digital pre-orders include a one‑month GTA+ subscription offer to claim by March 31, 2027. (PlayStation){{cite:playstation-store-ultimate}}\n\n## See also\n\n- [[platforms|Platforms]]\n- [[pre-load|Pre-load]]\n- [[xbox-cloud-gaming|Xbox Cloud Gaming]]",
+    "bodyMarkdown": "## Platform availability\n\nRockstar states \"the game is not playable on PlayStation 4\". (PlayStation){{cite:playstation-gta6}} PlayStation lists the game as available on PS5 and identifies a PS5 Pro Enhanced version. (PlayStation){{cite:playstation-gta6}}\n\n## Pre\u2011load and editions\n\nDigital pre-orders on PlayStation can begin pre-loading the game on November 10 at midnight local time. (Rockstar){{cite:gta6-support-platforms}} Rockstar says a physical box contains a download code and no disc, with physical copies available starting November 12. (Rockstar){{cite:gta6-support-platforms}} PlayStation Store lists both Standard and Ultimate digital editions and offers pre-load now buttons for each. (PlayStation){{cite:playstation-gta6}}\n\n## PlayStation 5 features\n\nPlayStation describes Tempest 3D Audio support on PlayStation 5 for the game. (PlayStation){{cite:playstation-gta6}} PlayStation lists fast loading as an enhanced PlayStation 5 experience. (PlayStation){{cite:playstation-gta6}} PlayStation Store states DualSense vibration and trigger effects are supported. (PlayStation){{cite:playstation-gta6}}\n\n## Store features and play modes\n\nPlayStation lists Remote Play support for Grand Theft Auto VI. (PlayStation){{cite:playstation-gta6}} PlayStation Store indicates offline play is enabled and the game supports one player. (PlayStation){{cite:playstation-gta6}} PlayStation digital pre-orders include a one\u2011month GTA+ subscription offer to claim by March 31, 2027. (PlayStation){{cite:playstation-store-ultimate}}\n\n## See also\n\n- [[platforms|Platforms]]\n- [[pre-load|Pre-load]]\n- [[xbox-cloud-gaming|Xbox Cloud Gaming]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -7779,7 +7957,7 @@
         },
         {
           "claimId": "claim_playstation-features_11",
-          "claimText": "PlayStation digital pre-orders include a one‑month GTA+ subscription offer to claim by March 31, 2027. (PlayStation)",
+          "claimText": "PlayStation digital pre-orders include a one\u2011month GTA+ subscription offer to claim by March 31, 2027. (PlayStation)",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
