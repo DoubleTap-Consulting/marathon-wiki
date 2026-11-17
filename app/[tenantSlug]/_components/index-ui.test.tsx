@@ -50,6 +50,18 @@ describe("index screens", () => {
     expect(html).toContain("No pages yet. The AI editor publishes the first ones after its sources are checked.");
   });
 
+  it("pluralizes the source count in sentence case, including a singular 1 source", () => {
+    const one = { ...page("boobie-ike", { slug: "lore", name: "Story and characters" }), sourceCount: 1, title: "Boobie Ike" };
+    const many = { ...page("lucia-caminos", { slug: "lore", name: "Story and characters" }), sourceCount: 2, title: "Lucia Caminos" };
+    const html = renderToStaticMarkup(<IndexTable tenantSlug="gta6" caption="All pages" pages={[one, many]} />);
+    expect(html).toContain('sm:sr-only"> source</');
+    expect(html).toContain('sm:sr-only"> sources</');
+    expect(html).not.toMatch(/>1<\/?span[^>]*> sources/i);
+    expect(html).not.toContain("SOURCES");
+    expect(html).not.toContain("1 sources");
+    expect(html).not.toMatch(/class="label col-start-2/);
+  });
+
   it("hides the summary column on small screens and caps rows when asked", () => {
     const pages = Array.from({ length: 15 }, (_, index) => page(`page-${index + 1}`, { slug: "lore", name: "Lore" }));
     const html = renderToStaticMarkup(

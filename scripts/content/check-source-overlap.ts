@@ -6,7 +6,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 
-import { findSourceOverlaps, sourceOverlapReason, type SourceOverlap } from "../../src/content/source-overlap.ts";
+import { evaluateQuotePolicy, findSourceOverlaps, quotePolicyReason, sourceOverlapReason, type QuotePolicyResult, type SourceOverlap } from "../../src/content/source-overlap.ts";
 import { evaluatePublishGate, DEFAULT_PUBLISH_POLICY } from "../../src/content/editor.ts";
 import { countProseWords } from "../../src/content/pipeline.ts";
 
@@ -51,7 +51,7 @@ function citedKeys(page: GeneratedPage): string[] {
   return [...keys];
 }
 
-type PageHit = { slug: string; overlaps: SourceOverlap[]; decision: string; reason: string | null; missingSnapshots: string[] };
+type PageHit = { slug: string; overlaps: SourceOverlap[]; quotePolicy: QuotePolicyResult; decision: string; reason: string | null; missingSnapshots: string[] };
 
 function checkWiki(wiki: string): PageHit[] {
   const file = path.join(root, "content", wiki, "generated", "pages.json");
@@ -71,17 +71,21 @@ function checkWiki(wiki: string): PageHit[] {
       else missingSnapshots.push(key);
     }
     const overlaps = findSourceOverlaps(page.bodyMarkdown, sources);
+    const quotePolicy = evaluateQuotePolicy(page.bodyMarkdown);
     const claims = page.aiProvenance.claimSupport ?? [];
     const gate = evaluatePublishGate(claims, DEFAULT_PUBLISH_POLICY, {
       hub: false,
       words: countProseWords(page.bodyMarkdown),
       sourceOverlaps: overlaps,
+      quotePolicy,
     });
+    const quoteReason = quotePolicyReason(quotePolicy);
     hits.push({
       slug: page.slug,
       overlaps,
-      decision: overlaps.length ? "needs_review" : page.aiProvenance.publishGate?.decision ?? gate.decision,
-      reason: sourceOverlapReason(overlaps),
+      quotePolicy,
+      decision: overlaps.length || quotePolicy.reasons.length ? "needs_review" : gate.decision,
+      reason: [sourceOverlapReason(overlaps), quoteReason].filter(Boolean).join("; ") || null,
       missingSnapshots,
     });
   }
@@ -91,13 +95,22 @@ function checkWiki(wiki: string): PageHit[] {
 let failed = 0;
 for (const wiki of wikis) {
   const results = checkWiki(wiki);
-  const flagged = results.filter((row) => row.overlaps.length);
-  console.log(`\n== ${wiki}: ${results.length} pages, ${flagged.length} with unquoted 8+ word source overlaps ==`);
+  const flagged = results.filter((row) => row.overlaps.length || row.quotePolicy.reasons.length);
+  const overlapCount = results.filter((row) => row.overlaps.length).length;
+  const quoteCount = results.filter((row) => row.quotePolicy.reasons.length).length;
+  console.log(`\n== ${wiki}: ${results.length} pages, ${flagged.length} failing the source-fidelity gate (${overlapCount} unquoted 8+ word overlaps, ${quoteCount} quotation-budget) ==`);
   for (const row of flagged) {
     failed += 1;
-    console.log(`  FAIL ${row.slug} (${row.overlaps.length} run${row.overlaps.length === 1 ? "" : "s"})`);
+    const bits = [
+      row.overlaps.length ? `${row.overlaps.length} overlap run${row.overlaps.length === 1 ? "" : "s"}` : "",
+      row.quotePolicy.reasons.length ? "quotation budget" : "",
+    ].filter(Boolean);
+    console.log(`  FAIL ${row.slug} (${bits.join(", ")})`);
     for (const hit of row.overlaps) {
       console.log(`    [${hit.sourceKey ?? "?"}, ${hit.wordCount} words] ${hit.phrase}`);
+    }
+    for (const reason of row.quotePolicy.reasons) {
+      console.log(`    [quote] ${reason}`);
     }
   }
   if (!flagged.length) console.log("  none");

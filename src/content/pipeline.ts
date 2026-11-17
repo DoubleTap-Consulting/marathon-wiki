@@ -16,7 +16,7 @@
  */
 import { z } from "zod";
 
-export const CONTENT_PROMPT_VERSION = "marathon-real-content-v5";
+export const CONTENT_PROMPT_VERSION = "marathon-real-content-v6";
 export const CLAIM_CHECK_PROMPT_VERSION = "marathon-claim-check-v2";
 
 export type AuthorityTier = "official" | "reputable_editorial" | "community_wiki" | "community";
@@ -271,7 +271,8 @@ export function draftSystemFor(wiki: WikiDraftContext = MARATHON_DRAFT_CONTEXT) 
     "You may ONLY state facts that appear in the extracts provided. Never use outside knowledge, never guess, never fill gaps.",
     "State each fact once. Do not restate a fact in other words, and do not pad with sentences about what a publication lists.",
     "Write in your own words, in neutral encyclopedic third person. Do not copy sentences from the extracts, and never copy text from community wikis.",
-    `If a source uses a distinctive phrase, slogan, or marketing line, quote a short span in quotation marks and attribute it to the publisher (for example '${wiki.officialPublisher} describes the character as …'). Unquoted prose must not repeat a run of eight or more words from an extract.`,
+    "Prefer paraphrase over quotation. A page may use at most one short quotation per section, each quotation at most 15 words, and quoted words at most 10% of the page's prose. Do not pack a page with quotations to avoid copying. Unquoted prose must not repeat a run of eight or more words from an extract.",
+    `Example of paraphrase: '${wiki.officialPublisher}'s biography says Lucia learned to fight young and served time in the Leonida Penitentiary after fighting for her family.' If you do quote a distinctive official phrase, attribute it and keep it short.`,
     "Every sentence must list the extract ids that state its fact. A sentence without a supporting extract must be left out.",
     "One fact per sentence, under 30 words: a fact checker must find it stated in a single cited extract, so long sentences that",
     "combine facts from several places get removed.",

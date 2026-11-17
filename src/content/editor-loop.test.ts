@@ -11,7 +11,7 @@ import { countProseWords, isHubSpec } from "./pipeline";
 import { loadRenderedSnapshots, upsertRenderedSnapshots } from "./editor-store";
 import { enqueueReaderNoteRefresh, enqueueSourceChangeRefreshes } from "./editor-triggers";
 import { BudgetExceeded, MemoryLedger, createGatewayCaller } from "./model-gateway";
-import { createScriptedCall, scriptedClaimText } from "./scripted-call";
+import { createScriptedCall, scriptedClaimText, unwrapScriptedClaim } from "./scripted-call";
 import { CONTENT_PROMPT_VERSION } from "./pipeline";
 import { enqueueAiRefreshQueueItem, processDueAiRefreshQueueItems } from "@/src/ai/wiki-refresh-queue";
 import { getDb } from "@/src/db/client";
@@ -106,7 +106,7 @@ describe.sequential("AI editor loop", () => {
     expect(page?.latestRevision?.changeNote).toBe("A cited source changed (bungie-runner-shells): 1 statement added.");
     expect(page?.latestRevision?.aiProvenance).toMatchObject({ editMode: "patch", sourceHashes: { "bungie-runner-shells": "sha-v2" } });
     expect(page?.bodyMarkdown).toContain("Rook");
-    for (const line of V1) expect(page?.bodyMarkdown).toContain(line);
+    for (const line of V1) expect(page?.bodyMarkdown).toContain(scriptedClaimText(line).replace(/\.$/, ""));
   });
 
   it("re-checks the page when a reader note is approved and labels the trigger", async () => {
@@ -133,7 +133,7 @@ describe.sequential("AI editor loop", () => {
     const scripted = createScriptedCall();
     return (async (request) => {
       if (request.step !== "patch") return scripted(request);
-      const ids = new Map([...request.prompt.matchAll(/^\[(s\d+)\] \([^)]+\) (.*?)(?: \(changed source\))?$/gm)].flatMap(([, id, text]) => [[text, id], [text.replace(/^The cited source states that "(.*)"$/, "$1"), id]]));
+      const ids = new Map([...request.prompt.matchAll(/^\[(s\d+)\] \([^)]+\) (.*?)(?: \(changed source\))?$/gm)].flatMap(([, id, text]) => { const raw = unwrapScriptedClaim(text); return [[text, id], [raw, id], [`${raw}.`, id]]; }));
       return { output: request.schema.parse({ edits: edits(ids) }), modelId: "scripted/edits", responseId: null };
     }) as StructuredCall;
   }
@@ -199,8 +199,8 @@ describe.sequential("AI editor loop", () => {
     const approved = await getPublishedWikiPageBySlug(tenantId, SLUG, db);
     expect(approved?.latestRevisionNumber).toBe(5);
     expect(approved?.latestRevision?.aiProvenance?.refreshReason).toBe("source_update");
-    // Thief, plus the sentence the editor trimmed above: the scripted model writes every line its source states.
-    expect(approved?.latestRevision?.changeNote).toBe("A cited source changed (bungie-runner-shells): 2 statements added.");
+    // Thief, the sentence the editor trimmed, and the sentence it replaced: the scripted model writes every line its source states.
+    expect(approved?.latestRevision?.changeNote).toBe("A cited source changed (bungie-runner-shells): 3 statements added.");
   });
 
   it("publishes a held new page once it clears the gate, even when the editor changes nothing", async () => {
