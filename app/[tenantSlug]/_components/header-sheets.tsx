@@ -1,9 +1,16 @@
 "use client";
 
 import { Menu, Search } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { Suspense, useCallback, useRef, useState } from "react";
 
-import { canReviewAction } from "../review/actions";
+import {
+  wikiSidebarAccountItems,
+  type WikiNavAuth,
+  type WikiSidebarItem,
+} from "@/src/auth/wiki-nav";
+
+import { getWikiNavAuthAction } from "./nav-auth";
 import { SheetPanel } from "./lazy-ui";
 import { SiteSearch, useSearchShortcut } from "./site-search";
 
@@ -42,24 +49,32 @@ export function SearchSheet({ tenantSlug }: { tenantSlug: string }) {
 }
 
 export function MenuSheet({
+  tenantSlug,
   primary,
-  review,
   children,
 }: {
+  tenantSlug: string;
   primary: React.ReactNode;
-  review: React.ReactNode;
   children: React.ReactNode;
 }) {
+  const pathname = usePathname() ?? `/${tenantSlug}`;
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [canReview, setCanReview] = useState<boolean | null>(null);
+  const [auth, setAuth] = useState<WikiNavAuth | null>(null);
+
+  const loadAuth = () => {
+    if (auth !== null) {
+      return;
+    }
+    getWikiNavAuthAction().then(setAuth, () => setAuth({ status: "signed_out" }));
+  };
 
   return (
     <>
       <button type="button" aria-label="Menu" className={ICON_BUTTON} onClick={() => {
           setMounted(true);
           setOpen(true);
-          if (canReview === null) canReviewAction().then(setCanReview, () => setCanReview(false));
+          loadAuth();
         }}
       >
         <Menu className="size-5" aria-hidden="true" />
@@ -70,15 +85,64 @@ export function MenuSheet({
             <nav
               className="grid gap-1"
               aria-label="Wiki sections"
+              aria-busy={auth === null}
               onClick={(event) => (event.target as HTMLElement).closest("a") && setOpen(false)}
             >
               {primary}
-              {canReview ? review : null}
+              <AccountItems
+                items={wikiSidebarAccountItems({
+                  tenantSlug,
+                  currentPath: pathname,
+                  auth,
+                })}
+                loading={auth === null}
+              />
               {children}
             </nav>
           </SheetPanel>
         </Suspense>
       ) : null}
+    </>
+  );
+}
+
+function AccountItems({
+  items,
+  loading,
+}: {
+  items: WikiSidebarItem[];
+  loading: boolean;
+}) {
+  if (loading) {
+    return <div className="min-h-11" aria-hidden="true" />;
+  }
+
+  return (
+    <>
+      {items.map((item) =>
+        item.kind === "identity" ? (
+          <div
+            key="identity"
+            className="flex min-h-11 items-center gap-3 px-3 text-foreground"
+          >
+            <span
+              className="flex size-8 shrink-0 items-center justify-center bg-foreground text-small font-medium text-background"
+              aria-hidden="true"
+            >
+              {item.initials}
+            </span>
+            <span className="truncate text-ui font-medium">{item.displayName}</span>
+          </div>
+        ) : (
+          <a
+            key={item.href}
+            href={item.href}
+            className="flex min-h-11 items-center px-3 text-ui font-medium text-foreground hover:bg-muted"
+          >
+            {item.label}
+          </a>
+        ),
+      )}
     </>
   );
 }

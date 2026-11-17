@@ -29,7 +29,7 @@ export function buildWikiRobots(
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/api/", "/*/review", "/*/suggest"],
+      disallow: ["/api/", "/*/review", "/*/suggest", "/*/sign-in", "/*/sign-out"],
     },
     sitemap: new URL("/sitemap.xml", baseUrl).toString(),
     host: baseUrl.origin,

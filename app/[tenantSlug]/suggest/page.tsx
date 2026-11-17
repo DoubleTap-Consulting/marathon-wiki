@@ -68,6 +68,9 @@ export default async function SuggestPage({ params }: SuggestPageProps) {
 
         {actor ? (
           <>
+            <p className="text-ui text-muted-foreground">
+              Suggestions are reviewed by an editor before they go live.
+            </p>
             <SuggestionActorBar actor={actor} authMode={authMode} />
             <div className="border bg-card p-5 text-card-foreground sm:p-6">
               <SuggestionForm

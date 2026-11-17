@@ -103,6 +103,10 @@ Vercel environment variables only. After creating the first editor account,
 set `WIKI_EDITOR_USER_IDS` to that Clerk user id, or use `WIKI_EDITOR_EMAILS`
 while collecting user ids.
 
+The site menu includes a Sign in link on every page. New accounts can submit
+suggestions only. Approve, reject, rewrite, and publish remain limited to the
+editor allowlist, which is checked in the server actions.
+
 ## Deployment
 
 - Build command: `pnpm build`
