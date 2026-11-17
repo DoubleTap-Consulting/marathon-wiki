@@ -2,8 +2,9 @@
  * ONE-TIME load of content/<wiki>/generated/pages.json into one wiki's database.
  * Code only for production: Mike runs it once, by hand, after the merge and migration.
  *
- *   node scripts/content/load-generated-once.ts [--tenant marathon] [--env-file .env.local] [--dry-run] [--confirm "<phrase>"]
+ *   node scripts/content/load-generated-once.ts [--tenant marathon] [--env-file .env.local] [--dry-run] [--public-base https://wikiden.gg] [--confirm "<phrase>"]
  *
+ * --public-base with --dry-run and --tenant gta6 compares against production's public 404s (no database, no secrets).
  * Off by default. It refuses unless:
  *   - it is not running on Vercel;
  *   - a production target also has WIKI_ALLOW_PROD_CONTENT_LOAD=1 (any other target must pass db-guard);
@@ -23,6 +24,7 @@ import { Pool } from "@neondatabase/serverless";
 import { checkNonProductionTarget, pointsAtProduction, previewTargetUrl } from "../db-guard.mjs";
 import { decideGeneratedLoad } from "../../src/content/load-once.ts";
 import { loadGeneratedPages, type GeneratedPage } from "./generated-load.ts";
+import { dryRunGtaAgainstPublic } from "./dry-run-prod-public.ts";
 
 const root = new URL("../../", import.meta.url).pathname;
 const args = process.argv.slice(2);
@@ -69,6 +71,25 @@ say(`file has ${pages.length} entries (${pages.length - reviewCount} to publish,
 if (!decision.ok && !(dryRun && decision.phrase)) {
   say(`refused: ${decision.reason}.${decision.phrase ? ` To proceed, pass --confirm "${decision.phrase}".` : ""}`);
   process.exit(1);
+}
+
+const publicBase = flag("public-base");
+if (publicBase) {
+  if (!dryRun) {
+    say("refused: --public-base is read-only. Pass --dry-run as well. No database was opened.");
+    process.exit(1);
+  }
+  if (tenantSlug !== "gta6") {
+    say("refused: --public-base on this loader is for --tenant gta6 (production hides that tenant). For Marathon approved revisions, use load-approved-revisions.ts --public-base.");
+    process.exit(1);
+  }
+  const lines = await dryRunGtaAgainstPublic({
+    base: publicBase.replace(/\/$/, ""),
+    pageCount: pages.length,
+    fileSha256,
+  });
+  for (const line of lines) say(line);
+  process.exit(0);
 }
 
 const pool = new Pool({ connectionString: previewTargetUrl(process.env) as string });

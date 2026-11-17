@@ -1,7 +1,7 @@
 /**
  * Apply a reviewed set of paraphrased page revisions to one wiki database.
  *
- *   node scripts/content/load-approved-revisions.ts [--tenant marathon] [--file path] [--env-file .env.local] [--dry-run] [--confirm "<phrase>"]
+ *   node scripts/content/load-approved-revisions.ts [--tenant marathon] [--file path] [--env-file .env.local] [--dry-run] [--public-base https://wikiden.gg] [--confirm "<phrase>"]
  *
  * The default file is content/<tenant>/generated/approved-paraphrase-revisions.json.
  * Off by default. It refuses unless:
@@ -23,6 +23,7 @@ import { Pool } from "@neondatabase/serverless";
 
 import { checkNonProductionTarget, endpointIdOf, pointsAtProduction, previewTargetUrl } from "../db-guard.mjs";
 import { decideApprovedRevisionLoad } from "../../src/content/load-approved-revisions.ts";
+import { dryRunApprovedAgainstPublic } from "./dry-run-prod-public.ts";
 
 const root = new URL("../../", import.meta.url).pathname;
 const args = process.argv.slice(2);
@@ -81,6 +82,22 @@ if (!decision.ok && !(dryRun && decision.phrase)) {
   process.exit(1);
 }
 
+const publicBase = flag("public-base");
+if (publicBase) {
+  if (!dryRun) {
+    say("refused: --public-base is read-only. Pass --dry-run as well. No database was opened.");
+    process.exit(1);
+  }
+  const lines = await dryRunApprovedAgainstPublic({
+    base: publicBase.replace(/\/$/, ""),
+    tenantSlug,
+    revisions,
+    fileSha256,
+  });
+  for (const line of lines) say(line);
+  process.exit(0);
+}
+
 const pool = new Pool({ connectionString: previewTargetUrl(process.env) as string });
 const client = await pool.connect();
 try {
@@ -132,7 +149,7 @@ try {
         ]);
         const revisionNumber: number = max.rows[0].max + 1;
         const revisionId = `para_rev_${tenant.rows[0].id}_${page.slug}_${fileSha256.slice(0, 8)}`;
-        const changeNote = page.changeNote ?? "Rewritten in encyclopedic paraphrase from the cited sources.";
+        const changeNote = page.changeNote ?? "Updated from cited official sources.";
         const provenance = {
           ...(page.aiProvenance ?? {}),
           origin: "approved-paraphrase-revisions",
