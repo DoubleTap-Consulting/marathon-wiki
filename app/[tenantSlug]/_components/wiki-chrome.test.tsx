@@ -27,7 +27,8 @@ describe("site chrome naming", () => {
     for (const env of ["production", "preview", "development", undefined]) {
       const html = render(env);
       expect(networkBrand({ VERCEL_ENV: env })).toEqual({ name: "WikiDen", href: null, placeholder: false });
-      expect(html).toContain(">WikiDen</span>");
+      expect(html).toMatch(/<span class="[^"]*\buppercase\b[^"]*">WikiDen<\/span>/);
+      expect(html).not.toContain(">WIKIDEN</span>");
       expect(html).toContain('>An unofficial guide to Marathon<span class="sr-only">, home</span>');
       expect(html).toContain(">Part of WikiDen<");
       expect(html).not.toContain(NETWORK_PLACEHOLDER);
