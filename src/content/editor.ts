@@ -34,6 +34,7 @@ import {
   type ResolvedClaim,
   type SourceRecord,
 } from "./pipeline.ts";
+import { findSourceOverlaps, sourceOverlapReason, type SourceOverlap } from "./source-overlap.ts";
 import {
   PATCH_SYSTEM,
   buildPatchPrompt,
@@ -103,7 +104,7 @@ export const DEFAULT_PUBLISH_POLICY: PublishPolicy = { minSupportedRatio: 0.8, m
  * (countProseWords). `regressions` are supported statements the revision drops although their
  * sources did not change.
  */
-export type GateShape = { hub: boolean; words: number; regressions?: Regression[] };
+export type GateShape = { hub: boolean; words: number; regressions?: Regression[]; sourceOverlaps?: SourceOverlap[] };
 
 export type GateResult = {
   decision: "publish" | "needs_review";
@@ -141,6 +142,8 @@ export function evaluatePublishGate(
     const list = shape.regressions.map((regression) => `"${regression.claimText}"`).join("; ");
     reasons.push(`drops ${shape.regressions.length} supported statement${shape.regressions.length === 1 ? "" : "s"} whose sources did not change: ${list}`);
   }
+  const overlapReason = sourceOverlapReason(shape?.sourceOverlaps ?? []);
+  if (overlapReason) reasons.push(overlapReason);
   return { decision: reasons.length ? "needs_review" : "publish", supported, unsupported, contradicted, supportedRatio, reasons, policy, ...(shape ? { shape } : {}) };
 }
 
@@ -292,6 +295,8 @@ type ComposeInput = {
   changedSources?: string[];
   policy?: PublishPolicy;
   now?: Date;
+  /** Defaults to the Marathon draft system prompt. */
+  draftSystem?: string;
 };
 
 /** Sources whose text differs from what the previous revision was written from. */
@@ -345,7 +350,7 @@ async function draftPage(input: ComposeInput, extracts: Extract[], extractsById:
   const draftCall = await input.call({
     page: spec.slug,
     step: "draft",
-    system: DRAFT_SYSTEM,
+    system: input.draftSystem ?? DRAFT_SYSTEM,
     prompt: buildDraftPrompt(spec, extracts, corpus.sources, input.today, input.readerNotes, input.previous?.claims.map((claim) => claim.claimText)),
     schema: draftSchema,
   });
@@ -528,7 +533,11 @@ export async function composePage(input: ComposeInput): Promise<ComposedPage> {
   const regressions = input.previous
     ? findRegressions({ previous: input.previous.claims, next: allClaims, superseded: written.superseded, changedSources })
     : [];
-  const gate = evaluatePublishGate(allClaims, input.policy, { hub: isHubSpec(spec), words: countProseWords(bodyMarkdown), regressions });
+  const sourceOverlaps = findSourceOverlaps(
+    bodyMarkdown,
+    extracts.map((extract) => ({ sourceKey: extract.sourceKey, text: extract.text })),
+  );
+  const gate = evaluatePublishGate(allClaims, input.policy, { hub: isHubSpec(spec), words: countProseWords(bodyMarkdown), regressions, sourceOverlaps });
 
   const reason = input.previous ? (input.refreshReason ?? "manual_refresh") : "new_page";
   const changedList = [...changedSources].filter((key) => (input.changedSources ?? []).includes(key) || input.previous?.sourceHashes[key]);

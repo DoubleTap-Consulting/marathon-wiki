@@ -5,6 +5,8 @@ import { themeFor } from "@/themes/registry";
 
 import type { WikiCategorySummary, WikiTenant } from "@/src/db/wiki";
 
+import { FooterReviewLink } from "./footer-review-link";
+
 // Kept apart from wiki-chrome so the client error boundary can render the footer without
 // pulling the header's search and sheet code into its own bundle.
 /** "ink" chrome resolves the dark tokens in both schemes; "surface" follows the page. */
@@ -28,7 +30,6 @@ export function SiteFooter({
     { href: `/${tenant.slug}`, label: "Home" },
     { href: `/${tenant.slug}/pages`, label: "All pages" },
     ...categories.map((category) => ({ href: `/${tenant.slug}/categories/${category.slug}`, label: category.name })),
-    { href: `/${tenant.slug}/review`, label: "Review" },
     ...(theme.imagery ? [{ href: `/${tenant.slug}/credits`, label: "Image credits" }] : []),
     ...legalNav,
   ];
@@ -45,6 +46,7 @@ export function SiteFooter({
                 </a>
               </li>
             ))}
+            <FooterReviewLink href={`/${tenant.slug}/review`} />
           </ul>
         </nav>
         <div className="flex flex-col gap-4 border-t pt-6 sm:flex-row sm:items-end sm:justify-between">

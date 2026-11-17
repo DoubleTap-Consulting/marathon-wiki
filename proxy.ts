@@ -5,13 +5,31 @@ import type { NextFetchEvent } from "next/server";
 import { isClerkConfigured } from "@/src/auth/wiki-auth";
 import {
   getTenantSlugFromHost,
+  isGta6Path,
   isPublicFilePath,
+  isTenantPubliclyEnabled,
 } from "@/src/wiki/tenant-routing";
+
+function hideDisabledGta6(request: NextRequest) {
+  const url = request.nextUrl.clone();
+  url.pathname = "/_not-found";
+  return NextResponse.rewrite(url);
+}
 
 function applyTenantRouting(request: NextRequest) {
   const tenantSlug = getTenantSlugFromHost(request.headers.get("host"));
+  const pathname = request.nextUrl.pathname;
+  const hostPrefixed =
+    Boolean(tenantSlug) &&
+    !isPublicFilePath(pathname) &&
+    pathname.split("/").filter(Boolean)[0] !== tenantSlug;
+  const effectivePath = hostPrefixed ? `/${tenantSlug}${pathname}` : pathname;
 
-  if (!tenantSlug || isPublicFilePath(request.nextUrl.pathname)) {
+  if (isGta6Path(effectivePath) && !isTenantPubliclyEnabled("gta6")) {
+    return hideDisabledGta6(request);
+  }
+
+  if (!tenantSlug || isPublicFilePath(pathname)) {
     return NextResponse.next();
   }
 

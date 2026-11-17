@@ -1,9 +1,11 @@
+import gta6Images from "@/content/gta6/images.json";
 import marathonImages from "@/content/marathon/images.json";
 import { imageRegistry, type ImageAsset, type ImageSlot } from "@/content/imagery-schema";
 import { themeFor } from "@/themes/registry";
 
 const registries: Record<string, ImageAsset[]> = {
   marathon: imageRegistry.parse(marathonImages).images,
+  gta6: imageRegistry.parse(gta6Images).images,
 };
 
 /** Every registered image for a game, in registry order. */

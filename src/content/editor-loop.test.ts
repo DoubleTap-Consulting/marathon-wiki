@@ -11,7 +11,7 @@ import { countProseWords, isHubSpec } from "./pipeline";
 import { loadRenderedSnapshots, upsertRenderedSnapshots } from "./editor-store";
 import { enqueueReaderNoteRefresh, enqueueSourceChangeRefreshes } from "./editor-triggers";
 import { BudgetExceeded, MemoryLedger, createGatewayCaller } from "./model-gateway";
-import { createScriptedCall } from "./scripted-call";
+import { createScriptedCall, scriptedClaimText } from "./scripted-call";
 import { CONTENT_PROMPT_VERSION } from "./pipeline";
 import { enqueueAiRefreshQueueItem, processDueAiRefreshQueueItems } from "@/src/ai/wiki-refresh-queue";
 import { getDb } from "@/src/db/client";
@@ -133,7 +133,7 @@ describe.sequential("AI editor loop", () => {
     const scripted = createScriptedCall();
     return (async (request) => {
       if (request.step !== "patch") return scripted(request);
-      const ids = new Map([...request.prompt.matchAll(/^\[(s\d+)\] \([^)]+\) (.*?)(?: \(changed source\))?$/gm)].map(([, id, text]) => [text, id]));
+      const ids = new Map([...request.prompt.matchAll(/^\[(s\d+)\] \([^)]+\) (.*?)(?: \(changed source\))?$/gm)].flatMap(([, id, text]) => [[text, id], [text.replace(/^The cited source states that "(.*)"$/, "$1"), id]]));
       return { output: request.schema.parse({ edits: edits(ids) }), modelId: "scripted/edits", responseId: null };
     }) as StructuredCall;
   }
@@ -145,7 +145,7 @@ describe.sequential("AI editor loop", () => {
     const before = await getPublishedWikiPageBySlug(tenantId, SLUG, db);
     const call = editingCall((ids) => [
       { op: "keep", sentenceId: ids.get(V1[0]), section: null, text: null, extractIds: [], patchRef: null, reason: "still right" },
-      { op: "replace", sentenceId: ids.get(V1[2]), section: null, text: renamed, extractIds: ["bungie-runner-shells#1"], patchRef: null, reason: "source adds the codename" },
+      { op: "replace", sentenceId: ids.get(V1[2]), section: null, text: scriptedClaimText(renamed), extractIds: ["bungie-runner-shells#1"], patchRef: null, reason: "source adds the codename" },
     ]);
     const result = await processDueAiRefreshQueueItems({ now: tick(6), tenantId }, { db, call });
     expect(result.failed.map((entry) => entry.error)).toEqual([]);
@@ -153,7 +153,7 @@ describe.sequential("AI editor loop", () => {
     const after = await getPublishedWikiPageBySlug(tenantId, SLUG, db);
     expect(after?.latestRevisionNumber).toBe(3);
     expect(after?.latestRevision?.changeNote).toBe("A cited source changed (bungie-runner-shells): 1 statement revised.");
-    expect(after?.bodyMarkdown).toBe(before?.bodyMarkdown.replace(V1[2], renamed));
+    expect(after?.bodyMarkdown).toBe(before?.bodyMarkdown.replace(scriptedClaimText(V1[2]), scriptedClaimText(renamed)));
   });
 
   it("sends a revision that drops a supported statement with an unchanged source to Review", async () => {
@@ -162,7 +162,7 @@ describe.sequential("AI editor loop", () => {
     const result = await processDueAiRefreshQueueItems({ now: tick(8), tenantId }, { db, call });
     expect(result.processed.map((entry) => entry.outcome)).toEqual(["needs_review"]);
     const item = await db.selectFrom("ai_refresh_queue_items").select(["metadata"]).where("dedupe_key", "=", `${runId}:drop`).executeTakeFirstOrThrow();
-    expect((item.metadata as { gateReasons: string[] }).gateReasons).toEqual([`drops 1 supported statement whose sources did not change: "${V1[1]}"`]);
+    expect((item.metadata as { gateReasons: string[] }).gateReasons).toEqual([`drops 1 supported statement whose sources did not change: "${scriptedClaimText(V1[1])}"`]);
     expect((await getPublishedWikiPageBySlug(tenantId, SLUG, db))?.latestRevisionNumber).toBe(3);
   });
 

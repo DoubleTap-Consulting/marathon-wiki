@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
+
 import { getCachedWikiHome } from "@/src/wiki/cache";
 import { getDefaultTenantSlug } from "@/src/wiki/tenant-routing";
 
 import { NotFoundBody } from "./_components/not-found-body";
 import { SiteFooter, WikiChrome } from "./_components/wiki-chrome";
+
+export const metadata: Metadata = {
+  title: "Page not found",
+  robots: { index: false, follow: false },
+};
 
 export default async function TenantNotFound() {
   const tenantSlug = getDefaultTenantSlug();

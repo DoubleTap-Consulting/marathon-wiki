@@ -106,17 +106,23 @@ export const revisionCode = (revision: number) => `REV ${twoDigits(revision)}`;
 /**
  * Pages as rows: a table with a mono head and an ink rule under it, hairlines between rows, and the title link
  * covering its row. Below 640px each row stacks (title and sources, summary, category and date).
+ * On the home preview, hide the summary below 640px and cap the visible rows at `mobileLimit`.
  */
 export function IndexTable({
   tenantSlug,
   pages,
   caption,
   showCategory = true,
+  hideSummaryOnMobile = false,
+  mobileLimit,
 }: {
   tenantSlug: string;
   pages: WikiPageSummary[];
   caption: string;
   showCategory?: boolean;
+  hideSummaryOnMobile?: boolean;
+  /** Hide rows after this index on small screens (home preview). */
+  mobileLimit?: number;
 }) {
   return (
     <table className="w-full border-collapse text-left">
@@ -124,7 +130,7 @@ export function IndexTable({
       <thead className="max-sm:sr-only">
         <tr className="border-b border-foreground">
           <th scope="col" className="label py-2 pr-4 font-medium">Title</th>
-          <th scope="col" className="label py-2 pr-4 font-medium">Summary</th>
+          <th scope="col" className={cn("label py-2 pr-4 font-medium", hideSummaryOnMobile && "max-sm:hidden")}>Summary</th>
           {showCategory ? <th scope="col" className="label py-2 pr-4 font-medium">Category</th> : null}
           <th scope="col" className="label py-2 pr-4 font-medium">Updated</th>
           <th scope="col" className="label py-2 text-right font-medium">
@@ -133,10 +139,13 @@ export function IndexTable({
         </tr>
       </thead>
       <tbody className="max-sm:border-t max-sm:border-foreground">
-        {pages.map((page) => (
+        {pages.map((page, index) => (
           <tr
             key={page.id}
-            className="relative grid grid-cols-[1fr_auto] gap-x-4 gap-y-1 border-b py-3 hover:bg-muted sm:table-row sm:py-0"
+            className={cn(
+              "relative grid grid-cols-[1fr_auto] gap-x-4 gap-y-1 border-b py-3 hover:bg-muted sm:table-row sm:py-0",
+              mobileLimit !== undefined && index >= mobileLimit && "max-sm:hidden",
+            )}
           >
             <td className="min-w-0 align-top sm:py-3 sm:pr-4 sm:pl-1">
               <a
@@ -146,7 +155,7 @@ export function IndexTable({
                 {page.title}
               </a>
             </td>
-            <td className="col-span-2 row-start-2 max-w-[56ch] align-top text-small text-muted-foreground sm:py-3 sm:pr-4">
+            <td className={cn("col-span-2 row-start-2 max-w-[56ch] align-top text-small text-muted-foreground sm:py-3 sm:pr-4", hideSummaryOnMobile && "max-sm:hidden")}>
               <span className="line-clamp-2">{page.summary ?? "No summary yet."}</span>
             </td>
             {showCategory ? (

@@ -517,6 +517,32 @@ try {
 
   const loaded = useGenerated ? await loadGeneratedPages(client, { tenantId, pages: GENERATED, fetchedAt: FETCHED_AT, actor: "content-pipeline" }) : null;
 
+  await client.query(readFileSync(new URL("../prisma/seeds/gta6.sql", import.meta.url), "utf8"));
+  const gta6Tenant = await client.query("select id from tenants where slug = $1", ["gta6"]);
+  const gta6GeneratedFile = new URL("../content/gta6/generated/pages.json", import.meta.url);
+  const gta6ManifestFile = new URL("../content/gta6/generated/sources.manifest.json", import.meta.url);
+  const GTA6_GENERATED: GeneratedPage[] = existsSync(gta6GeneratedFile) ? JSON.parse(readFileSync(gta6GeneratedFile, "utf8")) : [];
+  const GTA6_FETCHED_AT = new Map<string, string>(
+    existsSync(gta6ManifestFile)
+      ? (JSON.parse(readFileSync(gta6ManifestFile, "utf8")) as Array<{ sourceKey: string; fetchedAt: string | null }>).flatMap((entry) =>
+          entry.fetchedAt ? [[entry.sourceKey, entry.fetchedAt] as [string, string]] : [],
+        )
+      : [],
+  );
+  if (gta6Tenant.rows.length) {
+    const gtaId = gta6Tenant.rows[0].id;
+    await client.query("delete from wiki_sources where tenant_id = $1 and id like 'gen\\_%'", [gtaId]);
+    await client.query("delete from wiki_page_revisions where tenant_id = $1 and id like 'gen\\_%'", [gtaId]);
+    await client.query("delete from wiki_suggestions where tenant_id = $1 and id like 'gen\\_%'", [gtaId]);
+    await client.query("delete from wiki_page_categories where tenant_id = $1 and page_id like 'gen\\_page\\_%'", [gtaId]);
+    await client.query("delete from wiki_page_tags where tenant_id = $1 and page_id like 'gen\\_page\\_%'", [gtaId]);
+    await client.query("delete from wiki_pages where tenant_id = $1 and id like 'gen\\_page\\_%'", [gtaId]);
+  }
+  const gta6Loaded =
+    gta6Tenant.rows.length && GTA6_GENERATED.length
+      ? await loadGeneratedPages(client, { tenantId: gta6Tenant.rows[0].id, pages: GTA6_GENERATED, fetchedAt: GTA6_FETCHED_AT, actor: "content-pipeline" })
+      : null;
+
   for (const note of useGenerated ? [] : NOTES) {
     await client.query(
       `insert into wiki_community_notes (id, tenant_id, page_id, status, note_type, body_markdown, source_url, target_quote, created_by, reviewed_by, reviewed_at, created_at, metadata)
@@ -527,10 +553,15 @@ try {
 
   const after = await counts(client);
   await client.query("commit");
+  const gta6Note = gta6Loaded
+    ? ` Also loaded ${GTA6_GENERATED.length} generated gta6 pages (${new Set(gta6Loaded.published).size} published, ${gta6Loaded.review.length} to Review${gta6Loaded.review.length ? `: ${gta6Loaded.review.join(", ")}` : ""}).`
+    : gta6Tenant.rows.length
+      ? " The gta6 tenant is present; generated pages were not loaded."
+      : "";
   console.log(
     useGenerated
-      ? `seed-preview: loaded ${GENERATED.length} generated pages from content/marathon/generated/pages.json (${new Set(loaded?.published).size} pages published from ${loaded?.published.length ?? 0} revisions, ${loaded?.review.length ?? 0} filed for Review${loaded?.review.length ? `: ${loaded.review.join(", ")}` : ""}; sample revisions and notes skipped). Row counts: ${JSON.stringify(after)}`
-      : `seed-preview: seeded ${PAGES.length} pages with sample revisions and ${NOTES.length} notes. Row counts: ${JSON.stringify(after)}`,
+      ? `seed-preview: loaded ${GENERATED.length} generated pages from content/marathon/generated/pages.json (${new Set(loaded?.published).size} pages published from ${loaded?.published.length ?? 0} revisions, ${loaded?.review.length ?? 0} filed for Review${loaded?.review.length ? `: ${loaded.review.join(", ")}` : ""}; sample revisions and notes skipped).${gta6Note} Row counts: ${JSON.stringify(after)}`
+      : `seed-preview: seeded ${PAGES.length} pages with sample revisions and ${NOTES.length} notes.${gta6Note} Row counts: ${JSON.stringify(after)}`,
   );
 } catch (error) {
   await client.query("rollback");

@@ -253,26 +253,43 @@ export function renderExtracts(extracts: Extract[], sources: Map<string, SourceR
     .join("\n\n");
 }
 
-export const DRAFT_SYSTEM = [
-  "You write pages for an unofficial, source-backed wiki about Marathon, Bungie's 2026 extraction shooter.",
-  "You may ONLY state facts that appear in the extracts provided. Never use outside knowledge, never guess, never fill gaps.",
-  "State each fact once. Do not restate a fact in other words, and do not pad with sentences about what a publication lists.",
-  "Write in your own words. Do not copy sentences from the extracts, and never copy text from community wikis.",
-  "Every sentence must list the extract ids that state its fact. A sentence without a supporting extract must be left out.",
-  "One fact per sentence, under 30 words: a fact checker must find it stated in a single cited extract, so long sentences that",
-  "combine facts from several places get removed.",
-  "Prefer official (Bungie) extracts; use press to add detail; community extracts only when nothing better exists.",
-  "If two extracts disagree on a fact (for example a date or a count), do NOT pick one and do NOT hedge in prose:",
-  "put that sentence in `conflicts`, with a verbatim quote from each disagreeing extract. Copy each quote character for character",
-  "from the extract (3 to 15 words, no ellipses). Rounding or currency formatting is not a disagreement.",
-  "If a fact can change with updates (stock, drop rates, tuning, requirements, schedules, event dates), set patchRef and",
-  "name the update and its date inside the sentence, e.g. 'As of Update 1.1.9.7 (November 10, 2026), ...'.",
-  "Announced-but-unreleased content must be written as announced, e.g. 'Bungie has announced ... for December 8, 2026.'",
-  "Plain sentences only: no markdown, links, lists, brackets, asterisks, pipes or citations inside sentence text.",
-  "Neutral encyclopedic tone. No marketing language, no second person, no speculation.",
-  "Do not attribute in prose ('according to press', 'per coverage', 'as listed by'); citations show the source. Name a source only",
-  "for Bungie announcements or when the attribution is itself the fact.",
-].join("\n");
+export type WikiDraftContext = {
+  /** Shown in the opening line, e.g. "Marathon, Bungie's 2026 extraction shooter". */
+  subject: string;
+  /** Short official-source name used in "prefer official (X)" and attribution rules. */
+  officialPublisher: string;
+};
+
+export const MARATHON_DRAFT_CONTEXT: WikiDraftContext = {
+  subject: "Marathon, Bungie's 2026 extraction shooter",
+  officialPublisher: "Bungie",
+};
+
+export function draftSystemFor(wiki: WikiDraftContext = MARATHON_DRAFT_CONTEXT) {
+  return [
+    `You write pages for an unofficial, source-backed wiki about ${wiki.subject}.`,
+    "You may ONLY state facts that appear in the extracts provided. Never use outside knowledge, never guess, never fill gaps.",
+    "State each fact once. Do not restate a fact in other words, and do not pad with sentences about what a publication lists.",
+    "Write in your own words, in neutral encyclopedic third person. Do not copy sentences from the extracts, and never copy text from community wikis.",
+    `If a source uses a distinctive phrase, slogan, or marketing line, quote a short span in quotation marks and attribute it to the publisher (for example '${wiki.officialPublisher} describes the character as …'). Unquoted prose must not repeat a run of eight or more words from an extract.`,
+    "Every sentence must list the extract ids that state its fact. A sentence without a supporting extract must be left out.",
+    "One fact per sentence, under 30 words: a fact checker must find it stated in a single cited extract, so long sentences that",
+    "combine facts from several places get removed.",
+    `Prefer official (${wiki.officialPublisher}) extracts; use press to add detail; community extracts only when nothing better exists.`,
+    "If two extracts disagree on a fact (for example a date or a count), do NOT pick one and do NOT hedge in prose:",
+    "put that sentence in `conflicts`, with a verbatim quote from each disagreeing extract. Copy each quote character for character",
+    "from the extract (3 to 15 words, no ellipses). Rounding or currency formatting is not a disagreement.",
+    "If a fact can change with updates (stock, drop rates, tuning, requirements, schedules, event dates), set patchRef and",
+    "name the update and its date inside the sentence, e.g. 'As of Update 1.1.9.7 (November 10, 2026), ...'.",
+    `Announced-but-unreleased content must be written as announced, e.g. '${wiki.officialPublisher} has announced ... for December 8, 2026.'`,
+    "Plain sentences only: no markdown, links, lists, brackets, asterisks, pipes or citations inside sentence text.",
+    "Neutral encyclopedic tone. No marketing language, no second person, no speculation.",
+    "Do not attribute in prose ('according to press', 'per coverage', 'as listed by'); citations show the source. Name a source only",
+    `for ${wiki.officialPublisher} announcements or when the attribution is itself the fact.`,
+  ].join("\n");
+}
+
+export const DRAFT_SYSTEM = draftSystemFor(MARATHON_DRAFT_CONTEXT);
 
 export function buildDraftPrompt(
   spec: PageSpec,

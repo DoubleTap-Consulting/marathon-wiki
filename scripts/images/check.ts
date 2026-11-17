@@ -14,7 +14,7 @@ const read = (path: string) => {
 const json = (path: string) => JSON.parse(readFileSync(new URL(path, root), "utf8"));
 
 let failed = 0;
-for (const slug of ["marathon"]) {
+for (const slug of ["marathon", "gta6"]) {
   const manifest = themeManifest.parse((await import(new URL(`themes/${slug}/theme.ts`, root).href)).default);
   const registry = json(`content/${slug}/images.json`);
   const specs: Array<{ slug: string; category: string }> = json(`content/${slug}/pages.json`);

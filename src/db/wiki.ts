@@ -5,7 +5,7 @@ import { sql, type Kysely, type Transaction } from "kysely";
 import { getDb } from "./client";
 import type { DB } from "./types";
 import type { WikiSourceMetadata } from "@/src/sources/wiki-source-ingestion";
-import { normalizeWikiSlug } from "@/src/wiki/tenant-routing";
+import { isTenantPubliclyEnabled, normalizeWikiSlug } from "@/src/wiki/tenant-routing";
 
 export const MARATHON_TENANT_SLUG = "marathon";
 
@@ -1331,7 +1331,7 @@ export async function listWikiSitemapEntries(
       categorySlug: null,
       updatedAt: page.updatedAt,
     })),
-  ];
+  ].filter((entry) => isTenantPubliclyEnabled(entry.tenantSlug));
 }
 
 export async function saveWikiPageWithRevision(

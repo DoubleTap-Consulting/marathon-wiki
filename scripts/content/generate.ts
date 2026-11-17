@@ -3,14 +3,15 @@
  * that the preview seed loads. It never touches a database and refuses to run on Vercel.
  *
  *   node scripts/content/generate.ts --dry-run          # build every prompt, estimate cost, no AI calls
- *   node scripts/content/generate.ts [slug ...]         # generate (all 40 pages, or the given slugs)
+ *   node scripts/content/generate.ts [--wiki marathon] [slug ...]  # generate (all planned pages, or the given slugs)
  *   node scripts/content/generate.ts --write-only       # rebuild the committed files from runs/ (no model calls)
  *   (--resume regenerates every cached page written with an older prompt version; it can spend.)
  *
- * Inputs:  content/marathon/{sources,pages}.json, rendered snapshots outside the repo
- *          (../marathon-wiki-content/snapshots, from scripts/content/snapshot.mjs).
- * Outputs: content/marathon/generated/pages.json            (bodies + aiProvenance)
- *          content/marathon/generated/sources.manifest.json (url, fetch date, sha256, cited quotes ONLY)
+ * Inputs:  content/<wiki>/{sources,pages,wiki}.json (default wiki: marathon), rendered snapshots outside the repo
+ *          (../marathon-wiki-content[/wiki]/snapshots, from scripts/content/snapshot.mjs --wiki).
+ * Outputs: content/<wiki>/generated/pages.json            (bodies + aiProvenance)
+ *          content/<wiki>/generated/sources.manifest.json (url, fetch date, sha256, cited quotes ONLY)
+ *          Pass --wiki gta6 for the Grand Theft Auto VI tenant.
  * Credentials: AI_GATEWAY_API_KEY or VERCEL_OIDC_TOKEN from the environment or .env.local. Nothing
  *          else is read from .env.local, and no secret is ever printed.
  * Spend:   every call's token usage is priced and appended to a ledger outside the repo; the run
@@ -29,27 +30,37 @@ import {
   type SpendEntry,
   type SpendLedger,
 } from "../../src/content/model-gateway.ts";
-import { CONTENT_PROMPT_VERSION, DRAFT_SYSTEM, buildDraftPrompt, datePatchText, selectExtracts, type PageSpec, type SourceRecord } from "../../src/content/pipeline.ts";
+import { CONTENT_PROMPT_VERSION, DRAFT_SYSTEM, buildDraftPrompt, datePatchText, draftSystemFor, selectExtracts, type PageSpec, type SourceRecord, type WikiDraftContext } from "../../src/content/pipeline.ts";
 
 const CAP_USD = Number(process.env.CONTENT_SPEND_CAP_USD ?? 15);
 
 const root = new URL("../../", import.meta.url).pathname;
-const workDir = path.resolve(process.env.CONTENT_WORK_DIR ?? path.join(root, "../marathon-wiki-content"));
+const args = process.argv.slice(2);
+function flagValue(name: string) {
+  const index = args.indexOf(`--${name}`);
+  return index >= 0 ? (args[index + 1] ?? "") : null;
+}
+const wikiSlug = (flagValue("wiki") ?? "marathon").trim().toLowerCase();
+if (!/^[a-z0-9-]+$/.test(wikiSlug)) {
+  console.error("generate: --wiki must be a lowercase slug.");
+  process.exit(1);
+}
+const defaultWork = wikiSlug === "marathon" ? path.join(root, "../marathon-wiki-content") : path.join(root, `../marathon-wiki-content/${wikiSlug}`);
+const workDir = path.resolve(process.env.CONTENT_WORK_DIR ?? defaultWork);
 const snapshotDir = path.join(workDir, "snapshots");
 const runsDir = path.join(workDir, "runs");
 const ledgerPath = path.join(workDir, "spend-ledger.json");
-const outDir = path.join(root, "content/marathon/generated");
+const outDir = path.join(root, `content/${wikiSlug}/generated`);
 
 if (process.env.VERCEL || process.env.VERCEL_ENV) {
   console.error("generate: refusing to run on Vercel. Content is generated locally and committed.");
   process.exit(1);
 }
 
-const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");
 const writeOnly = args.includes("--write-only"); // rebuild the committed files from cached runs, no model calls
 const resume = args.includes("--resume") || writeOnly; // keep cached pages written with the current prompt version
-const onlySlugs = new Set(args.filter((arg) => !arg.startsWith("--")));
+const onlySlugs = new Set(args.filter((arg, index) => !arg.startsWith("--") && args[index - 1] !== "--wiki"));
 
 function readJson<T>(file: string): T {
   return JSON.parse(readFileSync(file, "utf8")) as T;
@@ -71,13 +82,26 @@ function loadGatewayCredential() {
   return names.find((name) => process.env[name]) ?? null;
 }
 
-const sourcesList = readJson<SourceRecord[]>(path.join(root, "content/marathon/sources.json"));
+const contentDir = path.join(root, "content", wikiSlug);
+if (!existsSync(path.join(contentDir, "pages.json")) || !existsSync(path.join(contentDir, "sources.json"))) {
+  console.error(`generate: missing content/${wikiSlug}/pages.json or sources.json.`);
+  process.exit(1);
+}
+const sourcesList = readJson<SourceRecord[]>(path.join(contentDir, "sources.json"));
 const sources = new Map(sourcesList.map((source) => [source.sourceKey, source]));
-const pages = readJson<PageSpec[]>(path.join(root, "content/marathon/pages.json"));
+const pages = readJson<PageSpec[]>(path.join(contentDir, "pages.json"));
+const wikiContext: WikiDraftContext = existsSync(path.join(contentDir, "wiki.json"))
+  ? readJson<WikiDraftContext>(path.join(contentDir, "wiki.json"))
+  : { subject: "Marathon, Bungie's 2026 extraction shooter", officialPublisher: "Bungie" };
+const draftSystem = draftSystemFor(wikiContext);
 const titles = new Map(pages.map((page) => [page.slug, page.title]));
-const snapshotIndex = readJson<Record<string, { url: string; fetchedAt: string; sha256: string | null; ok: boolean; httpStatus: number }>>(
-  path.join(snapshotDir, "index.json"),
-);
+const snapshotIndexFile = path.join(snapshotDir, "index.json");
+const snapshotIndex = existsSync(snapshotIndexFile)
+  ? readJson<Record<string, { url: string; fetchedAt: string; sha256: string | null; ok: boolean; httpStatus: number }>>(snapshotIndexFile)
+  : {};
+if (!existsSync(snapshotIndexFile)) {
+  console.warn(`generate: no snapshot index at ${snapshotDir}/index.json; run scripts/content/snapshot.mjs --wiki ${wikiSlug} first.`);
+}
 
 const snapshots: Snapshot[] = sourcesList.flatMap((source) => {
   const entry = snapshotIndex[source.sourceKey];
@@ -180,7 +204,7 @@ if (dryRun) {
   for (const spec of targets) {
     const extracts = selectExtracts(spec, extractsBySource);
     const prompt = buildDraftPrompt(spec, extracts, sources, today);
-    inputChars += prompt.length + DRAFT_SYSTEM.length;
+    inputChars += prompt.length + draftSystem.length;
     console.log(`${spec.slug.padEnd(24)} extracts=${String(extracts.length).padStart(2)} sources=${new Set(extracts.map((e) => e.sourceKey)).size} promptChars=${prompt.length}`);
   }
   const draftIn = inputChars / 4;
@@ -201,7 +225,7 @@ if (!credential && !writeOnly) {
 }
 
 mkdirSync(runsDir, { recursive: true });
-const call = createGatewayCaller({ ledger, capUsd: CAP_USD, tags: ["app:marathon-wiki", "feature:real-content-generation"], log: (message) => console.warn(`generate: ${message}`) });
+const call = createGatewayCaller({ ledger, capUsd: CAP_USD, tags: ["app:marathon-wiki", "feature:real-content-generation", `wiki:${wikiSlug}`], log: (message) => console.warn(`generate: ${message}`) });
 const CONCURRENCY = Number(process.env.CONTENT_CONCURRENCY ?? 4);
 let stopped = false;
 
@@ -211,7 +235,7 @@ async function runOne(spec: PageSpec): Promise<PageResult | null> {
   if (resume && cached?.aiProvenance.promptVersion === CONTENT_PROMPT_VERSION) return cached;
   if (!targets.includes(spec) || stopped || writeOnly) return cached;
   try {
-    const { gate: _gate, ...result } = await composePage({ spec, corpus, titles, today, call });
+    const { gate: _gate, ...result } = await composePage({ spec, corpus, titles, today, call, draftSystem });
     writeFileSync(cache, JSON.stringify(result, null, 2));
     const counts = result.aiProvenance.claimSupport.reduce<Record<string, number>>((acc, claim) => ({ ...acc, [claim.status]: (acc[claim.status] ?? 0) + 1 }), {});
     console.log(`ok   ${spec.slug.padEnd(24)} ${JSON.stringify(counts)} rejected=${result.rejected.length} gate=${result.aiProvenance.publishGate.decision} model=${result.aiProvenance.modelId} spent=$${ledger.totalUsd().toFixed(3)}`);

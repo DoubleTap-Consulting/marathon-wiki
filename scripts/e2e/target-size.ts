@@ -18,9 +18,11 @@ async function measure(page: Page, kind: "article" | "index"): Promise<Target[]>
       kind === "article"
         ? [...pick('[data-slot="trust-strip"] :is(a, button)', "strip"), ...pick("#references li a", "references")]
         : [...pick("main table tbody a", "index"), ...pick('nav[aria-labelledby="browse-categories"] a', "browse")];
-    return targets.map(([group, el]) => {
+    return targets.flatMap(([group, el]) => {
       el.scrollIntoView({ block: "center", inline: "center" });
       const rect = el.getClientRects()[0];
+      // Rows hidden at 390 (home "All pages" cap) have no box and are not tap targets.
+      if (!rect || rect.width === 0 || rect.height === 0) return [];
       const cx = rect.left + rect.width / 2;
       const cy = rect.top + rect.height / 2;
       const hits = (x: number, y: number) => {

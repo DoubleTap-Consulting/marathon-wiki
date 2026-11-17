@@ -96,3 +96,7 @@ export function wikiSidebarAccountItems({
 
   return items;
 }
+
+export function shouldShowFooterReview(auth: WikiNavAuth | null) {
+  return auth?.status === "signed_in" && auth.canReview;
+}

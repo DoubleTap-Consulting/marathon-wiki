@@ -1,5 +1,5 @@
 /**
- * ONE-TIME load of content/marathon/generated/pages.json into one wiki's database.
+ * ONE-TIME load of content/<wiki>/generated/pages.json into one wiki's database.
  * Code only for production: Mike runs it once, by hand, after the merge and migration.
  *
  *   node scripts/content/load-generated-once.ts [--tenant marathon] [--env-file .env.local] [--dry-run] [--confirm "<phrase>"]
@@ -41,10 +41,15 @@ if (existsSync(envFile)) {
   }
 }
 
-const fileBytes = readFileSync(path.join(root, "content/marathon/generated/pages.json"));
+const generatedDir = path.join(root, "content", tenantSlug, "generated");
+if (!existsSync(path.join(generatedDir, "pages.json"))) {
+  console.error(`load-generated-once: missing content/${tenantSlug}/generated/pages.json`);
+  process.exit(1);
+}
+const fileBytes = readFileSync(path.join(generatedDir, "pages.json"));
 const pages = JSON.parse(fileBytes.toString("utf8")) as GeneratedPage[];
 const fileSha256 = createHash("sha256").update(fileBytes).digest("hex");
-const manifest = JSON.parse(readFileSync(path.join(root, "content/marathon/generated/sources.manifest.json"), "utf8")) as Array<{ sourceKey: string; fetchedAt: string | null }>;
+const manifest = JSON.parse(readFileSync(path.join(generatedDir, "sources.manifest.json"), "utf8")) as Array<{ sourceKey: string; fetchedAt: string | null }>;
 const fetchedAt = new Map(manifest.flatMap((entry) => (entry.fetchedAt ? [[entry.sourceKey, entry.fetchedAt] as [string, string]] : [])));
 const reviewCount = pages.filter((page) => page.aiProvenance.publishGate?.decision === "needs_review").length;
 
