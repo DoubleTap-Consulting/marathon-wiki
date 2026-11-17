@@ -93,11 +93,12 @@ describe("art surfaces", () => {
     expect(html).toContain(`background-color:${home.art.dominant}`);
   });
 
-  it("every surface is above the fold and the LCP element: eager, high priority (plates too)", () => {
+  it("every surface is above the fold (eager, async decode); only the home hero is high priority", () => {
     for (const variant of ["home", "hub", "plate"] as const) {
       const html = render(variant === "home" ? home : hubBandFor("marathon", "lore")!, variant);
       expect(html, variant).toMatch(/loading="eager"/);
-      expect(html.toLowerCase(), variant).toMatch(/fetchpriority="high"/);
+      expect(html, variant).toMatch(/decoding="async"/);
+      expect(html.toLowerCase(), variant).toMatch(variant === "home" ? /fetchpriority="high"/ : /fetchpriority="auto"/);
     }
   });
 

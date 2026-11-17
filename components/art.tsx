@@ -68,7 +68,9 @@ export function ArtSurface({
     >
       {/* No preload() hint: the <img> is the first thing in <main>, so the parser finds it right after the
           header, and a React preload hint would also fire whenever the router prefetches this route's payload,
-          downloading other pages' heroes. fetchpriority="high" puts it ahead of the scripts. */}
+          downloading other pages' heroes. Only the home hero asks for high priority: it is the LCP element there.
+          Hub bands and article plates stay at auto so the h1 and first text paint without waiting on them, and
+          the dominant-color background stands in until they decode. */}
       <picture className="art-painting absolute inset-0 -z-10">
         <source media={MOBILE} type="image/avif" srcSet={srcSetFor(renditions, mobile, "avif")} sizes="100vw" />
         <source media={MOBILE} type="image/webp" srcSet={srcSetFor(renditions, mobile, "webp")} sizes="100vw" />
@@ -82,7 +84,7 @@ export function ArtSurface({
           width={fallback?.width}
           height={fallback?.height}
           loading="eager"
-          fetchPriority="high"
+          fetchPriority={variant === "home" ? "high" : "auto"}
           decoding="async"
           className="size-full object-cover"
           style={{ objectPosition: `${focalX} 0%` }}
