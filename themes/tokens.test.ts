@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 
 import badFixture from "@/scripts/theme/bad-theme.fixture.ts";
 import silksongFixture from "@/scripts/theme/silksong.fixture.ts";
+import gta6 from "@/themes/gta6/theme.ts";
 import marathon from "@/themes/marathon/theme.ts";
 import { checkTheme, parseCoreTokens, renderCss, themeTokens, toHex } from "@/themes/tokens.ts";
 import { themeManifest } from "@/themes/types.ts";
@@ -34,6 +35,27 @@ describe("marathon theme", () => {
 
   it("passes the contrast, band and hue checks in both schemes", () => {
     expect(checkTheme(themeManifest.parse(marathon), core).errors).toEqual([]);
+  });
+});
+
+
+describe("gta6 theme", () => {
+  it("uses a Vice-teal fill with a darker light-mode link, and keeps the WikiDen subtitle", () => {
+    const theme = themeManifest.parse(gta6);
+    expect(theme.identity.descriptor).toBe("An unofficial guide to Grand Theft Auto VI");
+    expect(theme.identity.siteName).toBe("WikiDen");
+    expect(theme.slug).toBe("gta6");
+    expect(toHex(themeTokens(theme).link)).not.toBe(toHex(themeTokens(theme).primary));
+    expect(toHex(themeTokens(theme, "dark").link)).toBe(toHex(themeTokens(theme, "dark").primary));
+  });
+
+  it("matches the committed generated CSS", () => {
+    const committed = readFileSync(new URL("../app/themes/generated/gta6.css", import.meta.url), "utf8");
+    expect(renderCss(themeManifest.parse(gta6))).toBe(committed);
+  });
+
+  it("passes the contrast, band and hue checks in both schemes", () => {
+    expect(checkTheme(themeManifest.parse(gta6), core).errors).toEqual([]);
   });
 });
 

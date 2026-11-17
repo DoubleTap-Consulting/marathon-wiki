@@ -103,7 +103,7 @@ export default function RootLayout({
       <body>
         {children}
         <WikiAnalytics enabled={isWikiAnalyticsEnabled()} />
-        <SchemeSync theme={THEME} />
+        <SchemeSync />
       </body>
     </html>
   );

@@ -1,8 +1,8 @@
-// Renders every source in content/marathon/sources.json in headless Chrome and saves the
-// readable text OUTSIDE the repo (default ../marathon-wiki-content/snapshots), because the
+// Renders every source in content/<wiki>/sources.json in headless Chrome and saves the
+// readable text OUTSIDE the repo (default ../marathon-wiki-content[/wiki]/snapshots), because the
 // repo is public and only cited extracts may be committed.
 //
-// Usage: PLAYWRIGHT_DIR=/path/with/node_modules node scripts/content/snapshot.mjs [sourceKey...]
+// Usage: PLAYWRIGHT_DIR=/path/with/node_modules node scripts/content/snapshot.mjs [--wiki marathon] [sourceKey...]
 // Never runs on Vercel. Makes no AI calls.
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
@@ -10,12 +10,30 @@ import { createRequire } from "node:module";
 import path from "node:path";
 
 const root = new URL("../../", import.meta.url).pathname;
-const snapshotDir = path.resolve(process.env.CONTENT_SNAPSHOT_DIR ?? path.join(root, "../marathon-wiki-content/snapshots"));
+const argv = process.argv.slice(2);
+const wikiIndex = argv.indexOf("--wiki");
+const wikiSlug = (wikiIndex >= 0 ? argv[wikiIndex + 1] : "marathon") ?? "marathon";
+if (!/^[a-z0-9-]+$/.test(wikiSlug)) {
+  console.error("snapshot: --wiki must be a lowercase slug.");
+  process.exit(1);
+}
+const only = new Set(argv.filter((arg, index) => !arg.startsWith("--") && argv[index - 1] !== "--wiki"));
+const defaultSnap = wikiSlug === "marathon"
+  ? path.join(root, "../marathon-wiki-content/snapshots")
+  : path.join(root, `../marathon-wiki-content/${wikiSlug}/snapshots`);
+const snapshotDir = path.resolve(
+  process.env.CONTENT_SNAPSHOT_DIR ??
+    (process.env.CONTENT_WORK_DIR ? path.join(process.env.CONTENT_WORK_DIR, "snapshots") : defaultSnap),
+);
 const require = createRequire(path.join(process.env.PLAYWRIGHT_DIR ?? root, "package.json"));
 const { chromium } = require("playwright");
 
-const sources = JSON.parse(readFileSync(path.join(root, "content/marathon/sources.json"), "utf8"));
-const only = new Set(process.argv.slice(2));
+const sourcesFile = path.join(root, "content", wikiSlug, "sources.json");
+if (!existsSync(sourcesFile)) {
+  console.error(`snapshot: missing content/${wikiSlug}/sources.json`);
+  process.exit(1);
+}
+const sources = JSON.parse(readFileSync(sourcesFile, "utf8"));
 mkdirSync(snapshotDir, { recursive: true });
 const indexPath = path.join(snapshotDir, "index.json");
 const index = existsSync(indexPath) ? JSON.parse(readFileSync(indexPath, "utf8")) : {};

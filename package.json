@@ -14,6 +14,8 @@
     "db:migrate": "prisma migrate deploy",
     "db:migrate:dev": "prisma migrate dev",
     "db:seed": "prisma db execute --file prisma/seeds/marathon.sql",
+    "db:seed:gta6": "prisma db execute --file prisma/seeds/gta6.sql",
+    "db:seed:gta6:preview": "ALLOW_SAMPLE_SEED=1 node scripts/seed-gta6-preview.ts",
     "vercel-build": "node scripts/vercel-build.mjs",
     "vercel:build": "pnpm vercel-build",
     "db:seed:sample": "node scripts/seed-preview.ts",

@@ -292,6 +292,8 @@ type ComposeInput = {
   changedSources?: string[];
   policy?: PublishPolicy;
   now?: Date;
+  /** Defaults to the Marathon draft system prompt. */
+  draftSystem?: string;
 };
 
 /** Sources whose text differs from what the previous revision was written from. */
@@ -345,7 +347,7 @@ async function draftPage(input: ComposeInput, extracts: Extract[], extractsById:
   const draftCall = await input.call({
     page: spec.slug,
     step: "draft",
-    system: DRAFT_SYSTEM,
+    system: input.draftSystem ?? DRAFT_SYSTEM,
     prompt: buildDraftPrompt(spec, extracts, corpus.sources, input.today, input.readerNotes, input.previous?.claims.map((claim) => claim.claimText)),
     schema: draftSchema,
   });

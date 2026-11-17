@@ -27,6 +27,11 @@ export type GeneratedPage = {
 
 export type LoadResult = { published: string[]; review: string[] };
 
+/** Ids are scoped by tenant so two wikis can share a slug (for example overview) without colliding. */
+function generatedRowId(tenantId: string, kind: "page" | "rev" | "src" | "sug", rest: string) {
+  return `gen_${kind}_${tenantId}_${rest}`;
+}
+
 export async function loadGeneratedPages(
   client: PoolClient,
   input: { tenantId: string; pages: GeneratedPage[]; fetchedAt: Map<string, string>; actor: string },
@@ -46,7 +51,7 @@ export async function loadGeneratedPages(
         `insert into wiki_suggestions (id, tenant_id, page_id, status, suggestion_type, target_slug, title, summary, body_markdown, metadata, created_by)
          values ($1, $2, $3, 'pending', $4, $5, $6, $7, $8, $9, $10)`,
         [
-          `gen_sug_${page.slug}_${step}`,
+          generatedRowId(tenantId, "sug", `${page.slug}_${step}`),
           tenantId,
           existing.rows[0]?.id ?? null,
           existing.rows.length ? "edit_page" : "new_page",
@@ -66,7 +71,7 @@ export async function loadGeneratedPages(
     if (existing.rows.length > 0) {
       pageId = existing.rows[0].id;
     } else {
-      pageId = `gen_page_${page.slug}`;
+      pageId = generatedRowId(tenantId, "page", page.slug);
       await client.query(
         `insert into wiki_pages (id, tenant_id, slug, title, summary, body_markdown, status, latest_revision_number, created_by, updated_by, published_at)
          values ($1, $2, $3, $4, $5, '', 'published', 0, $7, $7, $6)`,
@@ -75,7 +80,7 @@ export async function loadGeneratedPages(
     }
     const max = await client.query("select coalesce(max(revision_number), 0)::int as max from wiki_page_revisions where tenant_id = $1 and page_id = $2", [tenantId, pageId]);
     const revisionNumber: number = max.rows[0].max + 1;
-    const revisionId = `gen_rev_${page.slug}_${step}`;
+    const revisionId = generatedRowId(tenantId, "rev", `${page.slug}_${step}`);
     const changeNote =
       page.aiProvenance.changeNote ?? (revisionNumber === 1 ? "First version of the page, written from cited sources." : "Rewritten from cited official and press sources.");
     await client.query(
@@ -88,7 +93,7 @@ export async function loadGeneratedPages(
         `insert into wiki_sources (id, tenant_id, page_id, revision_id, source_key, source_type, title, url, publisher, retrieved_at, metadata)
          values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
         [
-          `gen_src_${page.slug}_${step}_${source.sourceKey}`,
+          generatedRowId(tenantId, "src", `${page.slug}_${step}_${source.sourceKey}`),
           tenantId,
           pageId,
           revisionId,

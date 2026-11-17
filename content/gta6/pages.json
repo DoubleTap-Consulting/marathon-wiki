@@ -1,0 +1,1234 @@
+[
+  {
+    "slug": "overview",
+    "title": "Grand Theft Auto VI",
+    "category": "overview",
+    "group": "launch",
+    "scope": "What Grand Theft Auto VI is: the official premise, release date, platforms, editions and price, and the Leonida setting with Lucia and Jason. Only facts stated in the extracts. Do not invent gameplay systems, a PC release, or online features.",
+    "keywords": [
+      "GTA 6",
+      "GTA VI",
+      "Grand Theft Auto VI",
+      "November 19",
+      "Vice City",
+      "Leonida",
+      "Lucia",
+      "Jason",
+      "Rockstar",
+      "PS5",
+      "Xbox"
+    ],
+    "preferredSources": [
+      "gta6-official-site",
+      "gta6-nw-nov-2026",
+      "gta6-support-platforms",
+      "taketwo-preorders",
+      "gta6-people-lucia",
+      "gta6-people-jason",
+      "gta6-only-in-leonida"
+    ],
+    "hubChildren": [
+      "release-date",
+      "platforms",
+      "price-and-editions",
+      "pre-orders",
+      "story",
+      "characters",
+      "leonida",
+      "trailers"
+    ],
+    "related": [],
+    "table": null
+  },
+  {
+    "slug": "release-date",
+    "title": "Release date",
+    "category": "overview",
+    "group": "launch",
+    "scope": "The current official release date of November 19, 2026, and the earlier official dates Rockstar announced (a 2025 window, then May 26, 2026). State each date as what Rockstar announced at the time, and which announcement is current. Do not speculate about further delays.",
+    "keywords": [
+      "release date",
+      "November 19 2026",
+      "May 26 2026",
+      "delay",
+      "launch",
+      "when does GTA 6 come out"
+    ],
+    "preferredSources": [
+      "gta6-nw-nov-2026",
+      "gta6-nw-may-2026",
+      "gta6-nw-trailer-1",
+      "gta6-official-site",
+      "taketwo-preorders",
+      "playstation-gta6",
+      "verge-delay-nov-2026"
+    ],
+    "hubChildren": [],
+    "related": [
+      "platforms",
+      "pre-orders",
+      "pre-load"
+    ],
+    "table": null
+  },
+  {
+    "slug": "platforms",
+    "title": "Platforms",
+    "category": "overview",
+    "group": "launch",
+    "scope": "Platforms Rockstar has announced for Grand Theft Auto VI: PlayStation 5 and Xbox Series X|S, including PS5 Pro Enhanced if stated, Xbox Cloud Gaming on Xbox One and Series, and that it is not available on PlayStation 4 if an extract says so. Do not add a PC version unless an extract says Rockstar announced one.",
+    "keywords": [
+      "PS5",
+      "PlayStation 5",
+      "PS5 Pro",
+      "Xbox Series",
+      "Xbox Series X",
+      "Xbox Series S",
+      "Xbox One",
+      "cloud",
+      "platforms",
+      "consoles"
+    ],
+    "preferredSources": [
+      "gta6-support-platforms",
+      "gta6-official-site",
+      "playstation-gta6",
+      "xbox-cloud-gta6",
+      "taketwo-preorders",
+      "gta6-nw-preorders-begin"
+    ],
+    "hubChildren": [],
+    "related": [
+      "pc-version",
+      "xbox-cloud-gaming",
+      "playstation-features",
+      "pre-load"
+    ],
+    "table": null
+  },
+  {
+    "slug": "pc-version",
+    "title": "PC version",
+    "category": "overview",
+    "group": "launch",
+    "scope": "Whether Rockstar has officially announced a PC version. Official extracts list PlayStation 5 and Xbox Series X|S only. If an editorial extract states that Rockstar has not announced a PC version, you may say that. Do not state estimated PC dates, insider claims, or rumors, even if they appear in an extract.",
+    "keywords": [
+      "PC",
+      "Steam",
+      "Windows",
+      "port",
+      "PC release date"
+    ],
+    "preferredSources": [
+      "gta6-support-platforms",
+      "gta6-official-site",
+      "taketwo-preorders",
+      "gamespot-pc-status"
+    ],
+    "hubChildren": [],
+    "related": [
+      "platforms",
+      "system-requirements"
+    ],
+    "table": null
+  },
+  {
+    "slug": "system-requirements",
+    "title": "System requirements",
+    "category": "overview",
+    "group": "launch",
+    "scope": "What official sources say about hardware needed to play. There is no official PC version announcement in the preferred sources, so do not invent PC specs. Cover announced consoles (PlayStation 5, Xbox Series X|S) and any cloud-streaming notes, including Xbox Wire's note that cloud play uses Series S graphics settings if present.",
+    "keywords": [
+      "system requirements",
+      "specs",
+      "PC requirements",
+      "hardware",
+      "Series S",
+      "PS5"
+    ],
+    "preferredSources": [
+      "gta6-support-platforms",
+      "gta6-official-site",
+      "xbox-cloud-gta6",
+      "playstation-gta6"
+    ],
+    "hubChildren": [],
+    "related": [
+      "platforms",
+      "pc-version",
+      "xbox-cloud-gaming"
+    ],
+    "table": null
+  },
+  {
+    "slug": "price-and-editions",
+    "title": "Price and editions",
+    "category": "overview",
+    "group": "editions",
+    "scope": "The Standard Edition and Ultimate Edition, their official US prices ($79.99 and $99.99) if stated, what each includes at a summary level, and that an Ultimate Edition Upgrade can be bought later. Leave item-by-item Ultimate contents to the Ultimate Edition page.",
+    "keywords": [
+      "price",
+      "$79.99",
+      "$99.99",
+      "Standard Edition",
+      "Ultimate Edition",
+      "cost",
+      "how much"
+    ],
+    "preferredSources": [
+      "taketwo-preorders",
+      "gta6-support-platforms",
+      "gta6-official-site",
+      "playstation-store-ultimate"
+    ],
+    "hubChildren": [],
+    "related": [
+      "ultimate-edition",
+      "pre-orders",
+      "vintage-vice-city-pack"
+    ],
+    "table": null
+  },
+  {
+    "slug": "pre-orders",
+    "title": "Pre-orders",
+    "category": "overview",
+    "group": "editions",
+    "scope": "When pre-orders opened (June 25, 2026, midnight local time), where to pre-order, and which bonuses apply to pre-orders and purchases before November 20, 2026 (Vintage Vice City Pack; a month of GTA+ for eligible digital purchases). Do not invent retailer-exclusive bonuses.",
+    "keywords": [
+      "pre-order",
+      "preorder",
+      "June 25",
+      "wishlist",
+      "bonus",
+      "GTA+"
+    ],
+    "preferredSources": [
+      "gta6-nw-preorders-begin",
+      "gta6-nw-preorder-june-25",
+      "taketwo-preorders",
+      "gta6-support-platforms",
+      "gta6-official-site"
+    ],
+    "hubChildren": [],
+    "related": [
+      "vintage-vice-city-pack",
+      "gta-plus",
+      "pre-load",
+      "where-to-buy"
+    ],
+    "table": null
+  },
+  {
+    "slug": "pre-load",
+    "title": "Pre-load",
+    "category": "overview",
+    "group": "launch",
+    "scope": "When digital pre-loading began or begins: PlayStation 5 at midnight local time on November 10, 2026, and Xbox Series X|S at 12 a.m. GMT on November 10, 2026, as official support and later Newswire posts state. If an earlier Take-Two extract says November 12, treat that as a disagreement with the later official dates, not as a fact to pick. Mention that pre-loading is for people who have pre-ordered if the extracts say so.",
+    "keywords": [
+      "pre-load",
+      "preload",
+      "download",
+      "November 10",
+      "November 12",
+      "install"
+    ],
+    "preferredSources": [
+      "gta6-support-platforms",
+      "gta6-nw-preload-begins",
+      "gta6-nw-preload-now",
+      "gta6-pre-load-page",
+      "taketwo-preorders",
+      "playstation-gta6"
+    ],
+    "hubChildren": [],
+    "related": [
+      "pre-orders",
+      "physical-edition",
+      "platforms"
+    ],
+    "table": null,
+    "knownConflicts": [
+      {
+        "heading": "Digital pre-load date",
+        "sentence": "Official sources have given more than one date for when digital pre-loading would begin.",
+        "positions": [
+          {
+            "sourceKey": "taketwo-preorders",
+            "quote": "begin pre-loading on November 12, 2026"
+          },
+          {
+            "sourceKey": "gta6-support-platforms",
+            "quote": "digital pre-load begins at midnight local time in your respective time zone on November 10, 2026"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "physical-edition",
+    "title": "Physical edition",
+    "category": "overview",
+    "group": "editions",
+    "scope": "The boxed physical version: it contains a download code rather than a disc, becomes available starting November 12 to support pre-loading, includes the Vintage Vice City Pack as described, and has no physical Ultimate Edition. Cover region notes only if the support extract states them.",
+    "keywords": [
+      "physical",
+      "disc",
+      "box",
+      "download code",
+      "retail",
+      "November 12"
+    ],
+    "preferredSources": [
+      "gta6-support-platforms",
+      "taketwo-preorders"
+    ],
+    "hubChildren": [],
+    "related": [
+      "pre-load",
+      "vintage-vice-city-pack",
+      "ultimate-edition",
+      "where-to-buy"
+    ],
+    "table": null
+  },
+  {
+    "slug": "where-to-buy",
+    "title": "Where to buy",
+    "category": "overview",
+    "group": "editions",
+    "scope": "Official storefronts named for buying or pre-ordering: PlayStation Store, Microsoft Store, Rockstar Games Store, and global retailers, plus any official notes about buying in the same region as a platform account.",
+    "keywords": [
+      "buy",
+      "store",
+      "PlayStation Store",
+      "Microsoft Store",
+      "Rockstar Games Store",
+      "retailer"
+    ],
+    "preferredSources": [
+      "taketwo-preorders",
+      "gta6-support-platforms",
+      "gta6-nw-preorders-begin",
+      "gta6-official-site"
+    ],
+    "hubChildren": [],
+    "related": [
+      "pre-orders",
+      "price-and-editions",
+      "physical-edition"
+    ],
+    "table": null
+  },
+  {
+    "slug": "age-rating",
+    "title": "Age rating and content descriptors",
+    "category": "overview",
+    "group": "launch",
+    "scope": "Content descriptors published on official Grand Theft Auto VI pages (Blood and Gore, Intense Violence, Mature Humor, Nudity, Strong Language, Strong Sexual Content, Use of Drugs and Alcohol). Only state an ESRB or other board's letter rating if an extract actually gives one. Do not carry forward an older 'not yet rated' line if later official pages no longer say that, and if extracts disagree, put the disagreement in conflicts.",
+    "keywords": [
+      "rating",
+      "ESRB",
+      "Mature",
+      "PEGI",
+      "age rating",
+      "content descriptors"
+    ],
+    "preferredSources": [
+      "gta6-official-site",
+      "gta6-people-lucia",
+      "taketwo-preorders",
+      "playstation-gta6",
+      "gta6-only-in-leonida"
+    ],
+    "hubChildren": [],
+    "related": [
+      "overview",
+      "gameplay"
+    ],
+    "table": null
+  },
+  {
+    "slug": "story",
+    "title": "Story",
+    "category": "lore",
+    "group": "story",
+    "scope": "The official premise only: Jason and Lucia, an easy score that goes wrong, a criminal conspiracy across the state of Leonida, Vice City as the sunniest place in America's darkest side, and that they must rely on each other. Do not invent mission names, plot twists, or endings.",
+    "keywords": [
+      "story",
+      "plot",
+      "Lucia",
+      "Jason",
+      "conspiracy",
+      "Leonida",
+      "premise"
+    ],
+    "preferredSources": [
+      "gta6-official-site",
+      "gta6-people-lucia",
+      "gta6-people-jason",
+      "gta6-nw-trailer-2",
+      "playstation-store-ultimate",
+      "gta6-only-in-leonida"
+    ],
+    "hubChildren": [],
+    "related": [
+      "characters",
+      "lucia-caminos",
+      "jason-duval",
+      "leonida"
+    ],
+    "table": null
+  },
+  {
+    "slug": "characters",
+    "title": "Characters",
+    "category": "lore",
+    "group": "characters",
+    "scope": "The characters Rockstar has introduced with official bios: Lucia Caminos, Jason Duval, Cal Hampton, Boobie Ike, Dre'Quan Priest, Real Dimez (Bae-Luxe and Roxy), Raul Bautista, and Brian Heder, plus named associates only if the extracts name them (Lori, DWNPLY). Short introductions; leave full bios to child pages.",
+    "keywords": [
+      "characters",
+      "cast",
+      "Lucia",
+      "Jason",
+      "Cal",
+      "Boobie",
+      "Dre'Quan",
+      "Real Dimez",
+      "Raul",
+      "Brian"
+    ],
+    "preferredSources": [
+      "gta6-people-lucia",
+      "gta6-people-jason",
+      "gta6-people-cal",
+      "gta6-people-dimez",
+      "gta6-vice-city",
+      "gta6-official-site",
+      "gta6-only-in-leonida"
+    ],
+    "hubChildren": [
+      "lucia-caminos",
+      "jason-duval",
+      "cal-hampton",
+      "boobie-ike",
+      "drequan-priest",
+      "real-dimez",
+      "raul-bautista",
+      "brian-heder"
+    ],
+    "related": [
+      "story"
+    ],
+    "table": null
+  },
+  {
+    "slug": "lucia-caminos",
+    "title": "Lucia Caminos",
+    "category": "lore",
+    "group": "characters",
+    "scope": "Lucia Caminos as described on the official site: her father taught her to fight, fighting for her family landed her in the Leonida Penitentiary, sheer luck got her out, she wants the good life her mom dreamed of since their days in Liberty City, and a life with Jason could be her way out.",
+    "keywords": [
+      "Lucia",
+      "Lucia Caminos",
+      "Leonida Penitentiary",
+      "Liberty City",
+      "protagonist"
+    ],
+    "preferredSources": [
+      "gta6-people-lucia",
+      "gta6-official-site",
+      "gta6-people-jason",
+      "gta6-only-in-leonida"
+    ],
+    "hubChildren": [],
+    "related": [
+      "jason-duval",
+      "story",
+      "characters",
+      "leonida"
+    ],
+    "table": null
+  },
+  {
+    "slug": "jason-duval",
+    "title": "Jason Duval",
+    "category": "lore",
+    "group": "characters",
+    "scope": "Jason Duval as described on the official site: he grew up around grifters and crooks, served a stint in the Army, works for local drug runners in the Keys, wants an easy life, and meeting Lucia could be the best or worst thing to happen to him.",
+    "keywords": [
+      "Jason",
+      "Jason Duval",
+      "Keys",
+      "Army",
+      "protagonist"
+    ],
+    "preferredSources": [
+      "gta6-people-jason",
+      "gta6-official-site",
+      "gta6-people-lucia",
+      "gta6-people-cal",
+      "gta6-only-in-leonida"
+    ],
+    "hubChildren": [],
+    "related": [
+      "lucia-caminos",
+      "brian-heder",
+      "cal-hampton",
+      "the-keys",
+      "story"
+    ],
+    "table": null
+  },
+  {
+    "slug": "cal-hampton",
+    "title": "Cal Hampton",
+    "category": "lore",
+    "group": "characters",
+    "scope": "Cal Hampton as described officially: Jason's friend and a fellow associate of Brian's, who feels safest hanging at home, snooping on Coast Guard comms, described as casually paranoid, at the low tide of America.",
+    "keywords": [
+      "Cal Hampton",
+      "Cal",
+      "Coast Guard",
+      "conspiracy"
+    ],
+    "preferredSources": [
+      "gta6-people-cal",
+      "gta6-people-jason",
+      "gta6-people-lucia",
+      "gta6-only-in-leonida"
+    ],
+    "hubChildren": [],
+    "related": [
+      "jason-duval",
+      "brian-heder",
+      "characters"
+    ],
+    "table": null
+  },
+  {
+    "slug": "boobie-ike",
+    "title": "Boobie Ike",
+    "category": "lore",
+    "group": "characters",
+    "scope": "Boobie Ike as described officially: a local Vice City legend with a legitimate empire spanning real estate, a strip club, and a recording studio, and his partnership with Dre'Quan for Only Raw Records.",
+    "keywords": [
+      "Boobie Ike",
+      "Boobie",
+      "Only Raw Records",
+      "Vice City",
+      "Jack of Hearts"
+    ],
+    "preferredSources": [
+      "gta6-people-lucia",
+      "gta6-people-jason",
+      "gta6-people-cal",
+      "gta6-people-dimez",
+      "gta6-vice-city",
+      "gta6-official-site",
+      "gta6-only-in-leonida"
+    ],
+    "hubChildren": [],
+    "related": [
+      "drequan-priest",
+      "real-dimez",
+      "vice-city",
+      "characters"
+    ],
+    "table": null
+  },
+  {
+    "slug": "drequan-priest",
+    "title": "Dre'Quan Priest",
+    "category": "lore",
+    "group": "characters",
+    "scope": "Dre'Quan Priest as described officially: more of a hustler than a gangster, breaking into music was the goal, he booked acts into Boobie's strip club, and he has signed the Real Dimez to Only Raw Records.",
+    "keywords": [
+      "Dre'Quan Priest",
+      "DreQuan",
+      "Only Raw Records",
+      "music"
+    ],
+    "preferredSources": [
+      "gta6-people-lucia",
+      "gta6-people-jason",
+      "gta6-people-cal",
+      "gta6-people-dimez",
+      "gta6-vice-city",
+      "gta6-official-site",
+      "gta6-only-in-leonida"
+    ],
+    "hubChildren": [],
+    "related": [
+      "boobie-ike",
+      "real-dimez",
+      "vice-city",
+      "characters"
+    ],
+    "table": null
+  },
+  {
+    "slug": "real-dimez",
+    "title": "Real Dimez",
+    "category": "lore",
+    "group": "characters",
+    "scope": "Real Dimez as described officially: Bae-Luxe and Roxy, friends since high school, spicy rap tracks and a social media presence, an early hit with local rapper DWNPLY, and now signed to Only Raw Records after five years.",
+    "keywords": [
+      "Real Dimez",
+      "Bae-Luxe",
+      "Roxy",
+      "DWNPLY",
+      "Only Raw Records"
+    ],
+    "preferredSources": [
+      "gta6-people-lucia",
+      "gta6-people-jason",
+      "gta6-people-cal",
+      "gta6-people-dimez",
+      "gta6-vice-city",
+      "gta6-official-site",
+      "gta6-only-in-leonida"
+    ],
+    "hubChildren": [],
+    "related": [
+      "drequan-priest",
+      "boobie-ike",
+      "vice-city",
+      "characters"
+    ],
+    "table": null
+  },
+  {
+    "slug": "raul-bautista",
+    "title": "Raul Bautista",
+    "category": "lore",
+    "group": "characters",
+    "scope": "Raul Bautista as described officially: a seasoned bank robber always on the hunt for talent, confidence, charm and cunning, whose recklessness raises the stakes with every score. Mention Ambrosia only if an extract ties him to it.",
+    "keywords": [
+      "Raul Bautista",
+      "Raul",
+      "bank robber",
+      "Ambrosia"
+    ],
+    "preferredSources": [
+      "gta6-people-lucia",
+      "gta6-people-jason",
+      "gta6-people-cal",
+      "gta6-people-dimez",
+      "gta6-vice-city",
+      "gta6-official-site",
+      "gta6-only-in-leonida"
+    ],
+    "hubChildren": [],
+    "related": [
+      "characters",
+      "ambrosia",
+      "story"
+    ],
+    "table": null
+  },
+  {
+    "slug": "brian-heder",
+    "title": "Brian Heder",
+    "category": "lore",
+    "group": "characters",
+    "scope": "Brian Heder as described officially: a classic drug runner from the golden age of smuggling in the Keys, still moving product through his boat yard with his third wife Lori, letting Jason live rent-free at one of his properties in exchange for help with local shakedowns.",
+    "keywords": [
+      "Brian Heder",
+      "Brian",
+      "Lori",
+      "Keys",
+      "boat yard",
+      "smuggling"
+    ],
+    "preferredSources": [
+      "gta6-people-lucia",
+      "gta6-people-jason",
+      "gta6-people-cal",
+      "gta6-people-dimez",
+      "gta6-vice-city",
+      "gta6-official-site",
+      "gta6-only-in-leonida"
+    ],
+    "hubChildren": [],
+    "related": [
+      "jason-duval",
+      "cal-hampton",
+      "the-keys",
+      "characters"
+    ],
+    "table": null
+  },
+  {
+    "slug": "leonida",
+    "title": "Leonida",
+    "category": "locations",
+    "group": "places",
+    "scope": "The fictional state of Leonida as official sources describe it: home to Vice City and beyond, the sunshine state setting of the story, and named places official pages point to (Vice City, the Keys, Port Gellhorn, Ambrosia, Leonida Penitentiary) only when the extracts name them. Do not invent a map, city list, or real-world one-to-one Florida identifications.",
+    "keywords": [
+      "Leonida",
+      "state",
+      "Florida",
+      "sunshine state",
+      "setting",
+      "map"
+    ],
+    "preferredSources": [
+      "gta6-official-site",
+      "gta6-people-lucia",
+      "gta6-vice-city",
+      "gta6-nw-trailer-2",
+      "gta6-only-in-leonida"
+    ],
+    "hubChildren": [
+      "vice-city",
+      "the-keys",
+      "port-gellhorn",
+      "ambrosia",
+      "map"
+    ],
+    "related": [
+      "story",
+      "characters"
+    ],
+    "table": null
+  },
+  {
+    "slug": "vice-city",
+    "title": "Vice City",
+    "category": "locations",
+    "group": "places",
+    "scope": "Vice City, USA, as official sources describe it: neon-soaked streets, the darkest side of the sunniest place in America, and the city where several announced characters operate. Do not import details from earlier Grand Theft Auto games unless an extract explicitly ties them to this game.",
+    "keywords": [
+      "Vice City",
+      "Vice City USA",
+      "neon",
+      "setting",
+      "city"
+    ],
+    "preferredSources": [
+      "gta6-official-site",
+      "gta6-vice-city",
+      "gta6-people-lucia",
+      "gta6-nw-trailer-2",
+      "playstation-store-ultimate",
+      "gta6-only-in-leonida"
+    ],
+    "hubChildren": [],
+    "related": [
+      "leonida",
+      "boobie-ike",
+      "story"
+    ],
+    "table": null
+  },
+  {
+    "slug": "the-keys",
+    "title": "The Keys",
+    "category": "locations",
+    "group": "places",
+    "scope": "The Keys as official character bios describe them: where Jason works for local drug runners after the Army, and where Brian Heder still moves product through his boat yard. Do not invent a full Keys map or town list.",
+    "keywords": [
+      "Keys",
+      "the Keys",
+      "Florida Keys",
+      "boat yard",
+      "Jason",
+      "Brian"
+    ],
+    "preferredSources": [
+      "gta6-people-lucia",
+      "gta6-people-jason",
+      "gta6-people-cal",
+      "gta6-people-dimez",
+      "gta6-vice-city",
+      "gta6-official-site",
+      "gta6-only-in-leonida"
+    ],
+    "hubChildren": [],
+    "related": [
+      "jason-duval",
+      "brian-heder",
+      "leonida"
+    ],
+    "table": null
+  },
+  {
+    "slug": "port-gellhorn",
+    "title": "Port Gellhorn",
+    "category": "locations",
+    "group": "places",
+    "scope": "Port Gellhorn only as official pages name or introduce it (including any 'Explore Port Gellhorn' context on character pages). Do not invent geography, businesses, or a role in the plot beyond the extracts.",
+    "keywords": [
+      "Port Gellhorn",
+      "Gellhorn",
+      "Leonida"
+    ],
+    "preferredSources": [
+      "gta6-people-lucia",
+      "gta6-people-jason",
+      "gta6-people-cal",
+      "gta6-people-dimez",
+      "gta6-vice-city",
+      "gta6-official-site",
+      "gta6-official-site",
+      "gta6-only-in-leonida"
+    ],
+    "hubChildren": [],
+    "related": [
+      "leonida",
+      "real-dimez",
+      "map"
+    ],
+    "table": null
+  },
+  {
+    "slug": "ambrosia",
+    "title": "Ambrosia",
+    "category": "locations",
+    "group": "places",
+    "scope": "Ambrosia only as official pages name or introduce it (including any 'Explore Ambrosia' context on character pages). Do not invent geography or a plot role beyond the extracts.",
+    "keywords": [
+      "Ambrosia",
+      "Leonida"
+    ],
+    "preferredSources": [
+      "gta6-people-lucia",
+      "gta6-people-jason",
+      "gta6-people-cal",
+      "gta6-people-dimez",
+      "gta6-vice-city",
+      "gta6-official-site",
+      "gta6-official-site",
+      "gta6-only-in-leonida"
+    ],
+    "hubChildren": [],
+    "related": [
+      "leonida",
+      "raul-bautista",
+      "map"
+    ],
+    "table": null
+  },
+  {
+    "slug": "map",
+    "title": "Map and setting",
+    "category": "locations",
+    "group": "places",
+    "scope": "What official sources have actually said about the map and setting: Vice City and the state of Leonida, plus named places in official text (the Keys, Port Gellhorn, Ambrosia, and any neighborhoods or landmarks named in official edition or site copy such as Washington Beach, Shore Drive, Gambit Bay, Mount Kalaga, or Watson Bay). Do not claim Rockstar has published a full map unless an extract says so, and do not treat fan reconstructions as fact.",
+    "keywords": [
+      "map",
+      "world",
+      "open world",
+      "Leonida map",
+      "size",
+      "Washington Beach",
+      "Mount Kalaga"
+    ],
+    "preferredSources": [
+      "gta6-official-site",
+      "gta6-people-lucia",
+      "gta6-vice-city",
+      "playstation-store-ultimate",
+      "gta6-nw-launch-gallery",
+      "gta6-only-in-leonida"
+    ],
+    "hubChildren": [],
+    "related": [
+      "leonida",
+      "vice-city",
+      "the-keys"
+    ],
+    "table": null
+  },
+  {
+    "slug": "gameplay",
+    "title": "Gameplay",
+    "category": "gameplay",
+    "group": "systems",
+    "scope": "Gameplay details official text actually states: that Grand Theft Auto VI is presented as a single-player experience, the official premise, and any concrete features named in official or platform-holder extracts (for example PS5 Pro Enhanced, Remote Play, offline play, or Xbox Cloud Gaming). Do not invent wanted levels, ability lists, or mission types. If the extracts are thin, write a short page rather than padding.",
+    "keywords": [
+      "gameplay",
+      "single-player",
+      "features",
+      "mechanics",
+      "how it plays"
+    ],
+    "preferredSources": [
+      "gta6-official-site",
+      "taketwo-preorders",
+      "gta6-support-platforms",
+      "playstation-gta6",
+      "playstation-store-ultimate",
+      "xbox-cloud-gta6",
+      "netflix-extended-look",
+      "gta6-nw-extended-look-announce"
+    ],
+    "hubChildren": [],
+    "related": [
+      "story",
+      "platforms",
+      "extended-look",
+      "gta-online"
+    ],
+    "table": null
+  },
+  {
+    "slug": "trailers",
+    "title": "Trailers and videos",
+    "category": "gameplay",
+    "group": "media",
+    "scope": "The official videos Rockstar has released, with their official titles and dates: Trailer 1 (December 4 or 5, 2023 as the extracts state), Trailer 2 (May 6, 2025), An Extended Look (August 27, 2026, including Netflix and YouTube if stated), the Launch Trailer (October 15, 2026), and the pre-load video if mentioned. Leave detailed contents to child pages. If dates disagree by a day, put that in conflicts.",
+    "keywords": [
+      "trailer",
+      "Trailer 1",
+      "Trailer 2",
+      "Extended Look",
+      "Launch Trailer",
+      "video"
+    ],
+    "preferredSources": [
+      "gta6-nw-trailer-1",
+      "gta6-nw-trailer-2",
+      "gta6-nw-extended-look-announce",
+      "gta6-nw-extended-look-live",
+      "gta6-nw-launch-trailer",
+      "gta6-launch-trailer-page",
+      "gta6-official-site"
+    ],
+    "hubChildren": [
+      "trailer-1",
+      "trailer-2",
+      "extended-look",
+      "launch-trailer"
+    ],
+    "related": [],
+    "table": null
+  },
+  {
+    "slug": "trailer-1",
+    "title": "Trailer 1",
+    "category": "gameplay",
+    "group": "media",
+    "scope": "Official Trailer 1: when Rockstar published it, that it announced the game, and any setting or character names the Trailer 1 Newswire or official site attributes to that reveal. Do not narrate unlisted trailer shots as a shot list unless an official extract describes them.",
+    "keywords": [
+      "Trailer 1",
+      "first trailer",
+      "December 2023",
+      "announcement"
+    ],
+    "preferredSources": [
+      "gta6-nw-trailer-1",
+      "gta6-official-site",
+      "gta6-launch-trailer-page"
+    ],
+    "hubChildren": [],
+    "related": [
+      "trailers",
+      "story",
+      "lucia-caminos",
+      "vice-city"
+    ],
+    "table": null
+  },
+  {
+    "slug": "trailer-2",
+    "title": "Trailer 2",
+    "category": "gameplay",
+    "group": "media",
+    "scope": "Official Trailer 2, published May 6, 2025: the official invitation to explore Vice City and beyond, and any official description of the story hook (an easy score, a conspiracy across Leonida) if the extracts include it.",
+    "keywords": [
+      "Trailer 2",
+      "May 6 2025",
+      "Vice City"
+    ],
+    "preferredSources": [
+      "gta6-nw-trailer-2",
+      "gta6-official-site",
+      "gta6-launch-trailer-page"
+    ],
+    "hubChildren": [],
+    "related": [
+      "trailers",
+      "story",
+      "leonida"
+    ],
+    "table": null
+  },
+  {
+    "slug": "extended-look",
+    "title": "An Extended Look",
+    "category": "gameplay",
+    "group": "media",
+    "scope": "Grand Theft Auto VI: An Extended Look. Official announcement that it would arrive August 27 on Netflix and YouTube, the later 'now playing' post, any official description of runtime or that it was captured from in-game PlayStation 5 footage, and that Rockstar presented it as a look at the game rather than a shot-by-shot fan transcript.",
+    "keywords": [
+      "Extended Look",
+      "gameplay trailer",
+      "Netflix",
+      "YouTube",
+      "August 27",
+      "26 minutes"
+    ],
+    "preferredSources": [
+      "gta6-nw-extended-look-announce",
+      "gta6-nw-extended-look-live",
+      "netflix-extended-look",
+      "gta6-official-site",
+      "gta6-launch-trailer-page"
+    ],
+    "hubChildren": [],
+    "related": [
+      "trailers",
+      "gameplay",
+      "launch-trailer"
+    ],
+    "table": null
+  },
+  {
+    "slug": "launch-trailer",
+    "title": "Launch trailer",
+    "category": "gameplay",
+    "group": "media",
+    "scope": "The official Launch Trailer dated October 15, 2026, including the debut of 'Flower in a Hurricane' from original score composers Justice featuring Tame Impala, SZA, and King Gizzard & The Lizard Wizard if the extracts state that.",
+    "keywords": [
+      "launch trailer",
+      "October 15",
+      "Flower in a Hurricane",
+      "Justice"
+    ],
+    "preferredSources": [
+      "gta6-nw-launch-trailer",
+      "gta6-launch-trailer-page",
+      "gta6-official-site",
+      "gta6-nw-score"
+    ],
+    "hubChildren": [],
+    "related": [
+      "trailers",
+      "original-score",
+      "radio-and-soundtrack"
+    ],
+    "table": null
+  },
+  {
+    "slug": "radio-and-soundtrack",
+    "title": "Radio and soundtrack",
+    "category": "gameplay",
+    "group": "music",
+    "scope": "Official music announcements: in-game radio stations (including any count or 'Leonida Radio' and podcasts if stated), Grand Theft Auto VI: The Album coming November 19 with the official track count and singles, and a short pointer to the original score page. Do not invent station or track lists beyond the extracts.",
+    "keywords": [
+      "radio",
+      "soundtrack",
+      "The Album",
+      "Leonida Radio",
+      "podcasts",
+      "music"
+    ],
+    "preferredSources": [
+      "gta6-nw-radio",
+      "gta6-nw-album",
+      "gta6-official-site",
+      "gta6-nw-score",
+      "gta6-nw-launch-trailer"
+    ],
+    "hubChildren": [],
+    "related": [
+      "original-score",
+      "launch-trailer"
+    ],
+    "table": null
+  },
+  {
+    "slug": "original-score",
+    "title": "Original score",
+    "category": "gameplay",
+    "group": "music",
+    "scope": "The official original score announcement: Justice as composers, the album date if stated (December 11 in the Newswire title or body), and 'Flower in a Hurricane' featuring Tame Impala, SZA, and King Gizzard & The Lizard Wizard if the extracts name them.",
+    "keywords": [
+      "score",
+      "Justice",
+      "Flower in a Hurricane",
+      "Tame Impala",
+      "SZA",
+      "King Gizzard",
+      "December 11"
+    ],
+    "preferredSources": [
+      "gta6-nw-score",
+      "gta6-nw-launch-trailer",
+      "gta6-launch-trailer-page",
+      "gta6-official-site"
+    ],
+    "hubChildren": [],
+    "related": [
+      "radio-and-soundtrack",
+      "launch-trailer"
+    ],
+    "table": null
+  },
+  {
+    "slug": "ultimate-edition",
+    "title": "Ultimate Edition",
+    "category": "overview",
+    "group": "editions",
+    "scope": "What official sources say the Ultimate Edition includes: the game plus the Ultimate Edition Upgrade, the official $99.99 price, that bonuses are threaded across Jason and Lucia's story and uncovered behind each chapter, the official item list from Rockstar support and the PlayStation Store listing, that Standard owners can buy the upgrade later, and that a physical Ultimate Edition is not available.",
+    "keywords": [
+      "Ultimate Edition",
+      "upgrade",
+      "$99.99",
+      "Grotti Cheetah",
+      "Vercetti",
+      "bonuses"
+    ],
+    "preferredSources": [
+      "gta6-support-platforms",
+      "taketwo-preorders",
+      "playstation-store-ultimate",
+      "gta6-official-site"
+    ],
+    "hubChildren": [],
+    "related": [
+      "price-and-editions",
+      "vintage-vice-city-pack",
+      "physical-edition"
+    ],
+    "table": null,
+    "extracts": {
+      "budget": 14000,
+      "perSource": 8
+    }
+  },
+  {
+    "slug": "vintage-vice-city-pack",
+    "title": "Vintage Vice City Pack",
+    "category": "overview",
+    "group": "editions",
+    "scope": "The Vintage Vice City Pack: who gets it (pre-orders and purchases before November 20, 2026, including physical pre-orders as described), and the official contents: '55 Vapid Stanier Sedan and Garage, outfits and hairstyles, and an exclusive weapon pattern. Note that a free month of GTA+ is listed with digital editions, and say whether the support article groups it with the pack or as a separate digital bonus if the wording is specific.",
+    "keywords": [
+      "Vintage Vice City Pack",
+      "pre-order bonus",
+      "Stanier",
+      "November 20"
+    ],
+    "preferredSources": [
+      "gta6-support-platforms",
+      "taketwo-preorders",
+      "gta6-official-site",
+      "playstation-store-ultimate"
+    ],
+    "hubChildren": [],
+    "related": [
+      "pre-orders",
+      "gta-plus",
+      "ultimate-edition"
+    ],
+    "table": null
+  },
+  {
+    "slug": "gta-plus",
+    "title": "GTA+ offer",
+    "category": "overview",
+    "group": "editions",
+    "scope": "The official GTA+ offer tied to digital pre-orders or purchases of Grand Theft Auto VI: one month of GTA+, claim deadlines and auto-renewal notes if the store or support extracts state them, and that GTA+ is described in connection with GTA Online and the GTA+ Games Library, including Grand Theft Auto V, where those extracts say so. Do not describe a Grand Theft Auto VI online mode unless an extract does.",
+    "keywords": [
+      "GTA+",
+      "subscription",
+      "Games Library",
+      "free month"
+    ],
+    "preferredSources": [
+      "gta6-support-platforms",
+      "taketwo-preorders",
+      "playstation-store-ultimate"
+    ],
+    "hubChildren": [],
+    "related": [
+      "pre-orders",
+      "gta-online",
+      "vintage-vice-city-pack"
+    ],
+    "table": null
+  },
+  {
+    "slug": "xbox-cloud-gaming",
+    "title": "Xbox Cloud Gaming",
+    "category": "gameplay",
+    "group": "platforms",
+    "scope": "Official Xbox and related notes: Grand Theft Auto VI can be played on day one through Xbox Cloud Gaming on Xbox One and Xbox Series X|S, start time if stated (1 a.m. ET on November 19), that cloud play uses Xbox Series S graphics settings, and that the game must be purchased separately. Do not invent PC cloud support.",
+    "keywords": [
+      "Xbox Cloud Gaming",
+      "xCloud",
+      "Xbox One",
+      "streaming",
+      "Series S"
+    ],
+    "preferredSources": [
+      "xbox-cloud-gta6",
+      "gta6-support-platforms",
+      "gta6-official-site"
+    ],
+    "hubChildren": [],
+    "related": [
+      "platforms",
+      "system-requirements",
+      "pre-load"
+    ],
+    "table": null
+  },
+  {
+    "slug": "playstation-features",
+    "title": "PlayStation features",
+    "category": "gameplay",
+    "group": "platforms",
+    "scope": "PlayStation-specific official details: PlayStation 5 and PS5 Pro Enhanced if stated, that the game is not on PlayStation 4 if the PlayStation page says so, pre-load timing on PS5, and any listed features such as Remote Play, offline play, or player count. Cover the 'Plays Best On PlayStation 5' line only as marketing text on official pages, not as a technical comparison you invent.",
+    "keywords": [
+      "PS5",
+      "PS5 Pro",
+      "PlayStation",
+      "Remote Play",
+      "Pro Enhanced",
+      "Plays Best On"
+    ],
+    "preferredSources": [
+      "playstation-gta6",
+      "gta6-official-site",
+      "gta6-support-platforms",
+      "gta6-launch-trailer-page"
+    ],
+    "hubChildren": [],
+    "related": [
+      "platforms",
+      "pre-load",
+      "xbox-cloud-gaming"
+    ],
+    "table": null
+  },
+  {
+    "slug": "gta-online",
+    "title": "GTA Online",
+    "category": "gameplay",
+    "group": "online",
+    "scope": "What official sources actually say about online play in connection with Grand Theft Auto VI. Preferred extracts describe Grand Theft Auto VI as a single-player experience and mention GTA+ / GTA Online in the context of the existing service and Games Library. Do not announce a Grand Theft Auto VI multiplayer or a GTA Online sequel unless an extract explicitly does so. If official sources are silent on a VI online mode, do not fill the gap.",
+    "keywords": [
+      "GTA Online",
+      "multiplayer",
+      "online",
+      "GTA+",
+      "single-player"
+    ],
+    "preferredSources": [
+      "taketwo-preorders",
+      "playstation-store-ultimate",
+      "gta6-support-platforms",
+      "gta6-official-site",
+      "gta6-nw-preload-now"
+    ],
+    "hubChildren": [],
+    "related": [
+      "gta-plus",
+      "gameplay",
+      "overview"
+    ],
+    "table": null
+  }
+]
