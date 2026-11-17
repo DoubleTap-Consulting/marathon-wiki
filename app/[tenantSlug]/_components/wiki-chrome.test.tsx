@@ -5,7 +5,7 @@ import { NETWORK_PLACEHOLDER, networkBrand } from "@/src/wiki/network";
 
 import { SiteFooter, WikiChrome } from "./wiki-chrome";
 
-vi.mock("next/navigation", () => ({ useRouter: () => ({ push: () => {} }) }));
+vi.mock("next/navigation", () => ({ useRouter: () => ({ push: () => {} }), usePathname: () => "/marathon" }));
 
 const tenant = { id: "t", slug: "marathon", name: "Marathon Wiki", gameSlug: "marathon", gameTitle: "Marathon" };
 const categories = [{ id: "c", slug: "lore", name: "Lore", description: null, pageCount: 1 }];

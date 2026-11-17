@@ -1,5 +1,7 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
 
+import { type WikiNavAuth } from "./wiki-nav";
+
 export type WikiActor = {
   id: string;
   email: string | null;
@@ -91,6 +93,30 @@ export function canReviewSuggestions(actor: WikiActor | null) {
     allowedIds.includes(actor.id) ||
     Boolean(actor.email && allowedEmails.includes(actor.email.toLowerCase()))
   );
+}
+
+export function requireWikiEditor(actor: WikiActor | null): WikiActor {
+  if (!actor || !canReviewSuggestions(actor)) {
+    throw new Error("You do not have permission to review suggestions.");
+  }
+
+  return actor;
+}
+
+export function wikiNavAuthFromActor(
+  actor: WikiActor | null,
+  authMode: WikiAuthMode,
+): WikiNavAuth {
+  if (!actor) {
+    return { status: "signed_out" };
+  }
+
+  return {
+    status: "signed_in",
+    canReview: canReviewSuggestions(actor),
+    canSignOut: authMode === "clerk",
+    displayName: actor.name || actor.email || "Signed in",
+  };
 }
 
 export function requireConfiguredAuth() {

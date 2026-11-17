@@ -21,7 +21,8 @@
     "e2e:stable": "node scripts/e2e/stable-text.ts",
     "e2e:search": "node scripts/e2e/search.ts",
     "e2e:first-paint": "node scripts/e2e/first-paint.ts",
-    "e2e:overlays": "node scripts/e2e/overlay-parity.ts"
+    "e2e:overlays": "node scripts/e2e/overlay-parity.ts",
+    "e2e:sidebar-signin": "node scripts/e2e/sidebar-signin.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.5.11",

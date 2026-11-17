@@ -10,16 +10,12 @@ import {
   updateWikiSuggestionReviewStatus,
 } from "@/src/db/wiki";
 import {
-  canReviewSuggestions,
   getCurrentWikiActor,
   requireConfiguredAuth,
+  requireWikiEditor,
 } from "@/src/auth/wiki-auth";
 import { revalidateWikiPage } from "@/src/wiki/cache";
 import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
-
-export async function canReviewAction() {
-  return canReviewSuggestions(await getCurrentWikiActor());
-}
 
 export async function reviewWikiSuggestionAction(
   tenantSlug: string,
@@ -27,11 +23,7 @@ export async function reviewWikiSuggestionAction(
 ) {
   requireConfiguredAuth();
 
-  const actor = await getCurrentWikiActor();
-
-  if (!actor || !canReviewSuggestions(actor)) {
-    throw new Error("You do not have permission to review suggestions.");
-  }
+  const actor = requireWikiEditor(await getCurrentWikiActor());
 
   const tenant = await getWikiTenantBySlug(normalizeTenantSlug(tenantSlug));
 
@@ -86,11 +78,7 @@ export async function reviewWikiCommunityNoteAction(
 ) {
   requireConfiguredAuth();
 
-  const actor = await getCurrentWikiActor();
-
-  if (!actor || !canReviewSuggestions(actor)) {
-    throw new Error("You do not have permission to review community notes.");
-  }
+  const actor = requireWikiEditor(await getCurrentWikiActor());
 
   const tenant = await getWikiTenantBySlug(normalizeTenantSlug(tenantSlug));
 

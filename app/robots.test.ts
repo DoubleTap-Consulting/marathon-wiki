@@ -13,7 +13,7 @@ describe("wiki robots policy", () => {
       rules: {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/*/review", "/*/suggest"],
+        disallow: ["/api/", "/*/review", "/*/suggest", "/*/sign-in", "/*/sign-out"],
       },
       sitemap: "https://wiki.example.com/sitemap.xml",
       host: "https://wiki.example.com",

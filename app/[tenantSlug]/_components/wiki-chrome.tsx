@@ -76,13 +76,13 @@ export function WikiChrome({
             <SearchSheet tenantSlug={tenant.slug} />
             <SchemeToggle />
             <MenuSheet
+              tenantSlug={tenant.slug}
               primary={
                 <>
                   <NavPill href={`/${tenant.slug}`}>Home</NavPill>
                   <NavPill href={`/${tenant.slug}/pages`}>All pages</NavPill>
                 </>
               }
-              review={<NavPill href={`/${tenant.slug}/review`}>Review</NavPill>}
             >
               <>
                 {categories.length > 0 ? (

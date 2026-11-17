@@ -1,9 +1,16 @@
 "use client";
 
 import { Menu, Search } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { Suspense, useCallback, useRef, useState } from "react";
 
-import { canReviewAction } from "../review/actions";
+import {
+  wikiSidebarAccountItems,
+  type WikiNavAuth,
+  type WikiSidebarItem,
+} from "@/src/auth/wiki-nav";
+
+import { getWikiNavAuthAction } from "./nav-auth";
 import { SheetPanel } from "./lazy-ui";
 import { SiteSearch, useSearchShortcut } from "./site-search";
 
@@ -13,6 +20,9 @@ export { SchemeToggle };
 
 const ICON_BUTTON =
   "inline-flex size-11 items-center justify-center text-foreground hover:bg-muted";
+
+const SECTION_LABEL =
+  "mt-4 mb-1 px-3 text-label font-medium uppercase tracking-wide text-muted-foreground";
 
 export function SearchSheet({ tenantSlug }: { tenantSlug: string }) {
   const [open, setOpen] = useState(false);
@@ -42,24 +52,38 @@ export function SearchSheet({ tenantSlug }: { tenantSlug: string }) {
 }
 
 export function MenuSheet({
+  tenantSlug,
   primary,
-  review,
   children,
 }: {
+  tenantSlug: string;
   primary: React.ReactNode;
-  review: React.ReactNode;
   children: React.ReactNode;
 }) {
+  const pathname = usePathname() ?? `/${tenantSlug}`;
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [canReview, setCanReview] = useState<boolean | null>(null);
+  const [auth, setAuth] = useState<WikiNavAuth | null>(null);
+
+  const loadAuth = () => {
+    if (auth !== null) {
+      return;
+    }
+    getWikiNavAuthAction().then(setAuth, () => setAuth({ status: "signed_out" }));
+  };
+
+  const closeIfLink = (event: React.MouseEvent<HTMLElement>) => {
+    if ((event.target as HTMLElement).closest("a")) {
+      setOpen(false);
+    }
+  };
 
   return (
     <>
       <button type="button" aria-label="Menu" className={ICON_BUTTON} onClick={() => {
           setMounted(true);
           setOpen(true);
-          if (canReview === null) canReviewAction().then(setCanReview, () => setCanReview(false));
+          loadAuth();
         }}
       >
         <Menu className="size-5" aria-hidden="true" />
@@ -70,15 +94,89 @@ export function MenuSheet({
             <nav
               className="grid gap-1"
               aria-label="Wiki sections"
-              onClick={(event) => (event.target as HTMLElement).closest("a") && setOpen(false)}
+              onClick={closeIfLink}
             >
               {primary}
-              {canReview ? review : null}
               {children}
             </nav>
+            <AccountGroup
+              items={wikiSidebarAccountItems({
+                tenantSlug,
+                currentPath: pathname,
+                auth,
+              })}
+              loading={auth === null}
+              onClick={closeIfLink}
+            />
           </SheetPanel>
         </Suspense>
       ) : null}
     </>
+  );
+}
+
+function AccountGroup({
+  items,
+  loading,
+  onClick,
+}: {
+  items: WikiSidebarItem[];
+  loading: boolean;
+  onClick: (event: React.MouseEvent<HTMLElement>) => void;
+}) {
+  return (
+    <nav
+      className="mt-auto min-w-0 border-t"
+      aria-label="Account"
+      aria-busy={loading}
+      onClick={onClick}
+    >
+      <p className={SECTION_LABEL}>Account</p>
+      {loading ? (
+        <div className="min-h-11" aria-hidden="true" />
+      ) : (
+        <div className="grid min-w-0 gap-1">
+          {items.map((item) => {
+            if (item.kind === "identity") {
+              return (
+                <div
+                  key="identity"
+                  className="flex min-h-11 items-center gap-3 px-3 text-foreground"
+                >
+                  <span
+                    className="flex size-8 shrink-0 items-center justify-center bg-foreground text-small font-medium text-background"
+                    aria-hidden="true"
+                  >
+                    {item.initials}
+                  </span>
+                  <span className="truncate text-ui font-medium">{item.displayName}</span>
+                </div>
+              );
+            }
+
+            if (item.kind === "hint") {
+              return (
+                <p
+                  key="hint"
+                  className="min-w-0 max-w-[19rem] px-3 pb-2 text-small leading-5 break-words text-muted-foreground"
+                >
+                  {item.text}
+                </p>
+              );
+            }
+
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                className="flex min-h-11 items-center px-3 text-ui font-medium text-foreground hover:bg-muted"
+              >
+                {item.label}
+              </a>
+            );
+          })}
+        </div>
+      )}
+    </nav>
   );
 }
