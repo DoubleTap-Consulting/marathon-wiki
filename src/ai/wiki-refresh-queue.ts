@@ -10,7 +10,7 @@ import type { WikiActor } from "@/src/auth/wiki-auth";
 import { getDb } from "@/src/db/client";
 import type { DB } from "@/src/db/types";
 import type { WikiTenant } from "@/src/db/wiki";
-import { normalizeWikiSlug } from "@/src/wiki/tenant-routing";
+import { isTenantPubliclyEnabled, normalizeWikiSlug } from "@/src/wiki/tenant-routing";
 
 type WikiDatabase = Kysely<DB> | Transaction<DB>;
 
@@ -335,6 +335,11 @@ export async function processDueAiRefreshQueueItems(
         throw new Error(`Tenant ${item.tenantId} no longer exists.`);
       }
 
+      if (!isTenantPubliclyEnabled(tenant.slug, env)) {
+        await releaseAiRefreshQueueItem(item.id, db);
+        continue;
+      }
+
       const metadata = (item.metadata ?? {}) as { sourceKey?: string; editorNote?: string };
       const outcome = await runEditor(
         {
@@ -622,7 +627,7 @@ async function listActiveTenantsForRefresh(
     query = query.where("tenants.id", "=", tenantId);
   }
 
-  return query.execute();
+  return (await query.execute()).filter((tenant) => isTenantPubliclyEnabled(tenant.slug));
 }
 
 function buildRefreshQueueDedupeKey(input: {

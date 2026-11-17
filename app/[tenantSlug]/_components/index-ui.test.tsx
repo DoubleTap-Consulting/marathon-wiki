@@ -49,4 +49,16 @@ describe("index screens", () => {
     const html = renderToStaticMarkup(<EmptyState themeSlug="marathon" title="Nothing published yet" description="No pages yet. The AI editor publishes the first ones after its sources are checked." />);
     expect(html).toContain("No pages yet. The AI editor publishes the first ones after its sources are checked.");
   });
+
+  it("hides the summary column on small screens and caps rows when asked", () => {
+    const pages = Array.from({ length: 15 }, (_, index) => page(`page-${index + 1}`, { slug: "lore", name: "Lore" }));
+    const html = renderToStaticMarkup(
+      <IndexTable tenantSlug="gta6" caption="All pages" pages={pages} hideSummaryOnMobile mobileLimit={12} />,
+    );
+    expect(html).toMatch(/label py-2 pr-4 font-medium max-sm:hidden">Summary</);
+    expect(html).toContain("max-sm:hidden");
+    const hiddenRows = (html.match(/page-1[3-5]/g) ?? []).length;
+    expect(hiddenRows).toBeGreaterThanOrEqual(3);
+    expect(html).toContain("page-13");
+  });
 });

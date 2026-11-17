@@ -164,11 +164,24 @@ export default async function TenantHome({ params }: TenantHomeProps) {
               <h2 id="all-pages" className="label-strong">
                 All pages <span className="text-muted-foreground">A–Z</span>
               </h2>
-              <a href={`/${tenant.slug}/pages`} className="inline-flex min-h-6 items-center text-ui text-link underline underline-offset-4 pointer-coarse:min-h-11">
+              <a href={`/${tenant.slug}/pages`} className="hidden min-h-6 items-center text-ui text-link underline underline-offset-4 sm:inline-flex pointer-coarse:min-h-11">
                 Filter all pages
               </a>
             </div>
-            <IndexTable tenantSlug={tenant.slug} pages={pages} caption={`All ${pages.length} published pages, A to Z`} />
+            <IndexTable
+              tenantSlug={tenant.slug}
+              pages={pages}
+              caption={`All ${pages.length} published pages, A to Z`}
+              hideSummaryOnMobile
+              mobileLimit={12}
+            />
+            {pages.length > 12 ? (
+              <p className="pt-4 sm:hidden">
+                <a href={`/${tenant.slug}/pages`} className="inline-flex min-h-11 items-center text-ui text-link underline underline-offset-4">
+                  View all {pages.length} pages
+                </a>
+              </p>
+            ) : null}
           </section>
         </>
       )}

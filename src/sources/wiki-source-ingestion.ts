@@ -9,7 +9,7 @@ import {
   type CuratedWikiSource,
   type WikiSourceAuthorityTier,
 } from "@/src/sources/marathon-source-registry";
-import { normalizeTenantSlug, normalizeWikiSlug } from "@/src/wiki/tenant-routing";
+import { isTenantPubliclyEnabled, normalizeTenantSlug, normalizeWikiSlug } from "@/src/wiki/tenant-routing";
 
 export type WikiSourceMetadata = {
   origin?: string;
@@ -203,7 +203,7 @@ async function listTenantsForSourceIngestion(
     );
   }
 
-  return query.execute();
+  return (await query.execute()).filter((tenant) => isTenantPubliclyEnabled(tenant.slug));
 }
 
 function filterRegistry(

@@ -13,11 +13,21 @@ describe("wiki robots policy", () => {
       rules: {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/*/review", "/*/suggest", "/*/sign-in", "/*/sign-out"],
+        disallow: ["/api/", "/*/review", "/*/suggest", "/*/sign-in", "/*/sign-out", "/gta6", "/gta6/"],
       },
       sitemap: "https://wiki.example.com/sitemap.xml",
       host: "https://wiki.example.com",
     });
+  });
+
+  it("does not list /gta6 in production robots once GTA6_ENABLED=1", () => {
+    const robots = buildWikiRobots({
+      NEXT_PUBLIC_SITE_URL: "https://wiki.example.com",
+      VERCEL_ENV: "production",
+      GTA6_ENABLED: "1",
+    });
+    expect(robots.rules).toMatchObject({ allow: "/" });
+    expect(robots.rules.disallow).not.toContain("/gta6");
   });
 
   it("blocks indexing for preview deployments unless explicitly enabled", () => {

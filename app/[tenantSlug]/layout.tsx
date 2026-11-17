@@ -1,6 +1,8 @@
+import { notFound } from "next/navigation";
+
 import { applyScheme } from "@/app/_components/scheme";
 import { SchemeSync } from "@/app/_components/scheme-sync";
-import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
+import { isTenantPubliclyEnabled, normalizeTenantSlug } from "@/src/wiki/tenant-routing";
 import { themeFor } from "@/themes/registry";
 
 export default async function TenantLayout({
@@ -11,7 +13,9 @@ export default async function TenantLayout({
   params: Promise<{ tenantSlug: string }>;
 }) {
   const { tenantSlug } = await params;
-  const theme = themeFor(normalizeTenantSlug(tenantSlug));
+  const slug = normalizeTenantSlug(tenantSlug);
+  if (!isTenantPubliclyEnabled(slug)) notFound();
+  const theme = themeFor(slug);
   const applyTenantTheme = `(${applyScheme.toString()})(${JSON.stringify(theme.slug)})`;
 
   return (

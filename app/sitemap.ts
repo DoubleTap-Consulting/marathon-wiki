@@ -3,6 +3,7 @@ import type { MetadataRoute } from "next";
 import { listWikiSitemapEntries, MARATHON_TENANT_SLUG } from "@/src/db/wiki";
 import { getWikiSiteBaseUrl } from "@/src/wiki/launch-config";
 import { legalNav } from "@/src/wiki/legal";
+import { isTenantPubliclyEnabled } from "@/src/wiki/tenant-routing";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 300;
@@ -12,7 +13,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const legalEntries = legalSitemapEntries(baseUrl);
 
   try {
-    const entries = await listWikiSitemapEntries();
+    const entries = (await listWikiSitemapEntries()).filter((entry) => isTenantPubliclyEnabled(entry.tenantSlug));
 
     if (entries.length > 0) {
       return [

@@ -12,6 +12,7 @@ import {
 import {
   displayInitials,
   safeInternalPath,
+  shouldShowFooterReview,
   wikiSidebarAccountItems,
 } from "./wiki-nav";
 
@@ -235,6 +236,15 @@ describe("safeInternalPath and initials", () => {
     expect(displayInitials("Mike Flores")).toBe("MF");
     expect(displayInitials("mike@michaelflores.io")).toBe("MI");
     expect(displayInitials("  ")).toBe("?");
+  });
+});
+
+describe("footer Review visibility", () => {
+  it("matches the menu: Review is only for signed-in allowlisted editors", () => {
+    expect(shouldShowFooterReview(null)).toBe(false);
+    expect(shouldShowFooterReview({ status: "signed_out" })).toBe(false);
+    expect(shouldShowFooterReview({ status: "signed_in", canReview: false, canSignOut: true, displayName: "Reader" })).toBe(false);
+    expect(shouldShowFooterReview({ status: "signed_in", canReview: true, canSignOut: true, displayName: "Editor" })).toBe(true);
   });
 });
 

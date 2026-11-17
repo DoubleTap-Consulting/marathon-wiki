@@ -24,6 +24,27 @@ export function normalizeTenantSlug(slug: string) {
   return slug.trim().toLowerCase();
 }
 
+
+export const GTA6_TENANT_SLUG = "gta6";
+
+/**
+ * GTA 6 stays off the production site until GTA6_ENABLED=1 is set.
+ * Preview and local (anything other than Vercel production) keep it visible.
+ */
+export function isTenantPubliclyEnabled(
+  slug: string,
+  env: Record<string, string | undefined> = process.env,
+) {
+  if (normalizeTenantSlug(slug) !== GTA6_TENANT_SLUG) return true;
+  if (env.VERCEL_ENV !== "production") return true;
+  return env.GTA6_ENABLED === "1";
+}
+
+export function isGta6Path(pathname: string) {
+  const path = pathname.split("?")[0];
+  return path === `/${GTA6_TENANT_SLUG}` || path.startsWith(`/${GTA6_TENANT_SLUG}/`);
+}
+
 export function normalizeWikiSlug(slug: string) {
   return slug
     .trim()

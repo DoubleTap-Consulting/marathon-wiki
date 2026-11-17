@@ -6,7 +6,7 @@ import { getDb } from "@/src/db/client";
 import type { DB } from "@/src/db/types";
 import type { WikiSourceAuthorityTier } from "@/src/sources/marathon-source-registry";
 import type { WikiSourceMetadata } from "@/src/sources/wiki-source-ingestion";
-import { normalizeTenantSlug, normalizeWikiSlug } from "@/src/wiki/tenant-routing";
+import { isTenantPubliclyEnabled, normalizeTenantSlug, normalizeWikiSlug } from "@/src/wiki/tenant-routing";
 
 const DEFAULT_DISCOVERY_LIMIT = 5;
 const MAX_DISCOVERY_LIMIT = 5;
@@ -299,9 +299,11 @@ async function listTenantsForSourceDiscovery(
     );
   }
 
-  const tenants = await query.execute();
+  const matched = await query.execute();
+  const tenants = matched.filter((tenant) => isTenantPubliclyEnabled(tenant.slug));
 
   if (tenants.length === 0) {
+    if (matched.length > 0) return [];
     throw new Error("No active tenant matched source discovery input.");
   }
 
