@@ -23,20 +23,16 @@ describe("site chrome naming", () => {
     else process.env.VERCEL_ENV = original;
   });
 
-  it("renders today's names in production, with no network slot", () => {
-    const html = render("production");
-    expect(networkBrand({ VERCEL_ENV: "production" })).toBeNull();
-    expect(html).toContain('<span class="text-ui font-semibold">Marathon Wiki</span>');
-    expect(html).not.toContain(NETWORK_PLACEHOLDER);
-    expect(html).not.toContain("Part of");
-  });
-
-  it("shows the placeholder network wordmark, the game descriptor and the network slot on previews", () => {
-    for (const env of ["preview", "development", undefined]) {
+  it("shows the WikiDen wordmark, the game descriptor and the network slot in every environment", () => {
+    for (const env of ["production", "preview", "development", undefined]) {
       const html = render(env);
-      expect(html).toContain(`>${NETWORK_PLACEHOLDER}</span>`);
+      expect(networkBrand({ VERCEL_ENV: env })).toEqual({ name: "WikiDen", href: null, placeholder: false });
+      expect(html).toMatch(/<span class="[^"]*\buppercase\b[^"]*">WikiDen<\/span>/);
+      expect(html).not.toContain(">WIKIDEN</span>");
       expect(html).toContain('>An unofficial guide to Marathon<span class="sr-only">, home</span>');
-      expect(html).toContain(`>Part of ${NETWORK_PLACEHOLDER}<`);
+      expect(html).toContain(">Part of WikiDen<");
+      expect(html).not.toContain(NETWORK_PLACEHOLDER);
+      expect(html).not.toContain('<span class="text-ui font-semibold">Marathon Wiki</span>');
     }
   });
 

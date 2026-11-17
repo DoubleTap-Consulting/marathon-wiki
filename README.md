@@ -71,7 +71,7 @@ See full `implementation-plan.md` for details.
 | `WIKI_SCHEDULED_SOURCE_DISCOVERY_TOPICS` | Optional | Comma-separated topic slugs for scheduled source discovery. Requires a top-level tenant in the request or `WIKI_SCHEDULED_SOURCE_DISCOVERY_TENANT_SLUG`. |
 | `WIKI_SCHEDULED_SOURCE_DISCOVERY_TENANT_SLUG` | Optional | Tenant slug used by aggregate scheduled source discovery when the request does not include a tenant slug. |
 | `WIKI_SOURCE_DISCOVERY_LIMIT` | Optional | Per-topic source discovery cap for scheduled discovery. Defaults to `3` in the scheduled update route. |
-| `NEXT_PUBLIC_SITE_URL` | Optional | Public canonical origin used by metadata, robots, and sitemap URLs. Defaults to `https://marathon-wiki.vercel.app` when unset, including on Vercel production and preview. Not derived from `VERCEL_URL`. |
+| `NEXT_PUBLIC_SITE_URL` | Optional | Public canonical origin used by metadata, robots, and sitemap URLs. Defaults to `https://wikiden.gg` when unset, including on Vercel production and preview. Not derived from `VERCEL_URL`. |
 | `WIKI_ROBOTS_INDEXING_ENABLED` | Optional | Overrides robots indexing. Defaults to enabled for Vercel Production and disabled for Vercel Preview. |
 | `WIKI_ANALYTICS_ENABLED` | Optional | First-party pageview/product-event logging. Defaults to enabled; set to `false` to suppress client event capture and `/api/wiki/events` logging. |
 | `WIKI_ADS_ENABLED` | Optional | Enables ad rendering only when set to `true` and slot/client env is present. Defaults to disabled. |

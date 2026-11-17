@@ -14,7 +14,7 @@ type WikiMetadataInput = {
 
 /**
  * "<title> | <site name>", or the site name alone on the site's home page. Returned as an absolute
- * title so the root layout's "%s | Marathon Wiki" template cannot append a second site name.
+ * title so the root layout's "%s | <site name>" template cannot append a second site name.
  * Under a network brand it is "<title> · <network>", and the home page names the game in words
  * ("An unofficial guide to Marathon · <network>").
  */

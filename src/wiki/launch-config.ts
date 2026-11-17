@@ -49,7 +49,7 @@ export function readBoolean(
 export function getWikiSiteBaseUrl(env: Env = process.env): URL {
   const configured = env.NEXT_PUBLIC_SITE_URL ?? env.WIKI_PUBLIC_BASE_URL;
 
-  return safeUrl(configured) ?? new URL("https://marathon-wiki.vercel.app");
+  return safeUrl(configured) ?? new URL("https://wikiden.gg");
 }
 
 export function getWikiAdsConfig(env: Env = process.env): WikiAdsConfig | null {

@@ -127,11 +127,11 @@
       },
       "width": 720,
       "height": 200,
-      "sourceUrl": "https://marathon-wiki.vercel.app/marathon/ranked",
+      "sourceUrl": "https://wikiden.gg/marathon/ranked",
       "license": "Own",
-      "licenseUrl": "https://marathon-wiki.vercel.app/marathon/credits",
-      "author": "Marathon Wiki",
-      "credit": "Marathon Wiki",
+      "licenseUrl": "https://wikiden.gg/marathon/credits",
+      "author": "WikiDen",
+      "credit": "WikiDen",
       "title": "How a ranked run is scored",
       "modifications": null,
       "retrievedAt": "2026-11-15",
@@ -148,7 +148,7 @@
           "slot": "plate"
         }
       ],
-      "attributionText": "Diagram by Marathon Wiki from the sources cited on this page"
+      "attributionText": "Diagram by WikiDen from the sources cited on this page"
     },
     {
       "id": "rarity-named-tiers",
@@ -166,11 +166,11 @@
       },
       "width": 720,
       "height": 220,
-      "sourceUrl": "https://marathon-wiki.vercel.app/marathon/rarity-tiers",
+      "sourceUrl": "https://wikiden.gg/marathon/rarity-tiers",
       "license": "Own",
-      "licenseUrl": "https://marathon-wiki.vercel.app/marathon/credits",
-      "author": "Marathon Wiki",
-      "credit": "Marathon Wiki",
+      "licenseUrl": "https://wikiden.gg/marathon/credits",
+      "author": "WikiDen",
+      "credit": "WikiDen",
       "title": "Named rarity tiers and their sourced colours",
       "modifications": null,
       "retrievedAt": "2026-11-15",
@@ -187,7 +187,7 @@
           "slot": "plate"
         }
       ],
-      "attributionText": "Diagram by Marathon Wiki from the sources cited on this page"
+      "attributionText": "Diagram by WikiDen from the sources cited on this page"
     }
   ]
 }

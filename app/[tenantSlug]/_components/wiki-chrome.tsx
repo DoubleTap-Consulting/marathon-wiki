@@ -50,7 +50,7 @@ export function WikiChrome({
             >
               <span
                 className={cn(
-                  "self-start font-display text-ui leading-none font-extrabold whitespace-nowrap sm:text-h3 sm:leading-none",
+                  "self-start font-display text-ui leading-none font-extrabold uppercase whitespace-nowrap sm:text-h3 sm:leading-none",
                   brand.placeholder && "-mx-1.5 border border-dashed border-muted-foreground px-1.5 py-1",
                 )}
               >

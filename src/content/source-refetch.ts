@@ -17,7 +17,7 @@ import { getDb } from "@/src/db/client";
 import type { DB } from "@/src/db/types";
 
 export const BUNGIE_NEWS_FEED_URL = "https://www.bungie.net/en/rss/News";
-const USER_AGENT = "MarathonWikiSourceRefetch/1.0 (+https://marathon-wiki.vercel.app)";
+const USER_AGENT = "WikiDenSourceRefetch/1.0 (+https://wikiden.gg)";
 /** A page that extracts to less text than this is an app shell or a bot wall, not the article. */
 const MIN_TEXT_CHARS = 800;
 
