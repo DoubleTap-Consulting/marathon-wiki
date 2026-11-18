@@ -66,9 +66,11 @@ export function ArtSurface({
       className={cn("art-surface relative isolate flex flex-col overflow-hidden text-paper", BOX[variant])}
       style={{ backgroundColor: dominant, viewTransitionName: transition ? ART_TRANSITION_NAME : undefined }}
     >
-      {/* No preload() hint: the <img> is the first thing in <main>, so the parser finds it right after the
-          header, and a React preload hint would also fire whenever the router prefetches this route's payload,
-          downloading other pages' heroes. fetchpriority="high" puts it ahead of the scripts. */}
+      {/* No preload() hint here: a React preload in ArtSurface would also fire whenever the router
+          prefetches this route's payload, downloading other pages' heroes. GTA 6 hoists a single
+          828 AVIF <link rel="preload" fetchpriority="high"> from the home page / article layout
+          instead. fetchpriority="high" still puts this request ahead of scripts, and decoding="sync"
+          keeps the LCP image off the async-decode path (async added render delay under Lighthouse). */}
       <picture className="art-painting absolute inset-0 -z-10">
         <source media={MOBILE} type="image/avif" srcSet={srcSetFor(renditions, mobile, "avif")} sizes="100vw" />
         <source media={MOBILE} type="image/webp" srcSet={srcSetFor(renditions, mobile, "webp")} sizes="100vw" />
@@ -83,7 +85,7 @@ export function ArtSurface({
           height={fallback?.height}
           loading="eager"
           fetchPriority="high"
-          decoding="async"
+          decoding="sync"
           className="size-full object-cover"
           style={{ objectPosition: `${focalX} 0%` }}
         />

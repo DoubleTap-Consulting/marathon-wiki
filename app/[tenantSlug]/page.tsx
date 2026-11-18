@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
 import { ArtSurface } from "@/components/art";
 import { homeBandFor } from "@/src/wiki/imagery";
@@ -7,6 +8,7 @@ import { buildWikiMetadata } from "@/src/wiki/metadata";
 import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
 import { themeFor } from "@/themes/registry";
 
+import { Gta6LcpPreload } from "./_components/gta6-lcp-preload";
 import { MissingWikiPage } from "./_components/missing-page";
 import { WikiAdSlot, WikiPremiumHook } from "./_components/monetization";
 import { PAGE_TITLE_TIMING, CategoryGlyph, CropMarks, DitherBand, EmptyState, IndexTable, revisionCode } from "./_components/index-ui";
@@ -45,6 +47,50 @@ export async function generateMetadata({
 export default async function TenantHome({ params }: TenantHomeProps) {
   const { tenantSlug } = await params;
   const normalizedTenantSlug = normalizeTenantSlug(tenantSlug);
+  // GTA 6 home LCP is the hero <img>. Emit the mobile 828 AVIF preload before
+  // awaiting wiki data so it lands in the early shell (articles already do this
+  // from [pageSlug]/layout). Marathon is unchanged.
+  if (normalizedTenantSlug === "gta6") {
+    return (
+      <>
+        <Gta6LcpPreload surface="home" />
+        <Suspense fallback={<Gta6HomeLcpShell />}>
+          <TenantHomeLoaded tenantSlug={normalizedTenantSlug} />
+        </Suspense>
+      </>
+    );
+  }
+  return <TenantHomeLoaded tenantSlug={normalizedTenantSlug} />;
+}
+
+/** Streaming shell: header spacer + the LCP plate, no wiki data. Replaced once the home snapshot resolves. */
+function Gta6HomeLcpShell() {
+  const theme = themeFor("gta6");
+  const homeBand = homeBandFor("gta6");
+  if (!homeBand) return null;
+  return (
+    <div className="min-h-screen bg-background">
+      <header className="sticky top-0 z-30 h-[59px] border-b-3 border-brand bg-background/95" />
+      <main id="main">
+        <ArtSurface
+          image={homeBand}
+          variant="home"
+          creditHref={`/gta6/credits#${homeBand.id}`}
+          contentClassName="mx-auto w-full max-w-6xl px-5 sm:px-6 lg:px-8"
+        >
+          <section aria-labelledby="wiki-home-title" className="space-y-3">
+            <h1 id="wiki-home-title" className="max-w-3xl text-title font-display text-paper">
+              {theme.identity.descriptor}
+            </h1>
+          </section>
+        </ArtSurface>
+      </main>
+    </div>
+  );
+}
+
+async function TenantHomeLoaded({ tenantSlug }: { tenantSlug: string }) {
+  const normalizedTenantSlug = tenantSlug;
   const snapshot = await getCachedWikiHome(normalizedTenantSlug);
 
   if (!snapshot) {
