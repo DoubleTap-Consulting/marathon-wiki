@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { articleArtFor, publicPath, renditionFor, srcSetFor } from "@/src/wiki/imagery";
+import { articleArtFor, publicPath, renditionFor } from "@/src/wiki/imagery";
 import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
 
 /**
@@ -26,11 +26,11 @@ export default async function PageSlugLayout({
   const image = articleArtFor("gta6", pageSlug, entry?.category ?? null);
   if (!image) return children;
 
-  const crop = "strip" as const;
-  const srcSet = srcSetFor(image.art.renditions, crop, "avif");
-  const fallback = renditionFor(image.art.renditions, crop, "avif", 828);
-  if (!srcSet || !fallback) return children;
+  const fallback = renditionFor(image.art.renditions, "strip", "avif", 828);
+  if (!fallback) return children;
 
+  // A single href + fetchpriority=high. A srcset preload (828/1600/2400) was
+  // discovered as priority Low in Lighthouse, which left Load Delay unchanged.
   return (
     <>
       <link
@@ -38,8 +38,7 @@ export default async function PageSlugLayout({
         as="image"
         type="image/avif"
         href={publicPath(fallback.file)}
-        imageSrcSet={srcSet}
-        imageSizes="100vw"
+        fetchPriority="high"
         media="(max-width: 767px)"
       />
       {children}
