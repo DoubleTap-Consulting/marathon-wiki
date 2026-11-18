@@ -26,7 +26,14 @@ export function redirectLegacyProductionAlias(request: NextRequest): NextRespons
     return null;
   }
 
-  const destination = new URL(`${request.nextUrl.pathname}${request.nextUrl.search}`, CANONICAL_SITE_ORIGIN);
+  // Vercel Cron treats a 3xx as final and does not follow it. Scheduled jobs hit this
+  // production alias, so /api/cron/* must stay on the alias host.
+  const pathname = request.nextUrl.pathname;
+  if (pathname === "/api/cron" || pathname.startsWith("/api/cron/")) {
+    return null;
+  }
+
+  const destination = new URL(`${pathname}${request.nextUrl.search}`, CANONICAL_SITE_ORIGIN);
   return NextResponse.redirect(destination, 308);
 }
 

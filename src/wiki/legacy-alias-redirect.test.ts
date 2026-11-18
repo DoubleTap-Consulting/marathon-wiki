@@ -55,28 +55,42 @@ describe("redirectLegacyProductionAlias", () => {
       expect(redirectLegacyProductionAlias(request("/marathon/ranked", host))).toBeNull();
     }
   });
+
+  it("does not redirect /api/cron/wiki-update on the production alias", () => {
+    expect(redirectLegacyProductionAlias(request("/api/cron/wiki-update", LEGACY_PRODUCTION_ALIAS_HOST))).toBeNull();
+    expect(redirectLegacyProductionAlias(request("/api/cron/source-refetch", LEGACY_PRODUCTION_ALIAS_HOST))).toBeNull();
+  });
 });
 
+function asResponse(result: Awaited<ReturnType<typeof proxy>>): Response {
+  if (!(result instanceof Response)) {
+    throw new Error("expected proxy() to return a Response");
+  }
+  return result;
+}
+
 describe("proxy applies the alias redirect before Clerk", () => {
-  it("redirects the production alias even when Clerk keys are present", () => {
+  it("redirects the production alias even when Clerk keys are present", async () => {
     vi.stubEnv("NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY", "pk_test");
     vi.stubEnv("CLERK_SECRET_KEY", "sk_test");
-    const response = proxy(request("/marathon/ranked", LEGACY_PRODUCTION_ALIAS_HOST), unusedEvent());
+    const response = asResponse(await proxy(request("/marathon/ranked", LEGACY_PRODUCTION_ALIAS_HOST), unusedEvent()));
     expect(response.status).toBe(308);
     expect(response.headers.get("location")).toBe("https://wikiden.gg/marathon/ranked");
   });
 
-  it("leaves preview deployments and wikiden.gg alone", () => {
+  it("leaves preview deployments and wikiden.gg alone", async () => {
     vi.stubEnv("NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY", "");
     vi.stubEnv("CLERK_SECRET_KEY", "");
-    const preview = proxy(
-      request("/gta6", "marathon-wiki-git-forge-alias-michael-flores-projects-acc295a3.vercel.app"),
-      unusedEvent(),
+    const preview = asResponse(
+      await proxy(
+        request("/gta6", "marathon-wiki-git-forge-alias-michael-flores-projects-acc295a3.vercel.app"),
+        unusedEvent(),
+      ),
     );
     expect(preview.status).not.toBe(308);
     expect(preview.headers.get("location")).toBeNull();
 
-    const canonical = proxy(request("/gta6", "wikiden.gg"), unusedEvent());
+    const canonical = asResponse(await proxy(request("/gta6", "wikiden.gg"), unusedEvent()));
     expect(canonical.status).not.toBe(308);
     expect(canonical.headers.get("location")).toBeNull();
   });
