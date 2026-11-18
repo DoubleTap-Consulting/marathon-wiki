@@ -97,3 +97,35 @@ describe("runSourceRefetchCron", () => {
     expect(summary.tenants.map((row) => row.slug)).toEqual(["marathon"]);
   });
 });
+
+
+describe("source-refetch cron error logs", () => {
+  it("logs a failure class only when a thrown error message contains a URL and a fake key", async () => {
+    const lines: string[] = [];
+    const secretUrl = "https://api.example.test/v1/sources?token=wd_fake_secret_do_not_log_9f3c";
+    const fakeKey = "wd_fake_secret_do_not_log_9f3c";
+    const { ok, summary } = await runSourceRefetchCron({
+      db: {} as never,
+      env: { VERCEL_ENV: "preview" },
+      tenants,
+      log: (line) => lines.push(line),
+      refetch: async () => {
+        throw new Error(`Failed to fetch ${secretUrl} with key ${fakeKey}`);
+      },
+      checkFeed: async () => ({ ok: true, newPosts: [] }),
+    });
+
+    expect(ok).toBe(false);
+    expect(lines).toHaveLength(1);
+    const raw = lines[0];
+    expect(raw).not.toContain(secretUrl);
+    expect(raw).not.toContain("https://");
+    expect(raw).not.toContain("wd_fake_secret_do_not_log_9f3c");
+    expect(raw).not.toContain(fakeKey);
+    expect(raw).not.toContain("api.example.test");
+    const logged = JSON.parse(raw) as typeof summary;
+    expect(logged.status).toBe("error");
+    expect(logged.error).toBe("fetch_failed");
+    expect(summary.error).toBe("fetch_failed");
+  });
+});

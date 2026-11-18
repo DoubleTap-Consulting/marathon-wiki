@@ -2,6 +2,7 @@ import type { Kysely } from "kysely";
 
 import { CONTENT_TENANT_SLUG } from "@/src/content/editor-store";
 import { cronContentPacksFor, type CronTenant } from "@/src/content/cron-tenants";
+import { classifyCronError, type CronErrorClass } from "@/src/content/cron-error";
 import { checkBungieNewsFeed, refetchSources } from "@/src/content/source-refetch";
 import type { DB } from "@/src/db/types";
 
@@ -24,7 +25,7 @@ export type SourceRefetchCronSummary = {
   changedSources: number;
   queuedItems: number;
   spend: number;
-  error?: string;
+  error?: CronErrorClass;
 };
 
 const OUTCOMES = ["changed", "unchanged", "baseline", "new", "manual", "failed"] as const;
@@ -38,7 +39,7 @@ function countOutcome(
 
 function buildSummary(
   tenants: SourceRefetchCronSummary["tenants"],
-  error?: string,
+  error?: CronErrorClass,
 ): SourceRefetchCronSummary {
   const failed = tenants.some((tenant) => tenant.failed > 0 || tenant.feedOk === false);
   return {
@@ -52,7 +53,7 @@ function buildSummary(
   };
 }
 
-/** Safe for stdout: counts only — no source keys, URLs, source text, or page slugs. */
+/** Safe for stdout: counts only — no source keys, URLs, source text, page slugs, or raw exception messages. The error field is a class, never the message. */
 export function formatSourceRefetchCronLog(summary: SourceRefetchCronSummary) {
   return JSON.stringify(summary);
 }
@@ -78,7 +79,7 @@ export async function runSourceRefetchCron(input: {
   const tenants = cronContentPacksFor(input.tenants ?? (await listActiveCronTenants(input.db)), env);
 
   if (tenants.length === 0) {
-    const summary = buildSummary([], "No enabled tenants with a content pack.");
+    const summary = buildSummary([], "no_enabled_tenants");
     log(formatSourceRefetchCronLog(summary));
     return { ok: false, summary };
   }
@@ -118,8 +119,7 @@ export async function runSourceRefetchCron(input: {
     log(formatSourceRefetchCronLog(summary));
     return { ok: summary.status === "ok", summary };
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Source refetch failed.";
-    const summary = buildSummary(rows, message);
+    const summary = buildSummary(rows, classifyCronError(error));
     log(formatSourceRefetchCronLog(summary));
     return { ok: false, summary };
   }

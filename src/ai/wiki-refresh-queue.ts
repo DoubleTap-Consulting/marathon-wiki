@@ -10,7 +10,7 @@ import type { WikiActor } from "@/src/auth/wiki-auth";
 import { getDb } from "@/src/db/client";
 import type { DB } from "@/src/db/types";
 import type { WikiTenant } from "@/src/db/wiki";
-import { sortCronTenants } from "@/src/content/cron-tenants";
+import { allocateCronProcessSlots, sortCronTenants } from "@/src/content/cron-tenants";
 import { isTenantPubliclyEnabled, normalizeWikiSlug } from "@/src/wiki/tenant-routing";
 
 type WikiDatabase = Kysely<DB> | Transaction<DB>;
@@ -511,47 +511,79 @@ export function parseEventRefreshTargets(value: string | undefined) {
     .filter((target) => target.targetSlug && target.pageTitle.length >= 3);
 }
 
+async function selectAndClaimDueQueueItems(
+  trx: Transaction<DB>,
+  input: { now: Date; limit: number; tenantId?: string },
+) {
+  let query = trx.selectFrom("ai_refresh_queue_items").select(QUEUE_COLUMNS);
+  if (input.tenantId) query = query.where("tenant_id", "=", input.tenantId);
+  const dueItems = await query
+    .where("status", "=", AI_REFRESH_QUEUE_STATUS.queued)
+    .where("scheduled_for", "<=", input.now)
+    .orderBy("scheduled_for", "asc")
+    .orderBy("created_at", "asc")
+    .limit(input.limit)
+    .execute();
+  const claimed: AiRefreshQueueItem[] = [];
+
+  for (const item of dueItems) {
+    const updated = await trx
+      .updateTable("ai_refresh_queue_items")
+      .set({
+        status: AI_REFRESH_QUEUE_STATUS.processing,
+        attempts: sql<number>`attempts + 1`,
+        updated_at: new Date(),
+      })
+      .where("id", "=", item.id)
+      .where("status", "=", AI_REFRESH_QUEUE_STATUS.queued)
+      .returning(QUEUE_COLUMNS)
+      .executeTakeFirst();
+
+    if (updated) {
+      claimed.push(normalizeQueueItem(updated));
+    }
+  }
+
+  return claimed;
+}
+
 async function claimDueAiRefreshQueueItems(
   input: { now: Date; limit: number; tenantId?: string },
   db: Kysely<DB>,
 ) {
   return db.transaction().execute(async (trx) => {
-    let query = trx.selectFrom("ai_refresh_queue_items").select(QUEUE_COLUMNS);
-    if (input.tenantId) query = query.where("tenant_id", "=", input.tenantId);
-    const dueItems = await query
-      .where("status", "=", AI_REFRESH_QUEUE_STATUS.queued)
-      .where("scheduled_for", "<=", input.now)
-      .orderBy(sql`
-        case
-          when (select slug from tenants where id = ai_refresh_queue_items.tenant_id) = 'marathon' then 0
-          when (select slug from tenants where id = ai_refresh_queue_items.tenant_id) = 'gta6' then 1
-          else 2
-        end
-      `)
-      .orderBy("scheduled_for", "asc")
-      .orderBy("created_at", "asc")
-      .limit(input.limit)
-      .execute();
-    const claimed: AiRefreshQueueItem[] = [];
-
-    for (const item of dueItems) {
-      const updated = await trx
-        .updateTable("ai_refresh_queue_items")
-        .set({
-          status: AI_REFRESH_QUEUE_STATUS.processing,
-          attempts: sql<number>`attempts + 1`,
-          updated_at: new Date(),
-        })
-        .where("id", "=", item.id)
-        .where("status", "=", AI_REFRESH_QUEUE_STATUS.queued)
-        .returning(QUEUE_COLUMNS)
-        .executeTakeFirst();
-
-      if (updated) {
-        claimed.push(normalizeQueueItem(updated));
-      }
+    if (input.tenantId) {
+      return selectAndClaimDueQueueItems(trx, input);
     }
 
+    const counts = await trx
+      .selectFrom("ai_refresh_queue_items")
+      .innerJoin("tenants", "tenants.id", "ai_refresh_queue_items.tenant_id")
+      .select(["tenants.slug as slug", "tenants.id as tenantId"])
+      .select((eb) => eb.fn.countAll<number>().as("dueCount"))
+      .where("ai_refresh_queue_items.status", "=", AI_REFRESH_QUEUE_STATUS.queued)
+      .where("ai_refresh_queue_items.scheduled_for", "<=", input.now)
+      .groupBy(["tenants.slug", "tenants.id"])
+      .execute();
+
+    const dueBySlug: Record<string, number> = {};
+    const idBySlug: Record<string, string> = {};
+    for (const row of counts) {
+      dueBySlug[row.slug] = Number(row.dueCount);
+      idBySlug[row.slug] = row.tenantId;
+    }
+
+    const allocated = allocateCronProcessSlots({ limit: input.limit, dueBySlug });
+    const claimed: AiRefreshQueueItem[] = [];
+    for (const tenant of sortCronTenants(
+      Object.keys(allocated).map((slug) => ({ slug, id: idBySlug[slug] })),
+    )) {
+      const slot = allocated[tenant.slug] ?? 0;
+      if (slot <= 0 || !tenant.id) continue;
+      claimed.push(
+        ...(await selectAndClaimDueQueueItems(trx, { now: input.now, limit: slot, tenantId: tenant.id })),
+      );
+    }
     return claimed;
   });
 }
