@@ -6,6 +6,7 @@ import {
   cronContentPlan,
   cronTenantRank,
   sortCronTenants,
+  allocateCronProcessSlots,
 } from "@/src/content/cron-tenants";
 
 describe("cron tenant order and content packs", () => {
@@ -51,5 +52,38 @@ describe("cron tenant order and content packs", () => {
       expect.objectContaining({ slug: "gta6", bungieNewsFeed: false, sourceCount: pack!.sources.length }),
     ]);
     expect(plan[0].sourceCount).toBeGreaterThan(0);
+  });
+});
+
+
+describe("allocateCronProcessSlots", () => {
+  const limit = 3;
+
+  it("gives Marathon 2 and GTA 6 1 when 14 Marathon items and 2 GTA 6 items are queued", () => {
+    expect(allocateCronProcessSlots({ limit, dueBySlug: { marathon: 14, gta6: 2 } })).toEqual({
+      marathon: 2,
+      gta6: 1,
+    });
+  });
+
+  it("gives Marathon all 3 slots when GTA 6 has no queued items", () => {
+    expect(allocateCronProcessSlots({ limit, dueBySlug: { marathon: 14, gta6: 0 } })).toEqual({
+      marathon: 3,
+      gta6: 0,
+    });
+  });
+
+  it("gives GTA 6 up to 3 slots when Marathon has no queued items", () => {
+    expect(allocateCronProcessSlots({ limit, dueBySlug: { marathon: 0, gta6: 5 } })).toEqual({
+      marathon: 0,
+      gta6: 3,
+    });
+  });
+
+  it("moves an unused Marathon slot to GTA 6 when only 1 Marathon item is queued alongside 2 GTA 6 items", () => {
+    expect(allocateCronProcessSlots({ limit, dueBySlug: { marathon: 1, gta6: 2 } })).toEqual({
+      marathon: 1,
+      gta6: 2,
+    });
   });
 });

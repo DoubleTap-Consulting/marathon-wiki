@@ -65,3 +65,36 @@ export function cronContentPlan(
     bungieNewsFeed: tenant.slug === CONTENT_TENANT_SLUG,
   }));
 }
+
+/** Reserve 1 of `limit` wiki-update slots for GTA 6 when it has due items. Marathon gets the rest first; unused slots go to whoever still has items. Does not raise the limit. */
+export function allocateCronProcessSlots(input: { limit: number; dueBySlug: Record<string, number> }) {
+  const limit = Math.max(0, input.limit);
+  const dueBySlug = input.dueBySlug;
+  const allocated: Record<string, number> = {};
+  for (const slug of Object.keys(dueBySlug)) allocated[slug] = 0;
+  if (limit === 0) return allocated;
+
+  let remaining = limit;
+  const gta6Due = Math.max(0, dueBySlug.gta6 ?? 0);
+  if (gta6Due > 0) {
+    allocated.gta6 = 1;
+    remaining -= 1;
+  }
+
+  const fill = (slug: string) => {
+    const want = Math.max(0, (dueBySlug[slug] ?? 0) - (allocated[slug] ?? 0));
+    const take = Math.min(want, remaining);
+    if (take > 0) {
+      allocated[slug] = (allocated[slug] ?? 0) + take;
+      remaining -= take;
+    }
+  };
+
+  fill("marathon");
+  fill("gta6");
+  for (const tenant of sortCronTenants(Object.keys(dueBySlug).map((slug) => ({ slug })))) {
+    if (tenant.slug === "marathon" || tenant.slug === "gta6") continue;
+    fill(tenant.slug);
+  }
+  return allocated;
+}
