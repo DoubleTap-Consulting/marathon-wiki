@@ -42,7 +42,7 @@
   },
   {
     "slug": "release-date",
-    "title": "Release date",
+    "title": "Release date and earlier announcements",
     "category": "overview",
     "group": "launch",
     "scope": "The current official release date of November 19, 2026, and the earlier official dates Rockstar announced (a 2025 window, then May 26, 2026). State each date as what Rockstar announced at the time, and which announcement is current. Do not speculate about further delays.",
@@ -102,7 +102,9 @@
       "pc-version",
       "xbox-cloud-gaming",
       "playstation-features",
-      "pre-load"
+      "pre-load",
+      "file-size",
+      "cross-play"
     ],
     "table": null
   },
@@ -137,7 +139,7 @@
     "title": "System requirements",
     "category": "overview",
     "group": "launch",
-    "scope": "What official sources say about hardware needed to play. There is no official PC version announcement in the preferred sources, so do not invent PC specs. Cover announced consoles (PlayStation 5, Xbox Series X|S) and any cloud-streaming notes, including Xbox Wire's note that cloud play uses Series S graphics settings if present.",
+    "scope": "What official sources say about hardware needed to play. There is no official PC version announcement in the preferred sources, so do not invent PC specs. Cover announced consoles (PlayStation 5, Xbox Series X|S) and any cloud-streaming notes, including Xbox Wire's note that cloud play uses Series S graphics settings if present. If official extracts give pre-load storage guidance, mention it and point readers to the file-size page rather than inventing PC or per-console installed sizes.",
     "keywords": [
       "system requirements",
       "specs",
@@ -156,7 +158,8 @@
     "related": [
       "platforms",
       "pc-version",
-      "xbox-cloud-gaming"
+      "xbox-cloud-gaming",
+      "file-size"
     ],
     "table": null
   },
@@ -224,7 +227,7 @@
     "title": "Pre-load",
     "category": "overview",
     "group": "launch",
-    "scope": "When digital pre-loading began or begins: PlayStation 5 at midnight local time on November 10, 2026, and Xbox Series X|S at 12 a.m. GMT on November 10, 2026, as official support and later Newswire posts state. If an earlier Take-Two extract says November 12, treat that as a disagreement with the later official dates, not as a fact to pick. Mention that pre-loading is for people who have pre-ordered if the extracts say so.",
+    "scope": "When digital pre-loading began or begins: PlayStation 5 at midnight local time on November 10, 2026, and Xbox Series X|S at 12 a.m. GMT on November 10, 2026, as official support and later Newswire posts state. If an earlier Take-Two extract says November 12, treat that as a disagreement with the later official dates, not as a fact to pick. Mention that pre-loading is for people who have pre-ordered if the extracts say so. If official or platform-holder extracts give free-storage guidance for pre-load (for example a minimum of 212 GB on PlayStation 5), include that figure as free space to have, not as a final per-platform installed size.",
     "keywords": [
       "pre-load",
       "preload",
@@ -245,7 +248,8 @@
     "related": [
       "pre-orders",
       "physical-edition",
-      "platforms"
+      "platforms",
+      "file-size"
     ],
     "table": null,
     "knownConflicts": [
@@ -264,6 +268,39 @@
         ]
       }
     ]
+  },
+  {
+    "slug": "file-size",
+    "title": "File size and storage",
+    "category": "overview",
+    "group": "launch",
+    "scope": "Official free-space guidance for pre-loading Grand Theft Auto VI. PlayStation tells players to clear a minimum of 212 GB of storage on PlayStation 5 to pre-load. State that official pages are giving storage to have free, not necessarily a final per-platform installed size. Do not treat unofficial download-size estimates as fact. Do not invent a PlayStation versus Xbox installed size if extracts do not give one. If a Rockstar extract states a storage figure, you may use that wording; do not attribute press wording to Rockstar. Mention pre-load timing only as the extracts state it.",
+    "keywords": [
+      "file size",
+      "download size",
+      "storage",
+      "212 GB",
+      "212GB",
+      "how big",
+      "storage space",
+      "pre-load storage"
+    ],
+    "preferredSources": [
+      "playstation-gta6",
+      "playstation-blog-preload",
+      "gta6-pre-load-page",
+      "gta6-support-platforms",
+      "gta6-nw-preload-begins",
+      "gta6-nw-preload-now"
+    ],
+    "hubChildren": [],
+    "related": [
+      "pre-load",
+      "system-requirements",
+      "physical-edition",
+      "platforms"
+    ],
+    "table": null
   },
   {
     "slug": "physical-edition",
@@ -288,7 +325,8 @@
       "pre-load",
       "vintage-vice-city-pack",
       "ultimate-edition",
-      "where-to-buy"
+      "where-to-buy",
+      "file-size"
     ],
     "table": null
   },
@@ -869,7 +907,8 @@
       "story",
       "platforms",
       "extended-look",
-      "gta-online"
+      "gta-online",
+      "cross-play"
     ],
     "table": null
   },
@@ -1227,7 +1266,38 @@
     "related": [
       "gta-plus",
       "gameplay",
-      "overview"
+      "overview",
+      "cross-play"
+    ],
+    "table": null
+  },
+  {
+    "slug": "cross-play",
+    "title": "Cross-play",
+    "category": "gameplay",
+    "group": "online",
+    "scope": "Whether official sources have announced a cross-play feature for Grand Theft Auto VI. Official listings describe Grand Theft Auto VI as a single-player experience. Official sources have not announced a VI cross-play feature or a VI multiplayer mode. State what official extracts say, and that a cross-play feature has not been announced. Do not invent a Rockstar \"no\" as a quotation. Do not treat GTA Online's historical lack of cross-play as a fact about VI unless an official VI extract says so. Do not use rumors or partner quotes to fill that silence.",
+    "keywords": [
+      "cross-play",
+      "crossplay",
+      "multiplayer",
+      "play with friends",
+      "other consoles",
+      "single-player"
+    ],
+    "preferredSources": [
+      "taketwo-preorders",
+      "playstation-gta6",
+      "playstation-store-ultimate",
+      "gta6-official-site",
+      "gta6-support-platforms",
+      "xbox-cloud-gta6"
+    ],
+    "hubChildren": [],
+    "related": [
+      "gameplay",
+      "gta-online",
+      "platforms"
     ],
     "table": null
   }
