@@ -24,41 +24,47 @@
 }
 
 /* Overlay 1: soft-light sunset wash.
-   Light 0.75 / dark 0.55 — the caps Loupe set so the horizon third
-   carries visible pink/orange. Do not raise these further without a note. */
+   Light 0.85 / dark 0.70 on the horizon third. #FF4F8B is held at the
+   top edge of the band (not only on the horizon) so the sky can read
+   pink rather than lavender. */
 [data-theme="gta6"] .art-painting::before {
-  background: linear-gradient(180deg, #ff4f8b 0%, #ff8a3d 45%, transparent 75%);
+  background: linear-gradient(180deg, #ff4f8b 0%, #ff4f8b 22%, #ff8a3d 48%, transparent 78%);
   mix-blend-mode: soft-light;
-  opacity: 0.75;
+  opacity: 0.85;
 }
 
 [data-theme="gta6"].dark .art-painting::before,
 [data-theme="gta6"] .dark .art-painting::before,
 :is(.dark) [data-theme="gta6"] .art-painting::before {
-  opacity: 0.55;
+  opacity: 0.70;
 }
 
-/* Overlay 2: multiply night floor for title contrast.
-   A 60–75% fade left white title and teal kickers on the light hotel
-   facade and sky (glyph-masked lightest points were ~2:1). Keep a
-   solid floor under the type and a residual multiply through the top. */
+/* Overlay 2: multiply night floor.
+   Dense floor only behind the text block (bottom ~45%, where the scrim
+   already sits). Upper 50% eases to ~0.25 so the hotel/palms read.
+   Contrast is the scrim's job, not the whole plate. */
 [data-theme="gta6"] .art-painting::after {
   background: linear-gradient(
     0deg,
     #0b1026 0%,
-    #0b1026 48%,
-    rgb(11 16 38 / 0.88) 68%,
-    rgb(11 16 38 / 0.55) 84%,
-    rgb(11 16 38 / 0.28) 100%
+    #0b1026 34%,
+    rgb(11 16 38 / 0.7) 42%,
+    rgb(11 16 38 / 0.25) 55%,
+    rgb(11 16 38 / 0.25) 100%
   );
   mix-blend-mode: multiply;
   opacity: 1;
 }
 
-/* Article plates are short and the kicker sits near the top, so the
-   floor has to cover the whole band. */
+/* Overview/article plates are ~140px. A lighter floor (0.35 at the top
+   to 0.6 at the bottom) so the building can read; the plate scrim
+   carries title contrast. */
 [data-theme="gta6"] .art-surface[data-variant="plate"] .art-painting::after {
-  background: linear-gradient(0deg, #0b1026 0%, #0b1026 40%, rgb(11 16 38 / 0.7) 100%);
+  background: linear-gradient(
+    0deg,
+    rgb(11 16 38 / 0.6) 0%,
+    rgb(11 16 38 / 0.35) 100%
+  );
 }
 
 /* Overlay 3 (dark only): teal screen glow. */
@@ -247,6 +253,28 @@
     transparent 0%,
     rgb(11 16 38 / 0.35) 4rem,
     rgb(11 16 38 / 0.35) 100%
+  );
+}
+
+/* Plate text scrim: contrast sits here, not on a whole-band floor. */
+[data-theme="gta6"] .art-surface[data-variant="plate"] .art-scrim:not([aria-hidden]) > div {
+  position: relative;
+  isolation: isolate;
+}
+[data-theme="gta6"] .art-surface[data-variant="plate"] .art-scrim:not([aria-hidden]) > div::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: -2.5rem;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgb(11 16 38 / 0.45) 2.5rem,
+    rgb(11 16 38 / 0.55) 100%
   );
 }
 
