@@ -31,12 +31,26 @@
 }
 
 /* Overlay 2: multiply night floor for title contrast.
-   75% reach keeps the first line of a home or plate title on the floor;
-   the documented 60% fade left that line on unshaded midtones. */
+   A 60–75% fade left white title and teal kickers on the light hotel
+   facade and sky (glyph-masked lightest points were ~2:1). Keep a
+   solid floor under the type and a residual multiply through the top. */
 [data-theme="gta6"] .art-painting::after {
-  background: linear-gradient(0deg, #0b1026 0%, transparent 75%);
+  background: linear-gradient(
+    0deg,
+    #0b1026 0%,
+    #0b1026 48%,
+    rgb(11 16 38 / 0.88) 68%,
+    rgb(11 16 38 / 0.55) 84%,
+    rgb(11 16 38 / 0.28) 100%
+  );
   mix-blend-mode: multiply;
-  opacity: 0.85;
+  opacity: 1;
+}
+
+/* Article plates are short and the kicker sits near the top, so the
+   floor has to cover the whole band. */
+[data-theme="gta6"] .art-surface[data-variant="plate"] .art-painting::after {
+  background: linear-gradient(0deg, #0b1026 0%, #0b1026 40%, rgb(11 16 38 / 0.7) 100%);
 }
 
 /* Overlay 3 (dark only): teal screen glow. */
