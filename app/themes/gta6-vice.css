@@ -248,11 +248,13 @@
   top: -4rem;
   z-index: -1;
   pointer-events: none;
+  /* 0.35 left the 390 kicker/title under 4.5:1 on the cream hotel
+     facade (lightest under-art ~2.5–3.8:1). Raise the scrim, not the plate. */
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    rgb(11 16 38 / 0.35) 4rem,
-    rgb(11 16 38 / 0.35) 100%
+    rgb(11 16 38 / 0.75) 3.5rem,
+    rgb(11 16 38 / 0.75) 100%
   );
 }
 
