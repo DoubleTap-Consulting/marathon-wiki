@@ -23,7 +23,7 @@ import { ArtSurface } from "@/components/art";
 import { cn } from "@/lib/utils";
 import { articleArtFor, figuresForPage, showsImageGaps } from "@/src/wiki/imagery";
 import { buildWikiMetadata } from "@/src/wiki/metadata";
-import { summarizeSourceCheck, type SourceCheck } from "@/src/wiki/source-check";
+import { manifestCheckTimes, summarizeSourceCheck, type SourceCheck } from "@/src/wiki/source-check";
 import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
 
 import { MarkdownArticle, planArticle } from "../../_components/markdown";
@@ -125,7 +125,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
   const citedKeys = [...new Set(references.flatMap((source) => (source.sourceKey ? [source.sourceKey] : [])))];
   const snapshotChecks = await listSourceCheckTimes(tenant.id, citedKeys).catch(() => [] as Date[]);
-  const sourceCheck = summarizeSourceCheck([...references.map((source) => source.retrievedAt), ...snapshotChecks]);
+  const sourceCheck = summarizeSourceCheck([
+    ...references.map((source) => source.retrievedAt),
+    ...snapshotChecks,
+    ...manifestCheckTimes(tenant.slug, citedKeys),
+  ]);
 
   const notesById = new Map(notes.map((note) => [note.id, note]));
   const unplacedNotes = notes.filter((note) => !plan.placedNoteIds.includes(note.id));

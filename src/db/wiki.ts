@@ -843,8 +843,8 @@ export async function getWikiPageSnapshot(
 }
 
 /**
- * When each of these sources was last read for this wiki: the stored snapshot's fetch time and,
- * once the daily re-fetch runs, its last check. Empty when no snapshot rows exist (previews).
+ * When each of these sources was last read for this wiki: any stored retrieved_at (snapshot
+ * refetch, generation load, or paraphrase load) and, once the daily re-fetch runs, its last check.
  */
 export async function listSourceCheckTimes(tenantId: string, sourceKeys: string[], db: WikiDatabase = getDb()): Promise<Date[]> {
   if (sourceKeys.length === 0) return [];
@@ -853,7 +853,6 @@ export async function listSourceCheckTimes(tenantId: string, sourceKeys: string[
     .select([sql<Date | null>`retrieved_at at time zone 'UTC'`.as("retrievedAt"), sql<string | null>`metadata->>'httpCheckedAt'`.as("httpCheckedAt")])
     .where("tenant_id", "=", tenantId)
     .where("source_key", "in", sourceKeys)
-    .where(sql<boolean>`metadata->>'origin' = 'rendered_snapshot'`)
     .execute();
   return rows.flatMap((row) => [row.retrievedAt, row.httpCheckedAt].flatMap((value) => (value ? [new Date(value)] : [])));
 }

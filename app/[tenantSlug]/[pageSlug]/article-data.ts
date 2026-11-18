@@ -28,6 +28,7 @@ export function buildArticleSources(page: WikiPageDetail): ArticleSource[] {
       const stored = page.sources.find(
         (source) =>
           source.id === reference.sourceId ||
+          source.sourceKey === reference.sourceKey ||
           (source.metadata as { copiedFromSourceId?: string } | null)?.copiedFromSourceId === reference.sourceId,
       );
 
