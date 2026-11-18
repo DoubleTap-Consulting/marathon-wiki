@@ -2,7 +2,7 @@
   {
     "slug": "overview",
     "title": "Grand Theft Auto VI",
-    "summary": "Grand Theft Auto VI follows Lucia and Jason through the state of Leonida and launches in November 2026.",
+    "summary": "Grand Theft Auto VI follows Lucia and Jason through Leonida, and official listings date the PlayStation 5 and Xbox Series X|S launch to November 19, 2026.",
     "category": "overview",
     "bodyMarkdown": "## Overview\n\n\"single-player experience\".{{cite:playstation-store-ultimate}} Rockstar promotes the title under the tagline Only in Leonida and emphasizes Vice City as a focal location.{{cite:gta6-official-site}}\n\n## Release and platforms\n\nRockstar's pre-load page lists November 19, 2026 as the game's launch date.{{cite:gta6-pre-load-page}}{{cite:taketwo-preorders}} The company publishes PlayStation 5 and Xbox Series X|S as the supported platforms.{{cite:gta6-support-platforms}}\n\n## Editions and pricing\n\nGrand Theft Auto VI is offered in Standard and Ultimate Editions.{{cite:gta6-support-platforms}} The Standard Edition contains the base game and can be upgraded later by purchasing the Ultimate Edition Upgrade.{{cite:gta6-support-platforms}} Take-Two lists the Standard Edition price at $79.99.{{cite:taketwo-preorders}} Take-Two lists the Ultimate Edition price at $99.99.{{cite:taketwo-preorders}} The Ultimate Edition provides an integrated collection of premium vehicles, weapons, apparel and other bonuses tied into Jason and Lucia\u2019s narrative.{{cite:taketwo-preorders}}{{cite:gta6-official-site}} Digital pre-orders and purchases made before November 20, 2026 include the Vintage Vice City Pack and a one-month GTA+ membership.{{cite:taketwo-preorders}}\n\n## Setting and protagonists\n\nThe story takes place in Vice City within the wider state of Leonida.{{cite:taketwo-preorders}}{{cite:gta6-official-site}} Lucia Caminos learned to fight from her father.{{cite:gta6-people-lucia}} Fighting on behalf of her family resulted in a spell in the Leonida Penitentiary, from which she later gained release.{{cite:gta6-people-lucia}} Jason Duval was raised around grifters and criminals and later served in the Army following troubled teenage years.{{cite:gta6-people-jason}} After his military stint, Jason worked for drug runners in the Keys prior to meeting Lucia.{{cite:gta6-people-jason}}\n\n## Pages in this section\n\n- [[release-date|Release date]]\n- [[platforms|Platforms]]\n- [[price-and-editions|Price and editions]]\n- [[pre-orders|Pre-orders]]\n- [[story|Story]]\n- [[characters|Characters]]\n- [[leonida|Leonida]]\n- [[trailers|Trailers and videos]]",
     "aiProvenance": {
@@ -237,8 +237,8 @@
   },
   {
     "slug": "release-date",
-    "title": "Release date",
-    "summary": "This page lists Rockstar's current official release date for Grand Theft Auto VI and the earlier dates Rockstar announced.",
+    "title": "Release date and earlier announcements",
+    "summary": "Grand Theft Auto VI is set to launch on November 19, 2026, after earlier official windows in 2025 and on May 26, 2026.",
     "category": "overview",
     "bodyMarkdown": "## Current official date\n\nRockstar's current official release date for Grand Theft Auto VI is November 19, 2026.{{cite:taketwo-preorders}} Rockstar's Launch Trailer page displays the game as 'Coming November 19, 2026.'{{cite:gta6-launch-trailer-page}}\n\n## Earlier Rockstar announcements\n\nRockstar previously announced a release date of May 26, 2026.{{cite:verge-delay-nov-2026}} Before the May 26, 2026 date, Rockstar had planned to release the game in 2025.{{cite:verge-delay-nov-2026}}\n\n## Which announcement is current\n\nThe November 19, 2026 date is the current announcement replacing earlier 2025 and May 26, 2026 plans.{{cite:verge-delay-nov-2026}}\n\n## Additional launch details\n\nRockstar and partners began public pre-loads and store pre-order activity in November 2026 ahead of the November 19 launch.{{cite:taketwo-preorders}}\n\n## See also\n\n- [[platforms|Platforms]]\n- [[pre-orders|Pre-orders]]\n- [[pre-load|Pre-load]]",
     "aiProvenance": {
@@ -491,9 +491,9 @@
   {
     "slug": "platforms",
     "title": "Platforms",
-    "summary": "This page documents the platforms Rockstar has announced for Grand Theft Auto VI.",
+    "summary": "Official listings name PlayStation 5 and Xbox Series X|S, including a PS5 Pro Enhanced version, and do not list a PC edition.",
     "category": "overview",
-    "bodyMarkdown": "## PlayStation 5\n\nThe PlayStation Store lists Grand Theft Auto VI as a PS5 release and marks it PS5 Pro Enhanced.{{cite:playstation-gta6}} The same listing states that PlayStation 4 hardware cannot run the title.{{cite:playstation-gta6}} Rockstar's support page says digital pre-loading on PlayStation opens at midnight local time on November 10, 2026.{{cite:gta6-support-platforms}}\n\n## Xbox and cloud streaming\n\nMicrosoft says Xbox Series X and Xbox Series S can run the game natively and that both versions may be pre-installed.{{cite:xbox-cloud-gta6}} Xbox One play is limited to streaming.{{cite:xbox-cloud-gta6}} The company also said the title would be playable at launch through Xbox Cloud Gaming, with streaming to Xbox One as well as Series X and Series S beginning at 1 a.m. ET on November 19; cloud streams use Series S graphics settings.{{cite:xbox-cloud-gta6}}\n\n## See also\n\n- [[pc-version|PC version]]\n- [[xbox-cloud-gaming|Xbox Cloud Gaming]]\n- [[playstation-features|PlayStation features]]\n- [[pre-load|Pre-load]]\n",
+    "bodyMarkdown": "## PlayStation 5\n\nThe PlayStation Store lists Grand Theft Auto VI as a PS5 release and marks it PS5 Pro Enhanced.{{cite:playstation-gta6}} The same listing states that PlayStation 4 hardware cannot run the title.{{cite:playstation-gta6}} Rockstar's support page says digital pre-loading on PlayStation opens at midnight local time on November 10, 2026.{{cite:gta6-support-platforms}}\n\n## Xbox and cloud streaming\n\nMicrosoft says Xbox Series X and Xbox Series S can run the game natively and that both versions may be pre-installed.{{cite:xbox-cloud-gta6}} Xbox One play is limited to streaming.{{cite:xbox-cloud-gta6}} The company also said the title would be playable at launch through Xbox Cloud Gaming, with streaming to Xbox One as well as Series X and Series S beginning at 1 a.m. ET on November 19; cloud streams use Series S graphics settings.{{cite:xbox-cloud-gta6}}\n\n## See also\n\n- [[pc-version|PC version]]\n- [[xbox-cloud-gaming|Xbox Cloud Gaming]]\n- [[playstation-features|PlayStation features]]\n- [[pre-load|Pre-load]]\n- [[file-size|File size and storage]]\n- [[cross-play|Cross-play]]\n",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -641,7 +641,7 @@
   {
     "slug": "pc-version",
     "title": "PC version",
-    "summary": "This page documents whether Rockstar has officially announced a PC version of Grand Theft Auto VI.",
+    "summary": "Rockstar has not officially announced a PC version. Current official platform lists name PlayStation 5 and Xbox Series X|S only.",
     "category": "overview",
     "bodyMarkdown": "## Overview\n\nRockstar's customer support page, last updated November 4, 2026, says the game can be reserved for PlayStation 5 and for Xbox's Series X and Series S consoles.{{cite:gta6-support-platforms}} Take-Two's pre-order announcement gives the launch date as November 19, 2026 and discusses digital pre-load timing for reservations.{{cite:taketwo-preorders}} Official platform lists on Rockstar's support page and website do not include a personal-computer release.{{cite:gta6-support-platforms}}{{cite:gamespot-pc-status}}\n\n## Physical and edition details\n\nRockstar lists Standard and Ultimate editions, and says Standard owners may buy an Ultimate Edition Upgrade as a separate digital add-on.{{cite:gta6-support-platforms}} The boxed retail package holds a download code rather than an optical disc, and physical copies are expected to ship or be available for pickup beginning November 12, 2026 to help with pre-loading.{{cite:gta6-support-platforms}}{{cite:taketwo-preorders}} The Standard boxed code also redeems the Vintage Vice City Pack and other listed reservation bonuses.{{cite:gta6-support-platforms}}\n\n## PC status\n\nGameSpot reports that Rockstar has not officially announced a PC edition, and that current platform information names only the PlayStation 5 and Xbox Series consoles.{{cite:gamespot-pc-status}} This wiki therefore does not treat a PC release as confirmed.{{cite:gamespot-pc-status}}{{cite:gta6-support-platforms}}\n\n## See also\n\n- [[platforms|Platforms]]\n- [[system-requirements|System requirements]]\n",
     "aiProvenance": {
@@ -798,9 +798,9 @@
   {
     "slug": "system-requirements",
     "title": "System requirements",
-    "summary": "Official sources list console availability and cloud-streaming notes for Grand Theft Auto VI on PlayStation 5 and Xbox Series X|S and Xbox One.",
+    "summary": "A PC version has not been announced, so there are no official PC specifications. The game is listed for PlayStation 5 and for Xbox's current Series consoles; official pre-load storage guidance is on the File size and storage page.",
     "category": "overview",
-    "bodyMarkdown": "## PlayStation 5\n\nGrand Theft Auto VI is offered for PlayStation 5 and listed as PS5 Pro Enhanced.{{cite:playstation-gta6}} The PS5 edition makes use of DualSense features, including haptic feedback, adaptive trigger resistance, and the controller's built-in speaker.{{cite:playstation-gta6}} The version on PS5 takes advantage of the console\u2019s ultra-high speed SSD to provide near-instant load times.{{cite:playstation-gta6}} Digital pre-orders on the PlayStation Store include a one-month GTA+ subscription that can be claimed before March 31, according to the store listing.{{cite:playstation-gta6}} PlayStation\u2019s preload instructions indicate pre-loading began on November 10.{{cite:playstation-gta6}} The store notes that downloaded content may be used on the primary PS5 associated with an account and on other PS5 consoles when signing in with the same account.{{cite:playstation-gta6}}\n\n## Xbox consoles and cloud streaming\n\nMicrosoft states that when Grand Theft Auto VI is streamed via Xbox Cloud Gaming, the streamed sessions use the same graphics settings as the Xbox Series S.{{cite:xbox-cloud-gta6}} Xbox Series X supports native play and can be pre-installed according to Xbox Wire.{{cite:xbox-cloud-gta6}} Xbox Series S is identified as the most affordable option to play GTA VI natively on Xbox hardware.{{cite:xbox-cloud-gta6}} Xbox Wire also cautions that streaming availability, purchase methods, the range of supported devices, account eligibility, and feature sets differ depending on market and device.{{cite:xbox-cloud-gta6}}\n\n## See also\n\n- [[platforms|Platforms]]\n- [[pc-version|PC version]]\n- [[xbox-cloud-gaming|Xbox Cloud Gaming]]",
+    "bodyMarkdown": "## PlayStation 5\n\nGrand Theft Auto VI is offered for PlayStation 5 and listed as PS5 Pro Enhanced.{{cite:playstation-gta6}} The PS5 edition makes use of DualSense features, including haptic feedback, adaptive trigger resistance, and the controller's built-in speaker.{{cite:playstation-gta6}} The version on PS5 takes advantage of the console\u2019s ultra-high speed SSD to provide near-instant load times.{{cite:playstation-gta6}} Digital pre-orders on the PlayStation Store include a one-month GTA+ subscription that can be claimed before March 31, according to the store listing.{{cite:playstation-gta6}} PlayStation\u2019s preload instructions indicate pre-loading began on November 10.{{cite:playstation-gta6}} The store notes that downloaded content may be used on the primary PS5 associated with an account and on other PS5 consoles when signing in with the same account.{{cite:playstation-gta6}}\n\n## Xbox consoles and cloud streaming\n\nMicrosoft states that when Grand Theft Auto VI is streamed via Xbox Cloud Gaming, the streamed sessions use the same graphics settings as the Xbox Series S.{{cite:xbox-cloud-gta6}} Xbox Series X supports native play and can be pre-installed according to Xbox Wire.{{cite:xbox-cloud-gta6}} Xbox Series S is identified as the most affordable option to play GTA VI natively on Xbox hardware.{{cite:xbox-cloud-gta6}} Xbox Wire also cautions that streaming availability, purchase methods, the range of supported devices, account eligibility, and feature sets differ depending on market and device.{{cite:xbox-cloud-gta6}}\n\n## Storage\n\nOfficial pre-load guidance talks about free space rather than a final per-platform installed size. PlayStation asks PlayStation 5 players to free at least 212 GB, and Rockstar says the pre-load can need as much as 212 GB depending on the device.{{cite:playstation-gta6}}{{cite:gta6-nw-preload-begins}} See [[file-size|File size and storage]].\n\n## See also\n\n- [[platforms|Platforms]]\n- [[pc-version|PC version]]\n- [[xbox-cloud-gaming|Xbox Cloud Gaming]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -830,6 +830,16 @@
           "publisher": "Xbox Wire",
           "authorityTier": "official",
           "authorityScore": 90
+        },
+        {
+          "sourceId": "src_gta6_nw_preload_begins",
+          "sourceKey": "gta6-nw-preload-begins",
+          "sourceType": "official",
+          "title": "Grand Theft Auto VI Pre-Load Begins on November 10",
+          "url": "https://www.rockstargames.com/newswire/article/k4ak9okk485712/grand-theft-auto-vi-pre-load-begins-on-november-10",
+          "publisher": "Rockstar Games",
+          "authorityTier": "official",
+          "authorityScore": 97
         }
       ],
       "claimSupport": [
@@ -854,7 +864,7 @@
           "matchedSourceTitles": [
             "Grand Theft Auto VI on PlayStation 5"
           ],
-          "reason": "Rewritten in encyclopedic paraphrase and kept on its cited sources.",
+          "reason": "Kept on its cited sources after encyclopedic paraphrase.",
           "extractIds": [
             "playstation-gta6#1"
           ],
@@ -885,7 +895,7 @@
           "matchedSourceTitles": [
             "Grand Theft Auto VI Comes to Xbox One and Xbox Series X|S Through Xbox Cloud Gaming on November 19"
           ],
-          "reason": "Rewritten in encyclopedic paraphrase and kept on its cited sources.",
+          "reason": "Kept on its cited sources after encyclopedic paraphrase.",
           "extractIds": [
             "xbox-cloud-gta6#1"
           ],
@@ -899,7 +909,22 @@
         },
         {
           "claimId": "claim_system-requirements_3",
-          "claimText": "The PS5 edition makes use of DualSense features, including haptic feedback, adaptive trigger resistance, and the controller's built-in speaker.",
+          "claimText": "Official pre-load guidance talks about free space rather than a final per-platform installed size.",
+          "status": "supported",
+          "supportScore": 0.8,
+          "matchedTerms": [],
+          "missingTerms": [],
+          "matchedSourceIds": [],
+          "matchedSourceKeys": [],
+          "matchedSourceTitles": [],
+          "reason": "Kept on its cited sources after encyclopedic paraphrase.",
+          "extractIds": [],
+          "quotes": [],
+          "patchRef": null
+        },
+        {
+          "claimId": "claim_system-requirements_4",
+          "claimText": "PlayStation asks PlayStation 5 players to free at least 212 GB, and Rockstar says the pre-load can need as much as 212 GB depending on the device. See [[file-size|File size and storage]].",
           "status": "supported",
           "supportScore": 0.9,
           "matchedTerms": [],
@@ -909,17 +934,21 @@
           ],
           "matchedSourceKeys": [
             "playstation-gta6",
-            "playstation-gta6",
-            "playstation-gta6"
+            "gta6-nw-preload-begins"
           ],
           "matchedSourceTitles": [
             "Grand Theft Auto VI on PlayStation 5"
           ],
-          "reason": "Supported by the cited official source.",
+          "reason": "Kept on its cited sources after encyclopedic paraphrase.",
           "extractIds": [
             "playstation-gta6#1"
           ],
-          "quotes": [],
+          "quotes": [
+            {
+              "extractId": "playstation-gta6#1",
+              "quote": "Available on PS5 PS5 PRO ENHANCED"
+            }
+          ],
           "patchRef": null
         }
       ],
@@ -933,7 +962,30 @@
       "changeNote": "Updated from cited official sources.",
       "publishGate": {
         "decision": "publish",
-        "reasons": []
+        "supported": 4,
+        "unsupported": 0,
+        "contradicted": 0,
+        "supportedRatio": 1,
+        "reasons": [],
+        "policy": {
+          "minSupportedRatio": 0.8,
+          "minSupportedClaims": 3,
+          "maxUnsupported": 3,
+          "minHubWords": 150
+        },
+        "shape": {
+          "hub": false,
+          "words": 242,
+          "sourceOverlaps": [],
+          "quotePolicy": {
+            "quotes": [],
+            "quotedWords": 0,
+            "proseWords": 252,
+            "quotedRatio": 0,
+            "reasons": []
+          },
+          "editorNotes": []
+        }
       }
     },
     "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
@@ -942,7 +994,7 @@
   {
     "slug": "price-and-editions",
     "title": "Price and editions",
-    "summary": "This page lists the Standard and Ultimate Editions, their US prices, brief contents, and availability of an Ultimate Edition Upgrade.",
+    "summary": "In the United States, the Standard Edition is listed at $79.99 and the Ultimate Edition at $99.99, as announced for the November 19, 2026 launch.",
     "category": "overview",
     "bodyMarkdown": "## Overview\n\nGrand Theft Auto VI is offered in two editions: Standard and Ultimate.{{cite:gta6-support-platforms}}\n\n## Standard Edition\n\nThe Standard Edition provides the base game.{{cite:gta6-support-platforms}} The listed U.S. price for the Standard Edition is $79.99.{{cite:taketwo-preorders}}\n\n## Ultimate Edition\n\nThe Ultimate Edition bundles the game together with the Ultimate Edition Upgrade.{{cite:gta6-support-platforms}}{{cite:gta6-support-platforms}} The Ultimate Edition is marketed with a package of additional premium vehicles, weapons, apparel, and other items tied into Jason and Lucia\u2019s storyline.{{cite:taketwo-preorders}}{{cite:gta6-support-platforms}} The listed U.S. price for the Ultimate Edition is $99.99.{{cite:taketwo-preorders}}\n\n## Ultimate Edition Upgrade\n\nOwners of the Standard Edition can buy the Ultimate Edition Upgrade separately at any time.{{cite:gta6-support-platforms}} Buyers of the physical Standard Edition may purchase the Upgrade after redeeming the included digital download code.{{cite:gta6-support-platforms}}\n\n## See also\n\n- [[ultimate-edition|Ultimate Edition]]\n- [[pre-orders|Pre-orders]]\n- [[vintage-vice-city-pack|Vintage Vice City Pack]]",
     "aiProvenance": {
@@ -1115,7 +1167,7 @@
   {
     "slug": "pre-orders",
     "title": "Pre-orders",
-    "summary": "Details when pre-orders opened, where they were sold, and the pre-order bonuses available through November 19, 2026.",
+    "summary": "Pre-orders opened at local midnight on June 25, 2026, and include the Vintage Vice City Pack for purchases made before November 20, 2026.",
     "category": "overview",
     "bodyMarkdown": "## When reservations opened\n\nTake-Two announced that reservations for the game would open at local midnight on June 25, 2026.{{cite:taketwo-preorders}}\n\n## Where to reserve a copy\n\nThe same announcement said copies could be reserved through the PlayStation Store, the Microsoft Store, the Rockstar Games Store, and retailers worldwide.{{cite:taketwo-preorders}} Rockstar's support page adds that both digital and physical versions were offered.{{cite:gta6-support-platforms}}\n\n## Bonuses and timing\n\nTake-Two said every reservation or purchase completed before November 20, 2026 included the Vintage Vice City Pack, and that digital reservations also received a complimentary month of GTA+.{{cite:taketwo-preorders}}{{cite:gta6-support-platforms}} PlayStation Store legal text states that this complimentary month must be claimed by March 31, 2027.{{cite:playstation-store-ultimate}} Microsoft's store listing required a purchase before 23:59:59 on November 19, 2026 to receive the Vintage Vice City Pack and the one-month GTA+ offer.{{cite:xbox-cloud-gta6}}\n\n## Physical copies and pre-load\n\nPhysical boxes ship with a download code that also covers the Vintage Vice City Pack.{{cite:gta6-support-platforms}} Rockstar's support documentation says digital reservations can begin pre-loading on November 10, 2026 at midnight local time on PlayStation and at 12 a.m. GMT on Xbox.{{cite:gta6-support-platforms}} Take-Two's earlier press release instead named November 12, 2026 as the start of digital pre-loading.{{cite:taketwo-preorders}}\n\n## See also\n\n- [[vintage-vice-city-pack|Vintage Vice City Pack]]\n- [[gta-plus|GTA+ offer]]\n- [[pre-load|Pre-load]]\n- [[where-to-buy|Where to buy]]\n",
     "aiProvenance": {
@@ -1310,9 +1362,9 @@
   {
     "slug": "pre-load",
     "title": "Pre-load",
-    "summary": "Digital pre-loading windows and eligibility for Grand Theft Auto VI.",
+    "summary": "Digital pre-load on PlayStation 5 starts at local midnight on November 10, 2026. On Xbox, the window opens at 12 a.m. GMT that same date. Official guidance is to have as much as 212 GB free. An earlier Take-Two line used November 12; official sources disagree.",
     "category": "overview",
-    "bodyMarkdown": "## Overview\n\nRockstar posted a newswire titled \"Pre-Load Grand Theft Auto VI Now\" on November 10, 2026 announcing that pre-loading was active for customers who had pre-ordered the game.{{cite:gta6-official-site}}{{cite:gta6-pre-load-page}}\n\n## Platform start times\n\nRockstar's support page states that PlayStation 5 users can begin pre-loading at midnight local time on November 10.{{cite:gta6-support-platforms}}  Microsoft\u2019s Xbox team noted the title was the most pre-ordered on the Microsoft Store and advised customers to begin pre-loading early because of heavy demand.{{cite:xbox-cloud-gta6}}\n\n## Eligibility and physical codes\n\nRockstar\u2019s support information explains that the physical edition ships with a digital download code rather than a disc and that those physical editions were expected to be available from November 12 to assist with pre-loading.{{cite:gta6-support-platforms}} The support page also states that codes included with physical copies can be redeemed as soon as they are received to enable pre-loading on November 10.{{cite:gta6-support-platforms}}\n\n## Digital pre-load date\n\nOfficial communications provide more than one date for when digital pre-loading would start: a Take-Two press release said digital pre-orders could begin pre-loading on November 12, 2026, while Rockstar\u2019s support documentation gives November 10 for PlayStation and a 12 a.m. GMT time for Xbox.{{cite:taketwo-preorders}}{{cite:gta6-support-platforms}}\n\n## See also\n\n- [[pre-orders|Pre-orders]]\n- [[physical-edition|Physical edition]]\n- [[platforms|Platforms]]",
+    "bodyMarkdown": "## Overview\n\nRockstar posted a newswire titled \"Pre-Load Grand Theft Auto VI Now\" on November 10, 2026 announcing that pre-loading was active for customers who had pre-ordered the game.{{cite:gta6-official-site}}{{cite:gta6-pre-load-page}}\n\n## Platform start times\n\nRockstar's support page states that PlayStation 5 users can begin pre-loading at midnight local time on November 10.{{cite:gta6-support-platforms}}  Microsoft\u2019s Xbox team noted the title was the most pre-ordered on the Microsoft Store and advised customers to begin pre-loading early because of heavy demand.{{cite:xbox-cloud-gta6}}\n\n## Eligibility and physical codes\n\nRockstar\u2019s support information explains that the physical edition ships with a digital download code rather than a disc and that those physical editions were expected to be available from November 12 to assist with pre-loading.{{cite:gta6-support-platforms}} The support page also states that codes included with physical copies can be redeemed as soon as they are received to enable pre-loading on November 10.{{cite:gta6-support-platforms}}\n\n## Digital pre-load date\n\nOfficial communications provide more than one date for when digital pre-loading would start: a Take-Two press release said digital pre-orders could begin pre-loading on November 12, 2026, while Rockstar\u2019s support documentation gives November 10 for PlayStation and a 12 a.m. GMT time for Xbox.{{cite:taketwo-preorders}}{{cite:gta6-support-platforms}}\n\n## Storage guidance\n\nPlayStation's PlayStation 5 guidance asks players to free at least 212 GB of storage ahead of pre-loading.{{cite:playstation-gta6}} Rockstar says the pre-load can need as much as 212 GB, with the amount varying by device.{{cite:gta6-nw-preload-begins}} Fuller detail is on [[file-size|File size and storage]].\n\n## See also\n\n- [[pre-orders|Pre-orders]]\n- [[physical-edition|Physical edition]]\n- [[platforms|Platforms]]",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -1372,6 +1424,26 @@
           "publisher": "Take-Two Interactive",
           "authorityTier": "official",
           "authorityScore": 94
+        },
+        {
+          "sourceId": "src_gta6_nw_preload_begins",
+          "sourceKey": "gta6-nw-preload-begins",
+          "sourceType": "official",
+          "title": "Grand Theft Auto VI Pre-Load Begins on November 10",
+          "url": "https://www.rockstargames.com/newswire/article/k4ak9okk485712/grand-theft-auto-vi-pre-load-begins-on-november-10",
+          "publisher": "Rockstar Games",
+          "authorityTier": "official",
+          "authorityScore": 97
+        },
+        {
+          "sourceId": "src_gta6_playstation",
+          "sourceKey": "playstation-gta6",
+          "sourceType": "official",
+          "title": "Grand Theft Auto VI on PlayStation 5",
+          "url": "https://www.playstation.com/en-us/games/grand-theft-auto-vi/",
+          "publisher": "PlayStation",
+          "authorityTier": "official",
+          "authorityScore": 90
         }
       ],
       "claimSupport": [
@@ -1392,7 +1464,7 @@
           "matchedSourceTitles": [
             "Grand Theft Auto VI official site"
           ],
-          "reason": "Rewritten in encyclopedic paraphrase and kept on its cited sources.",
+          "reason": "Kept on its cited sources after encyclopedic paraphrase.",
           "extractIds": [
             "gta6-official-site#2",
             "gta6-pre-load-page#1"
@@ -1422,7 +1494,7 @@
           "matchedSourceTitles": [
             "Grand Theft Auto VI Platforms, Editions, and Versions"
           ],
-          "reason": "Rewritten in encyclopedic paraphrase and kept on its cited sources.",
+          "reason": "Kept on its cited sources after encyclopedic paraphrase.",
           "extractIds": [
             "gta6-support-platforms#8",
             "gta6-support-platforms#4"
@@ -1452,7 +1524,7 @@
           "matchedSourceTitles": [
             "Grand Theft Auto VI Platforms, Editions, and Versions"
           ],
-          "reason": "Rewritten in encyclopedic paraphrase and kept on its cited sources.",
+          "reason": "Kept on its cited sources after encyclopedic paraphrase.",
           "extractIds": [
             "gta6-support-platforms#8",
             "gta6-support-platforms#4"
@@ -1475,8 +1547,32 @@
           "matchedSourceIds": [],
           "matchedSourceKeys": [],
           "matchedSourceTitles": [],
-          "reason": "Rewritten in encyclopedic paraphrase and kept on its cited sources.",
+          "reason": "Kept on its cited sources after encyclopedic paraphrase.",
           "extractIds": [],
+          "quotes": [],
+          "patchRef": null
+        },
+        {
+          "claimId": "claim_pre-load_5",
+          "claimText": "PlayStation's PlayStation 5 guidance asks players to free at least 212 GB of storage ahead of pre-loading. Rockstar says the pre-load can need as much as 212 GB, with the amount varying by device. Fuller detail is on [[file-size|File size and storage]].",
+          "status": "supported",
+          "supportScore": 0.8,
+          "matchedTerms": [],
+          "missingTerms": [],
+          "matchedSourceIds": [
+            "src_playstation_gta6",
+            "src_gta6_nw_preload_begins"
+          ],
+          "matchedSourceKeys": [
+            "playstation-gta6",
+            "gta6-nw-preload-begins"
+          ],
+          "matchedSourceTitles": [],
+          "reason": "Kept on its cited sources after encyclopedic paraphrase.",
+          "extractIds": [
+            "playstation-gta6#1",
+            "gta6-nw-preload-begins#1"
+          ],
           "quotes": [],
           "patchRef": null
         }
@@ -1494,7 +1590,197 @@
       "changeNote": "Updated from cited official sources.",
       "publishGate": {
         "decision": "publish",
-        "reasons": []
+        "supported": 5,
+        "unsupported": 0,
+        "contradicted": 0,
+        "supportedRatio": 1,
+        "reasons": [],
+        "policy": {
+          "minSupportedRatio": 0.8,
+          "minSupportedClaims": 3,
+          "maxUnsupported": 3,
+          "minHubWords": 150
+        },
+        "shape": {
+          "hub": false,
+          "words": 217,
+          "sourceOverlaps": [],
+          "quotePolicy": {
+            "quotes": [
+              {
+                "text": "Pre-Load Grand Theft Auto VI Now",
+                "wordCount": 7,
+                "section": "Overview"
+              }
+            ],
+            "quotedWords": 7,
+            "proseWords": 232,
+            "quotedRatio": 0.03017241379310345,
+            "reasons": []
+          },
+          "editorNotes": []
+        }
+      }
+    },
+    "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+    "unchanged": false
+  },
+  {
+    "slug": "file-size",
+    "title": "File size and storage",
+    "summary": "Rockstar says pre-loading can need as much as 212 GB, depending on the device. PlayStation asks PlayStation 5 players to free at least 212 GB. Official pages describe space to have free, not a final installed size for each platform.",
+    "category": "overview",
+    "bodyMarkdown": "## Pre-load storage guidance\n\nRockstar advises that the pre-load package can occupy as much as 212 GB, with the exact amount varying by device, and recommends having sufficient free space before beginning the pre-load.{{cite:gta6-nw-preload-begins}} PlayStation's guidance for the PlayStation 5 specifies clearing at least 212 GB of storage to prepare for pre-loading.{{cite:playstation-gta6}}{{cite:playstation-blog-preload}} Official pages give this figure as space that should be free so pre-loading can start. The extracts used here do not publish a final installed size for each platform.\n\n## Pre-load timing\n\nRockstar states that digital pre-loading on PlayStation 5 becomes available at midnight local time on November 10, 2026 for customers who pre-ordered.{{cite:gta6-nw-preload-begins}} The same announcement says pre-loading on Xbox Series X|S begins globally at 12 a.m. GMT on November 10, 2026.{{cite:gta6-nw-preload-begins}}\n\n## See also\n\n- [[pre-load|Pre-load]]\n- [[system-requirements|System requirements]]\n- [[physical-edition|Physical edition]]\n- [[platforms|Platforms]]\n",
+    "aiProvenance": {
+      "provider": "vercel-ai-gateway",
+      "modelId": "openai/gpt-5-mini",
+      "claimCheckModelId": "openai/gpt-5-mini",
+      "promptVersion": "paraphrase-v1",
+      "claimCheckPromptVersion": "marathon-claim-check-v2",
+      "generatedAt": "2026-11-18T02:01:11.641Z",
+      "responseId": "aitxt-c2UUlIfGU4uZXH76dvsY7mJ7",
+      "sourceContextSummary": "4 extracts from rendered source snapshots considered; 2 sources cited.",
+      "sourceReferences": [
+        {
+          "sourceId": "src_gta6_nw_preload_begins",
+          "sourceKey": "gta6-nw-preload-begins",
+          "sourceType": "official",
+          "title": "Grand Theft Auto VI Pre-Load Begins on November 10",
+          "url": "https://www.rockstargames.com/newswire/article/k4ak9okk485712/grand-theft-auto-vi-pre-load-begins-on-november-10",
+          "publisher": "Rockstar Games",
+          "authorityTier": "official",
+          "authorityScore": 97
+        },
+        {
+          "sourceId": "src_gta6_playstation",
+          "sourceKey": "playstation-gta6",
+          "sourceType": "official",
+          "title": "Grand Theft Auto VI on PlayStation 5",
+          "url": "https://www.playstation.com/en-us/games/grand-theft-auto-vi/",
+          "publisher": "PlayStation",
+          "authorityTier": "official",
+          "authorityScore": 90
+        },
+        {
+          "sourceId": "src_gta6_playstation_blog_preload",
+          "sourceKey": "playstation-blog-preload",
+          "sourceType": "official",
+          "title": "Grand Theft Auto VI pre-download begins November 10",
+          "url": "https://blog.playstation.com/2026/11/03/grand-theft-auto-vi-pre-download-begins-november-10/",
+          "publisher": "PlayStation",
+          "authorityTier": "official",
+          "authorityScore": 90
+        }
+      ],
+      "claimSupport": [
+        {
+          "claimId": "claim_file-size_1",
+          "claimText": "Rockstar advises that the pre-load package can occupy as much as 212 GB, with the exact amount varying by device, and recommends having sufficient free space before beginning the pre-load. PlayStation's guidance for the PlayStation 5 specifies clearing at least 212 GB of storage to prepare for pre-loading. Official pages give this figure as space that should be free so pre-loading can start.",
+          "status": "supported",
+          "supportScore": 0.9,
+          "matchedTerms": [],
+          "missingTerms": [],
+          "matchedSourceIds": [
+            "src_gta6_nw_preload_begins"
+          ],
+          "matchedSourceKeys": [
+            "gta6-nw-preload-begins",
+            "playstation-gta6",
+            "playstation-blog-preload"
+          ],
+          "matchedSourceTitles": [
+            "Grand Theft Auto VI Pre-Load Begins on November 10"
+          ],
+          "reason": "Kept on its cited sources after encyclopedic paraphrase.",
+          "extractIds": [
+            "gta6-nw-preload-begins#1"
+          ],
+          "quotes": [
+            {
+              "extractId": "gta6-nw-preload-begins#1",
+              "quote": "The pre-load file will require up to 212 GB depending on your device"
+            }
+          ],
+          "patchRef": null
+        },
+        {
+          "claimId": "claim_file-size_2",
+          "claimText": "The extracts used here do not publish a final installed size for each platform.",
+          "status": "supported",
+          "supportScore": 0.8,
+          "matchedTerms": [],
+          "missingTerms": [],
+          "matchedSourceIds": [],
+          "matchedSourceKeys": [],
+          "matchedSourceTitles": [],
+          "reason": "Kept on its cited sources after encyclopedic paraphrase.",
+          "extractIds": [],
+          "quotes": [],
+          "patchRef": null
+        },
+        {
+          "claimId": "claim_file-size_3",
+          "claimText": "Rockstar states that digital pre-loading on PlayStation 5 becomes available at midnight local time on November 10, 2026 for customers who pre-ordered. The same announcement says pre-loading on Xbox Series X|S begins globally at 12 a.m.",
+          "status": "supported",
+          "supportScore": 0.9,
+          "matchedTerms": [],
+          "missingTerms": [],
+          "matchedSourceIds": [
+            "src_gta6_nw_preload_begins"
+          ],
+          "matchedSourceKeys": [
+            "gta6-nw-preload-begins"
+          ],
+          "matchedSourceTitles": [
+            "Grand Theft Auto VI Pre-Load Begins on November 10"
+          ],
+          "reason": "Kept on its cited sources after encyclopedic paraphrase.",
+          "extractIds": [
+            "gta6-nw-preload-begins#1"
+          ],
+          "quotes": [
+            {
+              "extractId": "gta6-nw-preload-begins#1",
+              "quote": "The pre-load file will require up to 212 GB depending on your device"
+            }
+          ],
+          "patchRef": null
+        }
+      ],
+      "refreshReason": "new_page",
+      "requestedBy": "content-pipeline",
+      "editMode": "rewrite",
+      "sourceHashes": {
+        "gta6-nw-preload-begins": "27f4573ad1d082e95f87ee9002e7c633ec6f4d3cbb2853ed811b9672e13754cf",
+        "playstation-gta6": "259b75b114e3d3078136728bcdf66f1138b048619f70a72753fe056abeda3454"
+      },
+      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "publishGate": {
+        "decision": "publish",
+        "supported": 3,
+        "unsupported": 0,
+        "contradicted": 0,
+        "supportedRatio": 1,
+        "reasons": [],
+        "policy": {
+          "minSupportedRatio": 0.8,
+          "minSupportedClaims": 3,
+          "maxUnsupported": 3,
+          "minHubWords": 150
+        },
+        "shape": {
+          "hub": false,
+          "words": 118,
+          "sourceOverlaps": [],
+          "quotePolicy": {
+            "quotes": [],
+            "quotedWords": 0,
+            "proseWords": 127,
+            "quotedRatio": 0,
+            "reasons": []
+          },
+          "editorNotes": []
+        }
       }
     },
     "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
@@ -1505,7 +1791,7 @@
     "title": "Physical edition",
     "summary": "Information about the boxed physical version of Grand Theft Auto VI, which contains a download code rather than a disc.",
     "category": "overview",
-    "bodyMarkdown": "## Overview\n\nThe boxed retail edition contains a digital download code for the game rather than an optical disc.{{cite:gta6-support-platforms}} Rockstar does not offer a boxed Ultimate Edition; after redeeming the Standard code, buyers may purchase the Ultimate Edition Upgrade on Sony's or Microsoft's digital storefronts.{{cite:gta6-support-platforms}}\n\n## Packaging and included content\n\nPhysical reservations ship with a single code that redeems both the game and the Vintage Vice City Pack.{{cite:gta6-support-platforms}} That pack comprises a '55 Vapid Stanier sedan and garage, additional outfits and hairstyles, and an exclusive weapon pattern.{{cite:gta6-support-platforms}} Take-Two's announcement confirms that reservations and purchases made before November 20, 2026 qualify for the pack.{{cite:taketwo-preorders}}\n\n## Availability and pre-loading\n\nRetail boxed copies are scheduled to begin shipping and be available for in-store pickup starting November 12, 2026.{{cite:gta6-support-platforms}} Rockstar says the enclosed codes can be redeemed as soon as they arrive, in time for the pre-load window that support documentation dates to November 10, 2026.{{cite:gta6-support-platforms}} Take-Two likewise described the boxed release as arriving in mid-November so buyers could pre-load.{{cite:taketwo-preorders}}\n\n## Region and redemption notes\n\nRegion restrictions for redeeming codes follow the region assigned to the buyer's platform account.{{cite:gta6-support-platforms}} Rockstar advises buying from a retailer in the same country as that account to reduce the risk of activation problems.{{cite:gta6-support-platforms}}\n\n## See also\n\n- [[pre-load|Pre-load]]\n- [[vintage-vice-city-pack|Vintage Vice City Pack]]\n- [[ultimate-edition|Ultimate Edition]]\n- [[where-to-buy|Where to buy]]\n",
+    "bodyMarkdown": "## Overview\n\nThe boxed retail edition contains a digital download code for the game rather than an optical disc.{{cite:gta6-support-platforms}} Rockstar does not offer a boxed Ultimate Edition; after redeeming the Standard code, buyers may purchase the Ultimate Edition Upgrade on Sony's or Microsoft's digital storefronts.{{cite:gta6-support-platforms}}\n\n## Packaging and included content\n\nPhysical reservations ship with a single code that redeems both the game and the Vintage Vice City Pack.{{cite:gta6-support-platforms}} That pack comprises a '55 Vapid Stanier sedan and garage, additional outfits and hairstyles, and an exclusive weapon pattern.{{cite:gta6-support-platforms}} Take-Two's announcement confirms that reservations and purchases made before November 20, 2026 qualify for the pack.{{cite:taketwo-preorders}}\n\n## Availability and pre-loading\n\nRetail boxed copies are scheduled to begin shipping and be available for in-store pickup starting November 12, 2026.{{cite:gta6-support-platforms}} Rockstar says the enclosed codes can be redeemed as soon as they arrive, in time for the pre-load window that support documentation dates to November 10, 2026.{{cite:gta6-support-platforms}} Take-Two likewise described the boxed release as arriving in mid-November so buyers could pre-load.{{cite:taketwo-preorders}}\n\n## Region and redemption notes\n\nRegion restrictions for redeeming codes follow the region assigned to the buyer's platform account.{{cite:gta6-support-platforms}} Rockstar advises buying from a retailer in the same country as that account to reduce the risk of activation problems.{{cite:gta6-support-platforms}}\n\n## See also\n\n- [[pre-load|Pre-load]]\n- [[vintage-vice-city-pack|Vintage Vice City Pack]]\n- [[ultimate-edition|Ultimate Edition]]\n- [[where-to-buy|Where to buy]]\n- [[file-size|File size and storage]]\n",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -2026,7 +2312,7 @@
   {
     "slug": "age-rating",
     "title": "Age rating and content descriptors",
-    "summary": "This page lists content descriptors published on official Grand Theft Auto VI pages.",
+    "summary": "PlayStation lists an ESRB Mature 17+ rating for North America and a PEGI 18 rating for Europe. Official pages also publish content descriptors covering violence, language, sexual content, and drug and alcohol use.",
     "category": "overview",
     "bodyMarkdown": "## Overview\n\nRockstar's official Grand Theft Auto VI website lists the following content descriptors, which also appear on character pages and store listings.{{cite:gta6-official-site}}\n\n| Descriptor |\n| --- |\n| Blood and Gore{{cite:gta6-official-site}} |\n| Intense Violence{{cite:gta6-official-site}} |\n| Mature Humor{{cite:gta6-official-site}} |\n| Nudity{{cite:gta6-official-site}} |\n| Strong Language{{cite:gta6-official-site}} |\n| Strong Sexual Content{{cite:gta6-official-site}} |\n| Use of Drugs and Alcohol{{cite:gta6-official-site}} |\n\n## Appearances on character and feature pages\n\nThe Lucia Caminos character entry repeats those seven descriptors and also notes in-game purchases.{{cite:gta6-people-lucia}} The Only in Leonida feature page carries the same list and the same in-game purchase notice.{{cite:gta6-only-in-leonida}}\n\n## Appearances on platform store pages\n\nSony's PlayStation product listing displays the same seven descriptors and indicates that in-game purchases are optional.{{cite:playstation-gta6}}\n\n## See also\n\n- [[overview|Grand Theft Auto VI]]\n- [[gameplay|Gameplay]]\n",
     "aiProvenance": {
@@ -4694,7 +4980,7 @@
     "title": "Gameplay",
     "summary": "Gameplay covers the single-player focus, the game's premise, and platform-specific features announced by Rockstar and platform holders.",
     "category": "gameplay",
-    "bodyMarkdown": "## Overview\n\nTake-Two describes Grand Theft Auto VI as a single-player experience.{{cite:taketwo-preorders}}\n\n## Premise\n\nThe official site follows protagonists Jason and Lucia in Vice City, USA, who are drawn into a criminal conspiracy that reaches across the state of Leonida after a job goes wrong.{{cite:gta6-official-site}}\n\n## Platform and technical features\n\nSony's PlayStation listing highlights several PS5-specific presentation and control features, including Tempest 3D Audio, use of the console's high-speed SSD to shorten loading times, haptic feedback, adaptive triggers, and the DualSense built-in speaker.{{cite:playstation-gta6}} The same listing says PlayStation 4 hardware cannot run the title.{{cite:playstation-gta6}}\n\nDigital purchases on PlayStation 5 can be downloaded to the primary console tied to an account, using that system's sharing-and-offline-play option, and can also be used on other PS5 consoles when the buyer signs in.{{cite:playstation-store-ultimate}}\n\nMicrosoft said the game would be playable at launch through Xbox Cloud Gaming for Xbox One as well as Series X and Series S, with streaming beginning at 1 a.m. ET on November 19.{{cite:xbox-cloud-gta6}} Series X and Series S owners can play a native version and may pre-install it; when the title is streamed, it uses Series S graphics settings.{{cite:xbox-cloud-gta6}} Starting November 11, players in supported markets could purchase streaming hours for eligible titles even if they do not subscribe to Game Pass, and Microsoft notes that availability, devices, and eligibility vary by market.{{cite:xbox-cloud-gta6}} Microsoft also states that the game has to be bought separately for cloud play.{{cite:xbox-cloud-gta6}}\n\n## Editions and in-game bonuses\n\nRockstar and Take-Two describe an Ultimate Edition that bundles exclusive vehicles, weapons, apparel, and chapter-linked bonuses for Jason and Lucia across their story.{{cite:taketwo-preorders}} Store listings name specific bonus items, including the Shitzu Squalo watercraft and a '67 Vapid Dominator Buggy that can be stored at the Paradise Garage.{{cite:playstation-store-ultimate}}{{cite:taketwo-preorders}} Some of those descriptions say the Paradise Garage includes a weapon locker and a secure place to leave stolen goods for fencing.{{cite:playstation-store-ultimate}}{{cite:gta6-official-site}}\n\n## See also\n\n- [[story|Story]]\n- [[platforms|Platforms]]\n- [[extended-look|An Extended Look]]\n- [[gta-online|GTA Online]]\n",
+    "bodyMarkdown": "## Overview\n\nTake-Two describes Grand Theft Auto VI as a single-player experience.{{cite:taketwo-preorders}}\n\n## Premise\n\nThe official site follows protagonists Jason and Lucia in Vice City, USA, who are drawn into a criminal conspiracy that reaches across the state of Leonida after a job goes wrong.{{cite:gta6-official-site}}\n\n## Platform and technical features\n\nSony's PlayStation listing highlights several PS5-specific presentation and control features, including Tempest 3D Audio, use of the console's high-speed SSD to shorten loading times, haptic feedback, adaptive triggers, and the DualSense built-in speaker.{{cite:playstation-gta6}} The same listing says PlayStation 4 hardware cannot run the title.{{cite:playstation-gta6}}\n\nDigital purchases on PlayStation 5 can be downloaded to the primary console tied to an account, using that system's sharing-and-offline-play option, and can also be used on other PS5 consoles when the buyer signs in.{{cite:playstation-store-ultimate}}\n\nMicrosoft said the game would be playable at launch through Xbox Cloud Gaming for Xbox One as well as Series X and Series S, with streaming beginning at 1 a.m. ET on November 19.{{cite:xbox-cloud-gta6}} Series X and Series S owners can play a native version and may pre-install it; when the title is streamed, it uses Series S graphics settings.{{cite:xbox-cloud-gta6}} Starting November 11, players in supported markets could purchase streaming hours for eligible titles even if they do not subscribe to Game Pass, and Microsoft notes that availability, devices, and eligibility vary by market.{{cite:xbox-cloud-gta6}} Microsoft also states that the game has to be bought separately for cloud play.{{cite:xbox-cloud-gta6}}\n\n## Editions and in-game bonuses\n\nRockstar and Take-Two describe an Ultimate Edition that bundles exclusive vehicles, weapons, apparel, and chapter-linked bonuses for Jason and Lucia across their story.{{cite:taketwo-preorders}} Store listings name specific bonus items, including the Shitzu Squalo watercraft and a '67 Vapid Dominator Buggy that can be stored at the Paradise Garage.{{cite:playstation-store-ultimate}}{{cite:taketwo-preorders}} Some of those descriptions say the Paradise Garage includes a weapon locker and a secure place to leave stolen goods for fencing.{{cite:playstation-store-ultimate}}{{cite:gta6-official-site}}\n\n## See also\n\n- [[story|Story]]\n- [[platforms|Platforms]]\n- [[extended-look|An Extended Look]]\n- [[gta-online|GTA Online]]\n- [[cross-play|Cross-play]]\n",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -8020,9 +8306,9 @@
   {
     "slug": "gta-online",
     "title": "GTA Online",
-    "summary": "This page documents what official sources say about GTA+ and GTA Online in connection with Grand Theft Auto VI.",
+    "summary": "Official listings present Grand Theft Auto VI as a single-player game. They mention GTA Online and GTA+ in connection with the existing service and pre-order offers, not as a confirmed VI multiplayer mode.",
     "category": "gameplay",
-    "bodyMarkdown": "## Overview\n\nRockstar describes Grand Theft Auto VI as a single-player experience.{{cite:taketwo-preorders}} Digital pre-orders and purchases of Grand Theft Auto VI include the Vintage Vice City Pack and one month of GTA+ when bought before November 20, 2026.{{cite:taketwo-preorders}} Rockstar and retailers list GTA+ as tied to the existing GTA Online service and the GTA+ Games Library for classic Rockstar titles.{{cite:taketwo-preorders}}\n\n## Pre-order and Purchase Details\n\nDigital pre-orders could be pre-loaded starting Tuesday, November 10, 2026, on PlayStation and Xbox at specified local times.{{cite:gta6-support-platforms}} PlayStation Store listings state the digital pre-order includes one free month of GTA+ redeemable on PlayStation accounts.{{cite:playstation-store-ultimate}} Xbox store listings state customers receive a month of GTA+ with qualifying pre-orders and receive a console pop-up when redeemable.{{cite:xbox-cloud-gta6}}\n\n## Redemption Windows\n\nPlayStation requires the GTA+ subscription to be claimed by March 31, 2027 on the account used to pre-order.{{cite:playstation-store-ultimate}} Xbox states the GTA+ month \"must be redeemed within 180 days after placing\" the pre-order.{{cite:xbox-cloud-gta6}}\n\n## Platform Notes\n\nPlayStation listings indicate Grand Theft Auto VI supports offline play and is for one player.{{cite:playstation-store-ultimate}} Xbox announcement text repeats that \"Grand Theft Auto VI is a single-player experience\" and sets the game in Vice City, USA.{{cite:xbox-cloud-gta6}}\n\n## See also\n\n- [[gta-plus|GTA+ offer]]\n- [[gameplay|Gameplay]]\n- [[overview|Grand Theft Auto VI]]",
+    "bodyMarkdown": "## Overview\n\nRockstar describes Grand Theft Auto VI as a single-player experience.{{cite:taketwo-preorders}} Digital pre-orders and purchases of Grand Theft Auto VI include the Vintage Vice City Pack and one month of GTA+ when bought before November 20, 2026.{{cite:taketwo-preorders}} Rockstar and retailers list GTA+ as tied to the existing GTA Online service and the GTA+ Games Library for classic Rockstar titles.{{cite:taketwo-preorders}}\n\n## Pre-order and Purchase Details\n\nDigital pre-orders could be pre-loaded starting Tuesday, November 10, 2026, on PlayStation and Xbox at specified local times.{{cite:gta6-support-platforms}} PlayStation Store listings state the digital pre-order includes one free month of GTA+ redeemable on PlayStation accounts.{{cite:playstation-store-ultimate}} Xbox store listings state customers receive a month of GTA+ with qualifying pre-orders and receive a console pop-up when redeemable.{{cite:xbox-cloud-gta6}}\n\n## Redemption Windows\n\nPlayStation requires the GTA+ subscription to be claimed by March 31, 2027 on the account used to pre-order.{{cite:playstation-store-ultimate}} Xbox states the GTA+ month \"must be redeemed within 180 days after placing\" the pre-order.{{cite:xbox-cloud-gta6}}\n\n## Platform Notes\n\nPlayStation listings indicate Grand Theft Auto VI supports offline play and is for one player.{{cite:playstation-store-ultimate}} Xbox announcement text repeats that \"Grand Theft Auto VI is a single-player experience\" and sets the game in Vice City, USA.{{cite:xbox-cloud-gta6}}\n\n## See also\n\n- [[gta-plus|GTA+ offer]]\n- [[gameplay|Gameplay]]\n- [[overview|Grand Theft Auto VI]]\n- [[cross-play|Cross-play]]\n",
     "aiProvenance": {
       "provider": "vercel-ai-gateway",
       "modelId": "openai/gpt-5-mini",
@@ -8393,6 +8679,224 @@
       }
     },
     "changeNote": "First version of the page, written from cited sources.",
+    "unchanged": false
+  },
+  {
+    "slug": "cross-play",
+    "title": "Cross-play",
+    "summary": "Official listings present Grand Theft Auto VI as a single-player game and have not announced a cross-play feature. This page does not treat cross-play as confirmed.",
+    "category": "gameplay",
+    "bodyMarkdown": "## Official description\n\nTake-Two\u2019s announcement and related press materials describe Grand Theft Auto VI as a single-player title and outline its launch details and pricing.{{cite:taketwo-preorders}} PlayStation\u2019s official product page likewise presents the game as a solo experience while listing platform-specific features and pre-order information.{{cite:playstation-gta6}} Microsoft's Xbox communications and cloud-gaming announcement also identify the release as a single-player title while describing availability via cloud streaming and native console play.{{cite:xbox-cloud-gta6}}\n\n## Storefront listings and editions\n\nThe PlayStation Store listing for the Grand Theft Auto VI: Ultimate Edition reiterates the game\u2019s single-player framing and enumerates the Ultimate Edition\u2019s included items and system features.{{cite:playstation-store-ultimate}} Take-Two\u2019s pre-order release and the Xbox storefront describe the Ultimate Edition and list pre-order incentives such as the Vintage Vice City Pack.{{cite:taketwo-preorders}}{{cite:xbox-cloud-gta6}}\n\n## Cross-play and multiplayer status\n\nOfficial listings used on this page describe a single-player game and do not announce a cross-play feature or a Grand Theft Auto VI multiplayer mode.{{cite:taketwo-preorders}}{{cite:playstation-gta6}} This wiki does not treat cross-play as confirmed.\n\nPre-order materials mention a one-month GTA+ offer that can be redeemed for the existing GTA Online service and other Rockstar titles, which is separate from a VI multiplayer mode.{{cite:taketwo-preorders}}{{cite:playstation-store-ultimate}}\n\n## See also\n\n- [[gameplay|Gameplay]]\n- [[gta-online|GTA Online]]\n- [[platforms|Platforms]]\n",
+    "aiProvenance": {
+      "provider": "vercel-ai-gateway",
+      "modelId": "openai/gpt-5-mini",
+      "claimCheckModelId": "openai/gpt-5-mini",
+      "promptVersion": "paraphrase-v1",
+      "claimCheckPromptVersion": "marathon-claim-check-v2",
+      "generatedAt": "2026-11-18T02:01:31.183Z",
+      "responseId": "aitxt-jRulCvjav4KXCqxXMYYJkeWM",
+      "sourceContextSummary": "7 extracts from rendered source snapshots considered; 4 sources cited.",
+      "sourceReferences": [
+        {
+          "sourceId": "src_gta6_taketwo_preorders",
+          "sourceKey": "taketwo-preorders",
+          "sourceType": "official",
+          "title": "Rockstar Games Announces Pre-Orders for Grand Theft Auto VI",
+          "url": "https://taketwointeractivesoftwareinc.gcs-web.com/news-releases/news-release-details/rockstar-games-announces-pre-orders-grand-theft-auto-vi",
+          "publisher": "Take-Two Interactive",
+          "authorityTier": "official",
+          "authorityScore": 94
+        },
+        {
+          "sourceId": "src_gta6_playstation",
+          "sourceKey": "playstation-gta6",
+          "sourceType": "official",
+          "title": "Grand Theft Auto VI on PlayStation 5",
+          "url": "https://www.playstation.com/en-us/games/grand-theft-auto-vi/",
+          "publisher": "PlayStation",
+          "authorityTier": "official",
+          "authorityScore": 90
+        },
+        {
+          "sourceId": "src_gta6_xbox_cloud",
+          "sourceKey": "xbox-cloud-gta6",
+          "sourceType": "official",
+          "title": "Grand Theft Auto VI Comes to Xbox One and Xbox Series X|S Through Xbox Cloud Gaming on November 19",
+          "url": "https://news.xbox.com/en-us/2026/11/10/grand-theft-auto-6-comes-to-xbox-cloud-gaming-november-19/",
+          "publisher": "Xbox Wire",
+          "authorityTier": "official",
+          "authorityScore": 90
+        },
+        {
+          "sourceId": "src_gta6_ps_store_ultimate",
+          "sourceKey": "playstation-store-ultimate",
+          "sourceType": "official",
+          "title": "Grand Theft Auto VI: Ultimate Edition on PlayStation Store",
+          "url": "https://store.playstation.com/en-us/product/EP1004-PPSA01547_00-GTAVIULTIMATE001",
+          "publisher": "PlayStation Store",
+          "authorityTier": "official",
+          "authorityScore": 88
+        }
+      ],
+      "claimSupport": [
+        {
+          "claimId": "claim_cross-play_1",
+          "claimText": "Take-Two\u2019s announcement and related press materials describe Grand Theft Auto VI as a single-player title and outline its launch details and pricing. PlayStation\u2019s official product page likewise presents the game as a solo experience while listing platform-specific features and pre-order information. Microsoft's Xbox communications and cloud-gaming announcement also identify the release as a single-player title while describing availability via cloud streaming and native console play.",
+          "status": "supported",
+          "supportScore": 0.9,
+          "matchedTerms": [],
+          "missingTerms": [],
+          "matchedSourceIds": [
+            "src_gta6_taketwo_preorders"
+          ],
+          "matchedSourceKeys": [
+            "taketwo-preorders",
+            "playstation-gta6",
+            "xbox-cloud-gta6"
+          ],
+          "matchedSourceTitles": [
+            "Rockstar Games Announces Pre-Orders for Grand Theft Auto VI"
+          ],
+          "reason": "Kept on its cited sources after encyclopedic paraphrase.",
+          "extractIds": [
+            "taketwo-preorders#1"
+          ],
+          "quotes": [
+            {
+              "extractId": "taketwo-preorders#1",
+              "quote": "Grand Theft Auto VI features a single-player experience"
+            }
+          ],
+          "patchRef": null
+        },
+        {
+          "claimId": "claim_cross-play_2",
+          "claimText": "The PlayStation Store listing for the Grand Theft Auto VI: Ultimate Edition reiterates the game\u2019s single-player framing and enumerates the Ultimate Edition\u2019s included items and system features. Take-Two\u2019s pre-order release and the Xbox storefront describe the Ultimate Edition and list pre-order incentives such as the Vintage Vice City Pack.",
+          "status": "supported",
+          "supportScore": 0.9,
+          "matchedTerms": [],
+          "missingTerms": [],
+          "matchedSourceIds": [
+            "src_gta6_ps_store_ultimate"
+          ],
+          "matchedSourceKeys": [
+            "playstation-store-ultimate",
+            "taketwo-preorders",
+            "xbox-cloud-gta6"
+          ],
+          "matchedSourceTitles": [
+            "Grand Theft Auto VI: Ultimate Edition on PlayStation Store"
+          ],
+          "reason": "Kept on its cited sources after encyclopedic paraphrase.",
+          "extractIds": [
+            "playstation-store-ultimate#4"
+          ],
+          "quotes": [
+            {
+              "extractId": "playstation-store-ultimate#4",
+              "quote": "Grand Theft Auto VI is a single-player experience."
+            }
+          ],
+          "patchRef": null
+        },
+        {
+          "claimId": "claim_cross-play_3",
+          "claimText": "Official listings used on this page describe a single-player game and do not announce a cross-play feature or a Grand Theft Auto VI multiplayer mode. This wiki does not treat cross-play as confirmed.",
+          "status": "supported",
+          "supportScore": 0.9,
+          "matchedTerms": [],
+          "missingTerms": [],
+          "matchedSourceIds": [
+            "src_gta6_taketwo_preorders"
+          ],
+          "matchedSourceKeys": [
+            "taketwo-preorders",
+            "playstation-gta6"
+          ],
+          "matchedSourceTitles": [
+            "Rockstar Games Announces Pre-Orders for Grand Theft Auto VI"
+          ],
+          "reason": "Kept on its cited sources after encyclopedic paraphrase.",
+          "extractIds": [
+            "taketwo-preorders#1"
+          ],
+          "quotes": [
+            {
+              "extractId": "taketwo-preorders#1",
+              "quote": "Grand Theft Auto VI features a single-player experience"
+            }
+          ],
+          "patchRef": null
+        },
+        {
+          "claimId": "claim_cross-play_4",
+          "claimText": "Pre-order materials mention a one-month GTA+ offer that can be redeemed for the existing GTA Online service and other Rockstar titles, which is separate from a VI multiplayer mode.",
+          "status": "supported",
+          "supportScore": 0.9,
+          "matchedTerms": [],
+          "missingTerms": [],
+          "matchedSourceIds": [
+            "src_gta6_taketwo_preorders"
+          ],
+          "matchedSourceKeys": [
+            "taketwo-preorders",
+            "playstation-store-ultimate"
+          ],
+          "matchedSourceTitles": [
+            "Rockstar Games Announces Pre-Orders for Grand Theft Auto VI"
+          ],
+          "reason": "Kept on its cited sources after encyclopedic paraphrase.",
+          "extractIds": [
+            "taketwo-preorders#1"
+          ],
+          "quotes": [
+            {
+              "extractId": "taketwo-preorders#1",
+              "quote": "Grand Theft Auto VI features a single-player experience"
+            }
+          ],
+          "patchRef": null
+        }
+      ],
+      "refreshReason": "new_page",
+      "requestedBy": "content-pipeline",
+      "editMode": "rewrite",
+      "sourceHashes": {
+        "taketwo-preorders": "aa087a1989ce0db5d27e4a7f31f5f72fb306bf55c3fb9ce0e8a65a04c78764f5",
+        "playstation-gta6": "259b75b114e3d3078136728bcdf66f1138b048619f70a72753fe056abeda3454",
+        "xbox-cloud-gta6": "bef4da218e9861da925afbd56844af729537655e111e8070c2927ebd8cf61f4d",
+        "playstation-store-ultimate": "852598ab0312fca054d3f36d9a8f38a16d10ad7da019ff3f8c495d49df80d451"
+      },
+      "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
+      "publishGate": {
+        "decision": "publish",
+        "supported": 4,
+        "unsupported": 0,
+        "contradicted": 0,
+        "supportedRatio": 1,
+        "reasons": [],
+        "policy": {
+          "minSupportedRatio": 0.8,
+          "minSupportedClaims": 3,
+          "maxUnsupported": 3,
+          "minHubWords": 150
+        },
+        "shape": {
+          "hub": false,
+          "words": 176,
+          "sourceOverlaps": [],
+          "quotePolicy": {
+            "quotes": [],
+            "quotedWords": 0,
+            "proseWords": 191,
+            "quotedRatio": 0,
+            "reasons": []
+          },
+          "editorNotes": []
+        }
+      }
+    },
+    "changeNote": "Rewritten in encyclopedic paraphrase from the cited sources.",
     "unchanged": false
   }
 ]

@@ -341,6 +341,17 @@
     "publishedDate": null
   },
   {
+    "sourceKey": "playstation-blog-preload",
+    "sourceId": "src_gta6_playstation_blog_preload",
+    "sourceType": "official",
+    "authorityTier": "official",
+    "authorityScore": 90,
+    "title": "Grand Theft Auto VI pre-download begins November 10",
+    "publisher": "PlayStation",
+    "url": "https://blog.playstation.com/2026/11/03/grand-theft-auto-vi-pre-download-begins-november-10/",
+    "publishedDate": "2026-11-03"
+  },
+  {
     "sourceKey": "gamespot-pc-status",
     "sourceId": "src_gta6_gamespot_pc",
     "sourceType": "press",
