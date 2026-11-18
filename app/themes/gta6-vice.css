@@ -1,16 +1,26 @@
 /* gta6-only Vice chrome: sunset grade, hero sizes, 2px masthead rule, grain.
    Scoped to [data-theme="gta6"] so Marathon rendering is untouched. */
 
+[data-theme="gta6"] .art-painting {
+  isolation: isolate;
+  overflow: hidden;
+}
+
 [data-theme="gta6"] .art-painting img {
+  position: relative;
+  z-index: 0;
   filter: saturate(1.25) contrast(1.08);
 }
 
+/* Both grade overlays must sit above the <img>. A ::before on <picture>
+   paints under the image child, so the sunset wash was invisible. */
 [data-theme="gta6"] .art-painting::before,
 [data-theme="gta6"] .art-painting::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
+  z-index: 1;
 }
 
 /* Overlay 1: soft-light sunset wash. */
@@ -20,9 +30,11 @@
   opacity: 0.55;
 }
 
-/* Overlay 2: multiply night floor for title contrast. */
+/* Overlay 2: multiply night floor for title contrast.
+   75% reach keeps the first line of a home or plate title on the floor;
+   the documented 60% fade left that line on unshaded midtones. */
 [data-theme="gta6"] .art-painting::after {
-  background: linear-gradient(0deg, #0b1026 0%, transparent 60%);
+  background: linear-gradient(0deg, #0b1026 0%, transparent 75%);
   mix-blend-mode: multiply;
   opacity: 0.85;
 }
@@ -161,4 +173,15 @@
   [data-theme="gta6"] .grain-band {
     display: none;
   }
+}
+
+/* Keep plate titles from mid-word wraps (global overflow-wrap: anywhere). */
+[data-theme="gta6"] .art-surface h1 {
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+}
+
+[data-theme="gta6"] .art-surface[data-variant="plate"] h1 {
+  font-size: clamp(1.5rem, 7.2vw, var(--text-title));
 }
