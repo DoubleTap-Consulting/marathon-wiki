@@ -1,0 +1,83 @@
+import { NextRequest, type NextFetchEvent } from "next/server";
+import { afterEach, describe, expect, it, vi } from "vitest";
+
+import {
+  CANONICAL_SITE_ORIGIN,
+  LEGACY_PRODUCTION_ALIAS_HOST,
+  proxy,
+  redirectLegacyProductionAlias,
+} from "../../proxy";
+
+afterEach(() => {
+  vi.unstubAllEnvs();
+});
+
+function request(path: string, host: string) {
+  return new NextRequest(new URL(path, `https://${host.split(":")[0]}`), {
+    headers: { host },
+  });
+}
+
+function unusedEvent() {
+  return {} as NextFetchEvent;
+}
+
+describe("redirectLegacyProductionAlias", () => {
+  it("returns a 308 to wikiden.gg that keeps the path", () => {
+    for (const path of ["/", "/marathon/ranked", "/gta6"]) {
+      const response = redirectLegacyProductionAlias(request(path, LEGACY_PRODUCTION_ALIAS_HOST));
+      expect(response).not.toBeNull();
+      expect(response!.status).toBe(308);
+      expect(response!.headers.get("location")).toBe(`${CANONICAL_SITE_ORIGIN}${path}`);
+    }
+  });
+
+  it("keeps the query string and ignores a port on the Host header", () => {
+    const response = redirectLegacyProductionAlias(
+      request("/gta6/release-date?ref=alias", `${LEGACY_PRODUCTION_ALIAS_HOST}:443`),
+    );
+    expect(response?.status).toBe(308);
+    expect(response?.headers.get("location")).toBe(
+      "https://wikiden.gg/gta6/release-date?ref=alias",
+    );
+  });
+
+  it("does not redirect the canonical host, preview aliases, or localhost", () => {
+    const otherHosts = [
+      "wikiden.gg",
+      "marathon-wiki-git-main-michael-flores-projects-acc295a3.vercel.app",
+      "marathon-wiki-abc123-michael-flores-projects-acc295a3.vercel.app",
+      "marathon-wiki-michael-flores-projects-acc295a3.vercel.app",
+      "localhost",
+      "127.0.0.1",
+    ];
+    for (const host of otherHosts) {
+      expect(redirectLegacyProductionAlias(request("/marathon/ranked", host))).toBeNull();
+    }
+  });
+});
+
+describe("proxy applies the alias redirect before Clerk", () => {
+  it("redirects the production alias even when Clerk keys are present", () => {
+    vi.stubEnv("NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY", "pk_test");
+    vi.stubEnv("CLERK_SECRET_KEY", "sk_test");
+    const response = proxy(request("/marathon/ranked", LEGACY_PRODUCTION_ALIAS_HOST), unusedEvent());
+    expect(response.status).toBe(308);
+    expect(response.headers.get("location")).toBe("https://wikiden.gg/marathon/ranked");
+  });
+
+  it("leaves preview deployments and wikiden.gg alone", () => {
+    vi.stubEnv("NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY", "");
+    vi.stubEnv("CLERK_SECRET_KEY", "");
+    const preview = proxy(
+      request("/gta6", "marathon-wiki-git-forge-alias-michael-flores-projects-acc295a3.vercel.app"),
+      unusedEvent(),
+    );
+    expect(preview.status).not.toBe(308);
+    expect(preview.headers.get("location")).toBeNull();
+
+    const canonical = proxy(request("/gta6", "wikiden.gg"), unusedEvent());
+    expect(canonical.status).not.toBe(308);
+    expect(canonical.headers.get("location")).toBeNull();
+  });
+});
