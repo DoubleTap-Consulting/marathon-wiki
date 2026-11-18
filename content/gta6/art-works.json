@@ -1,87 +1,46 @@
 [
   {
-    "id": "homer-key-west-boats",
-    "master": "DP119111.jpg",
+    "id": "highsmith-st-moritz-royal-palm",
+    "master": "2020720526.jpg",
+    "itemUrl": "https://www.loc.gov/pictures/item/2020720526/",
+    "title": "The fashionable St. Moritz Hotel (left) and Royal Palm South Beach Resort in the trendy South Beach section of Miami Beach, Florida",
+    "rights": "No known restrictions on publication.",
+    "credit": "Photographs in the Carol M. Highsmith Archive, Library of Congress, Prints and Photographs Division.",
     "crops": {
       "wide": [
-        0.03,
-        0.2386,
-        0.97,
-        0.97
+        0.022,
+        0.0,
+        0.978,
+        1.0
       ],
       "tall": [
-        0.2299,
-        0.03,
-        0.8641,
-        0.97
+        0.08,
+        0.0,
+        0.582,
+        1.0
       ],
       "strip": [
-        0.03,
-        0.4206,
-        0.97,
-        0.7862
+        0.0,
+        0.05,
+        1.0,
+        0.573
       ],
       "full": [
-        0.03,
-        0.03,
-        0.97,
-        0.97
+        0.01,
+        0.0,
+        0.99,
+        1.0
       ]
     },
-    "fullAspect": 1.5561,
+    "fullAspect": 2.0909,
     "q": {
       "wide": {
         "avif": 52,
         "webp": 60
       },
       "tall": {
-        "avif": 52,
-        "webp": 60
-      },
-      "strip": {
-        "avif": 52,
-        "webp": 60
-      }
-    }
-  },
-  {
-    "id": "homer-shore-and-surf",
-    "master": "DP-21450-001.jpg",
-    "crops": {
-      "wide": [
-        0.02,
-        0.2977,
-        0.98,
-        0.98
-      ],
-      "tall": [
-        0.2067,
-        0.24,
-        0.7533,
-        0.98
-      ],
-      "strip": [
-        0.02,
-        0.3774,
-        0.98,
-        0.7186
-      ],
-      "full": [
-        0.02,
-        0.02,
-        0.98,
-        0.98
-      ]
-    },
-    "fullAspect": 1.4215,
-    "q": {
-      "wide": {
-        "avif": 52,
-        "webp": 60
-      },
-      "tall": {
-        "avif": 58,
-        "webp": 66
+        "avif": 48,
+        "webp": 58
       },
       "strip": {
         "avif": 52,
@@ -93,43 +52,47 @@
     }
   },
   {
-    "id": "homer-hurricane-bahamas",
-    "master": "DP-17779-001.jpg",
+    "id": "highsmith-miami-skyline",
+    "master": "2020721050.jpg",
+    "itemUrl": "https://www.loc.gov/pictures/item/2020721050/",
+    "title": "Aerial view from Biscayne Bay, separating Miami Beach and Miami, Florida, of part of the Miami skyline",
+    "rights": "No known restrictions on publication.",
+    "credit": "Photographs in the Carol M. Highsmith Archive, Library of Congress, Prints and Photographs Division.",
     "crops": {
       "wide": [
-        0.035,
-        0.1634,
-        0.965,
-        0.8366
+        0.0,
+        0.12,
+        1.0,
+        0.87
       ],
       "tall": [
-        0.0697,
-        0.035,
-        0.7443,
-        0.965
+        0.28,
+        0.0,
+        0.98,
+        1.0
       ],
       "strip": [
-        0.035,
-        0.2945,
-        0.965,
-        0.6311
+        0.0,
+        0.2,
+        1.0,
+        0.575
       ],
       "full": [
-        0.035,
-        0.035,
-        0.965,
-        0.965
+        0.02,
+        0.02,
+        0.98,
+        0.98
       ]
     },
-    "fullAspect": 1.4477,
+    "fullAspect": 1.4998,
     "q": {
       "wide": {
         "avif": 52,
         "webp": 60
       },
       "tall": {
-        "avif": 52,
-        "webp": 60
+        "avif": 48,
+        "webp": 58
       },
       "strip": {
         "avif": 52,
@@ -138,43 +101,47 @@
     }
   },
   {
-    "id": "homer-sloop-nassau",
-    "master": "DP119112.jpg",
+    "id": "highsmith-everglades-sawgrass",
+    "master": "2020720573.jpg",
+    "itemUrl": "https://www.loc.gov/pictures/item/2020720573/",
+    "title": "Portion of a sawgrass prairie in the Everglades, an ecosystem in South Florida that is unlike any other in the world",
+    "rights": "No known restrictions on publication.",
+    "credit": "Photographs in the Carol M. Highsmith Archive, Library of Congress, Prints and Photographs Division.",
     "crops": {
       "wide": [
-        0.02,
-        0.2531,
-        0.98,
-        0.9369
+        0.0,
+        0.08,
+        1.0,
+        0.83
       ],
       "tall": [
-        0.1499,
-        0.025,
-        0.8501,
-        0.975
+        0.0,
+        0.0,
+        0.7,
+        1.0
       ],
       "strip": [
-        0.02,
-        0.424,
-        0.98,
-        0.766
+        0.0,
+        0.32,
+        1.0,
+        0.695
       ],
       "full": [
         0.02,
-        0.025,
+        0.02,
         0.98,
-        0.975
+        0.98
       ]
     },
-    "fullAspect": 1.4396,
+    "fullAspect": 1.4998,
     "q": {
       "wide": {
         "avif": 52,
         "webp": 60
       },
       "tall": {
-        "avif": 52,
-        "webp": 60
+        "avif": 48,
+        "webp": 58
       },
       "strip": {
         "avif": 52,
@@ -183,43 +150,96 @@
     }
   },
   {
-    "id": "homer-gulf-stream",
-    "master": "DP-20821-001.jpg",
+    "id": "highsmith-beach-patrol",
+    "master": "2020720542.jpg",
+    "itemUrl": "https://www.loc.gov/pictures/item/2020720542/",
+    "title": "Even the beach patrol headquarters building on the strand in the trendy South Beach section of Miami Beach, Florida, takes on some of the resort's \"Tropical Deco\" flavor",
+    "rights": "No known restrictions on publication.",
+    "credit": "Photographs in the Carol M. Highsmith Archive, Library of Congress, Prints and Photographs Division.",
     "crops": {
       "wide": [
-        0.035,
-        0.2064,
-        0.965,
-        0.96
+        0.0,
+        0.08,
+        1.0,
+        0.747
       ],
       "tall": [
-        0.1555,
-        0.04,
-        0.7515,
-        0.96
+        0.106,
+        0.0,
+        0.894,
+        1.0
       ],
       "strip": [
-        0.035,
-        0.4496,
-        0.965,
-        0.8264
+        0.0,
+        0.15,
+        1.0,
+        0.483
       ],
       "full": [
-        0.035,
-        0.04,
-        0.965,
-        0.96
+        0.02,
+        0.02,
+        0.98,
+        0.98
       ]
     },
-    "fullAspect": 1.6384,
+    "fullAspect": 1.3333,
     "q": {
       "wide": {
         "avif": 52,
         "webp": 60
       },
       "tall": {
+        "avif": 48,
+        "webp": 58
+      },
+      "strip": {
         "avif": 52,
         "webp": 60
+      }
+    }
+  },
+  {
+    "id": "highsmith-lauderdale-sunset",
+    "master": "2011633165.jpg",
+    "itemUrl": "https://www.loc.gov/pictures/item/2011633165/",
+    "title": "Sunset over Fort Lauderdale, Florida",
+    "rights": "No known restrictions on publication.",
+    "credit": "Photographs in the Carol M. Highsmith Archive, Library of Congress, Prints and Photographs Division.",
+    "crops": {
+      "wide": [
+        0.0,
+        0.02,
+        1.0,
+        0.407
+      ],
+      "tall": [
+        0.0,
+        0.0,
+        1.0,
+        0.736
+      ],
+      "strip": [
+        0.0,
+        0.18,
+        1.0,
+        0.373
+      ],
+      "full": [
+        0.02,
+        0.02,
+        0.98,
+        0.98
+      ]
+    },
+    "fullAspect": 0.7734,
+    "q": {
+      "wide": {
+        "avif": 52,
+        "webp": 60
+      },
+      "tall": {
+        "avif": 48,
+        "webp": 58
       },
       "strip": {
         "avif": 52,

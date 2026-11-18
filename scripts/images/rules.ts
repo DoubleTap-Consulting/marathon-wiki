@@ -27,13 +27,15 @@ export const ART_MIN_SOURCE_WIDTH = 1600;
  * (weic2205a-mono, 828w AVIF at q60 from the Next optimizer) was 18,741 bytes. Prod LCP had 65 ms of headroom.
  */
 export const MOBILE_HERO_MAX_BYTES = 18_741;
+/** Vice spec: gta6 mobile hero (tall 828w AVIF) may be up to 40 KB. Marathon stays on MOBILE_HERO_MAX_BYTES. */
+export const GTA6_MOBILE_HERO_MAX_BYTES = 40 * 1024;
 /** Every painting ships these renditions, each in AVIF and WebP (spec: Performance). */
 export const REQUIRED_RENDITIONS = { wide: [828, 1600, 2400], tall: [828], strip: [828, 1600, 2400], full: [640] } as const;
 /** AVIF ceilings per width; WebP is the fallback for browsers without AVIF and may weigh 2.5× as much. */
 const AVIF_MAX_BYTES: Record<number, number> = { 640: 100 * 1024, 828: 60 * 1024, 1600: 120 * 1024, 2400: 220 * 1024 };
 const WEBP_FACTOR = 2.5;
 
-export function checkRenditions(renditions: ArtRendition[], readFile: GateInput["readFile"]) {
+export function checkRenditions(renditions: ArtRendition[], readFile: GateInput["readFile"], slug?: string) {
   const errors: string[] = [];
   for (const [crop, widths] of Object.entries(REQUIRED_RENDITIONS))
     for (const width of widths)
@@ -51,7 +53,8 @@ export function checkRenditions(renditions: ArtRendition[], readFile: GateInput[
     if (bytes.byteLength !== r.bytes) errors.push(`${name}: registry says ${r.bytes} bytes, file is ${bytes.byteLength}`);
     const size = imageSize(bytes);
     if (!size || size.width !== r.width || size.height !== r.height) errors.push(`${name}: dimensions ${size ? `${size.width}×${size.height}` : "unreadable"} don't match ${r.width}×${r.height}`);
-    const avifCap = r.crop === "tall" ? MOBILE_HERO_MAX_BYTES : AVIF_MAX_BYTES[r.width];
+    const tallCap = slug === "gta6" ? GTA6_MOBILE_HERO_MAX_BYTES : MOBILE_HERO_MAX_BYTES;
+    const avifCap = r.crop === "tall" ? tallCap : AVIF_MAX_BYTES[r.width];
     const cap = avifCap === undefined ? undefined : r.format === "avif" ? avifCap : Math.round(avifCap * WEBP_FACTOR);
     if (cap === undefined) errors.push(`${name}: no byte budget for ${r.width}w`);
     else if (bytes.byteLength > cap) errors.push(`${name}: ${bytes.byteLength} bytes is over the ${cap}-byte budget`);
@@ -117,6 +120,8 @@ export function checkImages(input: GateInput) {
       // Tier C is the house collection: public-domain or CC0 paintings, nothing else (SPEC-art-direction).
       if (!HOUSE_LICENSES.has(lic)) f(`license ${lic} is not allowed for Tier C (house collection is PD or CC0 only)`);
       if (!image.art) f("Tier C needs an art record (family, medium, rightsStatus, renditions)");
+      else if (image.art.medium === "photograph" && image.art.family !== "highsmith-florida")
+        f("art.medium photograph is only for the Highsmith Florida family");
       else if ((lic === "CC0-1.0") !== (image.art.rightsStatus === "CC0")) f(`rightsStatus ${image.art.rightsStatus} doesn't match license ${lic}`);
     } else if (image.tier === "D") {
       if (!["CC0-1.0", "CC-BY-4.0", "CC-BY-SA-4.0"].includes(lic) || !image.permissionRef)
@@ -218,7 +223,7 @@ export function checkImages(input: GateInput) {
     if (image.art) {
       if (image.file !== null) f("a house-collection painting serves its renditions; file must be null");
       if (image.width < ART_MIN_SOURCE_WIDTH) f(`source is ${image.width}px wide; the house collection needs ≥ ${ART_MIN_SOURCE_WIDTH}px (swap for another work in the family)`);
-      for (const error of checkRenditions(image.art.renditions, input.readFile)) f(error);
+      for (const error of checkRenditions(image.art.renditions, input.readFile, input.slug)) f(error);
     }
 
     // 6. Changes are disclosed in the visible credit.

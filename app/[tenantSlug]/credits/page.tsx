@@ -28,6 +28,10 @@ const FAMILIES: Record<ArtRecord["family"], { title: string; blurb: string }> = 
     title: "Winslow Homer’s Florida and Caribbean paintings, 1898–1903",
     blurb: "Watercolors and an oil Homer made on winter trips to Key West and the Bahamas, from The Met’s Open Access collection.",
   },
+  "highsmith-florida": {
+    title: "Carol M. Highsmith’s photographs of Florida",
+    blurb: "Color photographs of South Florida places from the Carol M. Highsmith Archive at the Library of Congress. Each item is linked below with its LoC record and rights line.",
+  },
 };
 
 const LINK = "text-link underline underline-offset-3";
@@ -58,7 +62,7 @@ export default async function ImageCredits({ params }: Props) {
     <WikiChrome tenant={tenant} categories={categories}>
       <h1 className="text-title font-display text-foreground">Art and image credits</h1>
       <p className="mt-4 max-w-[68ch] text-body text-muted-foreground">
-        The paintings behind our pages come from a house collection of public-domain space art. They set the mood;
+        The pictures behind our pages come from a house collection of public-domain works. They set the mood;
         they don’t show the game, and no image implies endorsement. Public-domain works need no credit, but the
         artists made them, so we name them. Diagrams are our own work, drawn from each page’s sources.
       </p>
@@ -117,7 +121,7 @@ function Painting({ image, tenantSlug }: { image: ArtImage; tenantSlug: string }
       <div className="min-w-0">
         <h3 className="text-h3 font-semibold text-foreground">{image.title}</h3>
         <p className="mt-1 text-small text-muted-foreground">
-          {image.author}, {image.art.year} · {image.art.medium === "painting" ? "Painting" : "Chromolithograph"}
+          {image.author}, {image.art.year} · {image.art.medium === "photograph" ? "Photograph" : image.art.medium === "painting" ? "Painting" : "Chromolithograph"}
         </p>
         <dl className="mt-3 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-small">
           <dt className="text-muted-foreground">Source</dt>

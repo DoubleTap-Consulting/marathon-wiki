@@ -39,9 +39,9 @@ export const artRendition = z.strictObject({
  * this record; the license gate fails the build without it.
  */
 export const artRecord = z.strictObject({
-  family: z.enum(["nasa-ames-colonies", "trouvelot-1881", "homer-tropics"]),
-  /** Paintings and prints only: a photograph reads as a document, so the collection never holds one. */
-  medium: z.enum(["painting", "chromolithograph"]),
+  family: z.enum(["nasa-ames-colonies", "trouvelot-1881", "homer-tropics", "highsmith-florida"]),
+  /** Paintings, prints, or atmospheric place photographs (Highsmith / LoC). Not game screenshots or documents. */
+  medium: z.enum(["painting", "chromolithograph", "photograph"]),
   rightsStatus: z.enum(["PD", "CC0"]),
   /** Why it is public domain, in one line, from the source record. */
   rightsBasis: z.string().min(1),

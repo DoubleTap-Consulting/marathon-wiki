@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import type { WikiPageSummary } from "@/src/db/wiki";
+import { hubBandFor, publicPath, renditionFor, srcSetFor } from "@/src/wiki/imagery";
 import { themeFor } from "@/themes/registry";
 
 import { SiteDate } from "./site-date";
@@ -60,7 +61,18 @@ const RAMP_SHARE = 50;
 /** 1-bit ordered-dither band, a density ramp from 0 to 100%. Decorative; hidden for more contrast, forced colors and print. */
 export function DitherBand({ themeSlug, region, className }: { themeSlug: string; region: "masthead" | "empty-state" | "not-found"; className?: string }) {
   const texture = themeFor(themeSlug).texture;
-  if (!texture || texture.kind !== "dither" || !texture.regions.includes(region)) return null;
+  if (!texture || !texture.regions.includes(region)) return null;
+  if (texture.kind === "grain") {
+    return (
+      <div
+        aria-hidden="true"
+        data-texture="grain"
+        className={cn("grain-band block w-full", className)}
+        style={{ "--grain-light": texture.opacity.light, "--grain-dark": texture.opacity.dark } as React.CSSProperties}
+      />
+    );
+  }
+  if (texture.kind !== "dither") return null;
   const id = `d-${region}`;
   const segment = RAMP_SHARE / (STEPS.length - 1);
   return (
@@ -178,6 +190,28 @@ export function IndexTable({
   );
 }
 
+
+/** gta6 empty/error/404: the graded overview skyline strip. Other themes keep their texture band. */
+function StatusArt({ themeSlug, region, className }: { themeSlug: string; region: "empty-state" | "not-found"; className?: string }) {
+  const skyline = themeSlug === "gta6" ? hubBandFor("gta6", "overview") : null;
+  if (skyline) {
+    const stripAvif = srcSetFor(skyline.art.renditions, "strip", "avif");
+    const stripWebp = srcSetFor(skyline.art.renditions, "strip", "webp");
+    const fallback = renditionFor(skyline.art.renditions, "strip", "webp", 1600) ?? renditionFor(skyline.art.renditions, "strip", "webp", 828);
+    return (
+      <div className={cn("art-surface gta6-status-strip", className)} data-variant="strip" data-image={skyline.id}>
+        <picture className="art-painting">
+          {stripAvif ? <source type="image/avif" srcSet={stripAvif} sizes="100vw" /> : null}
+          {stripWebp ? <source type="image/webp" srcSet={stripWebp} sizes="100vw" /> : null}
+          {/* eslint-disable-next-line @next/next/no-img-element -- pre-encoded renditions */}
+          <img src={fallback ? publicPath(fallback.file) : undefined} alt="" role="presentation" width={fallback?.width} height={fallback?.height} />
+        </picture>
+      </div>
+    );
+  }
+  return <DitherBand themeSlug={themeSlug} region={region} className={className} />;
+}
+
 /** Nothing to list: the dither band, a kicker, a Geist h2, one sentence and at most one action. */
 export function EmptyState({
   themeSlug,
@@ -197,7 +231,7 @@ export function EmptyState({
   const Heading = headingLevel;
   return (
     <div className="space-y-3 py-6">
-      {themeSlug ? <DitherBand themeSlug={themeSlug} region="empty-state" className="max-w-[560px]" /> : null}
+      {themeSlug ? <StatusArt themeSlug={themeSlug} region="empty-state" className="max-w-[560px]" /> : null}
       {kicker ? <p className="label">{kicker}</p> : null}
       <Heading className="text-h3 font-semibold text-foreground">{title}</Heading>
       <p className="max-w-[56ch] text-ui text-muted-foreground">{description}</p>
@@ -222,7 +256,7 @@ export function StatusBlock({
 }) {
   return (
     <div className="mx-auto max-w-[560px] space-y-4 py-12 sm:py-20">
-      <DitherBand themeSlug={themeSlug} region="not-found" />
+      <StatusArt themeSlug={themeSlug} region="not-found" />
       <p className="label">{label}</p>
       <h1 className="text-title font-display text-foreground">{title}</h1>
       <div className="text-body text-muted-foreground">{children}</div>
