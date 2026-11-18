@@ -10,6 +10,7 @@ import type { WikiActor } from "@/src/auth/wiki-auth";
 import { getDb } from "@/src/db/client";
 import type { DB } from "@/src/db/types";
 import type { WikiTenant } from "@/src/db/wiki";
+import { sortCronTenants } from "@/src/content/cron-tenants";
 import { isTenantPubliclyEnabled, normalizeWikiSlug } from "@/src/wiki/tenant-routing";
 
 type WikiDatabase = Kysely<DB> | Transaction<DB>;
@@ -281,6 +282,38 @@ export type ProcessedRefresh = {
  * review by the publish gate. A per-run spend cap stops the run and returns unprocessed items to
  * the queue. Without a model credential, nothing is claimed.
  */
+
+/**
+ * Walk a claimed queue under one shared spend cap. Used by the daily editor
+ * worker so Marathon and GTA 6 spend the same $0.25, not a cap each.
+ * The current item is released along with the rest of the unprocessed tail.
+ */
+export async function consumeQueueUnderSharedCap<T>(
+  items: T[],
+  handlers: {
+    process: (item: T) => Promise<void>;
+    releaseRemaining: (items: T[]) => Promise<void>;
+    onItemError?: (item: T, error: unknown) => Promise<void>;
+  },
+): Promise<{ skipped: string | null }> {
+  for (const [index, item] of items.entries()) {
+    try {
+      await handlers.process(item);
+    } catch (error) {
+      if (error instanceof BudgetExceeded) {
+        await handlers.releaseRemaining(items.slice(index));
+        return { skipped: error.message };
+      }
+      if (handlers.onItemError) {
+        await handlers.onItemError(item, error);
+        continue;
+      }
+      throw error;
+    }
+  }
+  return { skipped: null };
+}
+
 export async function processDueAiRefreshQueueItems(
   input: {
     now?: Date;
@@ -333,8 +366,8 @@ export async function processDueAiRefreshQueueItems(
     db,
   );
 
-  for (const [index, item] of dueItems.entries()) {
-    try {
+  const { skipped } = await consumeQueueUnderSharedCap(dueItems, {
+    process: async (item) => {
       const tenant = await getWikiTenantById(item.tenantId, db);
 
       if (!tenant) {
@@ -343,7 +376,7 @@ export async function processDueAiRefreshQueueItems(
 
       if (!isTenantPubliclyEnabled(tenant.slug, env)) {
         await releaseAiRefreshQueueItem(item.id, db);
-        continue;
+        return;
       }
 
       const metadata = (item.metadata ?? {}) as { sourceKey?: string; editorNote?: string };
@@ -385,12 +418,11 @@ export async function processDueAiRefreshQueueItems(
         outcome: outcome.kind,
         ...(outcome.kind === "needs_review" ? { suggestionId: outcome.suggestionId } : {}),
       });
-    } catch (error) {
-      if (error instanceof BudgetExceeded) {
-        // Stop spending and return the claimed items, untouched, to the queue.
-        for (const pending of dueItems.slice(index)) await releaseAiRefreshQueueItem(pending.id, db);
-        return { processed, failed, skipped: error.message, spendUsd: spendUsd() };
-      }
+    },
+    releaseRemaining: async (remaining) => {
+      for (const pending of remaining) await releaseAiRefreshQueueItem(pending.id, db);
+    },
+    onItemError: async (item, error) => {
       const message = getErrorMessage(error);
       const updatedItem = await markAiRefreshQueueItemFailed(
         item.id,
@@ -402,18 +434,17 @@ export async function processDueAiRefreshQueueItems(
         },
         db,
       );
-
       failed.push({
         item: updatedItem,
         error: message,
       });
-    }
-  }
+    },
+  });
 
   return {
     processed,
     failed,
-    skipped: null,
+    skipped,
     spendUsd: spendUsd(),
   };
 }
@@ -490,6 +521,13 @@ async function claimDueAiRefreshQueueItems(
     const dueItems = await query
       .where("status", "=", AI_REFRESH_QUEUE_STATUS.queued)
       .where("scheduled_for", "<=", input.now)
+      .orderBy(sql`
+        case
+          when (select slug from tenants where id = ai_refresh_queue_items.tenant_id) = 'marathon' then 0
+          when (select slug from tenants where id = ai_refresh_queue_items.tenant_id) = 'gta6' then 1
+          else 2
+        end
+      `)
       .orderBy("scheduled_for", "asc")
       .orderBy("created_at", "asc")
       .limit(input.limit)
@@ -627,14 +665,13 @@ async function listActiveTenantsForRefresh(
       "games.slug as gameSlug",
       "games.title as gameTitle",
     ])
-    .where("tenants.status", "=", "active")
-    .orderBy("tenants.slug", "asc");
+    .where("tenants.status", "=", "active");
 
   if (tenantId) {
     query = query.where("tenants.id", "=", tenantId);
   }
 
-  return (await query.execute()).filter((tenant) => isTenantPubliclyEnabled(tenant.slug));
+  return sortCronTenants((await query.execute()).filter((tenant) => isTenantPubliclyEnabled(tenant.slug)));
 }
 
 function buildRefreshQueueDedupeKey(input: {

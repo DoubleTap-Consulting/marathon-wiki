@@ -121,6 +121,24 @@ async function handleWikiUpdateCron(request: Request, body?: unknown) {
   });
   const revalidated = await revalidateProcessedPages(processing.processed);
 
+  const processedByTenant = new Map<string, number>();
+  for (const entry of processing.processed) {
+    processedByTenant.set(entry.tenantSlug, (processedByTenant.get(entry.tenantSlug) ?? 0) + 1);
+  }
+  const cronOk =
+    sourceDiscoveries.every((entry) => entry.failedCount === 0) &&
+    (sourceIngestion?.failed.length ?? 0) === 0 &&
+    processing.failed.length === 0;
+  console.log(JSON.stringify({
+    cron: "wiki-update",
+    status: cronOk ? "ok" : "error",
+    tenants: [...processedByTenant.entries()].map(([slug, processed]) => ({ slug, processed })),
+    changedSources: 0,
+    queuedItems: events.enqueued.length,
+    failed: processing.failed.length,
+    spend: processing.spendUsd,
+  }));
+
   return NextResponse.json({
     ok:
       sourceDiscoveries.every((entry) => entry.failedCount === 0) &&
