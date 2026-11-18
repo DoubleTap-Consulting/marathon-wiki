@@ -23,10 +23,18 @@
   z-index: 1;
 }
 
-/* Overlay 1: soft-light sunset wash. */
+/* Overlay 1: soft-light sunset wash.
+   Light 0.75 / dark 0.55 — the caps Loupe set so the horizon third
+   carries visible pink/orange. Do not raise these further without a note. */
 [data-theme="gta6"] .art-painting::before {
   background: linear-gradient(180deg, #ff4f8b 0%, #ff8a3d 45%, transparent 75%);
   mix-blend-mode: soft-light;
+  opacity: 0.75;
+}
+
+[data-theme="gta6"].dark .art-painting::before,
+[data-theme="gta6"] .dark .art-painting::before,
+:is(.dark) [data-theme="gta6"] .art-painting::before {
   opacity: 0.55;
 }
 
@@ -198,4 +206,62 @@
 
 [data-theme="gta6"] .art-surface[data-variant="plate"] h1 {
   font-size: clamp(1.5rem, 7.2vw, var(--text-title));
+}
+
+/* Mobile home kicker: one line, no place-name, no freshness (that moves below the hero). */
+[data-theme="gta6"] .gta6-kicker-short {
+  display: none;
+}
+[data-theme="gta6"] .gta6-home-freshness {
+  display: none;
+}
+@media (max-width: 639px) {
+  [data-theme="gta6"] .gta6-kicker-short {
+    display: inline;
+  }
+  [data-theme="gta6"] .gta6-kicker-full {
+    display: none;
+  }
+  [data-theme="gta6"] .gta6-home-freshness {
+    display: block;
+    margin: -0.5rem 0 1.5rem;
+  }
+}
+
+/* Soft navy scrim behind the home text block: 0.35 at the top edge of the type, fading to 0 above. */
+[data-theme="gta6"] .art-surface[data-variant="home"] .art-scrim:not([aria-hidden]) > div {
+  position: relative;
+  isolation: isolate;
+}
+[data-theme="gta6"] .art-surface[data-variant="home"] .art-scrim:not([aria-hidden]) > div::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: -4rem;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgb(11 16 38 / 0.35) 4rem,
+    rgb(11 16 38 / 0.35) 100%
+  );
+}
+
+/* Mobile home credit: 12px above the line (was gap-y-2 = 8px), right-aligned, 44px hit target. */
+@media (max-width: 639px) {
+  [data-theme="gta6"] .art-surface[data-variant="home"] .art-scrim:not([aria-hidden]) > div {
+    row-gap: 12px;
+  }
+  [data-theme="gta6"] .art-surface[data-variant="home"] [data-slot="art-credit"] {
+    width: 100%;
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 44px;
+    text-align: right;
+  }
 }
