@@ -40,13 +40,16 @@ describe("marathon theme", () => {
 
 
 describe("gta6 theme", () => {
-  it("uses a Vice-teal fill with a darker light-mode link, and keeps the WikiDen subtitle", () => {
+  it("uses a Vice-pink fill, pinned navy on-accent, ink links in light and teal in dark, and keeps the WikiDen subtitle", () => {
     const theme = themeManifest.parse(gta6);
     expect(theme.identity.descriptor).toBe("An unofficial guide to Grand Theft Auto VI");
     expect(theme.identity.siteName).toBe("WikiDen");
+    expect(theme.identity.kicker).toBe("Field notes · Leonida");
     expect(theme.slug).toBe("gta6");
+    expect(toHex(themeTokens(theme, "light")["primary-foreground"]).toLowerCase()).toBe("#0b1026");
+    expect(toHex(themeTokens(theme).link)).toBe(toHex(themeTokens(theme).foreground));
     expect(toHex(themeTokens(theme).link)).not.toBe(toHex(themeTokens(theme).primary));
-    expect(toHex(themeTokens(theme, "dark").link)).toBe(toHex(themeTokens(theme, "dark").primary));
+    expect(toHex(themeTokens(theme, "dark").link)).not.toBe(toHex(themeTokens(theme, "dark").primary));
   });
 
   it("matches the committed generated CSS", () => {

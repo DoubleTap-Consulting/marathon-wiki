@@ -2,946 +2,946 @@
   "version": 1,
   "images": [
     {
-      "id": "homer-shore-and-surf",
+      "id": "highsmith-st-moritz-royal-palm",
       "tier": "C",
       "file": null,
       "width": 4000,
-      "height": 2814,
-      "sourceUrl": "https://www.metmuseum.org/art/collection/search/11138",
-      "fileUrl": "https://images.metmuseum.org/CRDImages/ad/original/DP-21450-001.jpg",
-      "license": "PD-US-EXPIRED",
-      "licenseUrl": "https://www.metmuseum.org/policies/image-resources",
-      "author": "Winslow Homer",
-      "credit": "The Metropolitan Museum of Art",
-      "title": "Shore and Surf, Nassau",
+      "height": 1914,
+      "sourceUrl": "https://www.loc.gov/pictures/item/2020720526/",
+      "fileUrl": "https://tile.loc.gov/image-services/iiif/master:pnp:highsm:62200:62261u/full/full/0/default.jpg",
+      "license": "CC0-1.0",
+      "licenseUrl": "https://www.loc.gov/rr/print/res/114_high.html",
+      "author": "Carol M. Highsmith",
+      "credit": "Photographs in the Carol M. Highsmith Archive, Library of Congress, Prints and Photographs Division.",
+      "title": "The St. Moritz Hotel and Royal Palm South Beach Resort, Miami Beach, Florida",
       "modifications": "Cropped and resized; the part beneath the text scrim is softened",
-      "retrievedAt": "2026-11-16",
+      "retrievedAt": "2026-11-17",
       "depicts": "atmosphere",
-      "caption": "Shore and Surf, Nassau",
-      "alt": "Watercolor of turquoise surf breaking on dark rocks under a grey sky, with a steamer on the horizon.",
+      "caption": "The fashionable St. Moritz Hotel (left) and Royal Palm South Beach Resort in the trendy South Beach section of Miami Beach, Florida",
+      "alt": "The St. Moritz Hotel and Royal Palm South Beach Resort on a palm-lined street in Miami Beach, Florida.",
       "captionAuthor": "source-quotation",
-      "captionSourceUrl": "https://www.metmuseum.org/art/collection/search/11138",
+      "captionSourceUrl": "https://www.loc.gov/pictures/item/2020720526/",
       "focal": {
         "x": 0.5,
         "y": 0
       },
-      "approvedBy": "loupe",
-      "approvedAt": "2026-11-16",
+      "approvedBy": "forge",
+      "approvedAt": "2026-11-17",
       "usedOn": [
         {
           "page": "home",
           "slot": "home-band"
         }
       ],
-      "attributionText": "Shore and Surf, Nassau · Winslow Homer, 1899 · The Metropolitan Museum of Art, Open Access · Public domain (US) · Cropped and resized; the part beneath the text scrim is softened",
+      "attributionText": "The St. Moritz Hotel and Royal Palm South Beach Resort, Miami Beach, Florida \u00b7 Carol M. Highsmith, 2020 \u00b7 Photographs in the Carol M. Highsmith Archive, Library of Congress, Prints and Photographs Division. \u00b7 No known restrictions on publication. \u00b7 Cropped and resized; the part beneath the text scrim is softened",
       "art": {
-        "family": "homer-tropics",
-        "medium": "painting",
-        "rightsStatus": "PD",
-        "rightsBasis": "Watercolor by Winslow Homer (1836–1910), made in 1899; public domain in the US, and The Met marks the object public domain and releases its image under Open Access (CC0).",
-        "institution": "The Met",
-        "year": "1899",
-        "dominant": "#697976",
+        "family": "highsmith-florida",
+        "medium": "photograph",
+        "rightsStatus": "CC0",
+        "rightsBasis": "Library of Congress rights line: \"No known restrictions on publication.\" Carol M. Highsmith has placed her photographs in the public domain; this work is in the Carol M. Highsmith Archive, Prints and Photographs Division.",
+        "institution": "Library of Congress",
+        "year": "2020",
+        "dominant": "#4c555b",
         "renditions": [
           {
             "crop": "wide",
             "width": 828,
             "height": 414,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-shore-and-surf-wide-828.avif",
-            "bytes": 14316,
-            "sha256": "2f0eeae6fd6fa783bedfa87ad86002c09cf17cd289307d8f1f746ca518ae70e7"
+            "file": "public/img/gta6/art/highsmith-st-moritz-royal-palm-wide-828.avif",
+            "bytes": 12050,
+            "sha256": "ab1adfe61d52f6e499222d4e53d5d1706ec40ecdb81d043b8ea64eb6d4d075d5"
           },
           {
             "crop": "wide",
             "width": 828,
             "height": 414,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-shore-and-surf-wide-828.webp",
-            "bytes": 17782,
-            "sha256": "865626c778d2e1ee21b4b2c4ea98f0af3e879469cec00fba26eb3abf6ef92ba3"
+            "file": "public/img/gta6/art/highsmith-st-moritz-royal-palm-wide-828.webp",
+            "bytes": 14642,
+            "sha256": "a571e05880dff7e9a5fa1112ed8c39d9f7e02e8d9cf4615240124c3aa57c3a8b"
           },
           {
             "crop": "wide",
             "width": 1600,
             "height": 800,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-shore-and-surf-wide-1600.avif",
-            "bytes": 47739,
-            "sha256": "c9ea83001a59c8b9674b14d1fc52084c8c5f4cf7736db7e02deea86971767571"
+            "file": "public/img/gta6/art/highsmith-st-moritz-royal-palm-wide-1600.avif",
+            "bytes": 34012,
+            "sha256": "7ad14ada226754a904f78ef36655b454b86414a1a9f37f82055b68c8e52c104b"
           },
           {
             "crop": "wide",
             "width": 1600,
             "height": 800,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-shore-and-surf-wide-1600.webp",
-            "bytes": 53564,
-            "sha256": "956ecab495f8669d980a32cd27a88798bb9d06dc4db89981d9ef6f9724b9920d"
+            "file": "public/img/gta6/art/highsmith-st-moritz-royal-palm-wide-1600.webp",
+            "bytes": 41590,
+            "sha256": "7f1f111c03286ff0f9d0971afed02ec02dc4d016958982dfebaae52a214b71be"
           },
           {
             "crop": "wide",
             "width": 2400,
             "height": 1200,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-shore-and-surf-wide-2400.avif",
-            "bytes": 105624,
-            "sha256": "fd7d90865f3582bc8120910921f096086cc757338b8c7984dc783c503433de65"
+            "file": "public/img/gta6/art/highsmith-st-moritz-royal-palm-wide-2400.avif",
+            "bytes": 67250,
+            "sha256": "b822ff8ada64de8389f81a94b785fcc3be003917033701c505a30082e02dd986"
           },
           {
             "crop": "wide",
             "width": 2400,
             "height": 1200,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-shore-and-surf-wide-2400.webp",
-            "bytes": 114920,
-            "sha256": "8ca1600809b1cfc590e1821814146922cda21859ebc3a497fc7aebc609b56493"
-          },
-          {
-            "crop": "strip",
-            "width": 828,
-            "height": 207,
-            "format": "avif",
-            "file": "public/img/gta6/art/homer-shore-and-surf-strip-828.avif",
-            "bytes": 7441,
-            "sha256": "15c9769954e197c92737d5b7bbba54577f1f0015cb570661faa5423466fb8915"
-          },
-          {
-            "crop": "strip",
-            "width": 828,
-            "height": 207,
-            "format": "webp",
-            "file": "public/img/gta6/art/homer-shore-and-surf-strip-828.webp",
-            "bytes": 9162,
-            "sha256": "3798fb6d6e80c7bec468fac630d952d2e0c227436e29ab5126b56de22717805a"
-          },
-          {
-            "crop": "strip",
-            "width": 1600,
-            "height": 400,
-            "format": "avif",
-            "file": "public/img/gta6/art/homer-shore-and-surf-strip-1600.avif",
-            "bytes": 22594,
-            "sha256": "7c40e711d4ba3e1edb851f0802680bf0eb25b3bf04fec2c205ed8f6924874206"
-          },
-          {
-            "crop": "strip",
-            "width": 1600,
-            "height": 400,
-            "format": "webp",
-            "file": "public/img/gta6/art/homer-shore-and-surf-strip-1600.webp",
-            "bytes": 27186,
-            "sha256": "2d256488d46966ec3ff30f4c6c5ce983ed131a554cbc55d99616f983d14a04ad"
-          },
-          {
-            "crop": "strip",
-            "width": 2400,
-            "height": 600,
-            "format": "avif",
-            "file": "public/img/gta6/art/homer-shore-and-surf-strip-2400.avif",
-            "bytes": 52285,
-            "sha256": "ef2b063f10d973a0c34ae450887f605b16a1f4ea0fd6e16b96e4a4d5bca954d9"
-          },
-          {
-            "crop": "strip",
-            "width": 2400,
-            "height": 600,
-            "format": "webp",
-            "file": "public/img/gta6/art/homer-shore-and-surf-strip-2400.webp",
-            "bytes": 56912,
-            "sha256": "5030d2278bd59a3e5311a8e86216856ed25c724ea417f5966d64694e521c82b8"
-          },
-          {
-            "crop": "full",
-            "width": 640,
-            "height": 450,
-            "format": "avif",
-            "file": "public/img/gta6/art/homer-shore-and-surf-full-640.avif",
-            "bytes": 10134,
-            "sha256": "47f01fa469ff920bf17ad4c4d666d05630f71c684364ecc7a49eb834bf19f54a"
-          },
-          {
-            "crop": "full",
-            "width": 640,
-            "height": 450,
-            "format": "webp",
-            "file": "public/img/gta6/art/homer-shore-and-surf-full-640.webp",
-            "bytes": 19164,
-            "sha256": "79dcfba12bde41dd91a383c95b646045f04148fbdbf33c731fb9d554d55e827f"
+            "file": "public/img/gta6/art/highsmith-st-moritz-royal-palm-wide-2400.webp",
+            "bytes": 82126,
+            "sha256": "260f0f255d95ae7798d6b1f7b4c27742efcdda950165659feba9a199b03af003"
           },
           {
             "crop": "tall",
             "width": 828,
             "height": 789,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-shore-and-surf-tall-828.avif",
-            "bytes": 16268,
-            "sha256": "7ff994cf7b9a33de23358ac4a5fdced54c86aa0e71194ad066b508846a92415b"
+            "file": "public/img/gta6/art/highsmith-st-moritz-royal-palm-tall-828.avif",
+            "bytes": 7730,
+            "sha256": "31661ad1d8d763cb8013cb652fa3a925961e4c439afebdc4e98ea48869c521ed"
           },
           {
             "crop": "tall",
             "width": 828,
             "height": 789,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-shore-and-surf-tall-828.webp",
-            "bytes": 20658,
-            "sha256": "3e262e0bf30835e07ed33575c3c1d48be75b2a0d020636ac2371eae99a5477de"
+            "file": "public/img/gta6/art/highsmith-st-moritz-royal-palm-tall-828.webp",
+            "bytes": 13776,
+            "sha256": "45f18323a0b97389f062339ced60cfd72889297c5ef224af709719d3c1f11e56"
+          },
+          {
+            "crop": "strip",
+            "width": 828,
+            "height": 207,
+            "format": "avif",
+            "file": "public/img/gta6/art/highsmith-st-moritz-royal-palm-strip-828.avif",
+            "bytes": 5001,
+            "sha256": "43c6175315ed7e6ab256954ed7eb5ffff7445fc3db222fe0048611564bcec4ba"
+          },
+          {
+            "crop": "strip",
+            "width": 828,
+            "height": 207,
+            "format": "webp",
+            "file": "public/img/gta6/art/highsmith-st-moritz-royal-palm-strip-828.webp",
+            "bytes": 6324,
+            "sha256": "989264b823174e38a1fdc0bf72be76932aaf8c3efd81edba58def993fa294d9e"
+          },
+          {
+            "crop": "strip",
+            "width": 1600,
+            "height": 400,
+            "format": "avif",
+            "file": "public/img/gta6/art/highsmith-st-moritz-royal-palm-strip-1600.avif",
+            "bytes": 13664,
+            "sha256": "2167febfaf11ff2f4ebf138a777c613cbad8552914b5d5821564578dbffe30c8"
+          },
+          {
+            "crop": "strip",
+            "width": 1600,
+            "height": 400,
+            "format": "webp",
+            "file": "public/img/gta6/art/highsmith-st-moritz-royal-palm-strip-1600.webp",
+            "bytes": 17298,
+            "sha256": "af80e706be1285709e6b105d781a6690fd9adab8aa973db046a0996475cb1c77"
+          },
+          {
+            "crop": "strip",
+            "width": 2400,
+            "height": 600,
+            "format": "avif",
+            "file": "public/img/gta6/art/highsmith-st-moritz-royal-palm-strip-2400.avif",
+            "bytes": 26962,
+            "sha256": "06d6162f17a116f54c11a048244a50586557e00113f1326445d64c7b8b9e8187"
+          },
+          {
+            "crop": "strip",
+            "width": 2400,
+            "height": 600,
+            "format": "webp",
+            "file": "public/img/gta6/art/highsmith-st-moritz-royal-palm-strip-2400.webp",
+            "bytes": 34132,
+            "sha256": "968a3932721daeb3ee846db431859fa92e6c54746b8e2a70a62f323a0b565c2a"
+          },
+          {
+            "crop": "full",
+            "width": 640,
+            "height": 306,
+            "format": "avif",
+            "file": "public/img/gta6/art/highsmith-st-moritz-royal-palm-full-640.avif",
+            "bytes": 14526,
+            "sha256": "3d096347bf5f52fda7c0b2e5e52fbff0dcc03d194bff95f831ed72a40884a1ef"
+          },
+          {
+            "crop": "full",
+            "width": 640,
+            "height": 306,
+            "format": "webp",
+            "file": "public/img/gta6/art/highsmith-st-moritz-royal-palm-full-640.webp",
+            "bytes": 21894,
+            "sha256": "472f4bf38378db47f1171ee45f1489515abd5a039d9c91c86d32c66155a3cde7"
           }
         ]
       }
     },
     {
-      "id": "homer-key-west-boats",
+      "id": "highsmith-miami-skyline",
       "tier": "C",
       "file": null,
-      "width": 3811,
-      "height": 2449,
-      "sourceUrl": "https://www.metmuseum.org/art/collection/search/11120",
-      "fileUrl": "https://images.metmuseum.org/CRDImages/ad/original/DP119111.jpg",
-      "license": "PD-US-EXPIRED",
-      "licenseUrl": "https://www.metmuseum.org/policies/image-resources",
-      "author": "Winslow Homer",
-      "credit": "The Metropolitan Museum of Art",
-      "title": "Fishing Boats, Key West",
+      "width": 4000,
+      "height": 2667,
+      "sourceUrl": "https://www.loc.gov/pictures/item/2020721050/",
+      "fileUrl": "https://tile.loc.gov/image-services/iiif/master:pnp:highsm:62700:62785u/full/full/0/default.jpg",
+      "license": "CC0-1.0",
+      "licenseUrl": "https://www.loc.gov/rr/print/res/114_high.html",
+      "author": "Carol M. Highsmith",
+      "credit": "Photographs in the Carol M. Highsmith Archive, Library of Congress, Prints and Photographs Division.",
+      "title": "Aerial view of the Miami skyline from Biscayne Bay",
       "modifications": "Cropped and resized; the part beneath the text scrim is softened",
-      "retrievedAt": "2026-11-16",
+      "retrievedAt": "2026-11-17",
       "depicts": "atmosphere",
-      "caption": "Fishing Boats, Key West",
-      "alt": "Watercolor of white fishing sloops with furled sails at anchor in pale blue Key West water.",
+      "caption": "Aerial view from Biscayne Bay, separating Miami Beach and Miami, Florida, of part of the Miami skyline",
+      "alt": "Aerial view of the Miami, Florida, skyline from Biscayne Bay, with towers along the water.",
       "captionAuthor": "source-quotation",
-      "captionSourceUrl": "https://www.metmuseum.org/art/collection/search/11120",
+      "captionSourceUrl": "https://www.loc.gov/pictures/item/2020721050/",
       "focal": {
         "x": 0.5,
         "y": 0
       },
-      "approvedBy": "loupe",
-      "approvedAt": "2026-11-16",
+      "approvedBy": "forge",
+      "approvedAt": "2026-11-17",
       "usedOn": [
         {
           "page": "categories/overview",
           "slot": "hub-band"
         }
       ],
-      "attributionText": "Fishing Boats, Key West · Winslow Homer, 1903 · The Metropolitan Museum of Art, Open Access · Public domain (US) · Cropped and resized; the part beneath the text scrim is softened",
+      "attributionText": "Aerial view of the Miami skyline from Biscayne Bay \u00b7 Carol M. Highsmith, 2020 \u00b7 Photographs in the Carol M. Highsmith Archive, Library of Congress, Prints and Photographs Division. \u00b7 No known restrictions on publication. \u00b7 Cropped and resized; the part beneath the text scrim is softened",
       "art": {
-        "family": "homer-tropics",
-        "medium": "painting",
-        "rightsStatus": "PD",
-        "rightsBasis": "Watercolor by Winslow Homer (1836–1910), made in 1903; public domain in the US, and The Met marks the object public domain and releases its image under Open Access (CC0).",
-        "institution": "The Met",
-        "year": "1903",
-        "dominant": "#a1acad",
+        "family": "highsmith-florida",
+        "medium": "photograph",
+        "rightsStatus": "CC0",
+        "rightsBasis": "Library of Congress rights line: \"No known restrictions on publication.\" Carol M. Highsmith has placed her photographs in the public domain; this work is in the Carol M. Highsmith Archive, Prints and Photographs Division.",
+        "institution": "Library of Congress",
+        "year": "2020",
+        "dominant": "#86929e",
         "renditions": [
           {
             "crop": "wide",
             "width": 828,
             "height": 414,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-key-west-boats-wide-828.avif",
-            "bytes": 14427,
-            "sha256": "86ac28a3d93211f0852bb25ebef577b9b8db3a8452fe943de811127d0bae1841"
+            "file": "public/img/gta6/art/highsmith-miami-skyline-wide-828.avif",
+            "bytes": 5719,
+            "sha256": "cc6f6a75fd2e81bd4125c897ef5d350e099527bb75a3a643549a89eb8502397c"
           },
           {
             "crop": "wide",
             "width": 828,
             "height": 414,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-key-west-boats-wide-828.webp",
-            "bytes": 16424,
-            "sha256": "69983326c607c6f71a239b1645dca608b0badb40f2a97e473ebaf8c4576c20c3"
+            "file": "public/img/gta6/art/highsmith-miami-skyline-wide-828.webp",
+            "bytes": 8686,
+            "sha256": "8111ef6f51c31634edfe6aafdf8792ffe3d20b03493b17fb3733ab3b65075af6"
           },
           {
             "crop": "wide",
             "width": 1600,
             "height": 800,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-key-west-boats-wide-1600.avif",
-            "bytes": 42210,
-            "sha256": "4c3bd8a59fb870dfd9e8962b3addb4e3ed8a23f62021c9f12a4eed825f82ca7e"
+            "file": "public/img/gta6/art/highsmith-miami-skyline-wide-1600.avif",
+            "bytes": 12669,
+            "sha256": "b59857df6c501e40c583510b40c565d73895f31d7c0058484ef97fc4e4c5a602"
           },
           {
             "crop": "wide",
             "width": 1600,
             "height": 800,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-key-west-boats-wide-1600.webp",
-            "bytes": 45760,
-            "sha256": "c18cc3d5a16fd8df28ca3ae2d95aa5cf8b10e6709ce04235c77e0753339bc712"
+            "file": "public/img/gta6/art/highsmith-miami-skyline-wide-1600.webp",
+            "bytes": 21328,
+            "sha256": "1f0f9ae2fd70f05d577693bffed75bd6a484310e60b4cdebe2d7da6a9c5138fa"
           },
           {
             "crop": "wide",
             "width": 2400,
             "height": 1200,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-key-west-boats-wide-2400.avif",
-            "bytes": 83295,
-            "sha256": "f50b7b8d04d2fafe9186165d12d7116a056a2093de734f0cf5ce2a437c171c95"
+            "file": "public/img/gta6/art/highsmith-miami-skyline-wide-2400.avif",
+            "bytes": 20786,
+            "sha256": "2953aefc71413f335345227bec749877f2fe081bbedf463f941db81bb2a48a3f"
           },
           {
             "crop": "wide",
             "width": 2400,
             "height": 1200,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-key-west-boats-wide-2400.webp",
-            "bytes": 88940,
-            "sha256": "bdbdcb231f081323c7f99d6f557074a60eecbdc7830d6bbc5517655e7f1d0280"
+            "file": "public/img/gta6/art/highsmith-miami-skyline-wide-2400.webp",
+            "bytes": 36262,
+            "sha256": "8b4b218530f1acd795d012073492af694cb00f3fb0e9b09bc3ca1533d057b231"
           },
           {
             "crop": "tall",
             "width": 828,
             "height": 789,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-key-west-boats-tall-828.avif",
-            "bytes": 10507,
-            "sha256": "099647a1978f8eb2b70efbd7c91f892639fa7b625065d4ead4ee537b0861828d"
+            "file": "public/img/gta6/art/highsmith-miami-skyline-tall-828.avif",
+            "bytes": 4942,
+            "sha256": "22fcb321e416ec6788b6ecddaeb7b3e1557475eaf8430d0abe0361a8c6a3efea"
           },
           {
             "crop": "tall",
             "width": 828,
             "height": 789,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-key-west-boats-tall-828.webp",
-            "bytes": 15668,
-            "sha256": "b11f28757409406c4b0912494a47f0e9db4792cb0faed5a770a802f360ed498e"
+            "file": "public/img/gta6/art/highsmith-miami-skyline-tall-828.webp",
+            "bytes": 10614,
+            "sha256": "077ae36465d8f2d2c587c12b881a9e275691f92bc63cdff3c193ca44d8d78f25"
           },
           {
             "crop": "strip",
             "width": 828,
             "height": 207,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-key-west-boats-strip-828.avif",
-            "bytes": 7860,
-            "sha256": "bc498f290ca6fefa372594812f3ed38f33d843717d01849d9276e33b6682c6b8"
+            "file": "public/img/gta6/art/highsmith-miami-skyline-strip-828.avif",
+            "bytes": 2368,
+            "sha256": "354a95e257506c778ef1aef68d515fd9d7dd0c80e0b38638fe5261a18bb57abb"
           },
           {
             "crop": "strip",
             "width": 828,
             "height": 207,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-key-west-boats-strip-828.webp",
-            "bytes": 8488,
-            "sha256": "82ffb7e0170c9bcaee9f14ff92a36c867b4980d18851d1bc8d401e2762856427"
+            "file": "public/img/gta6/art/highsmith-miami-skyline-strip-828.webp",
+            "bytes": 3562,
+            "sha256": "48abf4d185f558f4304148d46021523515fac38777628cbebe9beec1fb50fa06"
           },
           {
             "crop": "strip",
             "width": 1600,
             "height": 400,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-key-west-boats-strip-1600.avif",
-            "bytes": 21095,
-            "sha256": "bb4da1f157413859137b14241075976a75fd5f5e020bf3c69523b33c383a06bb"
+            "file": "public/img/gta6/art/highsmith-miami-skyline-strip-1600.avif",
+            "bytes": 4653,
+            "sha256": "c0f42f9b77e967bc3b1bc54b1ef6f56050008b2d685ad70431646724129d6907"
           },
           {
             "crop": "strip",
             "width": 1600,
             "height": 400,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-key-west-boats-strip-1600.webp",
-            "bytes": 23006,
-            "sha256": "b156a5f1c813db7da7ccc21cbacdf9bff3c068bf936bf3bd3b294d7f880c2e34"
+            "file": "public/img/gta6/art/highsmith-miami-skyline-strip-1600.webp",
+            "bytes": 8480,
+            "sha256": "93f1c8b371c3c396fc6a5c500a66b9c6cc22eb27c5ce068d8ccaa62fe9b69656"
           },
           {
             "crop": "strip",
             "width": 2400,
             "height": 600,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-key-west-boats-strip-2400.avif",
-            "bytes": 41749,
-            "sha256": "63594648a02099500c1266d05cfe2c8db5a29d4412b12fcb26ebb26a078f478c"
+            "file": "public/img/gta6/art/highsmith-miami-skyline-strip-2400.avif",
+            "bytes": 7279,
+            "sha256": "e3c26fe6c82ca744eb82973ed29511d877906a37b5fcb5539c8ca37e7efe72e2"
           },
           {
             "crop": "strip",
             "width": 2400,
             "height": 600,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-key-west-boats-strip-2400.webp",
-            "bytes": 44010,
-            "sha256": "6f6853ae6cf408f6caf0d0122f1626e5b8d481a5040b3a8fb0f285780e3d4750"
+            "file": "public/img/gta6/art/highsmith-miami-skyline-strip-2400.webp",
+            "bytes": 14410,
+            "sha256": "0469a30c6abb1be15192046e104e802ea9c06c5251da4bb53c1143e68f04b847"
           },
           {
             "crop": "full",
             "width": 640,
-            "height": 411,
+            "height": 427,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-key-west-boats-full-640.avif",
-            "bytes": 9998,
-            "sha256": "541ff5baf010476ec66fd478cf9ef2a89a4761235d55a962b1ac694a1f105cd3"
+            "file": "public/img/gta6/art/highsmith-miami-skyline-full-640.avif",
+            "bytes": 17809,
+            "sha256": "2494cf81c01c6263ec3d23d801a740b7e1b7dfdf518d9f4a53fc55854395f655"
           },
           {
             "crop": "full",
             "width": 640,
-            "height": 411,
+            "height": 427,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-key-west-boats-full-640.webp",
-            "bytes": 17778,
-            "sha256": "082625ff6b0b362bef1b8ae61c6dc3edf02835ca65f6b06c1d3c36478bf03ec5"
+            "file": "public/img/gta6/art/highsmith-miami-skyline-full-640.webp",
+            "bytes": 28946,
+            "sha256": "ddb76aedadf3cf2653de9a1522fec6de030d6b079c0b593bd5a142d5a885b876"
           }
         ]
       }
     },
     {
-      "id": "homer-hurricane-bahamas",
+      "id": "highsmith-everglades-sawgrass",
       "tier": "C",
       "file": null,
       "width": 4000,
-      "height": 2763,
-      "sourceUrl": "https://www.metmuseum.org/art/collection/search/11124",
-      "fileUrl": "https://images.metmuseum.org/CRDImages/ad/original/DP-17779-001.jpg",
-      "license": "PD-US-EXPIRED",
-      "licenseUrl": "https://www.metmuseum.org/policies/image-resources",
-      "author": "Winslow Homer",
-      "credit": "The Metropolitan Museum of Art",
-      "title": "Hurricane, Bahamas",
+      "height": 2667,
+      "sourceUrl": "https://www.loc.gov/pictures/item/2020720573/",
+      "fileUrl": "https://tile.loc.gov/image-services/iiif/master:pnp:highsm:62300:62308u/full/full/0/default.jpg",
+      "license": "CC0-1.0",
+      "licenseUrl": "https://www.loc.gov/rr/print/res/114_high.html",
+      "author": "Carol M. Highsmith",
+      "credit": "Photographs in the Carol M. Highsmith Archive, Library of Congress, Prints and Photographs Division.",
+      "title": "Sawgrass prairie in the Everglades, Florida",
       "modifications": "Cropped and resized; the part beneath the text scrim is softened",
-      "retrievedAt": "2026-11-16",
+      "retrievedAt": "2026-11-17",
       "depicts": "atmosphere",
-      "caption": "Hurricane, Bahamas",
-      "alt": "Watercolor of palm trees bent by a storm wind over red-roofed houses under heavy grey clouds.",
+      "caption": "Portion of a sawgrass prairie in the Everglades, an ecosystem in South Florida that is unlike any other in the world",
+      "alt": "A sawgrass prairie and water channel in the Everglades of South Florida, under a pale sky.",
       "captionAuthor": "source-quotation",
-      "captionSourceUrl": "https://www.metmuseum.org/art/collection/search/11124",
+      "captionSourceUrl": "https://www.loc.gov/pictures/item/2020720573/",
       "focal": {
         "x": 0.5,
         "y": 0
       },
-      "approvedBy": "loupe",
-      "approvedAt": "2026-11-16",
+      "approvedBy": "forge",
+      "approvedAt": "2026-11-17",
       "usedOn": [
         {
           "page": "categories/gameplay",
           "slot": "hub-band"
         }
       ],
-      "attributionText": "Hurricane, Bahamas · Winslow Homer, 1898 · The Metropolitan Museum of Art, Open Access · Public domain (US) · Cropped and resized; the part beneath the text scrim is softened",
+      "attributionText": "Sawgrass prairie in the Everglades, Florida \u00b7 Carol M. Highsmith, 2020 \u00b7 Photographs in the Carol M. Highsmith Archive, Library of Congress, Prints and Photographs Division. \u00b7 No known restrictions on publication. \u00b7 Cropped and resized; the part beneath the text scrim is softened",
       "art": {
-        "family": "homer-tropics",
-        "medium": "painting",
-        "rightsStatus": "PD",
-        "rightsBasis": "Watercolor by Winslow Homer (1836–1910), made in 1898; public domain in the US, and The Met marks the object public domain and releases its image under Open Access (CC0).",
-        "institution": "The Met",
-        "year": "1898",
-        "dominant": "#98958b",
+        "family": "highsmith-florida",
+        "medium": "photograph",
+        "rightsStatus": "CC0",
+        "rightsBasis": "Library of Congress rights line: \"No known restrictions on publication.\" Carol M. Highsmith has placed her photographs in the public domain; this work is in the Carol M. Highsmith Archive, Prints and Photographs Division.",
+        "institution": "Library of Congress",
+        "year": "2020",
+        "dominant": "#888985",
         "renditions": [
           {
             "crop": "wide",
             "width": 828,
             "height": 414,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-hurricane-bahamas-wide-828.avif",
-            "bytes": 11308,
-            "sha256": "e0e1d8ae3394abe6074ce543f1c8c0bf7531a9f95234468d8fdfb4b7710ae07a"
+            "file": "public/img/gta6/art/highsmith-everglades-sawgrass-wide-828.avif",
+            "bytes": 2005,
+            "sha256": "54024cfc835b90b122c1e5186fa99af98f8c25a46ddae7d9aec58a611cd4545c"
           },
           {
             "crop": "wide",
             "width": 828,
             "height": 414,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-hurricane-bahamas-wide-828.webp",
-            "bytes": 13528,
-            "sha256": "9a64166ef68c4d79a1e2cd59291bf6be745560a4ea20ab1e7546ad778a50009f"
+            "file": "public/img/gta6/art/highsmith-everglades-sawgrass-wide-828.webp",
+            "bytes": 3940,
+            "sha256": "0fa7963b943d575156119e0183acdf063bf33aec328b93fa27a49b5a6da8ff06"
           },
           {
             "crop": "wide",
             "width": 1600,
             "height": 800,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-hurricane-bahamas-wide-1600.avif",
-            "bytes": 28490,
-            "sha256": "0c61f936b295e5655ca79a019a7b018951611c66b512217179ccc70a0c89d0e1"
+            "file": "public/img/gta6/art/highsmith-everglades-sawgrass-wide-1600.avif",
+            "bytes": 3673,
+            "sha256": "7f0f050e02a318d232512e9c3930528b05836902f3486b564248168720302d91"
           },
           {
             "crop": "wide",
             "width": 1600,
             "height": 800,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-hurricane-bahamas-wide-1600.webp",
-            "bytes": 33906,
-            "sha256": "efc7a86d3a832f8de0219eba2f6a4088069e43da07224e3c3a71fc1a2551a12c"
+            "file": "public/img/gta6/art/highsmith-everglades-sawgrass-wide-1600.webp",
+            "bytes": 9622,
+            "sha256": "77f9fe9c6d8e71f0c1dff501770df4d8a35df734ac3f52670dfb87ded87a741f"
           },
           {
             "crop": "wide",
             "width": 2400,
             "height": 1200,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-hurricane-bahamas-wide-2400.avif",
-            "bytes": 55556,
-            "sha256": "c7500f576fe41c1fa1c58f882c5e98b284d746059c14c071e71ce8347be3aa91"
+            "file": "public/img/gta6/art/highsmith-everglades-sawgrass-wide-2400.avif",
+            "bytes": 5908,
+            "sha256": "47624a37ca36f8f4a748493702494971891a48bb9cddea5e74b9d05542a7c8b1"
           },
           {
             "crop": "wide",
             "width": 2400,
             "height": 1200,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-hurricane-bahamas-wide-2400.webp",
-            "bytes": 64526,
-            "sha256": "20ad25190b165c38c52f67e461ad864d1b72916041bfdec817ba5e00289f9a66"
+            "file": "public/img/gta6/art/highsmith-everglades-sawgrass-wide-2400.webp",
+            "bytes": 17414,
+            "sha256": "2ff3ed4431cc1ede176c4cccf6526a5d586288ce6457cadebf3432fc997132dc"
           },
           {
             "crop": "tall",
             "width": 828,
             "height": 789,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-hurricane-bahamas-tall-828.avif",
-            "bytes": 11199,
-            "sha256": "0bd3aa0726c8380b35edcfa2354f8e9d0eb8a3f3c387bc8c29325edcc984724a"
+            "file": "public/img/gta6/art/highsmith-everglades-sawgrass-tall-828.avif",
+            "bytes": 2887,
+            "sha256": "f0e47e9cb862fb94c0a63d745333753c568ee6f055dea228a8a78bfbe55586f3"
           },
           {
             "crop": "tall",
             "width": 828,
             "height": 789,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-hurricane-bahamas-tall-828.webp",
-            "bytes": 16916,
-            "sha256": "f478e6169fbea05dd5a71f5be3a22a5a7d98cef824c823275e0f8666d2b92df8"
+            "file": "public/img/gta6/art/highsmith-everglades-sawgrass-tall-828.webp",
+            "bytes": 7220,
+            "sha256": "290800384c2c4f3000d39933ff5bd8be09c11aaa562c78e473b9c9a3f426ff46"
           },
           {
             "crop": "strip",
             "width": 828,
             "height": 207,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-hurricane-bahamas-strip-828.avif",
-            "bytes": 6056,
-            "sha256": "21a3343091f2d89a9d1a9812089efc0f3138da31363e4dbb1415a1b5ad41c994"
+            "file": "public/img/gta6/art/highsmith-everglades-sawgrass-strip-828.avif",
+            "bytes": 4188,
+            "sha256": "8b43fc4d423e3fb409bfd8f8a068d1c24a490ff6c7508722db5e4cd5c0b9a96b"
           },
           {
             "crop": "strip",
             "width": 828,
             "height": 207,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-hurricane-bahamas-strip-828.webp",
-            "bytes": 7156,
-            "sha256": "77d0d35e04c394f5b0bb967df500ae8d3668fa5f2417085e6e86bcdd41088bc3"
+            "file": "public/img/gta6/art/highsmith-everglades-sawgrass-strip-828.webp",
+            "bytes": 4496,
+            "sha256": "14e85b964896193381fb0b5f03d3bb53189b5fd283463742d586a1f75a5e35c1"
           },
           {
             "crop": "strip",
             "width": 1600,
             "height": 400,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-hurricane-bahamas-strip-1600.avif",
-            "bytes": 13967,
-            "sha256": "13c76e8abcee44ca83db27f35ce3c24ca9e392ec34a11ba71b9fe56b05626a3f"
+            "file": "public/img/gta6/art/highsmith-everglades-sawgrass-strip-1600.avif",
+            "bytes": 11080,
+            "sha256": "0515e7e694aef4e1d281def347b203199ebd2fd6fd80b562fa9a3e23c53f650e"
           },
           {
             "crop": "strip",
             "width": 1600,
             "height": 400,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-hurricane-bahamas-strip-1600.webp",
-            "bytes": 17328,
-            "sha256": "b57b4b76c8507a4d4a14acc4ed8ed74b6f55e7d4a3a57bbcf4af9a4d39bebb93"
+            "file": "public/img/gta6/art/highsmith-everglades-sawgrass-strip-1600.webp",
+            "bytes": 12672,
+            "sha256": "d4e4a428b4674c8679f0bdd72cdd9e1fda6030cce16df5f193cdb1cb06ec7d09"
           },
           {
             "crop": "strip",
             "width": 2400,
             "height": 600,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-hurricane-bahamas-strip-2400.avif",
-            "bytes": 26746,
-            "sha256": "9918f24cf9c5efc5ec9f40a4d32d3ebc9631ac5cb6646fd5feb00a8442b1c13e"
+            "file": "public/img/gta6/art/highsmith-everglades-sawgrass-strip-2400.avif",
+            "bytes": 20339,
+            "sha256": "8210fc40aeadbdff72884a6481d73fe545581ab6dc93516901f0f9387144d580"
           },
           {
             "crop": "strip",
             "width": 2400,
             "height": 600,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-hurricane-bahamas-strip-2400.webp",
-            "bytes": 31550,
-            "sha256": "e7e748b10f17b93d1b9c24f32f1cdfd537343c6ab6f2076ddc007b1e9fcffcbb"
+            "file": "public/img/gta6/art/highsmith-everglades-sawgrass-strip-2400.webp",
+            "bytes": 23980,
+            "sha256": "95763e7c3b96b4eb26380618853116aad3e0bfb5905eb69bcd46364043c50edd"
           },
           {
             "crop": "full",
             "width": 640,
-            "height": 442,
+            "height": 427,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-hurricane-bahamas-full-640.avif",
-            "bytes": 12643,
-            "sha256": "164b47902f8410614a20ba50d7cc207d862f82abeeff2deaa167367a267dc923"
+            "file": "public/img/gta6/art/highsmith-everglades-sawgrass-full-640.avif",
+            "bytes": 14405,
+            "sha256": "9f2f8854b28a85aa093398d91042cf3a288899cfbcb0b5d04ca00840cddb60cd"
           },
           {
             "crop": "full",
             "width": 640,
-            "height": 442,
+            "height": 427,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-hurricane-bahamas-full-640.webp",
-            "bytes": 20476,
-            "sha256": "33776d39ce87a965f6507c3673ad462d72ed780e5cf20b5f90bc557079bc3a4e"
+            "file": "public/img/gta6/art/highsmith-everglades-sawgrass-full-640.webp",
+            "bytes": 25534,
+            "sha256": "6052498b5fbc41703f18983b423dd28c32e1a7b9d4b78c013ca50ddf221655f1"
           }
         ]
       }
     },
     {
-      "id": "homer-sloop-nassau",
+      "id": "highsmith-beach-patrol",
       "tier": "C",
       "file": null,
-      "width": 3885,
-      "height": 2727,
-      "sourceUrl": "https://www.metmuseum.org/art/collection/search/11139",
-      "fileUrl": "https://images.metmuseum.org/CRDImages/ad/original/DP119112.jpg",
-      "license": "PD-US-EXPIRED",
-      "licenseUrl": "https://www.metmuseum.org/policies/image-resources",
-      "author": "Winslow Homer",
-      "credit": "The Metropolitan Museum of Art",
-      "title": "Sloop, Nassau",
+      "width": 4000,
+      "height": 3000,
+      "sourceUrl": "https://www.loc.gov/pictures/item/2020720542/",
+      "fileUrl": "https://tile.loc.gov/image-services/iiif/master:pnp:highsm:62200:62277u/full/full/0/default.jpg",
+      "license": "CC0-1.0",
+      "licenseUrl": "https://www.loc.gov/rr/print/res/114_high.html",
+      "author": "Carol M. Highsmith",
+      "credit": "Photographs in the Carol M. Highsmith Archive, Library of Congress, Prints and Photographs Division.",
+      "title": "Beach Patrol Headquarters, South Beach, Miami Beach, Florida",
       "modifications": "Cropped and resized; the part beneath the text scrim is softened",
-      "retrievedAt": "2026-11-16",
+      "retrievedAt": "2026-11-17",
       "depicts": "atmosphere",
-      "caption": "Sloop, Nassau",
-      "alt": "Watercolor of a white sloop with loose sails on bright green-blue water under a stormy sky.",
+      "caption": "Even the beach patrol headquarters building on the strand in the trendy South Beach section of Miami Beach, Florida, takes on some of the resort's \"Tropical Deco\" flavor",
+      "alt": "The Tropical Deco Beach Patrol Headquarters building on South Beach in Miami Beach, Florida.",
       "captionAuthor": "source-quotation",
-      "captionSourceUrl": "https://www.metmuseum.org/art/collection/search/11139",
+      "captionSourceUrl": "https://www.loc.gov/pictures/item/2020720542/",
       "focal": {
         "x": 0.5,
         "y": 0
       },
-      "approvedBy": "loupe",
-      "approvedAt": "2026-11-16",
+      "approvedBy": "forge",
+      "approvedAt": "2026-11-17",
       "usedOn": [
         {
           "page": "categories/locations",
           "slot": "hub-band"
         }
       ],
-      "attributionText": "Sloop, Nassau · Winslow Homer, 1899 · The Metropolitan Museum of Art, Open Access · Public domain (US) · Cropped and resized; the part beneath the text scrim is softened",
+      "attributionText": "Beach Patrol Headquarters, South Beach, Miami Beach, Florida \u00b7 Carol M. Highsmith, 2020 \u00b7 Photographs in the Carol M. Highsmith Archive, Library of Congress, Prints and Photographs Division. \u00b7 No known restrictions on publication. \u00b7 Cropped and resized; the part beneath the text scrim is softened",
       "art": {
-        "family": "homer-tropics",
-        "medium": "painting",
-        "rightsStatus": "PD",
-        "rightsBasis": "Watercolor by Winslow Homer (1836–1910), made in 1899; public domain in the US, and The Met marks the object public domain and releases its image under Open Access (CC0).",
-        "institution": "The Met",
-        "year": "1899",
-        "dominant": "#929e9a",
+        "family": "highsmith-florida",
+        "medium": "photograph",
+        "rightsStatus": "CC0",
+        "rightsBasis": "Library of Congress rights line: \"No known restrictions on publication.\" Carol M. Highsmith has placed her photographs in the public domain; this work is in the Carol M. Highsmith Archive, Prints and Photographs Division.",
+        "institution": "Library of Congress",
+        "year": "2020",
+        "dominant": "#717978",
         "renditions": [
           {
             "crop": "wide",
             "width": 828,
             "height": 414,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-sloop-nassau-wide-828.avif",
-            "bytes": 11848,
-            "sha256": "44bd2f9dcc56ce5d1729a9be7cec2838e1d18729bf2d3e54dc78b23a34548fe5"
+            "file": "public/img/gta6/art/highsmith-beach-patrol-wide-828.avif",
+            "bytes": 20145,
+            "sha256": "68fc85cd894042211ea52f8286517cbc2cd191d8a4092e78255b3b86d2856a71"
           },
           {
             "crop": "wide",
             "width": 828,
             "height": 414,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-sloop-nassau-wide-828.webp",
-            "bytes": 14096,
-            "sha256": "b04121e3c1154d29c0d7ec5ff97f5dfa6cabbe952874f8bccf81c124dfc246ce"
+            "file": "public/img/gta6/art/highsmith-beach-patrol-wide-828.webp",
+            "bytes": 22894,
+            "sha256": "762808703a5e6c6f52a704d2fdf278818ca15b1d33b5047caae83fffce6fd08e"
           },
           {
             "crop": "wide",
             "width": 1600,
             "height": 800,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-sloop-nassau-wide-1600.avif",
-            "bytes": 39858,
-            "sha256": "436efe21818c926400a465a3ca1c5567830d8a9be14400b7aed42e005d04b1cf"
+            "file": "public/img/gta6/art/highsmith-beach-patrol-wide-1600.avif",
+            "bytes": 68478,
+            "sha256": "a7c58bda051bc6af89402c348a2e7a2163442e3796c9fd60b736692b06ed351d"
           },
           {
             "crop": "wide",
             "width": 1600,
             "height": 800,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-sloop-nassau-wide-1600.webp",
-            "bytes": 42844,
-            "sha256": "1e7819fe71a7a06d825dc6c430fa3dd13974500e01dc58d8e5864469d6762b52"
+            "file": "public/img/gta6/art/highsmith-beach-patrol-wide-1600.webp",
+            "bytes": 80458,
+            "sha256": "7ca43ba1e3b47aee77ecc72ae1c99cf87af394197b606fde318a3c3813fccba8"
           },
           {
             "crop": "wide",
             "width": 2400,
             "height": 1200,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-sloop-nassau-wide-2400.avif",
-            "bytes": 86739,
-            "sha256": "096af1ce3127ea56d2ba5fb234989c87a1474676ac0faf5420045a41b162bf27"
+            "file": "public/img/gta6/art/highsmith-beach-patrol-wide-2400.avif",
+            "bytes": 139706,
+            "sha256": "c26fa5f1287c53ecec17e7298561ce52ae3a1163dffd50e87bf745582a40d3da"
           },
           {
             "crop": "wide",
             "width": 2400,
             "height": 1200,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-sloop-nassau-wide-2400.webp",
-            "bytes": 91466,
-            "sha256": "8ec44272c02c0728b9983eca2b0a150f4434ea8058a6200cd17b5026cf58c348"
+            "file": "public/img/gta6/art/highsmith-beach-patrol-wide-2400.webp",
+            "bytes": 167096,
+            "sha256": "0dd5ddaecbace3d0682290a83d1e63b754da9c8816eef23c636e94a0e82637a0"
           },
           {
             "crop": "tall",
             "width": 828,
             "height": 789,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-sloop-nassau-tall-828.avif",
-            "bytes": 10697,
-            "sha256": "a4af064483cef0736b56aec961cff32005bf2ae5972f362c45ca48bd62200259"
+            "file": "public/img/gta6/art/highsmith-beach-patrol-tall-828.avif",
+            "bytes": 13644,
+            "sha256": "27afc6f22302baea361a42a7ad78d055e1f89feff573c54370b1d89d956777f1"
           },
           {
             "crop": "tall",
             "width": 828,
             "height": 789,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-sloop-nassau-tall-828.webp",
-            "bytes": 16948,
-            "sha256": "777f94044e384efe86b2a66d7c6831a8ec37f85c80922a3dc92969d756e09598"
+            "file": "public/img/gta6/art/highsmith-beach-patrol-tall-828.webp",
+            "bytes": 22520,
+            "sha256": "b4152fd025bbc8493f8636866a76f246d4eefa83636b94ceb4973e161c638bee"
           },
           {
             "crop": "strip",
             "width": 828,
             "height": 207,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-sloop-nassau-strip-828.avif",
-            "bytes": 6879,
-            "sha256": "e7c58c3f9637fa7f3fe87eaa29a486fa88bdf78dfd2413d1d7d250b640486455"
+            "file": "public/img/gta6/art/highsmith-beach-patrol-strip-828.avif",
+            "bytes": 8746,
+            "sha256": "297fe964223755edf25973d54411b5b44e3b4d167bc4b65a52b16ceaf3910d26"
           },
           {
             "crop": "strip",
             "width": 828,
             "height": 207,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-sloop-nassau-strip-828.webp",
-            "bytes": 7918,
-            "sha256": "b59e0387a30be9f3c4103bdadc7894ccddfa40bc24f54fbcd5d5dd0dc92844ea"
+            "file": "public/img/gta6/art/highsmith-beach-patrol-strip-828.webp",
+            "bytes": 10196,
+            "sha256": "83c96f1851a8b9f9462fabbfe68880b67043068ca18df234e5605a0bd9606dd4"
           },
           {
             "crop": "strip",
             "width": 1600,
             "height": 400,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-sloop-nassau-strip-1600.avif",
-            "bytes": 20591,
-            "sha256": "e4a016865fbb3b63a095b8929c8ee10b7d67391637c0313db15a1ac9eb947543"
+            "file": "public/img/gta6/art/highsmith-beach-patrol-strip-1600.avif",
+            "bytes": 28209,
+            "sha256": "bae1b9e9db6ac6f51f3704f4a3989719f63532a9444153079e75153944f98a33"
           },
           {
             "crop": "strip",
             "width": 1600,
             "height": 400,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-sloop-nassau-strip-1600.webp",
-            "bytes": 23716,
-            "sha256": "8598894041da8be4621b668811d663f67c12a4af21c1d4d19a3196776bc94fa2"
+            "file": "public/img/gta6/art/highsmith-beach-patrol-strip-1600.webp",
+            "bytes": 34242,
+            "sha256": "7505d83b059f6598a8d5809b8ea2b38f1de410fad8371933ced88aa35c4b1582"
           },
           {
             "crop": "strip",
             "width": 2400,
             "height": 600,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-sloop-nassau-strip-2400.avif",
-            "bytes": 46073,
-            "sha256": "253c4a0d808e57ce84934ad9a76a82d8ded9e1173979c1ac657f177aef27d896"
+            "file": "public/img/gta6/art/highsmith-beach-patrol-strip-2400.avif",
+            "bytes": 56947,
+            "sha256": "18b74e52a286a16145eea85a5069eb5220669910af58c3c648a4d98e109b0308"
           },
           {
             "crop": "strip",
             "width": 2400,
             "height": 600,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-sloop-nassau-strip-2400.webp",
-            "bytes": 48624,
-            "sha256": "b64dd51239ef4fff66cdc516510da0e2e2289d01f621f2260a835e9650c6fcc5"
+            "file": "public/img/gta6/art/highsmith-beach-patrol-strip-2400.webp",
+            "bytes": 70772,
+            "sha256": "95ae63d29522a1916d12eb02586498a74b80c00e8feb0160eba667c1f3a9210a"
           },
           {
             "crop": "full",
             "width": 640,
-            "height": 445,
+            "height": 480,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-sloop-nassau-full-640.avif",
-            "bytes": 10926,
-            "sha256": "a4b4d0fed8b90e8405946b23d09fbf465dd4d16998d928957abccff0dda76b11"
+            "file": "public/img/gta6/art/highsmith-beach-patrol-full-640.avif",
+            "bytes": 21354,
+            "sha256": "666d52034b1210c33455e3e40e1997a0e1b044afcc8a1e3f53d6185335367696"
           },
           {
             "crop": "full",
             "width": 640,
-            "height": 445,
+            "height": 480,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-sloop-nassau-full-640.webp",
-            "bytes": 20612,
-            "sha256": "193aa1c7812a658d03a1edd9279e4691bb9008b083d6b8e6dd93141e05383ece"
+            "file": "public/img/gta6/art/highsmith-beach-patrol-full-640.webp",
+            "bytes": 34222,
+            "sha256": "34b27b5c8d684f7780d58c721f30a4006cbc07b9c7801c194ae6993cc7b27999"
           }
         ]
       }
     },
     {
-      "id": "homer-gulf-stream",
+      "id": "highsmith-lauderdale-sunset",
       "tier": "C",
       "file": null,
       "width": 4000,
-      "height": 2468,
-      "sourceUrl": "https://www.metmuseum.org/art/collection/search/11122",
-      "fileUrl": "https://images.metmuseum.org/CRDImages/ad/original/DP-20821-001.jpg",
-      "license": "PD-US-EXPIRED",
-      "licenseUrl": "https://www.metmuseum.org/policies/image-resources",
-      "author": "Winslow Homer",
-      "credit": "The Metropolitan Museum of Art",
-      "title": "The Gulf Stream",
+      "height": 5172,
+      "sourceUrl": "https://www.loc.gov/pictures/item/2011633165/",
+      "fileUrl": "https://tile.loc.gov/image-services/iiif/master:pnp:highsm:14900:14972u/full/full/0/default.jpg",
+      "license": "CC0-1.0",
+      "licenseUrl": "https://www.loc.gov/rr/print/res/114_high.html",
+      "author": "Carol M. Highsmith",
+      "credit": "Photographs in the Carol M. Highsmith Archive, Library of Congress, Prints and Photographs Division.",
+      "title": "Sunset over Fort Lauderdale, Florida",
       "modifications": "Cropped and resized; the part beneath the text scrim is softened",
-      "retrievedAt": "2026-11-16",
+      "retrievedAt": "2026-11-17",
       "depicts": "atmosphere",
-      "caption": "The Gulf Stream",
-      "alt": "Painting of a dismasted boat with a lone sailor adrift on a rough green sea, sharks circling.",
+      "caption": "Sunset over Fort Lauderdale, Florida",
+      "alt": "Fort Lauderdale, Florida, at sunset, with the skyline and waterfront lights under a purple-orange sky.",
       "captionAuthor": "source-quotation",
-      "captionSourceUrl": "https://www.metmuseum.org/art/collection/search/11122",
+      "captionSourceUrl": "https://www.loc.gov/pictures/item/2011633165/",
       "focal": {
-        "x": 0.45,
+        "x": 0.5,
         "y": 0
       },
-      "approvedBy": "loupe",
-      "approvedAt": "2026-11-16",
+      "approvedBy": "forge",
+      "approvedAt": "2026-11-17",
       "usedOn": [
         {
           "page": "categories/lore",
           "slot": "hub-band"
         }
       ],
-      "attributionText": "The Gulf Stream · Winslow Homer, 1899 · The Metropolitan Museum of Art, Open Access · Public domain (US) · Cropped and resized; the part beneath the text scrim is softened",
+      "attributionText": "Sunset over Fort Lauderdale, Florida \u00b7 Carol M. Highsmith, 1980 \u00b7 Photographs in the Carol M. Highsmith Archive, Library of Congress, Prints and Photographs Division. \u00b7 No known restrictions on publication. \u00b7 Cropped and resized; the part beneath the text scrim is softened",
       "art": {
-        "family": "homer-tropics",
-        "medium": "painting",
-        "rightsStatus": "PD",
-        "rightsBasis": "Oil on canvas by Winslow Homer (1836–1910), made in 1899; public domain in the US, and The Met marks the object public domain and releases its image under Open Access (CC0).",
-        "institution": "The Met",
-        "year": "1899",
-        "dominant": "#303c38",
+        "family": "highsmith-florida",
+        "medium": "photograph",
+        "rightsStatus": "CC0",
+        "rightsBasis": "Library of Congress rights line: \"No known restrictions on publication.\" Carol M. Highsmith has placed her photographs in the public domain; this work is in the Carol M. Highsmith Archive, Prints and Photographs Division. The LoC record dates the photograph between 1980 and 2006.",
+        "institution": "Library of Congress",
+        "year": "1980",
+        "dominant": "#8b6564",
         "renditions": [
           {
             "crop": "wide",
             "width": 828,
             "height": 414,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-gulf-stream-wide-828.avif",
-            "bytes": 13553,
-            "sha256": "ba11b4d9591a93314fb99d228432a4a6b05e90819906ccc8df3b04974b8e70cd"
+            "file": "public/img/gta6/art/highsmith-lauderdale-sunset-wide-828.avif",
+            "bytes": 1638,
+            "sha256": "c318b02ae4b57c7b8f64551f34684fd67cef59e23c09ac56d5614b61e96f0263"
           },
           {
             "crop": "wide",
             "width": 828,
             "height": 414,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-gulf-stream-wide-828.webp",
-            "bytes": 16040,
-            "sha256": "b8ca9023d3731628ba5f8ede338f6d208509e05e3851e5e728b86a53f24b8364"
+            "file": "public/img/gta6/art/highsmith-lauderdale-sunset-wide-828.webp",
+            "bytes": 3264,
+            "sha256": "fe824095094a00f16247e04794ba4842a037c0e47599438028aea7f3f73ef928"
           },
           {
             "crop": "wide",
             "width": 1600,
             "height": 800,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-gulf-stream-wide-1600.avif",
-            "bytes": 44052,
-            "sha256": "f5ba7a2cab026dcfb1de88bbcd2a43c9f507ecf5eb214ab95c0ff80af4fd929c"
+            "file": "public/img/gta6/art/highsmith-lauderdale-sunset-wide-1600.avif",
+            "bytes": 2672,
+            "sha256": "c8c658ae962d46d652080637409d7dbde9f112cdd440fe51fbd40b57094106c9"
           },
           {
             "crop": "wide",
             "width": 1600,
             "height": 800,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-gulf-stream-wide-1600.webp",
-            "bytes": 48610,
-            "sha256": "9d3c52219729e7c79837c3e093f8be19a885deb77f78b09f1cd9488ccb7fe6f6"
+            "file": "public/img/gta6/art/highsmith-lauderdale-sunset-wide-1600.webp",
+            "bytes": 7936,
+            "sha256": "d033c6e7ab07a9dd7c83ff09065f4997996ba4008fa137233dec549ff80fb914"
           },
           {
             "crop": "wide",
             "width": 2400,
             "height": 1200,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-gulf-stream-wide-2400.avif",
-            "bytes": 106724,
-            "sha256": "bc9d781c1d10b5e3e511f741efacc861c2be7a5305a75370a057bebe3289b253"
+            "file": "public/img/gta6/art/highsmith-lauderdale-sunset-wide-2400.avif",
+            "bytes": 4076,
+            "sha256": "6a26e1e3a56a441874b61f81c66dbe110f995f59c87c1bcfc9f8e344e2d6ae4d"
           },
           {
             "crop": "wide",
             "width": 2400,
             "height": 1200,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-gulf-stream-wide-2400.webp",
-            "bytes": 111032,
-            "sha256": "a2f5948ec04dc959e2d0ee61826d209ea0c25a9071b52773e221b56ece43222d"
+            "file": "public/img/gta6/art/highsmith-lauderdale-sunset-wide-2400.webp",
+            "bytes": 14612,
+            "sha256": "2a960ed59d9feb79dc02ca343ddd94355d3bb05d3f3f5f77e608ad541b294353"
           },
           {
             "crop": "tall",
             "width": 828,
             "height": 789,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-gulf-stream-tall-828.avif",
-            "bytes": 10688,
-            "sha256": "0a3d42796dd27e7d72072498d4b516ef4232a6dfc208998aa9a6ccaf7fb3e219"
+            "file": "public/img/gta6/art/highsmith-lauderdale-sunset-tall-828.avif",
+            "bytes": 3328,
+            "sha256": "a5b64e3b45c464aef559a4b11304442fd67ceb614ca9d79caed8eb2f5187a712"
           },
           {
             "crop": "tall",
             "width": 828,
             "height": 789,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-gulf-stream-tall-828.webp",
-            "bytes": 16436,
-            "sha256": "95dacab99b176b0d289a9cc553aaf956d9d5e8f168515bf01cc813b19e763d34"
+            "file": "public/img/gta6/art/highsmith-lauderdale-sunset-tall-828.webp",
+            "bytes": 7970,
+            "sha256": "dbb86cf377fe59724e65ef0c8cb407da0c493cada1e8be1765abdafc1ef274c6"
           },
           {
             "crop": "strip",
             "width": 828,
             "height": 207,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-gulf-stream-strip-828.avif",
-            "bytes": 7450,
-            "sha256": "40252b843d1ba7cc03ab5a7b80ed03faaebf9acfc1f2e93a1adcaf0a6844dbe1"
+            "file": "public/img/gta6/art/highsmith-lauderdale-sunset-strip-828.avif",
+            "bytes": 1123,
+            "sha256": "8e2ee6d502d0ee87f889327512edca7f8d1c675e16318efe3a301fb4138232a1"
           },
           {
             "crop": "strip",
             "width": 828,
             "height": 207,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-gulf-stream-strip-828.webp",
-            "bytes": 8844,
-            "sha256": "15eec76b883fa66defae2c985cd676ce1f9fa5172fb71a3927452e5d7ae588f4"
+            "file": "public/img/gta6/art/highsmith-lauderdale-sunset-strip-828.webp",
+            "bytes": 1998,
+            "sha256": "2689f007386a24b2eb850043ae07660e871b80c0aaeb8bc920fc15cf1a9af788"
           },
           {
             "crop": "strip",
             "width": 1600,
             "height": 400,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-gulf-stream-strip-1600.avif",
-            "bytes": 21018,
-            "sha256": "9f8e45e903775527f76a1779f633789549d491f245e99d6972f820d55072c99c"
+            "file": "public/img/gta6/art/highsmith-lauderdale-sunset-strip-1600.avif",
+            "bytes": 1818,
+            "sha256": "bfbeea3a3516d8a70e3c6ee3fefe68ced368ed16bd938cbc177fde5aea016cc4"
           },
           {
             "crop": "strip",
             "width": 1600,
             "height": 400,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-gulf-stream-strip-1600.webp",
-            "bytes": 24704,
-            "sha256": "42b6139989a9cf4d2f9a8b103241757d3e05c704b062f848a11daec06c7eeaa2"
+            "file": "public/img/gta6/art/highsmith-lauderdale-sunset-strip-1600.webp",
+            "bytes": 4762,
+            "sha256": "045586f37e4c0e09de1af0695de751cc708a24f9786f4d1c5d7c4ea50d73be0f"
           },
           {
             "crop": "strip",
             "width": 2400,
             "height": 600,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-gulf-stream-strip-2400.avif",
-            "bytes": 47005,
-            "sha256": "a17161f2d4a0fdf90454a9f352a099a8edad94bf7276194964199887af8cd08a"
+            "file": "public/img/gta6/art/highsmith-lauderdale-sunset-strip-2400.avif",
+            "bytes": 2533,
+            "sha256": "225938428a38a9cfe1dd84ea8bae508f16e336547f98bdfc7bfd1f80162f3d6a"
           },
           {
             "crop": "strip",
             "width": 2400,
             "height": 600,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-gulf-stream-strip-2400.webp",
-            "bytes": 52098,
-            "sha256": "6c06a667df55d6acf623dac28dcd497d220438105e7c71fa8107702b59270ad2"
+            "file": "public/img/gta6/art/highsmith-lauderdale-sunset-strip-2400.webp",
+            "bytes": 8660,
+            "sha256": "a23a642d4b1b1fb2169975629a6208e2d01733aedd4677fe4e6e7664c203a73b"
           },
           {
             "crop": "full",
             "width": 640,
-            "height": 391,
+            "height": 828,
             "format": "avif",
-            "file": "public/img/gta6/art/homer-gulf-stream-full-640.avif",
-            "bytes": 9270,
-            "sha256": "696b50572b2d719b80b22f605e5f0e1e4f26c3e8e3b816848a4f6782c38edb88"
+            "file": "public/img/gta6/art/highsmith-lauderdale-sunset-full-640.avif",
+            "bytes": 16638,
+            "sha256": "470c587f8e5a153e1fd0c6acecde2666598211be5dd49de33a273d33463ca17f"
           },
           {
             "crop": "full",
             "width": 640,
-            "height": 391,
+            "height": 828,
             "format": "webp",
-            "file": "public/img/gta6/art/homer-gulf-stream-full-640.webp",
-            "bytes": 17558,
-            "sha256": "a9e0737583b65dc391c34f613f6faa89afebf029b43077b2bcd22f1b55e01b20"
+            "file": "public/img/gta6/art/highsmith-lauderdale-sunset-full-640.webp",
+            "bytes": 28048,
+            "sha256": "ed4e064cfcdbd7068a873c9a7ba95011dacf696dbbd77c5a9c29ba33913e8eea"
           }
         ]
       }

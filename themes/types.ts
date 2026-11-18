@@ -34,6 +34,10 @@ export const themeManifest = z.strictObject({
     neutral: z.object({ h: hue, c: z.number().min(0).max(0.03) }),
     accent: oklch,
     brand: oklch.optional(),
+    /** Neon secondary (gta6: dark-mode links and kicker). Absent themes keep existing link mapping. */
+    accent2: oklch.optional(),
+    /** Pinned text on the accent fill (gta6: #0B1026). Absent themes keep auto ink-or-paper. */
+    onAccent: oklch.optional(),
     accentFill: z.literal("seed"),
   }),
   type: z.object({

@@ -1,0 +1,201 @@
+/* gta6-only Vice chrome: sunset grade, hero sizes, 2px masthead rule, grain.
+   Scoped to [data-theme="gta6"] so Marathon rendering is untouched. */
+
+[data-theme="gta6"] .art-painting {
+  isolation: isolate;
+  overflow: hidden;
+}
+
+[data-theme="gta6"] .art-painting img {
+  position: relative;
+  z-index: 0;
+  filter: saturate(1.25) contrast(1.08);
+}
+
+/* Both grade overlays must sit above the <img>. A ::before on <picture>
+   paints under the image child, so the sunset wash was invisible. */
+[data-theme="gta6"] .art-painting::before,
+[data-theme="gta6"] .art-painting::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Overlay 1: soft-light sunset wash. */
+[data-theme="gta6"] .art-painting::before {
+  background: linear-gradient(180deg, #ff4f8b 0%, #ff8a3d 45%, transparent 75%);
+  mix-blend-mode: soft-light;
+  opacity: 0.55;
+}
+
+/* Overlay 2: multiply night floor for title contrast.
+   A 60–75% fade left white title and teal kickers on the light hotel
+   facade and sky (glyph-masked lightest points were ~2:1). Keep a
+   solid floor under the type and a residual multiply through the top. */
+[data-theme="gta6"] .art-painting::after {
+  background: linear-gradient(
+    0deg,
+    #0b1026 0%,
+    #0b1026 48%,
+    rgb(11 16 38 / 0.88) 68%,
+    rgb(11 16 38 / 0.55) 84%,
+    rgb(11 16 38 / 0.28) 100%
+  );
+  mix-blend-mode: multiply;
+  opacity: 1;
+}
+
+/* Article plates are short and the kicker sits near the top, so the
+   floor has to cover the whole band. */
+[data-theme="gta6"] .art-surface[data-variant="plate"] .art-painting::after {
+  background: linear-gradient(0deg, #0b1026 0%, #0b1026 40%, rgb(11 16 38 / 0.7) 100%);
+}
+
+/* Overlay 3 (dark only): teal screen glow. */
+[data-theme="gta6"] .art-surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(60% 40% at 70% 30%, #2de2e6 0%, transparent 70%);
+  mix-blend-mode: screen;
+  opacity: 0;
+}
+
+[data-theme="gta6"].dark .art-surface::before,
+[data-theme="gta6"] .dark .art-surface::before,
+:is(.dark) [data-theme="gta6"] .art-surface::before {
+  opacity: 0.18;
+}
+
+/* Grain over the art and status strips. Opacity from the theme (light 0.08 / dark 0.14). */
+[data-theme="gta6"] .art-surface::after,
+[data-theme="gta6"] .grain-band {
+  pointer-events: none;
+}
+
+[data-theme="gta6"] .art-surface::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.08;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 160px 160px;
+  mix-blend-mode: overlay;
+}
+
+:is(.dark) [data-theme="gta6"] .art-surface::after,
+[data-theme="gta6"].dark .art-surface::after,
+[data-theme="gta6"] .dark .art-surface::after {
+  opacity: 0.14;
+}
+
+[data-theme="gta6"] .grain-band {
+  height: 1.5rem;
+  opacity: var(--grain-light, 0.08);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 160px 160px;
+  mix-blend-mode: overlay;
+}
+
+:is(.dark) [data-theme="gta6"] .grain-band,
+[data-theme="gta6"].dark .grain-band,
+[data-theme="gta6"] .dark .grain-band {
+  opacity: var(--grain-dark, 0.14);
+}
+
+/* Title sits on the night floor, not a solid ink scrim. Keep copy above grain/glow. */
+[data-theme="gta6"] .art-scrim {
+  position: relative;
+  z-index: 2;
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* Layout: home 440px at 390, 520px at 1280; hubs 220px; articles keep the thin plate. */
+[data-theme="gta6"] .art-surface[data-variant="home"] {
+  min-height: 440px;
+}
+
+@media (min-width: 1280px) {
+  [data-theme="gta6"] .art-surface[data-variant="home"] {
+    min-height: 520px;
+  }
+}
+
+[data-theme="gta6"] .art-surface[data-variant="hub"] {
+  min-height: 220px;
+}
+
+/* 2px masthead gradient rule (the only gradient chrome). */
+[data-theme="gta6"] header {
+  border-bottom-width: 2px;
+  border-bottom-color: transparent;
+  position: sticky;
+}
+
+[data-theme="gta6"] header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #ff4f8b, #ff8a3d, #2de2e6);
+  pointer-events: none;
+}
+
+/* Kicker on the graded hero uses neon teal. No gradient on wordmark or titles. */
+[data-theme="gta6"] .art-surface .label-art {
+  color: var(--accent-2, oklch(0.85 0.13 195));
+}
+
+/* Status strips use the same grade as hub art. */
+[data-theme="gta6"] .gta6-status-strip {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 88px;
+  margin-bottom: 0.5rem;
+}
+
+[data-theme="gta6"] .gta6-status-strip .art-painting,
+[data-theme="gta6"] .gta6-status-strip img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="gta6"] .art-painting img,
+  [data-theme="gta6"] .art-painting::before,
+  [data-theme="gta6"] .art-painting::after,
+  [data-theme="gta6"] .art-surface::before,
+  [data-theme="gta6"] .art-surface::after {
+    transition: none;
+  }
+}
+
+@media (prefers-contrast: more), (forced-colors: active), print {
+  [data-theme="gta6"] .art-surface::after,
+  [data-theme="gta6"] .grain-band {
+    display: none;
+  }
+}
+
+/* Keep plate titles from mid-word wraps (global overflow-wrap: anywhere). */
+[data-theme="gta6"] .art-surface h1 {
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+}
+
+[data-theme="gta6"] .art-surface[data-variant="plate"] h1 {
+  font-size: clamp(1.5rem, 7.2vw, var(--text-title));
+}

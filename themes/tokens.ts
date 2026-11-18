@@ -90,11 +90,12 @@ const round = (n: number, digits: number) => Number(n.toFixed(digits));
 
 export function themeTokens(theme: ThemeManifest, scheme: Scheme = "light"): Record<ThemeToken, Oklch> {
   const mapping = MAPPING[scheme];
-  const { neutral, accent, brand = accent } = theme.color;
+  const { neutral, accent, brand = accent, accent2, onAccent } = theme.color;
   const resolve = (rule: Rule): Oklch => {
     if (rule === "accent-seed") return toGamut(accent);
     if (rule === "brand-seed") return toGamut(brand);
     if (rule === "ink-on-primary") {
+      if (onAccent) return toGamut(onAccent);
       const [primary, ink, paper] = [resolve(mapping.primary), resolve(mapping.foreground), resolve(mapping.background)];
       return wcagRatio(ink, primary) >= wcagRatio(paper, primary) ? ink : paper;
     }
@@ -103,7 +104,13 @@ export function themeTokens(theme: ThemeManifest, scheme: Scheme = "light"): Rec
     const seed = rule.seed === "neutral" ? neutral : accent;
     return toGamut({ l: rule.l, c: round(seed.c * rule.c, 3), h: seed.h });
   };
-  return Object.fromEntries(Object.entries(mapping).map(([token, rule]) => [token, resolve(rule)])) as Record<ThemeToken, Oklch>;
+  const tokens = Object.fromEntries(Object.entries(mapping).map(([token, rule]) => [token, resolve(rule)])) as Record<ThemeToken, Oklch>;
+  if (accent2) {
+    // Vice: dark-mode links use neon teal; light-mode links stay ink with underline.
+    if (scheme === "dark") tokens.link = toGamut(accent2);
+    else tokens.link = tokens.foreground;
+  }
+  return tokens;
 }
 
 const inGamut = (color: Oklch) => linearRgb(color).every((x) => x >= -1e-4 && x <= 1 + 1e-4);
@@ -125,8 +132,10 @@ const formatOklch = ({ l, c, h }: Oklch) => `oklch(${round(l, 3)} ${round(c, 3)}
 const RADIUS = { square: "0", soft: "6px" } as const;
 
 export function renderCss(theme: ThemeManifest): string {
+  const extra = (scheme: Scheme, indent: string) =>
+    theme.color.accent2 ? `${indent}--accent-2: ${formatOklch(toGamut(theme.color.accent2))};\n` : "";
   const lines = (scheme: Scheme, indent: string) =>
-    Object.entries(themeTokens(theme, scheme)).map(([token, value]) => `${indent}--${token}: ${formatOklch(value)};`).join("\n");
+    extra(scheme, indent) + Object.entries(themeTokens(theme, scheme)).map(([token, value]) => `${indent}--${token}: ${formatOklch(value)};`).join("\n");
   const { display } = theme.type;
   const shape = [
     `  --radius: ${RADIUS[theme.shape.corners]};`,
