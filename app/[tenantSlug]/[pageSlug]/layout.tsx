@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 
-import { articleArtFor, publicPath, renditionFor } from "@/src/wiki/imagery";
 import { normalizeTenantSlug } from "@/src/wiki/tenant-routing";
+
+import { Gta6LcpPreload } from "../_components/gta6-lcp-preload";
 
 /**
  * GTA 6 article LCP is the plate image. Under mobile Lighthouse the request was
@@ -23,24 +24,12 @@ export default async function PageSlugLayout({
 
   const pages = (await import("@/content/gta6/pages.json")).default as Array<{ slug: string; category?: string }>;
   const entry = pages.find((page) => page.slug === pageSlug);
-  const image = articleArtFor("gta6", pageSlug, entry?.category ?? null);
-  if (!image) return children;
-
-  const fallback = renditionFor(image.art.renditions, "strip", "avif", 828);
-  if (!fallback) return children;
 
   // A single href + fetchpriority=high. A srcset preload (828/1600/2400) was
   // discovered as priority Low in Lighthouse, which left Load Delay unchanged.
   return (
     <>
-      <link
-        rel="preload"
-        as="image"
-        type="image/avif"
-        href={publicPath(fallback.file)}
-        fetchPriority="high"
-        media="(max-width: 767px)"
-      />
+      <Gta6LcpPreload surface="plate" pageSlug={pageSlug} category={entry?.category ?? null} />
       {children}
     </>
   );
