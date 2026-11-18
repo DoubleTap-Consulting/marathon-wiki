@@ -18,6 +18,7 @@ import {
   runCuratedWikiSourceIngestion,
   type CuratedSourceIngestionResult,
 } from "@/src/sources/wiki-source-ingestion";
+import { classifyCronError } from "@/src/content/cron-error";
 import { revalidateWikiPage } from "@/src/wiki/cache";
 
 // vercel.json runs this daily at 09:00 UTC, an hour after /api/cron/source-refetch has queued the
@@ -184,7 +185,7 @@ async function handleWikiUpdateCron(request: Request, body?: unknown) {
         targetSlug: entry.item.targetSlug,
         attempts: entry.item.attempts,
         status: entry.item.status,
-        error: entry.error,
+        error: classifyCronError(entry.error),
       })),
     },
     revalidated,
