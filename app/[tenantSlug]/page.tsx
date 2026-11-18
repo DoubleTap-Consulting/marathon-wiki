@@ -133,10 +133,22 @@ async function TenantHomeLoaded({ tenantSlug }: { tenantSlug: string }) {
             contentClassName="mx-auto w-full max-w-6xl px-5 sm:px-6 lg:px-8"
           >
             <section aria-labelledby="wiki-home-title" className="space-y-3">
-              <p className="label-art">
-                {meta.join(" · ")}
-                {checked}
-              </p>
+              {theme.slug === "gta6" ? (
+                <p className="label-art">
+                  <span className="gta6-kicker-short">
+                    {(theme.identity.kicker ?? "Field notes").split(" · ")[0]} · {pages.length} {pages.length === 1 ? "page" : "pages"}
+                  </span>
+                  <span className="gta6-kicker-full">
+                    {meta.join(" · ")}
+                    {checked}
+                  </span>
+                </p>
+              ) : (
+                <p className="label-art">
+                  {meta.join(" · ")}
+                  {checked}
+                </p>
+              )}
               <h1 id="wiki-home-title" {...PAGE_TITLE_TIMING} className="max-w-3xl text-title font-display text-paper">
                 {theme.identity.descriptor}
               </h1>
@@ -146,6 +158,11 @@ async function TenantHomeLoaded({ tenantSlug }: { tenantSlug: string }) {
         ) : null
       }
     >
+      {theme.slug === "gta6" && sourcesCheckedAt ? (
+        <p className="gta6-home-freshness text-small text-muted-foreground">
+          Sources checked <SiteDate iso={new Date(sourcesCheckedAt).toISOString()} />
+        </p>
+      ) : null}
       {homeBand ? null : (
         <section aria-labelledby="wiki-home-title" className="relative border-b border-foreground px-1 pt-4 pb-6 sm:px-4 sm:pt-6">
           <CropMarks />
